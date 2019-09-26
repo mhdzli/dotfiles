@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+ps ax | grep dwmbar | awk 'NR==1{print $1; exit}' |  xargs kill -SIGTRAP
