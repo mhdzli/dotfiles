@@ -161,11 +161,11 @@ XF86PowerOff
 ## toggle torrent daemon
 #super + F7
 #	td-toggle
-## sync email
-#super + F8
-#	mailsync
-## Mount a USB drive or Android device
-#super + {F9,F10}
-#	{dmenumount,dmenuumount}
-#super + F12
-#	$TERMINAL -e wpa_cli
+## sync email super + F8 mailsync 
+
+# Mount a USB drive or Android device 
+super + {F9,F10}
+	{dmmt,dmenuumount} 
+
+super + F12
+	$TERMINAL -e nmtui
