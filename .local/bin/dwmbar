@@ -14,11 +14,16 @@ delim="|"
 # statusbar. Gets weather report from wttr.in.
 testweather() { \
 	[ "$(stat -c %y "$HOME/.local/share/weatherreport" 2>/dev/null | cut -d' ' -f1)" != "$(date '+%Y-%m-%d')" ] &&
-		ping -q -c 1 1.1.1.1 >/dev/null &&
-		curl -s "wttr.in/asaluye" > "$HOME/.local/share/weatherreport" &&
-		notify-send "🌞 Weather" "New weather forecast for today." &&
-		refbar
-		}
+	ping -q -c 1 1.1.1.1 >/dev/null &&
+	curl -s "wttr.in/asaluye" > "$HOME/.local/share/weatherreport" &&
+	notify-send "🌞 Weather" "New weather forecast for today." &&
+	refbar
+}
+
+# Check battery low
+check() { \
+	[ "$(cat /sys/class/power_supply/BAT?/status)" = "Discharging" ] && notify-send "❗battery low!" 
+}
 
 # Here is the (big) function that outputs the appearance of the statusbar. It
 # can really be broken down into many submodules which I've commented and
@@ -63,10 +68,12 @@ status() { \
 		8[0-9]|7[0-9])	echo "" ;;
 		6[0-9]|5[0-9])	echo "" ;;
 		4[0-9]|3[0-9])	echo "" ;;
-		*)		echo "" & notify-send "❗battery low!❗" ;;
+		*)		echo "" & check ;;
 	esac
-  done
+	done
+
 	capacity=$(cat /sys/class/power_supply/BAT?/capacity);
+
 	echo $capacity"%"
 
 	for y in /sys/class/power_supply/BAT?/status;
