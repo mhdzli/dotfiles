@@ -14,6 +14,9 @@ Plug 'bling/vim-airline'
 Plug 'tpope/vim-commentary'
 Plug 'vifm/vifm.vim'
 Plug 'kovetskiy/sxhkd-vim'
+Plug 'Yggdroot/indentLine'
+Plug 'eparreno/vim-l9'
+Plug 'vim-scripts/AutoComplPop'
 call plug#end()
 
 set bg=light
@@ -23,18 +26,26 @@ set nohlsearch
 set clipboard=unnamedplus
 
 " Some basics:
-"	nnoremap c "_c
 	set nocompatible
 	filetype plugin on
-"	syntax enable
 	syntax on
 	set cursorline "highlight current line
 	set encoding=utf-8
 	set number relativenumber
+"	setlocal foldmethod=indent " Set folding method
+"	set list lcs=tab:\|\ 
+"	syntax enable
+"	nnoremap c "_c
+
 " Enable autocompletion:
 	set wildmode=longest,list,full
 " Disables automatic commenting on newline:
 	autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+
+" autocomplpop setting
+	set omnifunc=syntaxcomplete " This is necessary for acp plugin
+	let g:acp_behaviorKeywordLength = 1 "  Length of keyword characters before the cursor, which are needed to attempt keyword completion
 
 
 " Goyo plugin makes text more readable when writing prose:
@@ -90,3 +101,5 @@ set clipboard=unnamedplus
 	autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
 " Update dwmbar when changed.
 "	autocmd BufWritePost *dwmbar !killall dwmbar; setsid dwmbar &
+"set indent line color
+	let g:indentLine_char = '┊'
