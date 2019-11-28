@@ -5,6 +5,21 @@ if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
 	autocmd VimEnter * PlugInstall
 endif
 
+nnoremap <C-f> :call HighlightNearCursor()<CR>
+function HighlightNearCursor()
+  if !exists("s:highlightcursor")
+    match Todo /\k*\%#\k*/
+    let s:highlightcursor=1
+  else
+    match None
+    unlet s:highlightcursor
+  endif
+endfunction
+
+nnoremap <S-f> :set cursorline!<CR> 
+highlight CursorLineNr cterm=NONE ctermbg=12 ctermfg=1 gui=NONE guibg=#ffffff guifg=#c5eff0
+highlight CursorLine cterm=NONE ctermbg=12 ctermfg=0 gui=NONE guibg=#ffffff guifg=#c5eff0
+
 
 call plug#begin('~/.config/nvim/plugged')
 Plug 'scrooloose/nerdtree'
@@ -29,7 +44,6 @@ set clipboard=unnamedplus
 	set nocompatible
 	filetype plugin on
 	syntax on
-	set cursorline "highlight current line
 	set encoding=utf-8
 	set number relativenumber
 "	setlocal foldmethod=indent " Set folding method
@@ -95,11 +109,15 @@ set clipboard=unnamedplus
 
 " When shortcut files are updated, renew bash and ranger configs with new material:
 "	autocmd BufWritePost *bmdirs,*bmfiles !shortcuts
+
 " Run xrdb whenever Xdefaults or Xresources are updated.
 	autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
+
 " Update binds when sxhkdrc is updated.
 	autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
+
 " Update dwmbar when changed.
 "	autocmd BufWritePost *dwmbar !killall dwmbar; setsid dwmbar &
+
 "set indent line color
 	let g:indentLine_char = '┊'
