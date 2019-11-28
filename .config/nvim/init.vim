@@ -16,7 +16,7 @@ function HighlightNearCursor()
   endif
 endfunction
 
-nnoremap <S-f> :set cursorline!<CR> 
+nnoremap <C-a> :set cursorline!<CR> 
 highlight CursorLineNr cterm=NONE ctermbg=12 ctermfg=1 gui=NONE guibg=#ffffff guifg=#c5eff0
 highlight CursorLine cterm=NONE ctermbg=12 ctermfg=0 gui=NONE guibg=#ffffff guifg=#c5eff0
 
