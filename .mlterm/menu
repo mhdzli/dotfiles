@@ -1,0 +1,81 @@
+"Bidi Option" {
+    "normal"    "bidi_mode=normal"
+    "left"     "bidi_mode=left"
+    "right"     "bidi_mode=right"
+}
+"Font" {
+	"Larger"	"fontsize=larger"
+	"Smaller"	"fontsize=smaller"
+	-
+	"antialias on"	"use_anti_alias=true"
+	"antialias off"	"use_anti_alias=false"
+}
+"Encoding" {
+	"Auto"		"encoding=auto"
+	"UTF-8"		"encoding=UTF-8"
+	"ISO 8859" {
+		"ISO-8859-1"	"encoding=ISO-8859-1"
+		"ISO-8859-2"	"encoding=ISO-8859-2"
+		"ISO-8859-3"	"encoding=ISO-8859-3"
+		"ISO-8859-4"	"encoding=ISO-8859-4"
+		"ISO-8859-5"	"encoding=ISO-8859-5"
+		"ISO-8859-6"	"encoding=ISO-8859-6"
+		"ISO-8859-7"	"encoding=ISO-8859-7"
+		"ISO-8859-8"	"encoding=ISO-8859-8"
+		"ISO-8859-9"	"encoding=ISO-8859-9"
+		"ISO-8859-10"	"encoding=ISO-8859-10"
+		"ISO-8859-11"	"encoding=ISO-8859-11"
+		"ISO-8859-13"	"encoding=ISO-8859-13"
+		"ISO-8859-14"	"encoding=ISO-8859-14"
+		"ISO-8859-15"	"encoding=ISO-8859-15"
+		"ISO-8859-16"	"encoding=ISO-8859-16"
+	}
+	"8bit" {
+		"KOI8-R"	"encoding=KOI8-R"
+		"KOI8-U"	"encoding=KOI8-U"
+		"KOI8-T"	"encoding=KOI8-T"
+		"GEORGIAN-PS"	"encoding=GEORGIAN-PS"
+		"TCVN5712"	"encoding=TCVN5712"
+		"VISCII"	"encoding=VISCII"
+		"CP1251"	"encoding=CP1251"
+		"CP1255"	"encoding=CP1255"
+	}
+	"Japanese" {
+		"EUC-JP"	"encoding=EUC-JP"
+		"EUC-JISX0213"	"encoding=EUC-JISX0213"
+		"Shift_JIS"	"encoding=SHIFTJIS"
+		"SJISX0213"	"encoding=SJISX0213"
+		"ISO-2022-JP"	"encoding=ISO-2022-JP"
+		"ISO-2022-JP2"	"encoding=ISO-2022-JP2"
+		"ISO-2022-JP3"	"encoding=ISO-2022-JP3"
+	}
+	"Korean" {
+		"EUC-KR"	"encoding=EUC-KR"
+		"JOHAB"		"encoding=JOHAB"
+		"UHC"		"encoding=UHC"
+		"ISO-2022-KR"	"encoding=ISO-2022-KR"
+	}
+	"traditional Chinese" {
+		"Big5"		"encoding=BIG5"
+		"Big5HKSCS"	"encoding=BIG5HKSCS"
+		"EUC-TW"	"encoding=EUC-TW"
+	}
+	"simplified Chinese" {
+		"EUC-CN (GB2312)" "encoding=EUC-CN"
+		"GBK"		"encoding=GBK"
+		"GB18030"	"encoding=GB18030"
+		"HZ"		"encoding=HZ"
+		"ISO-2022-CN"	"encoding=ISO-2022-CN"
+	}
+}
+"XIM" {
+	"kinput2"	"xim=kinput2:ja_JP.eucJP"
+	"ami"		"xim=Ami:ko_KR.eucKR"
+	"xcin (big5)"	"xim=xcin:zh_TW.Big5"
+	"xcin (gb)"	"xim=zh_CN.GB2312:zh_CN.GB2312"
+	"skkinput"	"xim=skkinput:ja_JP.eucJP"
+}
+"Full Reset"		"full_reset"
+-
+pty_list
+"New PTY"	"open_pty"
