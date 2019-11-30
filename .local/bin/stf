@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-bicon ir >/dev/null 2>&1 &
-vifm
