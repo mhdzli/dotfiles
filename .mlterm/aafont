@@ -1,7 +1,7 @@
-ISO8859_1 = bitstream vera sans mono-medium-iso8859-1;
-ISO8859_15 = bitstream vera sans mono-medium-iso8859-15;
-ISO10646_UCS2_1 = bitstream vera sans mono-medium-iso10646-1;
-ISO10646_UCS2_1_BOLD = bitstream vera sans mono-bold-iso10646-1;
+#ISO8859_1 = bitstream vera sans mono-medium-iso8859-1;
+#ISO8859_15 = bitstream vera sans mono-medium-iso8859-15;
+#ISO10646_UCS2_1 = bitstream vera sans mono-medium-iso10646-1;
+#ISO10646_UCS2_1_BOLD = bitstream vera sans mono-bold-iso10646-1;
 
 ###
 ###  PLEASE READ /usr/share/doc/mlterm/README.Debian TO USE ANTI-ALIAS.
@@ -11,7 +11,7 @@ ISO10646_UCS2_1_BOLD = bitstream vera sans mono-bold-iso10646-1;
 ### Anti-aliased font settings for non-UTF8 encodings
 ###
 #
-##ISO8859_1=Courier 10 Pitch-iso10646-1;
+#ISO8859_1=Courier 10 Pitch-iso10646-1;
 #ISO8859_2=FreeMono-iso10646-1;
 #ISO8859_3=FreeMono-iso10646-1;
 #ISO8859_4=FreeMono-iso10646-1;
@@ -21,7 +21,7 @@ ISO10646_UCS2_1_BOLD = bitstream vera sans mono-bold-iso10646-1;
 #ISO8859_10=FreeMono-iso10646-1;
 #ISO8859_13=FreeMono-iso10646-1;
 #ISO8859_14=FreeMono-iso10646-1;
-##ISO8859_15=FreeMono-iso10646-1;
+#ISO8859_15=FreeMono-iso10646-1;
 #KOI8_R=Nimbus Mono L-iso10646-1;
 #KOI8_U=Nimbus Mono L-iso10646-1;
 #JISX0208_1978=VL Gothic-iso10646-1;
@@ -67,12 +67,81 @@ ISO10646_UCS2_1_BOLD = bitstream vera sans mono-bold-iso10646-1;
 ##ISO10646_UCS2_1_BIWIDTH=AR PL SungtiL GB-iso10646-1;
 #
 ### settings for UTF8 fixed width Arabic characters:
-##ISO10646_UCS4_1 = Ubuntu Mono;
-##ISO10646_UCS4_1 = Monospace;
-#ISO10646_UCS4_1 = DejaVu Sans Mono for Powerline;
-## U+231A-2320 = FreeSerif;
-##ISO8859_1 = Droid Sans Mono for Powerline;
-##ISO8859_15 = Droid Sans Mono for Powerline ;
-##ISO10646_UCS2_1 = Droid Sans Mono for Powerline ;
-##ISO10646_UCS2_1_BOLD = Droid Sans Mono for Powerline ;
-##ISO10646_UCS4_1 = Droid Sans Mono for Powerline ;
+#ISO10646_UCS4_1 = Ubuntu Mono;
+#ISO10646_UCS4_1 = Monospace;
+#SO10646_UCS4_1 = DejaVu Sans Mono for Powerline;
+# U+231A-2320 = FreeSerif;
+#ISO8859_1 = Droid Sans Mono for Powerline;
+#ISO8859_15 = Droid Sans Mono for Powerline ;
+#ISO10646_UCS2_1 = Droid Sans Mono for Powerline ;
+#ISO10646_UCS2_1_BOLD = Droid Sans Mono for Powerline ;
+#ISO10646_UCS4_1 = Droid Sans Mono for Powerline ;
+#
+#DEFAULT=font
+#  DEC_SPECIAL=font
+#  ISO8859_n=font
+#  TIS620=font
+#  ISCII_HINDI=font
+#  ISCII_MALAYALAM=font
+#  ISCII_ASSAMESE=font
+#  ISCII_BENGALI=font
+#  ISCII_GUJARATI=font
+#  ISCII_KANNADA=font
+#  ISCII_MALAYALAM=font
+#  ISCII_ORIYA=font
+#  ISCII_PUNJABI=font
+#  ISCII_TAMIL=font
+#  ISCII_TELUGU=font
+#  VISCII=font
+#  KOI8_R=font
+#  KOI8_U=font
+#  TCVN5712=font
+#  JISX0201_ROMAN=font
+#  JISX0201_KATA=font
+#  JISX0208_1978=font
+#  JISX0208_1983=font
+#  JISX0208_1990=font
+#  JISX0213_2000_1=font
+#  JISX0213_2000_2=font
+#  KSX1001_1997=font
+#  UHC=font (not used)
+#  JOHAB=font (not used)
+#  GB2312_80=font
+#  GBK=font
+#  BIG5=font
+#  HKSCS=font
+#  CNS11643_1992_n=font
+#  ISO10646_UCS4_1=font
+#  ISO10646_UCS4_1_FULLWIDTH=font
+#  U+XXXX-XXXX=font
+  
+  
+#  --- Debian Defaults:
+
+ISO8859_1=Courier 10 Pitch-iso10646-1;
+ISO8859_2=FreeMono-iso10646-1;
+ISO8859_3=FreeMono-iso10646-1;
+ISO8859_4=FreeMono-iso10646-1;
+ISO8859_5=FreeMono-iso10646-1;
+ISO8859_7=FreeMono-iso10646-1;
+ISO8859_9=FreeMono-iso10646-1;
+ISO8859_10=FreeMono-iso10646-1;
+ISO8859_13=FreeMono-iso10646-1;
+ISO8859_14=FreeMono-iso10646-1;
+ISO8859_15=FreeMono-iso10646-1;
+KOI8_R=Nimbus Mono L-iso10646-1;
+KOI8_U=Nimbus Mono L-iso10646-1;
+JISX0208_1978=VL Gothic-iso10646-1;
+JISX0208_1983=VL Gothic-iso10646-1;
+JISX0208_1990=VL Gothic-iso10646-1;
+KSX1001_1997=dotum-iso10646-1;
+BIG5=AR PL Mingti2L Big5-iso10646-1;
+GB2312_80=AR PL SungtiL GB-iso10646-1;
+GBK=AR PL SungtiL GB-iso10646-1;
+ISO10646_UCS2_1=FreeMono-iso10646-1;
+ISO10646_UCS2_1=Courier 10 Pitch-iso10646-1;
+ISO10646_UCS2_1_BIWIDTH=VL Gothic-iso10646-1;
+ISO10646_UCS2_1_BIWIDTH=dotum-iso10646-1;
+ISO10646_UCS2_1_BIWIDTH=AR PL Mingti2L Big5-iso10646-1;
+ISO10646_UCS2_1_BIWIDTH=AR PL SungtiL GB-iso10646-1;
+ISO10646_UCS4_1 = Monospace;
