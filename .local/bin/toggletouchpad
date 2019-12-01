@@ -1,4 +1,11 @@
-#!/usr/bin/env sh
-# Toggle touchpad. Requires xf86-input-synaptics.
-(synclient | grep "TouchpadOff.*1" && synclient TouchpadOff=0)>/dev/null && echo "TouchPad reactivated." && exit
-synclient TouchpadOff=1 && echo "TouchPad deactivated."
+#!/bin/bash
+
+export LC_ALL=C
+TOGGLE=$HOME/.toggle
+TOUCHPAD_ID=`xinput list | grep "Touchpad" | sed -n -e 's/^.*id=//p'|cut -f1`
+if xinput list $TOUCHPAD_ID | grep -q 'This device is disabled'; then
+	xinput enable $TOUCHPAD_ID
+else
+	xinput disable $TOUCHPAD_ID
+fi
+
