@@ -1,0 +1,16 @@
+show_hidden=1
+show_backup=0
+always_open_dirs=0
+always_open_files=0
+open_last=1
+dmenu_caseinsens=1
+dmenu_onbottom=0
+dmenu_bg='#bbbbbb'
+dmenu_fg='#222222'
+dmenu_sbg='#282828'
+dmenu_sfg='#00ffff'
+editor="vim"
+executor="exo"
+filemanager="vifm"
+last_dir="/home/mzeinali/.local/bin"
+
