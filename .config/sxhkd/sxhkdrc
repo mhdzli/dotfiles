@@ -56,10 +56,8 @@ super + shift + Escape
 #	ifinstalled slock && ( slock & xset dpms force off ; mpc pause ; pauseallmpv )
 #XF86Launch1
 #	xset dpms force off
-#XF86TouchpadToggle
-#	(synclient | grep "TouchpadOff.*1" && synclient TouchpadOff=0)>/dev/null || synclient TouchpadOff=1
-#XF86Touchpad{Off,On}
-#	synclient TouchpadOff={1,0}
+XF86TouchpadToggle
+	toggletouchpad
 
 # Recording
 # Take screenshot
