@@ -15,7 +15,7 @@
 #super + d
 #	dmenu_run
 super + r
-	$TERMINAL -e bicon ir $FILE
+	$TERMINAL -e bicon ir sh $HOME/.config/vifm/scripts/vifmrun
 #super + e
 #	$TERMINAL -e neomutt
 super + shift +  m
@@ -167,3 +167,5 @@ super + {F9,F10}
 
 super + F12
 	$TERMINAL -e nmtui
+alt + space
+	xkb-switch -n; refbar
