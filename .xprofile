@@ -5,9 +5,10 @@ unclutter &		# Remove mouse when idle
 xcompmgr &		# xcompmgr for transparency
 dunst &	                # dunst for notifications
 keymap &		# some keyboard remap 
-dwmbar &                # dwmbar
+dwmblocks &                # dwmbar
 sxhkd &
 
+#feh --randomize --bg-scale ~/Pictures/backgrounds
 xwallpaper --stretch ~/Pictures/lockscreen.jpeg & # set wallpaper
 setxkbmap -model asus_laptop -layout us,ir -option grp:lctrl_lwin_toggle &
 
