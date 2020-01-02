@@ -89,6 +89,11 @@ status() { \
 
 	# Date and time.
 	date '+%Y %b %d (%a) %I:%M%p'
+
+	echo "$delim"
+
+	xkb-switch
+
 	}
 
 update() { \
