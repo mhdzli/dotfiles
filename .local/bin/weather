@@ -4,5 +4,6 @@ ping -q -w 1 -c 1 "$(ip r | grep default | tail -1 | cut -d ' ' -f 3)" >/dev/nul
 #location="$1"; [ -z "$location" ] || location="$location+"
 #curl -s wttr.in/shiraz?format=4
 #pkill -RTMIN+5 i3blocks && notify-send "🌞 Weather forecast updated."
-ansiweather -l shiraz,IR -u metric -s true -f 1 -a false | cut -d' ' -f2,8-
+#ansiweather -l shiraz,IR -u metric -s true -f 1 -a false | cut -d' ' -f2,8-
 #clweather --latitude 29.6068 --longitude 52.5376 -t #API KEY
+echo 'not now'
