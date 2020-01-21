@@ -8,11 +8,12 @@ export TERMINAL="st"
 export BROWSER="firefox"
 export READER="zathura"
 export FILE="vifm"
-export BIB="$HOME/Documents/LaTeX/uni.bib"
-export REFER="$HOME/Documents/referbib"
-export SUDO_ASKPASS="$HOME/.local/bin/tools/dmenupass"
+#export BIB="$HOME/Documents/LaTeX/uni.bib"
+#export REFER="$HOME/Documents/referbib"
+#export SUDO_ASKPASS="$HOME/.local/bin/tools/dmenupass"
 export NOTMUCH_CONFIG="$HOME/.config/notmuch-config"
 export GTK2_RC_FILES="$HOME/.config/gtk-2.0/gtkrc-2.0"
+export ZDOTDIR="$HOME/.config/zsh"
 
 # less/man colors
 export LESS=-R
@@ -31,6 +32,6 @@ mpd >/dev/null 2>&1 &
 echo "$0" | grep "bash$" >/dev/null && [ -f ~/.bashrc ] && source "$HOME/.bashrc"
 
 # Start graphical server if i3 not already running.
-[ "$(tty)" = "/dev/tty1" ] && ! pgrep -x i3 >/dev/null && exec startx
+[ "$(tty)" = "/dev/tty1" ] && ! pgrep -x Xorg >/dev/null && exec startx
 
 
