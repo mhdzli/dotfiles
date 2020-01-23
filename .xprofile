@@ -10,6 +10,6 @@ sxhkd -m 1 &
 
 #feh --randomize --bg-scale ~/Pictures/backgrounds
 xwallpaper --stretch ~/Pictures/lockscreen.jpeg & # set wallpaper
-setxkbmap -model asus_laptop -layout us,ir -option grp:lctrl_lwin_toggle &
+#setxkbmap -model asus_laptop -layout us,ir -option grp:lctrl_lwin_toggle &
 
 

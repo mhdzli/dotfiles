@@ -19,7 +19,8 @@ super + r
 #super + e
 #	$TERMINAL -e neomutt
 super + shift +  m
-	$TERMINAL -e ncmpcpp
+	mlterm
+#	$TERMINAL -e ncmpcpp
 #super + n
 #	$TERMINAL -e newsboat
 super + shift + s
@@ -29,11 +30,11 @@ super + shift + s
 super + v
 	$TERMINAL -e nvim -c VimwikiIndex
 super + shift + a
-	$TERMINAL -e alsamixer; pkill -RTMIN+10 dwmblocks 
+	$TERMINAL -e alsamixer; pkill -RTMIN+10 dwmblocks
 super + c
 	mpv --no-osc --no-input-default-bindings --input-conf=/dev/null --title='mpvfloat' /dev/video0
 #super + shift + e
-#	tutorialvids
+#	fingil
 super + shift + w
 	$BROWSER
 super + shift + g
@@ -90,12 +91,21 @@ super + Delete
 #super + {_,shift +} bracketleft
 #	mpc seek -{10,120}
 # Increase volume
+#super + {equal,plus}
+#	amixer sset Master {5,15}%+; refbar
+# Decrease volume
+#super {_,shift +} + minus
+#	amixer sset Master {5,15}%-; refbar
+#super + shift + m
+#	amixer sset Master toggle; refbar
 #
 ## Audiokeys
 XF86AudioMute
 	amixer sset Master toggle; pkill -RTMIN+10 dwmblocks
+
 XF86Audio{Raise,Lower}Volume
 	amixer sset Master 5%{+,-}; pkill -RTMIN+10 dwmblocks
+
 #XF86Audio{Next,Prev}
 #	mpc {next,prev}
 #XF86Audio{Pause,Play,Stop}
@@ -130,6 +140,8 @@ XF86PowerOff
 #	$TERMINAL -e neomutt
 #XF86MyComputer
 #	$TERMINAL -e $FILE /
+#XF86Display
+#	displayselect
 #
 ## Function keys
 #super + shift + F1
@@ -139,8 +151,8 @@ XF86PowerOff
 #	groff -mom $HOME/.local/share/larbs/readme.mom -Tpdf | zathura -
 ## super + F2 is mapped to restart dwm.
 ## Change display
-#super + F3
-#	displayselect
+super + p
+	displayselect
 # Hibernate
 #super + F4
 #	prompt 'Hibernate computer?' 'sudo -A zzz'
@@ -156,9 +168,11 @@ XF86PowerOff
 
 # Mount a USB drive or Android device 
 super + {F9,F10}
-	{dmmt,dmenuumount} 
+	{dmenumount,dmenuumount} 
 
 super + F12
-	$TERMINAL -e nmtui; pkill -RTMIN+3 dwmblocks 
+	$TERMINAL -e nmtui; pkill -RTMIN+3 dwmblocks
+
 alt + space
-	xkb-switch -n; pkill -RTMIN+2 dwmblocks
+	xkb-switch -n;  pkill -RTMIN+2 dwmblocks
+
