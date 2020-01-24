@@ -10,6 +10,9 @@
 
 [ -f ~/.xprofile ] && . ~/.xprofile
 
+# Fix Gnome Apps Slow  Start due to failing services
+# Add this when you include flatpak in your system
+dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY
 
 # Here we start dwm.
 # The loop is just to enable dwm's "restart" feature (mod+F2).
