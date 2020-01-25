@@ -1,0 +1,85 @@
+#!/bin/bash
+
+# Dmenu script for launching system monitoring commands.
+
+
+
+cpu() {\
+	case "$(printf "cpuinfo\\nlscpu" | dmenu -i -p "Which info do you preffer?")" in
+		cpuinfo) less /proc/cpuinfo ;;
+		lscpu) lscpu ;;
+	esac
+}
+
+sysmon() {\
+	smon="$(printf "htop\\nglances\\ngtop\\niftop\\niotop\\niptraf-ng\\nnmon\\ns-tui\\npowertop" | dmenu -i -p "Which Program do you preffer?")"
+	case $smon in
+		htop| \
+		glances| \
+		gtop| \
+		nmon| \
+		s-tui)
+		exec st -e $smon
+		;;
+		iftop| \
+		iotop| \
+		powertop| \
+		iptraf-ng)
+		exec st -e sudo $smon
+		;;
+		*)
+			exit 1
+		;;
+	esac
+}
+
+clockset() {\
+	case "$(printf "timedate\\nhwclock\\nsync&set" | dmenu -i -p "Which info do you preffer?")" in
+		timedate) timedatectl status ;;
+		hwclock) sudo hwclock --show ;;
+		sync\&set) sudo ntpd -qg; sudo hwclock --systohc ;;
+	esac
+}
+
+
+declare -a options=("VGA
+audio
+memory
+disk
+cpu
+System
+clockset
+network
+quit")
+
+choice=$(echo -e "${options[@]}" | dmenu -l -i -p 'System monitors: ')
+
+case $choice in
+	quit)
+		echo "Program terminated." && exit 1
+	;;
+	VGA)
+        lspci -vnn | grep -i --color 'vga\|3d\|2d' -A 12; echo -e '\nScreen list:'; xrandr -q | grep normal
+	;;
+	audio)
+        lspci -vnn | grep -i --color audio -A 12; echo; pacmd list-cards | grep 'active profile'; echo; aplay --list-devices
+	;;
+	memory)
+        free -h
+	;;
+	disk)
+        df -h | grep dev/sd; echo; lsblk
+	;;
+	cpu) cpu
+	;;
+	System) sysmon
+	;;
+	clockset) clockset
+	;;
+	network) nmcli device status; ip link show; nmcli connection show; cat /etc/resolv.conf
+	;;
+	*)
+		exit 1
+	;;
+esac
+
