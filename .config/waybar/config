@@ -1,7 +1,7 @@
 {
 	// "layer": "top", // Waybar at top layer
 	// "position": "bottom", // Waybar position (top|bottom|left|right)
-	//"height": 50, // Waybar height (to be removed for auto height)
+	// "height": 30, // Waybar height (to be removed for auto height)
 	// "width": 1280, // Waybar width
 
 	// Choose the order of the modules
@@ -28,11 +28,11 @@
 	"sway/mode": {
 		"format": "{}" 
 	},
-	"custom/arch_update": {
-		"format": "<span color='#589df6'></span>{}",
-		"interval": 30,
-		"exec": "~/.config/i3blocks/bin/arch_update.py -b '#e4e4e4' -u '#e4e4e4' -q"
-	},
+//	"custom/arch_update": {
+//		"format": "<span color='#589df6'></span>{}",
+//		"interval": 30,
+//		"exec": "~/.config/i3blocks/bin/arch_update.py -b '#e4e4e4' -u '#e4e4e4' -q"
+//	},
 	"custom/disk_home": {
 		"format": "🏠 {} ",
 		"interval": 30,
@@ -58,11 +58,11 @@
 	"memory": {
 		"format": "💾 {used:0.1f}G"
 	},
-	"custom/mail": {
-		"format": "📩{}",
-		"interval": 30,
-		"exec": "notmuch count tag:flagged OR tag:inbox AND NOT tag:killed"
-	},
+//	"custom/mail": {
+//		"format": "📩{}",
+//		"interval": 30,
+//		"exec": "notmuch count tag:flagged OR tag:inbox AND NOT tag:killed"
+//	},
 	"network": {
 		// "interface": "wlp2*", // (Optional) To force the use of this interface
 		"format-wifi": "<span color='#589df6'></span> <span color='gray'>{essid}</span> {frequency} <span color='#589df6'>{signaldBm} dB</span> <span color='#589df6'>⇵</span> {bandwidthUpBits}/{bandwidthDownBits}",
@@ -132,43 +132,43 @@
 	"tray": {
 		// "icon-size": 21,
 		"spacing": 10
-	},
-    "custom/media": {
-        "format": "{icon} {}",
-        "return-type": "json",
-        "max-length": 40,
-        "format-icons": {
-            "spotify": "",
-            "default": "🎜"
-        },
-        "escape": true,
-        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
-        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
-    },
-    "mpd": {
-        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ",
-        "format-disconnected": "Disconnected ",
-        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
-        "unknown-tag": "N/A",
-        "interval": 2,
-        "consume-icons": {
-            "on": " "
-        },
-        "random-icons": {
-            "off": "<span color=\"#f53c3c\"></span> ",
-            "on": " "
-        },
-        "repeat-icons": {
-            "on": " "
-        },
-        "single-icons": {
-            "on": "1 "
-        },
-        "state-icons": {
-            "paused": "",
-            "playing": ""
-        },
-        "tooltip-format": "MPD (connected)",
-        "tooltip-format-disconnected": "MPD (disconnected)"
-    }
+	}
+//    "custom/media": {
+//        "format": "{icon} {}",
+//        "return-type": "json",
+//        "max-length": 40,
+//        "format-icons": {
+//            "spotify": "",
+//            "default": "🎜"
+//        },
+//        "escape": true,
+//        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
+//        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+//    },
+//    "mpd": {
+//        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ",
+//        "format-disconnected": "Disconnected ",
+//        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+//        "unknown-tag": "N/A",
+//        "interval": 2,
+//        "consume-icons": {
+//            "on": " "
+//        },
+//        "random-icons": {
+//            "off": "<span color=\"#f53c3c\"></span> ",
+//            "on": " "
+//        },
+//        "repeat-icons": {
+//            "on": " "
+//        },
+//        "single-icons": {
+//            "on": "1 "
+//        },
+//        "state-icons": {
+//            "paused": "",
+//            "playing": ""
+//        },
+//        "tooltip-format": "MPD (connected)",
+//        "tooltip-format-disconnected": "MPD (disconnected)"
+//    }
 }

@@ -42,7 +42,8 @@ set $term termite
 # set $term kitty -e tmux
 
 # # Default options
-for_window [class="^.*"] border pixel 2
+#for_window [class="^.*"] border pixel 2
+default_border pixel
 gaps inner 5
 gaps outer 5 
 
@@ -60,7 +61,7 @@ set $wwofi wofi --show window
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg ~/Pictures/lockscreen.jpeg stretch
+output * bg ~/Pictures/Desktop.jpeg stretch
 #
 # Example configuration:
 #
@@ -93,6 +94,17 @@ output * bg ~/Pictures/lockscreen.jpeg stretch
 #       middle_emulation enabled
 #   }
 #
+input {
+	* {
+		xkb_layout "us,ir"
+		xkb_model "asus_laptop"
+		# no click needed
+		tap enabled
+		xkb_options caps:escape
+		xkb_options grp:alt_shift_toggle
+	}
+}
+#bindsym $Mod+k xkab-switch -n
 
 #input * { xkb_options caps:escape }
 #
@@ -107,33 +119,59 @@ output * bg ~/Pictures/lockscreen.jpeg stretch
 #
 # Basics:
 #
-    # Start a terminal
+# Start a terminal
     bindsym $mod+Return exec $term
-
     bindsym $mod+Tab workspace back_and_forth
 
-    # Kill focused window
+# Kill focused window
     bindsym $mod+q kill
 
-    # Start your launcher
+# Start your launcher
     bindsym $mod+d exec $menu
     bindsym $mod+p exec $rwofi
     bindsym $mod+Shift+p exec $rwofi
 
-    # lock screen
+# lock screen
     bindsym $mod+Shift+x exec swaylock -eFfki ~/Pictures/lockscreen.jpeg
 
-    # Drag floating windows by holding down $mod and left mouse button.
-    # Resize them with right mouse button + $mod.
-    # Despite the name, also works for non-floating windows.
-    # Change normal to inverse to use left mouse button for resizing and right
-    # mouse button for dragging.
+# Drag floating windows by holding down $mod and left mouse button.
+# Resize them with right mouse button + $mod.
+# Despite the name, also works for non-floating windows.
+# Change normal to inverse to use left mouse button for resizing and right
+# mouse button for dragging.
     floating_modifier $mod normal
 
-    # Reload the configuration file
+# Reload the configuration file
     bindsym $mod+Shift+r reload
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
 
-    # Exit sway (logs you out of your Wayland session)
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym j resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+# Resizing containers:
+#
+
+    bindsym $mod+r mode "resize"
+
+# Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 #
 # Moving around:
@@ -161,6 +199,20 @@ output * bg ~/Pictures/lockscreen.jpeg stretch
     bindsym $mod+Shift+Right move right
 #
 # Workspaces:
+#
+
+# Switch to workspace
+#set $ws1 "1💬"
+#set $ws2 "2📨"
+#set $ws3 "3📝"
+#set $ws4 "4📗"
+#set $ws5 "5🏹"
+#set $ws6 "6🌈"
+#set $ws7 "7🎥" 
+#set $ws8 "8🌍"
+#set $ws9 "9🔒"
+#set $ws10 "10🌀"
+
 set $ws1 "1:🐧"
 set $ws2 "2:🦊"
 set $ws3 "3:🌍" 
@@ -207,24 +259,16 @@ bindsym XF86AudioMute exec "sh ~/.local/bin/key_sound.sh mute"
 bindsym XF86MonBrightnessUp exec incbrightness 
 bindsym XF86MonBrightnessDown exec decbrightness
 bindsym XF86Display exec "sh ~/.local/bin/key_screen.sh"
-
-
+#screencapture
+bindsym print exec swayscreenshot
+bindsym $mod+print exec swayrecord
 #
 # Layout stuff:
 #
 bindsym $mod+t			split toggle
 bindsym $mod+Shift+t		gaps inner current set 15; gaps outer current set 15
-
-bindsym $mod+Shift+y		exec --no-startup-id i3resize left
-
-bindsym $mod+u			exec --no-startup-id ddspawn tmuxdd
-bindsym $mod+Shift+u		exec --no-startup-id i3resize down
-
-bindsym $mod+Shift+i		exec --no-startup-id i3resize up
-
 bindsym $mod+g			gaps inner current plus 5; gaps outer current plus 2
 bindsym $mod+Shift+g		gaps inner current minus 5; gaps outer current minus 2
-
 bindsym $mod+Shift+d		gaps inner current set 0; gaps outer current set 0
 
     # You can "split" the current object of your focus with
@@ -262,29 +306,6 @@ bindsym $mod+Shift+d		gaps inner current set 0; gaps outer current set 0
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
 #
-# Resizing containers:
-#
-mode "resize" {
-    # left will shrink the containers width
-    # right will grow the containers width
-    # up will shrink the containers height
-    # down will grow the containers height
-    bindsym $left resize shrink width 10px
-    bindsym $down resize grow height 10px
-    bindsym $up resize shrink height 10px
-    bindsym $right resize grow width 10px
-
-    # Ditto, with arrow keys
-    bindsym Left resize shrink width 10px
-    bindsym Down resize grow height 10px
-    bindsym Up resize shrink height 10px
-    bindsym Right resize grow width 10px
-
-    # Return to default mode
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-bindsym $mod+r mode "resize"
 
 #
 # Status Bar:

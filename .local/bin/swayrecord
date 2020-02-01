@@ -1,0 +1,69 @@
+#!/usr/bin/env sh
+
+# Usage:
+# `$0`: Ask for recording type via dmenu
+# `$0 screencast`: Record both audio and screen
+# `$0 video`: Record only screen
+# `$0 audio`: Record only audio
+# `$0 kill`: Kill existing recording
+#
+# If there is already a running instance, user will be prompted to end it.
+
+#updateicon() { \
+#	echo "$1" > /tmp/recordingicon
+#	pkill -RTMIN+9 "${STATUSBAR:?}"
+#	}
+
+killrecording() {
+	recpid="$(cat /tmp/recordingpid)"
+	# kill with SIGTERM, allowing finishing touches.
+	kill -15 "$recpid"
+	rm -f /tmp/recordingpid
+#	updateicon ""
+#	pkill -RTMIN+9 "${STATUSBAR:?}"
+	# even after SIGTERM, ffmpeg may still run, so SIGKILL it.
+	sleep 3
+	kill -9 "$recpid"
+#	pkill swcursor
+	exit
+	}
+
+screencast() { \
+	wf-recorder -f "$HOME/screencast-$(date '+%y%m%d-%H%M-%S').mkv" &
+	echo $! > /tmp/recordingpid
+#	updateicon "⏺️🎙️"
+       	}
+
+video() { \
+	wf-recorder -a -f "$HOME/video-$(date '+%y%m%d-%H%M-%S').mkv" &
+	echo $! > /tmp/recordingpid
+#	updateicon "⏺️"
+	}
+
+vaapi() { \
+	wf-recorder -a -f "$HOME/video-$(date '+%y%m%d-%H%M-%S').mkv" -c h264_vaapi -d /dev/dri/renderD128 &
+	echo $! > /tmp/recordingpid
+#	updateicon "⏺️"
+	}
+
+askrecording() { \
+	choice=$(printf "screencast\\nvideo\\nvaapi\\" | bemenu -i -p "Select recording style:")
+	case "$choice" in
+		screencast) screencast;;
+		video) video;;
+		vaapi) vaapi;;
+	esac
+	}
+
+asktoend() { \
+	response=$(printf "No\\nYes\\" | bemenu -i -p "Recording still active. End recording?") &&
+	[ "$response" = "Yes" ] &&  killrecording
+	}
+
+
+case "$1" in
+	screencast) screencast;;
+	video) video;;
+	kill) killrecording;;
+	*) ([ -f /tmp/recordingpid ] && asktoend && exit) || askrecording;;
+esac

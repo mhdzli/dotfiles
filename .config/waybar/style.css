@@ -7,7 +7,7 @@
 }
 
 window#waybar {
-	background: #000000;
+	background: rgba(43,48,59, 0.9);
 	color: #ffffff;
 }
 
@@ -101,9 +101,9 @@ window#waybar {
 #pulseaudio.muted {
 }
 
-#custom-spotify {
+/* #custom-spotify {
     color: rgb(102, 220, 105);
-}
+}*/
 
 #tray {
 }

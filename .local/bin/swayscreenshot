@@ -1,0 +1,5 @@
+#!/bin/bash
+
+FILENAME="$(date +'%Y-%m-%d-%H%M%S_screenshot.png')"
+EXPENDED_FILENAME="${FILENAME/#\~/$HOME}"
+grim "$EXPENDED_FILENAME"
