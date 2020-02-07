@@ -1,38 +1,35 @@
 {
-	// "layer": "top", // Waybar at top layer
-	// "position": "bottom", // Waybar position (top|bottom|left|right)
-	// "height": 30, // Waybar height (to be removed for auto height)
-	// "width": 1280, // Waybar width
+//	"layer": "top", // Waybar at top layer
+//	"position": "top", // Waybar position (top|bottom|left|right)
+//	"height": 30, // Waybar height (to be removed for auto height)
+//	"width": 1280, // Waybar width
 
-	// Choose the order of the modules
-	"modules-left": ["sway/workspaces", "sway/mode"],
-	// "modules-center": ["sway/window"],
-	"modules-right": ["custom/arch_update", "custom/disk_home", "custom/disk_root","temperature", "cpu", "memory", "custom/mail", "network", "backlight", "pulseaudio", "clock", "battery", "idle_inhibitor", "tray"],
+//	Choose the order of the modules
+	"modules-left": [
+		"sway/workspaces",
+		"sway/mode"
+	],
+	"modules-center": [
+		"clock#1",
+		"clock#2",
+		"custom/jalalidate"
+	],
+	"modules-right": [
+		"custom/disk_home",
+		"custom/disk_root",
+		"temperature",
+		"cpu",
+		"memory",
+		"network",
+		"backlight",
+		"pulseaudio",
+		"battery",
+		"idle_inhibitor",
+		"tray"],
 
-	// Modules configuration
-	// "sway/workspaces": {
-	// 	"disable-scroll": true,
-	// 	"all-outputs": true,
-	// 	"format": "{name}: {icon}",
-	// 	"format-icons": {
-	// 		"1": "",
-	// 		"2": "",
-	// 		"3": "",
-	// 		"4": "",
-	// 		"5": "",
-	// 		"urgent": "",
-	// 		"focused": "",
-	// 		"default": ""
-	// 	}
-	// },
 	"sway/mode": {
 		"format": "{}" 
 	},
-//	"custom/arch_update": {
-//		"format": "<span color='#589df6'></span>{}",
-//		"interval": 30,
-//		"exec": "~/.config/i3blocks/bin/arch_update.py -b '#e4e4e4' -u '#e4e4e4' -q"
-//	},
 	"custom/disk_home": {
 		"format": "🏠 {} ",
 		"interval": 30,
@@ -44,10 +41,10 @@
 		"exec": "df -h --output=avail / | tail -1 | tr -d ' '"
 	},
 	"temperature": {
-		// "thermal-zone": 2,
-		// "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+//		"thermal-zone": 2,
+//		"hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
 		"critical-threshold": 80,
-		// "format-critical": "{temperatureC}°C {icon}",
+//		"format-critical": "{temperatureC}°C {icon}",
 		"format": "<span color='#e88939'>{icon}</span> {temperatureC}°C",
 		"format-icons": ["", "", ""]
 	},
@@ -58,27 +55,22 @@
 	"memory": {
 		"format": "💾 {used:0.1f}G"
 	},
-//	"custom/mail": {
-//		"format": "📩{}",
-//		"interval": 30,
-//		"exec": "notmuch count tag:flagged OR tag:inbox AND NOT tag:killed"
-//	},
 	"network": {
 		// "interface": "wlp2*", // (Optional) To force the use of this interface
-		"format-wifi": "<span color='#589df6'></span> <span color='gray'>{essid}</span> {frequency} <span color='#589df6'>{signaldBm} dB</span> <span color='#589df6'>⇵</span> {bandwidthUpBits}/{bandwidthDownBits}",
+		"format-wifi": "<span color='#589df6'></span> <span color='gray'>{essid}({signalStrength}%)</span>" ,
 		"format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
 		"format-linked": "{ifname} (No IP) ",
 		"format-disconnected": "Disconnected ⚠",
 		"format-alt": "{ifname}: {ipaddr}/{cidr}",
-		"interval": 5
+		"interval": 60
 	},
 	"backlight": {
-		// "device": "acpi_video1",
+//		"device": "acpi_video1",
 		"format": "{icon} {percent}%",
 		"format-icons": ["🔅", "🔆"]
 	},
 	"pulseaudio": {
-		// "scroll-step": 1, // %, can be a float
+//		"scroll-step": 1, // %, can be a float
 		"format": "{icon} {volume}% {format_source}",
 		"format-muted": "🔇 {format_source}",
 		"format-bluetooth": "{icon} {volume}% {format_source}",
@@ -99,11 +91,22 @@
 		"on-click": "ponymix -N -t sink toggle",
 		"on-click-right": "ponymix -N -t source toggle"
 	},
-	"clock": {
-		"interval": 1,
-		"format": "⏰ {:%H:%M:%S}",
+	"clock#1": {
+		"interval": 60,
+		"format": "⏰ {:%H:%M}",
 		"tooltip-format": "{:%Y-%m-%d | %H:%M:%S}"
 		// "format-alt": "{:%Y-%m-%d}"
+	},
+	"clock#2": {
+		"interval": 3600,
+		"format": "📅 {:%F}",
+		"tooltip-format": "{:%Y-%m-%d | %H:%M:%S}"
+		// "format-alt": "{:%Y-%m-%d}"
+	},
+	"custom/jalalidate": {
+		"format": " | {}",
+		"interval": 3600,
+		"exec": "jalalidate"
 	},
 	"battery": {
 		"states": {
@@ -114,8 +117,8 @@
 		"format": "<span color='#e88939'>{icon}</span> {capacity}% ({time})",
 		"format-charging": "<span color='#e88939'> </span> {capacity}%",
 		"format-plugged":  "<span color='#e88939'>{icon} </span> {capacity}% ({time})",
-		// "format-good": "", // An empty format will hide the module
-		// "format-full": "",
+//		"format-good": "", // An empty format will hide the module
+//		"format-full": "",
 		"format-icons": ["", "", "", "", ""]
 	},
 	"battery#bat2": {
@@ -130,45 +133,7 @@
 		"on-click-right": "swaylock -eFfki ~/.config/lockscreen-origin.png"
 	},
 	"tray": {
-		// "icon-size": 21,
+//		"icon-size": 21,
 		"spacing": 10
 	}
-//    "custom/media": {
-//        "format": "{icon} {}",
-//        "return-type": "json",
-//        "max-length": 40,
-//        "format-icons": {
-//            "spotify": "",
-//            "default": "🎜"
-//        },
-//        "escape": true,
-//        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
-//        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
-//    },
-//    "mpd": {
-//        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ",
-//        "format-disconnected": "Disconnected ",
-//        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
-//        "unknown-tag": "N/A",
-//        "interval": 2,
-//        "consume-icons": {
-//            "on": " "
-//        },
-//        "random-icons": {
-//            "off": "<span color=\"#f53c3c\"></span> ",
-//            "on": " "
-//        },
-//        "repeat-icons": {
-//            "on": " "
-//        },
-//        "single-icons": {
-//            "on": "1 "
-//        },
-//        "state-icons": {
-//            "paused": "",
-//            "playing": ""
-//        },
-//        "tooltip-format": "MPD (connected)",
-//        "tooltip-format-disconnected": "MPD (disconnected)"
-//    }
 }

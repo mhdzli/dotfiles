@@ -260,8 +260,8 @@ bindsym XF86MonBrightnessUp exec incbrightness
 bindsym XF86MonBrightnessDown exec decbrightness
 bindsym XF86Display exec "sh ~/.local/bin/key_screen.sh"
 #screencapture
-bindsym print exec swayscreenshot
-bindsym $mod+print exec swayrecord
+bindsym print exec bemenuscreenshot
+bindsym $mod+print exec bemenurecord
 #
 # Layout stuff:
 #
