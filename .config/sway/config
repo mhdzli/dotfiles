@@ -104,8 +104,8 @@ input {
 		xkb_options grp:alt_shift_toggle
 	}
 }
-#bindsym $Mod+k xkab-switch -n
 
+#input type:keyboard xkb_layout us-ir
 #input * { xkb_options caps:escape }
 #
 #input 1267:32:Elan_TrackPoint {
@@ -121,6 +121,7 @@ input {
 #
 # Start a terminal
     bindsym $mod+Return exec $term
+    bindsym Menu+Return exec $term
     bindsym $mod+Tab workspace back_and_forth
 
 # Kill focused window
@@ -131,8 +132,6 @@ input {
     bindsym $mod+p exec $rwofi
     bindsym $mod+Shift+p exec $rwofi
 
-# lock screen
-    bindsym $mod+Shift+x exec swaylock -eFfki ~/Pictures/lockscreen.jpeg
 
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
@@ -172,7 +171,13 @@ mode "resize" {
     bindsym $mod+r mode "resize"
 
 # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+#    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+    bindsym $mod+Shift+escape exec "beprompt 'Leave Sway?' 'pkill sway'"
+    bindsym $mod+Shift+x exec 'beprompt "Shutdown computer?" "sudo -A shutdown now"'
+    bindsym $mod+Shift+BackSpace exec 'beprompt "Reboot computer?" "sudo -A shutdown -r now"'
+# lock screen
+    bindsym $mod+Shift+e exec swaylock -eFfki ~/Pictures/lockscreen.jpeg
+
 #
 # Moving around:
 #
@@ -262,6 +267,10 @@ bindsym XF86Display exec "sh ~/.local/bin/key_screen.sh"
 #screencapture
 bindsym print exec bemenuscreenshot
 bindsym $mod+print exec bemenurecord
+bindsym Menu+print exec bemenurecord
+
+bindsym $mod+c exec "mpv --no-osc --no-input-default-bindings --input-conf=/dev/null --title='mpvfloat' /dev/video0"
+bindsym $mod+Shift+a exec "$term -e alsamixer"
 #
 # Layout stuff:
 #
