@@ -9,7 +9,7 @@
 #
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
-# xwayland disable
+xwayland disable
 
 # Your preferred terminal emulator
 set $term termite
@@ -128,7 +128,6 @@ bindsym $mod+Shift+Right move right
 #
 # Start a terminal
 bindsym $mod+Return exec $term
-bindsym Menu+Return exec $term
 bindsym $mod+Tab workspace back_and_forth
 
 # Kill focused window
@@ -215,8 +214,8 @@ bindsym XF86Display exec "sh ~/.local/bin/key_screen.sh"
 #screencapture
 bindsym print exec bemenuscreenshot
 bindsym $mod+print exec bemenurecord
-bindsym Menu+print exec bemenurecord
-
+#Launch applications
+bindsym $mod+Shift+w exec midori
 # Resizing containers:
 mode "resize" {
     # These bindings trigger as soon as you enter the resize mode
