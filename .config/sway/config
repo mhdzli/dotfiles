@@ -27,14 +27,12 @@ set $right l
 # set $menu bemenu
 # set $menu dmenu_path | dmenu | xargs swaymsg exec --
 # set $menu dmenu_path | dmenu -fn "Terminus (TTF):pixelsize=28" | xargs swaymsg exec
-# set $menu exec bemenu-run -i -p "Run:"  --fn "pango:monospace 14"
-set $_menu bemenu --fn "Monospace 12" --hf "#2B83A6" --tf "#2B83A6" -p
-set $menu dmenu_path | $_menu "" | xargs -rI{} swaymsg "exec {}"
-
+#set $_menu bemenu --fn "Monospace 12" --hf "#2B83A6" --tf "#2B83A6" -p
+#set $menu dmenu_path | $_menu "" | xargs -rI{} swaymsg "exec {}"
 # set $menu j4-dmenu-desktop --dmenu='bemenu -i --nb "#3f3f3f" --nf "#dcdccc" --fn "pango:DejaVu Sans Mono 12"' --term='termite'
 set $rwofi wofi --show run
 set $wwofi wofi --show window
-
+set $menu exec bemenu-run -i -p "Run:"  --fn "pango:monospace 14" --hf "#2B83A6" --tf "#2B83A6"
 
 # # Default options
 #for_window [class="^.*"] border pixel 2
@@ -285,12 +283,12 @@ output * bg ~/Pictures/Desktop.jpeg stretch
 #
 # Example configuration:
 #
-#   input "2:14:SynPS/2_Synaptics_TouchPad" {
-#       dwt enabled
-#       tap enabled
-#       natural_scroll enabled
-#       middle_emulation enabled
-#   }
+#input "2:14:SynPS/2_Synaptics_TouchPad" {
+#    dwt enabled
+#    tap enabled
+#    natural_scroll enabled
+#    middle_emulation enabled
+#}
 #
 input {
 	* {
@@ -298,8 +296,7 @@ input {
 		xkb_model "asus_laptop"
 		# no click needed
 		tap enabled
-		xkb_options caps:escape
-		xkb_options grp:alt_shift_toggle
+		xkb_options "caps:escape_shifted_capslock,grp:alt_shift_toggle,altwin:menu_win"
 	}
 }
 
