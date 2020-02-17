@@ -1,8 +1,9 @@
 #!/usr/bin/env sh
 
-# A UI for detecting and selecting all displays. Probes xrandr for connected
-# displays and lets user select one to use. User may also select "manual
-# selection" which opens arandr.
+# A UI for detecting and selecting all displays.
+# Probes xrandr for connected displays and lets user select one to use.
+# User may also select "manual selection" which opens arandr.
+# I plan on adding a routine from multi-monitor setups later.
 
 twoscreen() { # If multi-monitor is selected and there are two screens.
 

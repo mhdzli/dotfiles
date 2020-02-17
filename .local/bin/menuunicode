@@ -25,6 +25,6 @@ case $menu in
 		;;
 	bemenu)
 		echo "$c" | tr -d '\n' | wl-copy
-		echo "OK" | bemenu -i --fn "monospace 18" --hb "#89cff0" --hf "#000000" --tf "#000000" --tb "#2dc7bc" -p "$c coppied to clipboard"
+		echo "OK" | bemenu -i --fn "monospace 16" --hb "#89cff0" --hf "#000000" --tf "#000000" --tb "#2dc7bc" -p "$c coppied to clipboard"
 esac
 

@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+# Increase key speed via a rate change
+xset r rate 300 50
+setxkbmap -model asus_laptop -layout us,ir -option "grp:alt_shift_toggle,caps:escape_shifted_capslock,altwin:menu_win" &
+

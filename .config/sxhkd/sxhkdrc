@@ -13,7 +13,8 @@
 #super + shift + q
 #	kill -9 `xdotool getwindowfocus getwindowpid`
 #super + d
-#	dmenu_run
+#	dmenu_run -p "Run:"
+
 super + r
 	$TERMINAL -e bicon ir sh $HOME/.config/vifm/scripts/vifmrun
 #super + e
@@ -42,7 +43,7 @@ super + shift + g
 
 # Et cetera...
 super + i
-	dmenuunicode
+	menuunicode
 super + shift + c
 	killall screenkey || screenkey 
 #super + Insert
@@ -151,7 +152,7 @@ XF86PowerOff
 #	groff -mom $HOME/.local/share/larbs/readme.mom -Tpdf | zathura -
 ## super + F2 is mapped to restart dwm.
 ## Change display
-super + p
+super + F8
 	displayselect
 # Hibernate
 #super + F4

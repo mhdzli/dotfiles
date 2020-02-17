@@ -130,10 +130,10 @@
 			"activated": "",
 			"deactivated": ""
 		},
-		"on-click-right": "swaylock -eFfki ~/.config/lockscreen-origin.png"
+		"on-click-right": "swaylock -eFfki ~/Pictures/lockscreen.jpeg"
 	},
 	"tray": {
-//		"icon-size": 21,
+		"icon-size": 21,
 		"spacing": 10
 	}
 }

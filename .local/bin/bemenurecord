@@ -9,6 +9,7 @@
 #
 # If there is already a running instance, user will be prompted to end it.
 
+
 #updateicon() { \
 #	echo "$1" > /tmp/recordingicon
 #	pkill -RTMIN+9 "${STATUSBAR:?}"
@@ -51,7 +52,7 @@ vaapi() { \
 	}
 
 askrecording() { \
-	choice=$(printf "screencast\\nvideo\\nvaapi\\nwindow\\" | bemenu -i -p "Select recording style:")
+	choice=$(printf "screencast\\nvideo\\nvaapi\\nwindow\\" | bemenu -i --fn "monospace 14" --hb "#89cff0" --hf "#000000" --tf "#000000" --tb "#2dc7bc" -l 10 -P " 🎥 " -p "Select recording style:")
 	case "$choice" in
 		screencast) screencast;;
 		video) video;;
@@ -61,7 +62,7 @@ askrecording() { \
 	}
 
 asktoend() { \
-	response=$(printf "No\\nYes\\" | bemenu -i -p "Recording still active. End recording?") &&
+	response=$(prompt "Recording still active. End recording?" "echo Yes") &&
 	[ "$response" = "Yes" ] &&  killrecording
 	}
 

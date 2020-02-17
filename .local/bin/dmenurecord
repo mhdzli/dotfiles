@@ -84,7 +84,6 @@ vaapivideo() { \
 	-r 30 \
 	-c:v h264_vaapi \
 	"$HOME/screencast-$(date '+%y%m%d-%H%M-%S').mp4" & 
-#	If you need the cursor you can use this command:
 #	ffmpeg -y -vaapi_device /dev/dri/renderD128 -f x11grab -video_size $(xdpyinfo | grep dimensions | awk '{print $2;}') -framerate 60 -i $DISPLAY -vf 'hwupload,scale_vaapi=format=nv12' -c:v h264_vaapi -qp 24 -f matroska "$HOME/video-$(date '+%y%m%d-%H%M-%S').mkv" &
 	echo $! > /tmp/recordingpid
 	updateicon "⏺️"
@@ -118,7 +117,7 @@ audio() { \
 	}
 
 askrecording() { \
-	choice=$(printf "screencast\\nvideo\\naudio\\nwebcam\\nwebcam (hi-def)\\nvaapicast\\nvaapivideo" | dmenu -i -p "Select recording style:")
+	choice=$(printf "screencast\\nvideo\\naudio\\nwebcam\\nwebcam (hi-def)\\nvaapicast\\nvaapivideo\\nwindow" | dmenu -i -p "Select recording style:")
 	case "$choice" in
 		screencast) screencast;;
 		audio) audio;;
@@ -131,7 +130,7 @@ askrecording() { \
 	}
 
 asktoend() { \
-	response=$(printf "No\\nYes" | dmenu -i -p "Recording still active. End recording?") &&
+	response=$(prompt "Recording still active. End recording?" "echo Yes") &&
 	[ "$response" = "Yes" ] &&  killrecording
 	}
 
