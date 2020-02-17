@@ -32,7 +32,8 @@ set $right l
 # set $menu j4-dmenu-desktop --dmenu='bemenu -i --nb "#3f3f3f" --nf "#dcdccc" --fn "pango:DejaVu Sans Mono 12"' --term='termite'
 set $rwofi wofi --show run
 set $wwofi wofi --show window
-set $menu exec bemenu-run -i -p "Run:"  --fn "pango:monospace 14" --hf "#2B83A6" --tf "#2B83A6"
+# set $menu exec bemenu-run -i -p "Run:"  --fn "pango:monospace 14" --hf "#2B83A6" --tf "#2B83A6"
+set $menu exec bemenu-run -i -p "Run:"  --fn "monospace 14" --hb "#89cff0" --hf "#000000" --tf "#000000" --tb "#2dc7bc" -l 10 
 
 # # Default options
 #for_window [class="^.*"] border pixel 2
@@ -141,6 +142,9 @@ bindsym $mod+Shift+p exec $rwofi
 # Open Camera
 bindsym $mod+c exec "mpv --no-osc --no-input-default-bindings --input-conf=/dev/null --title='mpvfloat' /dev/video0"
 
+#showkeys
+bindsym $mod+Shift+c exec swaykeys
+
 # Volume control
 bindsym $mod+Shift+a exec "$term -e alsamixer"
 
@@ -152,7 +156,7 @@ bindsym $mod+Shift+g		gaps inner current minus 2; gaps outer current minus 2
 bindsym $mod+Shift+d		gaps inner current set 0; gaps outer current set 0
 
 #Emoji selection
-bindsym $mod+i exec bemenuunicode
+bindsym $mod+i exec menuunicode
 
 # You can "split" the current object of your focus with
 # $mod+b or $mod+v, for horizontal and vertical splits
@@ -195,9 +199,9 @@ bindsym $mod+Shift+r reload
 
 # Exit sway (logs you out of your Wayland session)
 #    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
-bindsym $mod+Shift+escape exec "beprompt 'Leave Sway?' 'pkill sway'"
-bindsym $mod+Shift+x exec 'beprompt "Shutdown computer?" "sudo -A shutdown now"'
-bindsym $mod+Shift+BackSpace exec 'beprompt "Reboot computer?" "sudo -A shutdown -r now"'
+bindsym $mod+Shift+escape exec "prompt 'Leave Sway?' 'pkill sway'"
+bindsym $mod+Shift+x exec 'prompt "Shutdown computer?" "sudo -A shutdown now"'
+bindsym $mod+Shift+BackSpace exec 'prompt "Reboot computer?" "sudo -A shutdown -r now"'
 
 # lock screen
 bindsym $mod+Shift+e exec swaylock -eFfki ~/Pictures/lockscreen.jpeg
@@ -269,11 +273,16 @@ floating_modifier $mod normal
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg ~/Pictures/Desktop.jpeg stretch
+output eDP-1 bg ~/Pictures/Desktop.jpeg stretch
+
 
 # Example configuration:
+#output HDMI-A-2 pos 1920 0 res 768x1366 transform 90
+#output eDP-1 pos 0 0 res 1920x1080
+#workspace 3 output HDMI-A-2
+#workspace 2 output edp-1
 #
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
+#output HDMI-A-1 resolution 1920x1080 position 1920,0
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
