@@ -1,0 +1,30 @@
+#!/usr/bin/env sh
+$WAYLAND_DISPLAY 2>/dev/null  && menu="dmenu" || menu="bemenu"
+
+[ "$menu" = "dmenu" ] & xclip -h 2>/dev/null || exit
+[ "$menu" = "bemenu" ] & wl-copy -h >/dev/null || exit
+case $menu in
+	dmenu)
+		chosen=$(grep -v "#" ~/.config/emoji | $menu -i -l 20 -fn Monospace-18)
+		;;
+	bemenu)
+		chosen=$(grep -v "#" ~/.config/emoji | bemenu -i -l 20 --fn "monospace 18" --hb "#89cff0" --hf "#000000" --tf "#000000" --tb "#2dc7bc")
+esac
+
+[ "$chosen" != "" ] || exit
+
+c=$(echo "$chosen" | sed "s/ .*//")
+
+case $menu in
+	dmenu)
+		echo "$c" | tr -d '\n' | xclip -selection clipboard
+		notify-send "'$c' copied to clipboard." &
+		s=$(echo "$chosen" | sed "s/.*; //" | awk '{print $1}')
+		echo "$s" | tr -d '\n' | xclip
+		notify-send "'$s' copied to primary." &
+		;;
+	bemenu)
+		echo "$c" | tr -d '\n' | wl-copy
+		echo "OK" | bemenu -i --fn "monospace 18" --hb "#89cff0" --hf "#000000" --tf "#000000" --tb "#2dc7bc" -p "$c coppied to clipboard"
+esac
+
