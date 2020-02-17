@@ -30,8 +30,8 @@ function defaults {
     dmenu_sbg='#000066'
     dmenu_sfg='#FFFFFF'
     executor='exo-open'
-    editor='geany'
-    filemanager='thunar'
+    editor='nvim'
+    filemanager='lf'
 }
 
 function saveconfig {
@@ -114,13 +114,13 @@ while [ "$file" ]; do
                 ;;
                 'Edit')
                     if [ "$editor" ] && which "$editor" &> /dev/null; then
-                        exec "$editor" "$owd/$file" &
+                        exec $TERMINAL -e "$editor" "$owd/$file" &
                         unset file
-                    elif which geany &> /dev/null; then
-                        exec geany "$owd/$file"
+                    elif which vim &> /dev/null; then
+                        exec $TERMINAL -e vim "$owd/$file"
                         unset file
-                    elif which gedit &> /dev/null; then
-                        exec gedit "$owd/$file"
+                    elif which emacs &> /dev/null; then
+                        exec emacs "$owd/$file"
                         unset file
                     elif which kwrite &> /dev/null; then
                         exec kwrite "$owd/$file"
@@ -174,7 +174,7 @@ while [ "$file" ]; do
                 *) [ "$opt" ] && [ -e "$plugins_dir/operations/$opt" ] && source "$plugins_dir/operations/$opt" ;;
             esac
         elif [[ "$file" =~ '[Open in' ]]; then
-            which "$filemanager" &> /dev/null && exec "$filemanager" . &
+            which "$filemanager" &> /dev/null && exec $TERMINAL -e "$filemanager" . &
             unset file
         elif [[ "$file" == '[Preferences]' ]]; then
             opt=1
