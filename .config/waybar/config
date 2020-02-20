@@ -95,27 +95,18 @@
 	},
 	"pulseaudio": {
 //		"scroll-step": 1, // %, can be a float
-		"format": "{icon} {volume}% {format-source}",
+		"format": "{icon} {volume}% {format_source}",
 //		"format": "{icon} {volume}%",
 		"format-muted": "🔇",
 		"format-bluetooth": "{icon} {volume}%",
 		"format-bluetooth-muted": "🔇",
-		"format-icons": {
-		"headphones": "🎧",
-    		"handsfree": "🎵",
-		"headset": "🎶",
-		"phone": "",
-		"portable": "",
-		"car": "",
-		"default": ["", ""]
-		},
 		"format-source": " {volume}%",
 		"format-source-muted": "",
 
 		"format-icons": {
-			"headphones": "",
-			"handsfree": "",
-			"headset": "",
+			"headphones": "🎧",
+    			"handsfree": "🎵",
+			"headset": "🎶",
 			"phone": "",
 			"portable": "",
 			"car": "",
