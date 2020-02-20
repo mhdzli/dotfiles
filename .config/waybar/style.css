@@ -7,7 +7,7 @@
 }
 
 window#waybar {
-	background: rgba(43,48,59, 0.9);
+	background: rgba(48,48,59, 0.9);
 	color: #ffffff;
 }
 
@@ -18,13 +18,14 @@ window#waybar {
 
 #workspaces {
 	font-size: 8px;
-	padding: 0 5px;
+	padding: 0 2px;
 }
 
 #workspaces button {
 	padding: 0 5px;
-	background: transparent;
-	color: #ff8700;
+	background: rgba(0, 0, 28, 0.8);
+	color: #e7f2f2;
+	margin: 0 1px; 
 }
 #workspaces button:hover {
 	box-shadow: inherit;
@@ -32,8 +33,10 @@ window#waybar {
 }
 
 #workspaces button.focused {
+	padding: 0 5px;
 	background: #00afd7;
 	color: #1b1d1e;
+	margin: 0 1px;
 }
 
 #workspaces button.urgent {
@@ -45,8 +48,10 @@ window#waybar {
 	background: #af005f;
 }
 
-#clock, #battery, #cpu, #memory, #network, #pulseaudio, #custom-spotify, #tray, #mode {
+#clock, #custom-jalalidate, #custom-weather, #custom-disk_home, #custom-disk_root, #temperature, #cpu, #memory, #network, #backlight, #pulseaudio, #battery, #tray, #idle_inhibitor {
 	padding: 0 3px;
+/*	background-color: #000000; */
+	background: rgba(0, 0, 28, 0.8);
 	margin: 0 2px;
 }
 

@@ -6,6 +6,8 @@
 
 //	Choose the order of the modules
 	"modules-left": [
+		"custom/disk_home",
+		"custom/disk_root",
 		"sway/workspaces",
 		"sway/mode"
 	],
@@ -15,11 +17,10 @@
 		"custom/jalalidate"
 	],
 	"modules-right": [
-		"custom/disk_home",
-		"custom/disk_root",
-		"temperature",
-		"cpu",
-		"memory",
+		"custom/weather",
+//		"temperature",
+//		"cpu",
+//		"memory",
 		"network",
 		"backlight",
 		"pulseaudio",
@@ -30,28 +31,56 @@
 	"sway/mode": {
 		"format": "{}" 
 	},
-	"custom/disk_home": {
-		"format": "🏠 {} ",
-		"interval": 30,
-		"exec": "df -h --output=avail $HOME | tail -1 | tr -d ' '"
+	
+	"backlight": {
+//		"device": "acpi_video1",
+		"format": "{icon} {percent}%",
+		"format-icons": ["🔅", "🔆"]
 	},
-	"custom/disk_root": {
-		"format": "💽 {} ",
-		"interval": 30,
-		"exec": "df -h --output=avail / | tail -1 | tr -d ' '"
+
+	"battery": {
+		"states": {
+			// "good": 95,
+			"warning": 20,
+			"critical": 10
+		},
+		"format": "<span color='#e88939'>{icon}</span> {capacity}%",
+		
+		"format-charging": "<span color='#e88939'> </span> {capacity}% ({time})",
+		"format-plugged":  "<span color='#e88939'>{icon}  </span> {capacity}%",
+//		"format-good": "", // An empty format will hide the module
+		"format-discharging": "<span color='#e88939'>{icon}</span> {capacity}% ({time})",
+		"format-icons": ["", "", "", "", ""]
 	},
-	"temperature": {
-//		"thermal-zone": 2,
-//		"hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-		"critical-threshold": 80,
-//		"format-critical": "{temperatureC}°C {icon}",
-		"format": "<span color='#e88939'>{icon}</span> {temperatureC}°C",
-		"format-icons": ["", "", ""]
+
+	"clock#1": {
+		"interval": 60,
+		"format": "⏰ {:%H:%M}",
+		"tooltip-format": "{:%Y-%m-%d | %H:%M:%S}"
+		// "format-alt": "{:%Y-%m-%d}"
 	},
+
+	"clock#2": {
+		"interval": 3600,
+		"format": "{:%F} 📅",
+		"tooltip-format": "{:%Y-%m-%d | %H:%M:%S}"
+		// "format-alt": "{:%Y-%m-%d}"
+	},
+
 	"cpu": {
 		"format": "🏭 {usage}%",
 		"tooltip": false
 	},
+
+	"idle_inhibitor": {
+		"format": "<span color='#589df6'>{icon}</span>",
+		"format-icons": {
+			"activated": "",
+			"deactivated": ""
+		},
+		"on-click-right": "swaylock -eFfki ~/Pictures/lockscreen.jpeg"
+	},
+
 	"memory": {
 		"format": "💾 {used:0.1f}G"
 	},
@@ -63,11 +92,6 @@
 		"format-disconnected": "Disconnected ⚠",
 		"format-alt": "{ifname}: {ipaddr}/{cidr}",
 		"interval": 60
-	},
-	"backlight": {
-//		"device": "acpi_video1",
-		"format": "{icon} {percent}%",
-		"format-icons": ["🔅", "🔆"]
 	},
 	"pulseaudio": {
 //		"scroll-step": 1, // %, can be a float
@@ -91,49 +115,46 @@
 		"on-click": "ponymix -N -t sink toggle",
 		"on-click-right": "ponymix -N -t source toggle"
 	},
-	"clock#1": {
-		"interval": 60,
-		"format": "⏰ {:%H:%M}",
-		"tooltip-format": "{:%Y-%m-%d | %H:%M:%S}"
-		// "format-alt": "{:%Y-%m-%d}"
+
+	"temperature": {
+//		"thermal-zone": 2,
+//		"hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+		"critical-threshold": 80,
+//		"format-critical": "{temperatureC}°C {icon}",
+		"format": "<span color='#e88939'>{icon}</span> {temperatureC}°C",
+		"format-icons": ["", "", ""]
 	},
-	"clock#2": {
-		"interval": 3600,
-		"format": "📅 {:%F}",
-		"tooltip-format": "{:%Y-%m-%d | %H:%M:%S}"
-		// "format-alt": "{:%Y-%m-%d}"
-	},
-	"custom/jalalidate": {
-		"format": " | {}",
-		"interval": 3600,
-		"exec": "jalalidate"
-	},
-	"battery": {
-		"states": {
-			// "good": 95,
-			"warning": 20,
-			"critical": 10
-		},
-		"format": "<span color='#e88939'>{icon}</span> {capacity}% ({time})",
-		"format-charging": "<span color='#e88939'> </span> {capacity}%",
-		"format-plugged":  "<span color='#e88939'>{icon} </span> {capacity}% ({time})",
-//		"format-good": "", // An empty format will hide the module
-//		"format-full": "",
-		"format-icons": ["", "", "", "", ""]
-	},
-	"battery#bat2": {
-		"bat": "BAT2"
-	},
-	"idle_inhibitor": {
-		"format": "<span color='#589df6'>{icon}</span>",
-		"format-icons": {
-			"activated": "",
-			"deactivated": ""
-		},
-		"on-click-right": "swaylock -eFfki ~/Pictures/lockscreen.jpeg"
-	},
+
 	"tray": {
 		"icon-size": 21,
 		"spacing": 10
+	},
+
+	"custom/disk_home": {
+		"format": "🏠 {} ",
+		"interval": 30,
+		"exec": "df -h --output=avail $HOME | tail -1 | tr -d ' '"
+	},
+
+	"custom/disk_root": {
+		"format": "💽 {} ",
+		"interval": 30,
+		"exec": "df -h --output=avail / | tail -1 | tr -d ' '"
+	},
+
+	"custom/jalalidate": {
+		"format": "{}",
+		"interval": 3600,
+		"exec": "jalalidate"
+	},
+
+	"custom/weather": {
+        "format": "{}",
+        "format-alt": "{alt}: {}",
+        "format-alt-click": "click-right",
+        "interval": 1800,
+        "exec": "weather",
+        "exec-if": "ping openweathermap.org -c1"
 	}
+
 }

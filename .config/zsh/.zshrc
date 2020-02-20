@@ -1,7 +1,7 @@
 
 autoload -U colors && colors
 PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$reset_color%}   %B%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$fg[green]%}$%b "
-
+if [ -n "$RANGER_LEVEL" ]; then export PS1="[ranger]$PS1"; fi
 autoload -U promptinit; promptinit
 prompt spaceship
 SPACESHIP_PROMPT_ADD_NEWLINE=false
