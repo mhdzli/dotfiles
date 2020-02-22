@@ -1,5 +1,10 @@
 #!/usr/bin/env sh
-chosen=$(sed 's/\[\"//g;s/\"\]/\n/g;s/\",\"/\n/g;s/\\\\/\\/g;s/\\u0026/\&/g;s/\\\"/\"/g;s/\\u003c/\</g;s/\\u003e/\>/g' .local/share/clipman/clipman-primary.json | tac | bemenu -i -l 20 --fn "monospace 18" --hb "#89cff0" --hf "#000000" --tf "#000000" --tb "#2dc7bc")
+
+c=$(sed -e 's/%/%%/g;s/..//;s/..$/\\/;s/\",\"/\\n/g' /home/mzeinali/.local/share/clipman/clipman-primary.json)
+
+chosen=$(printf "$c" | tac | bemenu -i -l 20 --fn "monospace 18" --hb "#89cff0" --hf "#000000" --tf "#000000" --tb "#2dc7bc")
+
+#chosen=$(sed 's/..//;s/..$//;s/\",\"/\n/g;s/\\\\/\\/g;s/\\u0026/\&/g;s/\\\"/\"/g;s/\\u003c/\</g;s/\\u003e/\>/g' .local/share/clipman/clipman-primary.json | tac | bemenu -i -l 20 --fn "monospace 18" --hb "#89cff0" --hf "#000000" --tf "#000000" --tb "#2dc7bc")
 
 [ "$chosen" != "" ] || exit
 echo $chosen | wl-copy
