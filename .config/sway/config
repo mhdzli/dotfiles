@@ -30,16 +30,17 @@ exec wl-paste -p -t text --watch clipman store --histpath="~/.local/share/clipma
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-# set $menu bemenu
+# set $menu swaymsg exec BEMENU_BACKEND=wayland "$(dmenu_path | bemenu -b --list 20)"
 # set $menu dmenu_path | dmenu | xargs swaymsg exec --
 # set $menu dmenu_path | dmenu -fn "Terminus (TTF):pixelsize=28" | xargs swaymsg exec
-#set $_menu bemenu --fn "Monospace 12" --hf "#2B83A6" --tf "#2B83A6" -p
-#set $menu dmenu_path | $_menu "" | xargs -rI{} swaymsg "exec {}"
+# set $_menu bemenu --fn "Monospace 12" --hf "#2B83A6" --tf "#2B83A6" -p
+# set $menu dmenu_path | $_menu "" | xargs -rI{} swaymsg "exec {}"
 # set $menu j4-dmenu-desktop --dmenu='bemenu -i --nb "#3f3f3f" --nf "#dcdccc" --fn "pango:DejaVu Sans Mono 12"' --term='termite'
 set $rwofi wofi --show run
 set $wwofi wofi --show window
 # set $menu exec bemenu-run -i -p "Run:"  --fn "pango:monospace 14" --hf "#2B83A6" --tf "#2B83A6"
 set $menu exec bemenu-run -i -p "Run:"  --fn "monospace 14" --hb "#89cff0" --hf "#000000" --tf "#000000" --tb "#2dc7bc" -l 10 
+
 
 # # Default options
 #for_window [class="^.*"] border pixel 2
