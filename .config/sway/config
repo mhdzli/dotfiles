@@ -163,7 +163,7 @@ bindsym $mod+Shift+g		gaps inner current minus 2; gaps outer current minus 2
 bindsym $mod+Shift+d		gaps inner current set 0; gaps outer current set 0
 
 #Emoji selection
-bindsym $mod+i exec menuunicode
+bindsym $mod+Shift+i exec menuunicode
 
 
 # You can "split" the current object of your focus with
@@ -272,6 +272,7 @@ mode "opacity" {
 bindsym $mod+Shift+t mode "opacity"
 
 bindsym $mod+Shift+v exec 'clipman pick -t bemenu --histpath="~/.local/share/clipman/clipman-primary.json"'
+bindsym $mod+i exec "wclipboard"
 
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
