@@ -12,7 +12,7 @@ set $mod Mod4
 # xwayland disable
 
 # Your preferred terminal emulator
-set $term termite
+set $term alacritty
 # set $term kitty -e tmux
 
 # Home row direction keys, like vim
@@ -20,6 +20,12 @@ set $left h
 set $down j
 set $up k
 set $right l
+
+# Clipboard manager
+
+exec wl-paste -t text --watch clipman store 1>> ~/.local/share/clipman/clipman.log 2>&1 &
+
+exec wl-paste -p -t text --watch clipman store --histpath="~/.local/share/clipman/clipman-primary.json"
 
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
@@ -158,6 +164,7 @@ bindsym $mod+Shift+d		gaps inner current set 0; gaps outer current set 0
 #Emoji selection
 bindsym $mod+i exec menuunicode
 
+
 # You can "split" the current object of your focus with
 # $mod+b or $mod+v, for horizontal and vertical splits
 # respectively.
@@ -219,7 +226,7 @@ bindsym XF86Display exec "sh ~/.local/bin/key_screen.sh"
 bindsym print exec bemenuscreenshot
 bindsym $mod+print exec bemenurecord
 #Launch applications
-bindsym $mod+Shift+w exec midori
+bindsym $mod+Shift+w exec $BROWSER
 # Resizing containers:
 mode "resize" {
     # These bindings trigger as soon as you enter the resize mode
@@ -247,21 +254,23 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 mode "opacity" {
-    bindsym 0 opacity 1.0
-    bindsym 1 opacity 0.1
-    bindsym 2 opacity 0.2
-    bindsym 3 opacity 0.3
-    bindsym 4 opacity 0.4
-    bindsym 5 opacity 0.5
-    bindsym 6 opacity 0.6
-    bindsym 7 opacity 0.7
-    bindsym 8 opacity 0.8
-    bindsym 9 opacity 0.9
+    bindsym 0 opacity 1
+    bindsym 1 opacity 0.55
+    bindsym 2 opacity 0.60
+    bindsym 3 opacity 0.65
+    bindsym 4 opacity 0.70
+    bindsym 5 opacity 0.75
+    bindsym 6 opacity 0.80
+    bindsym 7 opacity 0.85
+    bindsym 8 opacity 0.90
+    bindsym 9 opacity 0.95
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 bindsym $mod+Shift+t mode "opacity"
+
+bindsym $mod+Shift+v exec 'clipman pick -t bemenu --histpath="~/.local/share/clipman/clipman-primary.json"'
 
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
