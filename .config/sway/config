@@ -6,41 +6,42 @@
 
 # font Terminus (TTF)
 ### Variables
-#
+
 # Logo key. Use Mod1 for Alt.
-set $mod Mod4
+set $mod	Mod4
+
+# Run pure wayland
 # xwayland disable
 
 # Your preferred terminal emulator
-set $term alacritty
-# set $term kitty -e tmux
+set $term	alacritty
+# set $term	kitty -e tmux
 
 # Home row direction keys, like vim
-set $left h
-set $down j
-set $up k
-set $right l
+set $left	h
+set $down	j
+set $up		k
+set $right	l
 
 # Clipboard manager
-
 exec wl-paste -t text --watch clipman store 1>> ~/.local/share/clipman/clipman.log 2>&1 &
-
 exec wl-paste -p -t text --watch clipman store --histpath="~/.local/share/clipman/clipman-primary.json"
 
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-# set $menu swaymsg exec BEMENU_BACKEND=wayland "$(dmenu_path | bemenu -b --list 20)"
-# set $menu dmenu_path | dmenu | xargs swaymsg exec --
-# set $menu dmenu_path | dmenu -fn "Terminus (TTF):pixelsize=28" | xargs swaymsg exec
-# set $_menu bemenu --fn "Monospace 12" --hf "#2B83A6" --tf "#2B83A6" -p
-# set $menu dmenu_path | $_menu "" | xargs -rI{} swaymsg "exec {}"
-# set $menu j4-dmenu-desktop --dmenu='bemenu -i --nb "#3f3f3f" --nf "#dcdccc" --fn "pango:DejaVu Sans Mono 12"' --term='termite'
-set $rwofi wofi --show run
-set $wwofi wofi --show window
-# set $menu exec bemenu-run -i -p "Run:"  --fn "pango:monospace 14" --hf "#2B83A6" --tf "#2B83A6"
-set $menu exec bemenu-run -i -p "Run:"  --fn "monospace 14" --hb "#89cff0" --hf "#000000" --tf "#000000" --tb "#2dc7bc" -l 10 
+# set $menu	swaymsg exec BEMENU_BACKEND=wayland "$(dmenu_path | bemenu -b --list 20)"
+# set $menu	dmenu_path | dmenu | xargs swaymsg exec --
+# set $menu	dmenu_path | dmenu -fn "Terminus (TTF):pixelsize=28" | xargs swaymsg exec
+# set $menu	bemenu --fn "Monospace 12" --hf "#2B83A6" --tf "#2B83A6" -p
+# set $menu	dmenu_path | $_menu "" | xargs -rI{} swaymsg "exec {}"
+# set $menu	j4-dmenu-desktop --dmenu='bemenu -i --nb "#3f3f3f" --nf "#dcdccc" --fn "pango:DejaVu Sans Mono 12"' --term='termite'
+# set $menu	exec bemenu-run -i -p "Run:"  --fn "pango:monospace 14" --hf "#2B83A6" --tf "#2B83A6"
+set $menu	exec bemenu-run -i -p "Run:"  --fn "monospace 14" --hb "#89cff0" --hf "#000000" --tf "#000000" --tb "#2dc7bc" -l 10 
 
+# Another alternative use wofi
+# set $rwofi wofi --show run
+# set $wwofi wofi --show window
 
 # # Default options
 #for_window [class="^.*"] border pixel 2
@@ -52,16 +53,16 @@ gaps outer 4
 seat * hide_cursor 3000
 
 # Defining colors
-set $white	#ffffff
-set $cyan	#00afd7
-set $acqua	#00d787 
-set $wine 	#72003e
-set $magenta 	#af005f
-set $orange 	#ff8700
-set $silver 	#e4e4e4
-set $elegant	#1b1d1e
-set $transparent #000000
-#set $transparent #0000007f
+set $white		#ffffff
+set $cyan		#00afd7
+set $acqua		#00d787 
+set $wine		#72003e
+set $magenta		#af005f
+set $orange		#ff8700
+set $silver		#e4e4e4
+set $elegant		#1b1d1e
+set $transparent	#000000
+#set $transparent	#0000007f
 # Set some nice 	colors		border		background	text		indicator	child_border
 client.focused		$elegant	$cyan		$elegant	$white		$cyan
 client.unfocused	$elegant	$elegant	$orange		$white		$elegant
@@ -70,124 +71,123 @@ client.urgent		$elegant	$magenta	$silver		$magenta	$magenta
 client.placeholder	$elegant	$magenta	$silver		$white		$magenta
 
 # Workspaces:
-
-set $ws1 "1:🐧"
-set $ws2 "2:🦊"
-set $ws3 "3:🌍" 
-set $ws4 "4:🎥" 
-set $ws5 "5:📷"
-set $ws6 "6:🎷"
-set $ws7 "7:📮"
-set $ws8 "8:📖" 
-set $ws9 "9:💻"
-set $ws10 "10:🔧"
+set $ws1	"1:🐧"
+set $ws2	"2:🦊"
+set $ws3	"3:🌍" 
+set $ws4	"4:🎥" 
+set $ws5	"5:📷"
+set $ws6	"6:🎷"
+set $ws7	"7:📮"
+set $ws8	"8:📖" 
+set $ws9	"9:💻"
+set $ws10	"10:🔧"
 
 ### Key bindings
 
 # switch to workspace
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
-bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
+bindsym $mod+1		workspace $ws1
+bindsym $mod+2		workspace $ws2
+bindsym $mod+3		workspace $ws3
+bindsym $mod+4		workspace $ws4
+bindsym $mod+5		workspace $ws5
+bindsym $mod+6		workspace $ws6
+bindsym $mod+7		workspace $ws7
+bindsym $mod+8		workspace $ws8
+bindsym $mod+9		workspace $ws9
+bindsym $mod+0		workspace $ws10
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4
-bindsym $mod+Shift+5 move container to workspace $ws5
-bindsym $mod+Shift+6 move container to workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7
-bindsym $mod+Shift+8 move container to workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $ws9
-bindsym $mod+Shift+0 move container to workspace $ws10
+bindsym $mod+Shift+1	move container to workspace $ws1
+bindsym $mod+Shift+2	move container to workspace $ws2
+bindsym $mod+Shift+3	move container to workspace $ws3
+bindsym $mod+Shift+4	move container to workspace $ws4
+bindsym $mod+Shift+5	move container to workspace $ws5
+bindsym $mod+Shift+6	move container to workspace $ws6
+bindsym $mod+Shift+7	move container to workspace $ws7
+bindsym $mod+Shift+8	move container to workspace $ws8
+bindsym $mod+Shift+9	move container to workspace $ws9
+bindsym $mod+Shift+0	move container to workspace $ws10
 
 # Moving around:
 #
 # Move your focus around
-bindsym $mod+$left focus left
-bindsym $mod+$down focus down
-bindsym $mod+$up focus up
-bindsym $mod+$right focus right
+bindsym $mod+$left	focus left
+bindsym $mod+$down	focus down
+bindsym $mod+$up	focus up
+bindsym $mod+$right	focus right
 # Or use $mod+[up|down|left|right]
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+bindsym $mod+Left	focus left
+bindsym $mod+Down	focus down
+bindsym $mod+Up		focus up
+bindsym $mod+Right	focus right
 
 # Move the focused window with the same, but add Shift
-bindsym $mod+Shift+$left move left
-bindsym $mod+Shift+$down move down
-bindsym $mod+Shift+$up move up
-bindsym $mod+Shift+$right move right
+bindsym $mod+Shift+$left	move left
+bindsym $mod+Shift+$down	move down
+bindsym $mod+Shift+$up		move up
+bindsym $mod+Shift+$right	move right
 # Ditto, with arrow keys
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+Left 	move left
+bindsym $mod+Shift+Down		move down
+bindsym $mod+Shift+Up		move up
+bindsym $mod+Shift+Right	move right
 
 # Basics:
 #
 # Start a terminal
-bindsym $mod+Return exec $term
-bindsym $mod+Tab workspace back_and_forth
+bindsym $mod+Return	exec $term
+bindsym $mod+Tab	workspace back_and_forth
 
 # Kill focused window
-bindsym $mod+q kill
+bindsym $mod+q 		kill
 
 # Start your launcher
-bindsym $mod+d exec $menu
-bindsym $mod+p exec $rwofi
-bindsym $mod+Shift+p exec $rwofi
+bindsym $mod+d		exec $menu
+# bindsym $mod+?	exec $rwofi
+# bindsym $mod+?	exec $rwofi
 
 # Open Camera
-bindsym $mod+c exec "mpv --no-osc --no-input-default-bindings --input-conf=/dev/null --title='mpvfloat' /dev/video0"
+bindsym $mod+c 		exec "mpv --no-osc --no-input-default-bindings --input-conf=/dev/null --title='mpvfloat' /dev/video0"
 
 #showkeys
-bindsym $mod+Shift+c exec swaykeys
+bindsym $mod+m		exec swaykeys
 
 # Volume control
-bindsym $mod+Shift+a exec "$term -e alsamixer"
+bindsym $mod+a		exec "$term -e alsamixer"
 
 # Layout stuff:
-bindsym $mod+s			split toggle
-bindsym $mod+equal		gaps inner current set 4; gaps outer current set 4
-bindsym $mod+g			gaps inner current plus 2; gaps outer current plus 2
-bindsym $mod+Shift+g		gaps inner current minus 2; gaps outer current minus 2
-bindsym $mod+Shift+d		gaps inner current set 0; gaps outer current set 0
+bindsym $mod+t			split toggle
+bindsym $mod+Shift+minus	gaps inner current set 0; gaps outer current set 0
+bindsym $mod+equal		gaps inner current plus 2; gaps outer current plus 2
+bindsym $mod+minus		gaps inner current minus 2; gaps outer current minus 2
+bindsym $mod+plus		gaps inner current set 4; gaps outer current set 4
 
-#Emoji selection
-bindsym $mod+Shift+i exec menuunicode
+# Emoji selection
+bindsym $mod+i exec 	menuunicode
 
 
-# You can "split" the current object of your focus with
-# $mod+b or $mod+v, for horizontal and vertical splits
+# You can "split" the current object of your focus 
+# for horizontal and vertical splits
 # respectively.
-bindsym $mod+b splith
-bindsym $mod+v splitv
+# bindsym $mod+?	splith
+# bindsym $mod+?	splitv
 
 # Switch the current container between different layout styles
-bindsym $mod+Shift+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+bindsym $mod+Shift+s	layout stacking
+bindsym $mod+Shift+w	layout tabbed
+bindsym $mod+Shift+e	layout toggle split
 
 # Make the current focus fullscreen
-bindsym $mod+f fullscreen
+bindsym $mod+f			fullscreen
 
 # Toggle the current focus between tiling and floating mode
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+Shift+space	floating toggle
 
 # Swap focus between the tiling area and the floating area
-bindsym $mod+space focus mode_toggle
+bindsym $mod+space 		focus mode_toggle
 
 # Move focus to the parent container
-bindsym $mod+a focus parent
+bindsym $mod+Shift+a		focus parent
 #
 # Scratchpad:
 #
@@ -195,39 +195,44 @@ bindsym $mod+a focus parent
 # You can send windows there and get them back later.
 
 # Move the currently focused window to the scratchpad
-bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+Shift+grave 	move scratchpad
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
-bindsym $mod+minus scratchpad show
+bindsym $mod+grave		scratchpad show
 #
 
 # Reload the configuration file
-bindsym $mod+Shift+r reload
+bindsym $mod+Shift+r		reload
 
 # Exit sway (logs you out of your Wayland session)
-#    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
-bindsym $mod+Shift+escape exec "prompt 'Leave Sway?' 'pkill sway'"
-bindsym $mod+Shift+x exec 'prompt "Shutdown computer?" "sudo -A shutdown now"'
-bindsym $mod+Shift+BackSpace exec 'prompt "Reboot computer?" "sudo -A shutdown -r now"'
+# bindsym $mod+? exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+bindsym $mod+escape		exec "prompt 'Leave Sway?' 'pkill sway'"
+bindsym $mod+x			exec 'prompt "Shutdown computer?" "sudo -A shutdown now"'
+bindsym $mod+BackSpace		exec 'prompt "Reboot computer?" "sudo -A shutdown -r now"'
 
 # lock screen
-bindsym $mod+Shift+e exec swaylock -eFfki ~/Pictures/lockscreen.jpeg
+bindsym $mod+e			exec swaylock -eFfki ~/Pictures/lockscreen.jpeg
 
 # Function keys
-# bindsym XF86MonBrightnessUp exec light -A 5
+# bindsym XF86MonBrightnessUp 	exec light -A 5
 # bindsym XF86MonBrightnessDown exec light -U 5
-bindsym XF86AudioLowerVolume exec "sh ~/.local/bin/key_sound.sh down"
-bindsym XF86AudioRaiseVolume exec "sh ~/.local/bin/key_sound.sh up"
-bindsym XF86AudioMute exec "sh ~/.local/bin/key_sound.sh mute"
-bindsym XF86MonBrightnessUp exec incbrightness 
-bindsym XF86MonBrightnessDown exec decbrightness
-bindsym XF86Display exec "sh ~/.local/bin/key_screen.sh"
+bindsym XF86AudioLowerVolume	exec "sound down"
+bindsym XF86AudioRaiseVolume	exec "sound up"
+bindsym XF86AudioMute		exec "sound mute"
+bindsym XF86MonBrightnessUp	exec incbrightness 
+bindsym XF86MonBrightnessDown	exec decbrightness
+bindsym XF86Display		exec "wdisplays"
 #screencapture
-bindsym print exec bemenuscreenshot
-bindsym $mod+print exec bemenurecord
+bindsym print			exec grim "pic-full-$(date '+%y%m%d-%H%M-%S').png"
+bindsym Shift+print		exec bemenuscreenshot
+bindsym $mod+print		exec bemenurecord
 #Launch applications
-bindsym $mod+Shift+w exec $BROWSER
+bindsym $mod+w			exec $BROWSER
+bindsym $mod+g			exec gimp
+bindsym $mod+s			exec "$term -e lf"
+
+
 # Resizing containers:
 mode "resize" {
     # These bindings trigger as soon as you enter the resize mode
@@ -269,10 +274,10 @@ mode "opacity" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+Shift+t mode "opacity"
+bindsym $mod+o		mode "opacity"
 
-bindsym $mod+Shift+v exec 'clipman pick -t bemenu --histpath="~/.local/share/clipman/clipman-primary.json"'
-bindsym $mod+i exec "wclipboard"
+bindsym $mod+Shift+v	exec 'clipman pick -t bemenu --histpath="~/.local/share/clipman-primary.json"'
+bindsym $mod+v		exec "wclipboard"
 
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
@@ -284,7 +289,7 @@ floating_modifier $mod normal
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output eDP-1 bg ~/Pictures/Desktop.jpeg stretch
+output * bg ~/Pictures/Desktop.jpeg stretch
 
 
 # Example configuration:
@@ -378,3 +383,127 @@ include /etc/sway/config.d/*
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
 
+## bindings help
+
+## $mod+[1-9,0]		workspace[1-10]
+## $mod+Shift+[1-9,0]	move to workspace[1-10]
+## 
+## $mod+a			alsamixer 
+## $mod+b
+## $mod+c			webcam
+## $mod+d			$MENU
+## $mod+e			lockscreen
+## $mod+f			fullscreen
+## $mod+g			gimp
+## $mod+h			focus left
+## $mod+i			select emoji
+## $mod+j			focus down
+## $mod+k			focus up
+## $mod+l			focus right
+## $mod+m			exec swaykeys
+## $mod+n
+## $mod+o			opacity
+## $mod+p
+## $mod+q			kill
+## $mod+r			resize
+## $mod+s			$FILEMANAGER
+## $mod+t			split toggle
+## $mod+u
+## $mod+v			clipboard
+## $mod+w			$BROWSER
+## $mod+x			shutdown
+## $mod+y		
+## $mod+z		
+## $mod+space		focus mod_toggle
+## 
+## $mod+Shift+a		focus parent
+## $mod+Shift+b
+## $mod+Shift+c
+## $mod+Shift+d		
+## $mod+Shift+e		layout toggle split
+## $mod+Shift+f
+## $mod+Shift+g		decrease gaps
+## $mod+Shift+h		move left
+## $mod+Shift+i
+## $mod+Shift+j		move down
+## $mod+Shift+k		move up
+## $mod+Shift+l		move right
+## $mod+Shift+m
+## $mod+Shift+n
+## $mod+Shift+o
+## $mod+Shift+p
+## $mod+Shift+q
+## $mod+Shift+r		reload
+## $mod+Shift+s		layout stacking
+## $mod+Shift+t
+## $mod+Shift+u
+## $mod+Shift+v		clipman
+## $mod+Shift+w		layout tabbed
+## $mod+Shift+x
+## $mod+Shift+y
+## $mod+Shift+z
+## $mod+Shift+space	floating toggle
+## 
+## F1
+## F2
+## F3
+## F4
+## F5			decrease brightness
+## F6			increase brightness
+## F7		
+## F8			displayselect
+## F9	
+## F10			mute
+## F11			decrease audio
+## F12			increase audio
+## print			fullscreen screenshot
+## 
+## Shift+F1
+## Shift+F2
+## Shift+F3
+## Shift+F4
+## Shift+F5
+## Shift+F6
+## Shift+F7
+## Shift+F8
+## Shift+F9
+## Shift+F10
+## Shift+F11
+## Shift+F12
+## Shift+print		screenshot
+## 
+## $mod+F1
+## $mod+F2
+## $mod+F3
+## $mod+F4
+## $mod+F5
+## $mod+F6
+## $mod+F7
+## $mod+F8
+## $mod+F9
+## $mod+F10
+## $mod+F11
+## $mod+F12
+## 
+## $mod+plus		default gaps
+## $mod+equal		increase gaps
+## $mod+minus		decrease gaps
+## $mod+grave		scratchpad show
+## $mod+Escape		exit
+## $mod+BackSpace		reboot
+## $mod+Return		$TERMINAL
+## $mod+left		focus left
+## $mod+right		focus right
+## $mod+up			focus up
+## $mod+down		focus down
+## 
+## $mod+Shift+grave	move scratchpad
+## $mod+Shift+minus	zero gaps
+## $mod+Shift+Escape
+## $mod+Shift+BackSpace
+## $mod+Shift+Return
+## $mod+Shift+left		move left
+## $mod+Shift+right		move right
+## $mod+Shift+up		move up
+## $mod+Shift+down		move down
+##

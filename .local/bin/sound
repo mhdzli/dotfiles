@@ -1,0 +1,24 @@
+#!/bin/sh
+
+usage="usage: $0 -c {up|down|mute} [-i increment] [-m mixer]"
+increment=5%
+mixer=Master
+
+while getopts i:m:h o
+do case "$o" in
+    i) increment=$OPTARG;;
+    m) mixer=$OPTARG;;
+    h) echo "$usage"; exit 0;;
+    ?) echo "$usage"; exit 0;;
+esac
+done
+
+shift $(($OPTIND - 1))
+
+
+case "$1" in
+	up) amixer sset Master 5%+;;
+	down) amixer sset Master 5%-;;
+	mute) amixer sset Master toggle;;
+	*) echo "usage: $0 {up|down|mute} [increment]";;
+esac
