@@ -28,7 +28,8 @@
 		"pulseaudio",
 		"battery",
 		"idle_inhibitor",
-		"tray"],
+		"tray",
+		"custom/wkblayout"],
 
 	"sway/mode": {
 		"format": "{}" 
@@ -63,7 +64,7 @@
 	},
 
 	"clock#2": {
-		"interval": 3600,
+		"interval": 18000,
 		"format": "{:%F} 📅",
 		"tooltip-format": "{:%Y-%m-%d | %H:%M:%S}"
 		// "format-alt": "{:%Y-%m-%d}"
@@ -84,7 +85,8 @@
 	},
 /*
 	"memory": {
-		"format": "💾 {used:0.1f}G"
+		"format": "💾 {used:0.1f}G",
+		"tooltip": false
 	},
 */
 	"network": {
@@ -93,8 +95,9 @@
 		"format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
 		"format-linked": "{ifname} (No IP) ",
 		"format-disconnected": "Disconnected ⚠",
-		"format-alt": "{ifname}: {ipaddr}/{cidr}",
-		"interval": 60
+		"format-alt": "<span color='gray'>{ipaddr}</span> <span color='green'>⬇</span>{bandwidthDownBits} <span color='green'>⬆</span>{bandwidthUpBits}",
+		"interval": 60,
+		"tooltip-format": "{ifname}↪{ipaddr}"
 	},
 
 	"pulseaudio": {
@@ -126,7 +129,8 @@
 		"critical-threshold": 80,
 //		"format-critical": "{temperatureC}°C {icon}",
 		"format": "<span color='#e88939'>{icon}</span> {temperatureC}°C",
-		"format-icons": ["", "", ""]
+		"format-icons": ["", "", ""],
+		"tooltip": false
 	},
 */
 	"tray": {
@@ -136,30 +140,43 @@
 
 	"custom/disk_home": {
 		"format": "🏠 {} ",
-		"interval": 30,
-		"exec": "df -h --output=avail $HOME | tail -1 | tr -d ' '"
+		"interval": 3600,
+		"exec": "df -h --output=avail $HOME | tail -1 | tr -d ' '",
+		"tooltip": "false"
 	},
 
 	"custom/disk_root": {
 		"format": "💽 {} ",
-		"interval": 30,
-		"exec": "df -h --output=avail / | tail -1 | tr -d ' '"
+		"interval": 3600,
+		"exec": "df -h --output=avail / | tail -1 | tr -d ' '",
+		"tooltip": "false"
 	},
 
 	"custom/jalalidate": {
 		"format": "{}",
-		"interval": 3600,
+		"interval": 18000,
 //		"exec": "jalalidate"
-		"exec": "pcal -t"
+		"exec": "pcal -t",
+		"tooltip": "false"
 	},
 
 	"custom/weather": {
-        "format": "{}",
-        "format-alt": "{alt}: {}",
-        "format-alt-click": "click-right",
-        "interval": 1800,
-        "exec": "weather",
-        "exec-if": "ping openweathermap.org -c1"
+		"format": "{}",
+		"interval": 18000,
+		"exec": "weather",
+		"exec-if": "ping openweathermap.org -c1",
+		"tooltip": "false"
+	},
+
+	"custom/wkblayout": {
+		"format": "{}",
+		"format-alt": "{alt}{}",
+//		"format-alt-click": "click-right",
+		"interval": 30,
+		"signal": 1,
+		"exec": "wkblayout",
+		"exec-if": "echo 1",
+		"tooltip": "false"
 	}
 
 }
