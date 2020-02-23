@@ -11,11 +11,13 @@
 		"sway/workspaces",
 		"sway/mode"
 	],
+
 	"modules-center": [
 		"clock#1",
 		"clock#2",
 		"custom/jalalidate"
 	],
+
 	"modules-right": [
 		"custom/weather",
 //		"temperature",
@@ -66,12 +68,12 @@
 		"tooltip-format": "{:%Y-%m-%d | %H:%M:%S}"
 		// "format-alt": "{:%Y-%m-%d}"
 	},
-
+/*
 	"cpu": {
 		"format": "🏭 {usage}%",
 		"tooltip": false
 	},
-
+*/
 	"idle_inhibitor": {
 		"format": "<span color='#589df6'>{icon}</span>",
 		"format-icons": {
@@ -80,10 +82,11 @@
 		},
 		"on-click-right": "swaylock -eFfki ~/Pictures/lockscreen.jpeg"
 	},
-
+/*
 	"memory": {
 		"format": "💾 {used:0.1f}G"
 	},
+*/
 	"network": {
 		// "interface": "wlp2*", // (Optional) To force the use of this interface
 		"format-wifi": "<span color='#589df6'></span> <span color='gray'>{essid}({signalStrength}%)</span>" ,
@@ -93,21 +96,21 @@
 		"format-alt": "{ifname}: {ipaddr}/{cidr}",
 		"interval": 60
 	},
+
 	"pulseaudio": {
 //		"scroll-step": 1, // %, can be a float
-		"format": "{icon} {volume}%",
-//		"format": "{icon} {volume}% {format_source}",
-		"format-muted": "🔇",
-		"format-bluetooth": "{icon} {volume}%",
-		"format-bluetooth-muted": "🔇",
+		"format": "{icon} {volume}% {format_source}",
+		"format-muted": "🔇 {format_source}",
+		"format-bluetooth": "{icon} {volume}% {format_source}",
+		"format-bluetooth-muted": "🔇 {format_source}",
 
 		"format-source": " {volume}%",
 		"format-source-muted": "",
 
 		"format-icons": {
-			"headphones": "🎧",
-			"handsfree": "🎵",
-			"headset": "🎶",
+			"headphones": "",
+			"handsfree": "",
+			"headset": "",
 			"phone": "",
 			"portable": "",
 			"car": "",
@@ -116,7 +119,7 @@
 		"on-click": "ponymix -N -t sink toggle",
 		"on-click-right": "ponymix -N -t source toggle"
 	},
-
+/*
 	"temperature": {
 //		"thermal-zone": 2,
 //		"hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
@@ -125,7 +128,7 @@
 		"format": "<span color='#e88939'>{icon}</span> {temperatureC}°C",
 		"format-icons": ["", "", ""]
 	},
-
+*/
 	"tray": {
 		"icon-size": 21,
 		"spacing": 10
