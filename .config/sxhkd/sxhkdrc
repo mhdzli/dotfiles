@@ -7,99 +7,53 @@
 # The f thru ; keys on the home row
 # The b key on the bottom row (hides the bar in either case)
 
-# Basic binds
-#super + Return
-#	$TERMINAL
-#super + shift + q
-#	kill -9 `xdotool getwindowfocus getwindowpid`
-#super + d
-#	dmenu_run -p "Run:"
-
 super + r
 	$TERMINAL -e bicon ir sh $HOME/.config/vifm/scripts/vifmrun
-#super + e
-#	$TERMINAL -e neomutt
-super + shift +  m
+super + shift + m
 	mlterm
-#	$TERMINAL -e ncmpcpp
-#super + n
-#	$TERMINAL -e newsboat
-super + shift + s
-	$TERMINAL -e htop
-#super + c
-#	$TERMINAL -e calcurse -D ~/.config/calcurse
+super + s
+	dmenusysmon
 super + v
 	$TERMINAL -e nvim -c VimwikiIndex
-super + shift + a
+super + a
 	$TERMINAL -e alsamixer; pkill -RTMIN+10 dwmblocks
 super + c
 	mpv --no-osc --no-input-default-bindings --input-conf=/dev/null --title='mpvfloat' /dev/video0
-#super + shift + e
+#super + shift + ?
 #	fingil
-super + shift + w
+super + w
 	$BROWSER
-super + shift + g
+super + g
 	gimp
 
-# Et cetera...
+## Et cetera...
 super + i
 	menuunicode
-super + shift + c
+super + p
 	killall screenkey || screenkey 
-#super + Insert
-#	showclip
-super + shift + x
-	prompt "Shutdown computer?" "sudo -A shutdown now"
-super + shift + BackSpace
-	prompt "Reboot computer?" "sudo -A shutdown -r now"
-super + shift + Escape
-	prompt 'Leave Xorg?' 'killall Xorg'
-#super + x
-#	ifinstalled slock && ( slock & xset dpms force off ; mpc pause ; pauseallmpv )
-#XF86Launch1
-#	xset dpms force off
-XF86TouchpadToggle
-	toggletouchpad
 
-# Recording
-# Take screenshot
+## System exit
+super + x
+	prompt "Shutdown computer?" "sudo -A shutdown now"
+super + BackSpace
+	prompt "Reboot computer?" "sudo -A shutdown -r now"
+super + Escape
+	prompt 'Leave Xorg?' 'killall Xorg'
+
+## Take screenshot
 Print
 	maim pic-full-$(date '+%y%m%d-%H%M-%S').png
-# Pick screenshot type
+## Pick screenshot type
 shift + Print
 	maimpick
-# Print: Record audio or video; Del: kill recording
+
+## Record audio or video; Del: kill recording
 super + Print
 	dmenurecord
 super + Delete
 	dmenurecord kill
 
-# Pause audio
-#super + p
-#	mpc toggle
-#super + shift + p
-#	mpc pause; pauseallmpv
-# Changes to next/previous tracks
-#super + {comma,period}
-#	mpc {prev,next}
-# Restart track
-#super + shift + less
-#	mpc seek 0%
-# Seek foward in song
-#super + {_,shift +} bracketright
-#	mpc seek +{10,120}
-# Seek backward in song
-#super + {_,shift +} bracketleft
-#	mpc seek -{10,120}
-# Increase volume
-#super + {equal,plus}
-#	amixer sset Master {5,15}%+; refbar
-# Decrease volume
-#super {_,shift +} + minus
-#	amixer sset Master {5,15}%-; refbar
-#super + shift + m
-#	amixer sset Master toggle; refbar
-#
+
 ## Audiokeys
 XF86AudioMute
 	amixer sset Master toggle; pkill -RTMIN+10 dwmblocks
@@ -107,24 +61,39 @@ XF86AudioMute
 XF86Audio{Raise,Lower}Volume
 	amixer sset Master 5%{+,-}; pkill -RTMIN+10 dwmblocks
 
-#XF86Audio{Next,Prev}
-#	mpc {next,prev}
-#XF86Audio{Pause,Play,Stop}
-#	mpc {pause,play,stop}
-#XF86Audio{Rewind,Forward}
-#	mpc seek {-,+}10
-#XF86AudioRecord
-#	dmenurecord
-#XF86AudioMedia
-#	$TERMINAL -e ncmpcpp
-#
+
 ## Brightnesskeys
 XF86MonBrightnessUp
 	incbrightness
 XF86MonBrightnessDown
 	decbrightness
+
 XF86PowerOff
 	prompt "Shutdown computer?" "sudo -A shutdown -h now"
+
+XF86TouchpadToggle
+	toggletouchpad
+
+## Display selection
+XF86Display
+	displayselect
+super + F8
+	displayselect
+
+## Mount a USB drive or Android device 
+super + {F9,F10}
+	{dmenumount,dmenuumount} 
+
+## Network manager
+super + F12
+	$TERMINAL -e nmtui; pkill -RTMIN+3 dwmblocks
+
+## Change keyboard layout in dwmblocks
+alt + {Shift_L,Shift_R}
+	pkill -RTMIN+2 dwmblocks
+
+
+### The keys that I don't have on my keyboard or predefined in dwm
 #XF86Calculator
 #	$TERMINAL -e bc
 #XF86Sleep
@@ -141,39 +110,41 @@ XF86PowerOff
 #	$TERMINAL -e neomutt
 #XF86MyComputer
 #	$TERMINAL -e $FILE /
-#XF86Display
-#	displayselect
-#
-## Function keys
-#super + shift + F1
-#	grep LARBSWELCOME ~/.xprofile && ( sed -i "/LARBSWELCOME/d" ~/.xprofile && notify-send "LARBS welcome message" "Welcome message disabled. Press Super+Shift+F1 again to reverse." ) || ( echo "notify-send \"Welcome to LARBS on Void with dwm\" \"Press super+F1 for the help menu.\" # LARBSWELCOME" >> ~/.xprofile && notify-send "LARBS welcome message" "Welcome message re-enabled." )
-## Show readme
-#super + F1
-#	groff -mom $HOME/.local/share/larbs/readme.mom -Tpdf | zathura -
-## super + F2 is mapped to restart dwm.
-## Change display
-super + F8
-	displayselect
-# Hibernate
-#super + F4
-#	prompt 'Hibernate computer?' 'sudo -A zzz'
-#super + F5
-#	sudo sv restart wpa_supplicant
-## Start torrent daemon/open interface
-#super + F6
-#	torwrap
-## toggle torrent daemon
-#super + F7
-#	td-toggle
-## sync email super + F8 mailsync 
-
-# Mount a USB drive or Android device 
-super + {F9,F10}
-	{dmenumount,dmenuumount} 
-
-super + F12
-	$TERMINAL -e nmtui; pkill -RTMIN+3 dwmblocks
-
-alt + space
-	xkb-switch -n;  pkill -RTMIN+2 dwmblocks
-
+#XF86Audio{Next,Prev}
+#	mpc {next,prev}
+#XF86Audio{Pause,Play,Stop}
+#	mpc {pause,play,stop}
+#XF86Audio{Rewind,Forward}
+#	mpc seek {-,+}10
+#XF86AudioRecord
+#	dmenurecord
+#XF86AudioMedia
+#	$TERMINAL -e ncmpcpp
+#XF86Launch1
+#	xset dpms force off
+#super + ?
+#	ifinstalled slock && ( slock & xset dpms force off ; mpc pause ; pauseallmpv )
+### Pause audio
+#super + ?
+#	mpc toggle
+#super + shift + ?
+#	mpc pause; pauseallmpv
+### Changes to next/previous tracks
+#super + {?,?}
+#	mpc {prev,next}
+### Restart track
+#super + shift + ?
+#	mpc seek 0%
+### Seek foward in song
+#super + {_,shift +} ?
+#	mpc seek +{10,120}
+### Seek backward in song
+#super + {?,shift +} ?
+#	mpc seek -{10,120}
+### Basic binds
+#super + Return
+#	$TERMINAL
+#super + shift + q
+#	kill -9 `xdotool getwindowfocus getwindowpid`
+#super + d
+#	dmenu_run -p "Run:"
