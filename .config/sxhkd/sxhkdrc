@@ -82,7 +82,7 @@ super + F8
 
 ## Mount a USB drive or Android device 
 super + {F9,F10}
-	{dmenumount,dmenuumount} 
+	{menumount,menuumount} 
 
 ## Network manager
 super + F12

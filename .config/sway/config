@@ -23,7 +23,7 @@ set $down	j
 set $up		k
 set $right	l
 
-# Clipboard manager
+# Clipman config
 exec wl-paste -t text --watch clipman store 1>> ~/.local/share/clipman/clipman.log 2>&1 &
 exec wl-paste -p -t text --watch clipman store --histpath="~/.local/share/clipman/clipman-primary.json"
 
@@ -242,6 +242,14 @@ bindsym $mod+w			exec $BROWSER
 bindsym $mod+g			exec gimp
 bindsym $mod+s			exec "$term -e lf"
 
+### Clipboard 
+bindsym $mod+Shift+v	exec 'clipman pick --tool bemenu -T"--hb=#89cff0 --fn=monospace --fn=18 --hb=#89cff0 --hf=#000000 --tf=#000000 --tb=#2dc7bc" --histpath="~/.local/share/clipman.json"'
+bindsym $mod+v		exec "wclipboard"
+
+### Mounting Function
+bindsym $mod+F9		exec "menumount"
+bindsym $mod+F10	exec "menuumount"
+bindsym $mod+F12	exec "$term -e nmtui"
 
 # Resizing containers:
 mode "resize" {
@@ -285,9 +293,6 @@ mode "opacity" {
     bindsym Escape mode "default"
 }
 bindsym $mod+o		mode "opacity"
-
-bindsym $mod+Shift+v	exec 'clipman pick --tool bemenu -T"--hb=#89cff0 --fn=monospace --fn=18 --hb=#89cff0 --hf=#000000 --tf=#000000 --tb=#2dc7bc" --histpath="~/.local/share/clipman.json"'
-bindsym $mod+v		exec "wclipboard"
 
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
@@ -494,10 +499,10 @@ include /etc/sway/config.d/*
 ## $mod+F6
 ## $mod+F7
 ## $mod+F8
-## $mod+F9
-## $mod+F10
+## $mod+F9		mount
+## $mod+F10		unmount
 ## $mod+F11
-## $mod+F12
+## $mod+F12		network manager tui
 ## 
 ## $mod+plus		default gaps
 ## $mod+equal		increase gaps

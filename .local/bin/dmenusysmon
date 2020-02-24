@@ -17,7 +17,6 @@ sysmon() {\
 		htop| \
 		glances| \
 		gtop| \
-		ytop| \
 		nmon| \
 		s-tui)
 		exec st -e $smon

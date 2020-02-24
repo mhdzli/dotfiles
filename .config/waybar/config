@@ -170,13 +170,9 @@
 
 	"custom/wkblayout": {
 		"format": "{}",
-		"format-alt": "{alt}{}",
-//		"format-alt-click": "click-right",
 		"interval": 30,
 		"signal": 1,
-		"exec": "wkblayout",
-		"exec-if": "echo 1",
-		"tooltip": "false"
+		"exec": "wkblayout"
 	}
 
 }
