@@ -12,3 +12,6 @@ sway screenshots:
 ![https://github.com/mhdzli/dotfiles/blob/master/screenshots/sway-01.png](https://github.com/mhdzli/dotfiles/blob/master/screenshots/sway-01.png)
 ![https://github.com/mhdzli/dotfiles/blob/master/screenshots/sway-02.png](https://github.com/mhdzli/dotfiles/blob/master/screenshots/sway-02.png)
 
+waybar screenshot:
+![https://github.com/mhdzli/dotfiles/blob/master/screenshots/waybar_screenshot.png](https://github.com/mhdzli/dotfiles/blob/master/screenshots/waybar_screenshot.png)
+
