@@ -9,7 +9,7 @@
 
 # Logo key. Use Mod1 for Alt.
 set $mod	Mod4
-
+set $alt	Mod1
 # Run pure wayland
 # xwayland disable
 
@@ -83,7 +83,6 @@ set $ws9	"9:💻"
 set $ws10	"10:🔧"
 
 ### Key bindings
-
 # switch to workspace
 bindsym $mod+1		workspace $ws1
 bindsym $mod+2		workspace $ws2
@@ -132,6 +131,17 @@ bindsym $mod+Shift+Down		move down
 bindsym $mod+Shift+Up		move up
 bindsym $mod+Shift+Right	move right
 
+#Resizing
+bindsym $mod+bracketleft	resize shrink width 100 px or 10 ppt
+bindsym $mod+bracketright	resize grow width 100 px or 10 ppt
+bindsym $mod+semicolon		resize shrink height 100 px or 10 ppt
+bindsym $mod+apostrophe		resize grow height 100 px or 10 ppt
+
+bindsym $mod+Shift+bracketleft	resize shrink width 1 px or 1 ppt
+bindsym $mod+Shift+bracketright	resize grow width 1 px or 1 ppt
+bindsym $mod+Shift+semicolon	resize shrink height 1 px or 1 ppt
+bindsym $mod+Shift+apostrophe	resize grow height 1 px or 1 ppt
+
 # Basics:
 #
 # Start a terminal
@@ -157,7 +167,7 @@ bindsym $mod+a		exec "$term -e alsamixer"
 
 # Layout stuff:
 bindsym $mod+t			split toggle
-bindsym $mod+Shift+minus	gaps inner current set 0; gaps outer current set 0
+bindsym $mod+underscore		gaps inner current set 0; gaps outer current set 0
 bindsym $mod+equal		gaps inner current plus 2; gaps outer current plus 2
 bindsym $mod+minus		gaps inner current minus 2; gaps outer current minus 2
 bindsym $mod+plus		gaps inner current set 4; gaps outer current set 4
@@ -276,7 +286,7 @@ mode "opacity" {
 }
 bindsym $mod+o		mode "opacity"
 
-bindsym $mod+Shift+v	exec 'clipman pick -t bemenu --histpath="~/.local/share/clipman-primary.json"'
+bindsym $mod+Shift+v	exec 'clipman pick --tool bemenu -T"--hb=#89cff0 --fn=monospace --fn=18 --hb=#89cff0 --hf=#000000 --tf=#000000 --tb=#2dc7bc" --histpath="~/.local/share/clipman.json"'
 bindsym $mod+v		exec "wclipboard"
 
 # Drag floating windows by holding down $mod and left mouse button.
@@ -324,6 +334,10 @@ input {
 	}
 }
 
+# Update keyboard layout in waybar
+bindsym Mod1+Shift_L		exec "pkill -SIGRTMIN+1 waybar"
+bindsym Mod1+Shift_R		exec "pkill -SIGRTMIN+1 waybar"
+
 #input type:keyboard xkb_layout us-ir
 #input * { xkb_options caps:escape }
 #
@@ -335,10 +349,23 @@ input {
 # Read `man 5 sway-input` for more information about this section.
 
 
-
-# Status Bar:
+# Status Bar & Idle configuration
 #
 # Read `man 5 sway-bar` for more information about this section.
+exec {
+	waybar
+	swayidle -w \
+                timeout 300 'swaylock -eFfki ~/Pictures/lockscreen.jpeg' \
+		timeout 600 'swaymsg "output * dpms off"' \
+                resume 'swaymsg "output * dpms on"' \
+                before-sleep 'swaylock -eFfki ~/Pictures/lockscreen.jpeg' 
+	mako
+
+	dino
+	firefox-developer-edition
+}
+
+### Another status Bar
 #bar {
 #    position top
 #
@@ -353,23 +380,8 @@ input {
 #        inactive_workspace #32323200 #32323200 #5c5c5c
 #    }
 #}
-exec {
-	waybar
-	swayidle -w \
-                timeout 300 'swaylock -eFfki ~/Pictures/lockscreen.jpeg' \
-		timeout 600 'swaymsg "output * dpms off"' \
-                resume 'swaymsg "output * dpms on"' \
-                before-sleep 'swaylock -eFfki ~/Pictures/lockscreen.jpeg' 
-	mako
 
-	dino
-	firefox-developer-edition
-}
-
-include /etc/sway/config.d/*
-
-
-### Idle configuration
+### Another idle configuration
 #
 # Example configuration:
 #
@@ -382,6 +394,8 @@ include /etc/sway/config.d/*
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
+
+include /etc/sway/config.d/*
 
 ## bindings help
 
@@ -496,9 +510,13 @@ include /etc/sway/config.d/*
 ## $mod+right		focus right
 ## $mod+up			focus up
 ## $mod+down		focus down
+## $mod+bracketleft	shrink width
+## $mod+bracketright	grow width
+## $mod+semicolon	shrink height
+## $mod+apostrophe	grow height
 ## 
 ## $mod+Shift+grave	move scratchpad
-## $mod+Shift+minus	zero gaps
+## $mod+underscore	zero gaps
 ## $mod+Shift+Escape
 ## $mod+Shift+BackSpace
 ## $mod+Shift+Return
@@ -506,4 +524,9 @@ include /etc/sway/config.d/*
 ## $mod+Shift+right		move right
 ## $mod+Shift+up		move up
 ## $mod+Shift+down		move down
+## $mod+Shift+bracketleft	adjust shrink width
+## $mod+Shift+bracketright	adjust grow width
+## $mod+Shift+semicolon		adjust shrink height
+## $mod+Shift+apostrophe	adjust grow height
 ##
+## $alt+{Shift_L,Shift_R}	change keyboard layout
