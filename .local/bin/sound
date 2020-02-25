@@ -1,24 +1,26 @@
 #!/bin/sh
 
-usage="usage: $0 -c {up|down|mute} [-i increment] [-m mixer]"
-increment=5%
-mixer=Master
+usage="usage: $0 -c {up|down|mute} [-a adjustment] [-i ID]"
+adj=5
+id=sink-0
 
-while getopts i:m:h o
+while getopts a:i:c:h o
 do case "$o" in
-    i) increment=$OPTARG;;
-    m) mixer=$OPTARG;;
+    a) adj=$OPTARG; ;;
+    i) id=$OPTARG; ;;
+    c) action=$OPTARG; ;;
     h) echo "$usage"; exit 0;;
     ?) echo "$usage"; exit 0;;
 esac
 done
 
-shift $(($OPTIND - 1))
+shift "$(($OPTIND - 1))"
 
 
-case "$1" in
-	up) amixer sset Master 5%+;;
-	down) amixer sset Master 5%-;;
-	mute) amixer sset Master toggle;;
-	*) echo "usage: $0 {up|down|mute} [increment]";;
+case "$action" in
+	up) pulsemixer --id $id --change-volume +$adj --max-volume 100;;
+	down) pulsemixer --id $id --change-volume -$adj;;
+	mute) pulsemixer --id $id --toggle-mute;;
+	dwm) pulsemixer --list-sinks | grep -o "\\(Mute: 0\\|Mute: 1\\|[0-9]*%\\)" | sed -e 's/Mute:\ 1/🔇/;s/Mute:\ 0/🔊/';;
+	*) echo "usage: $0 {up|down|mute} [adjustment]";;
 esac

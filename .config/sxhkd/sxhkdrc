@@ -16,7 +16,7 @@ super + s
 super + v
 	$TERMINAL -e nvim -c VimwikiIndex
 super + a
-	$TERMINAL -e alsamixer; pkill -RTMIN+10 dwmblocks
+	$TERMINAL -e pulsemixer; pkill -RTMIN+10 dwmblocks
 super + c
 	mpv --no-osc --no-input-default-bindings --input-conf=/dev/null --title='mpvfloat' /dev/video0
 #super + shift + ?
@@ -56,10 +56,10 @@ super + Delete
 
 ## Audiokeys
 XF86AudioMute
-	amixer sset Master toggle; pkill -RTMIN+10 dwmblocks
+	pulsemixer --toggle-mute; pkill -RTMIN+10 dwmblocks
 
 XF86Audio{Raise,Lower}Volume
-	amixer sset Master 5%{+,-}; pkill -RTMIN+10 dwmblocks
+	pulsemixer --Change-Volume {+,-}5; pkill -RTMIN+10 dwmblocks
 
 
 ## Brightnesskeys

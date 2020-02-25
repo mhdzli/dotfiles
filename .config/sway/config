@@ -229,9 +229,9 @@ bindsym $mod+e			exec swaylock -eFfki ~/Pictures/lockscreen.png
 # Function keys
 # bindsym XF86MonBrightnessUp 	exec light -A 5
 # bindsym XF86MonBrightnessDown exec light -U 5
-bindsym XF86AudioLowerVolume	exec "sound down"
-bindsym XF86AudioRaiseVolume	exec "sound up"
-bindsym XF86AudioMute		exec "sound mute"
+bindsym XF86AudioLowerVolume	exec "sound -c down"
+bindsym XF86AudioRaiseVolume	exec "sound -c up"
+bindsym XF86AudioMute		exec "sound -c mute"
 bindsym XF86MonBrightnessUp	exec incbrightness 
 bindsym XF86MonBrightnessDown	exec decbrightness
 bindsym XF86Display		exec "wdisplays"
