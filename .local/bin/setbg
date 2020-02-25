@@ -1,9 +1,20 @@
 #!/usr/bin/env sh
 
-# In LARBS, ~/.config/wall.png is the location of the system wallpaper.  This
+# ~/Pictures/Desktop.png is the location of the system wallpaper.  This
 # script, if given an argument, moves it there.  This script without an
-# argument sets ~/.config/wall.png as the wallpaper, which is required on login
+# argument sets ~/Pictures/Desktop.png as the wallpaper, which is required on login
 # if you don't want a blakc screen.
+#!/bin/bash
+randbg(){\
+	wp_dir=~/Pictures/Anime
+	bg_list=($wp_dir/*)
+	n=${#bg_list[@]}
+	n=$((RANDOM%n))
+	rand_bg=$(basename ${bg_list[$n]})
+}
 
-[ ! -z "$1" ] && cp "$1" ~/Pictures/Desktop.jpeg && notify-send -i "$HOME/.config/wall.png" "Wallpaper changed."
-xwallpaper --stretch ~/Pictures/Desktop.jpeg
+[ ! -z "$1" ] && cp "$1" ~/Pictures/Desktop.png #&& notify-send -i "$HOME/Pictures/Desktop.png" "Wallpaper changed."
+
+[ -z "$1" ] && randbg && cp $wp_dir/$rand_bg ~/Pictures/Desktop.png 
+
+$WAYLAND_DISPLAY 2>/dev/null  && xwallpaper --stretch ~/Pictures/Desktop.png || swaybg -i ~/Pictures/Desktop.png -m stretch 

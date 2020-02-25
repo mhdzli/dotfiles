@@ -27,6 +27,8 @@ set $right	l
 exec wl-paste -t text --watch clipman store 1>> ~/.local/share/clipman/clipman.log 2>&1 &
 exec wl-paste -p -t text --watch clipman store --histpath="~/.local/share/clipman/clipman-primary.json"
 
+# Random background
+exec setbg
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -163,7 +165,7 @@ bindsym $mod+c 		exec "mpv --no-osc --no-input-default-bindings --input-conf=/de
 bindsym $mod+p		exec "killall wshowkeys || wshowkeys"
 
 # Volume control
-bindsym $mod+a		exec "$term -e alsamixer"
+bindsym $mod+a		exec "$term -e pulsemixer"
 
 # Layout stuff:
 bindsym $mod+t			split toggle
@@ -222,7 +224,7 @@ bindsym $mod+x			exec 'prompt "Shutdown computer?" "sudo -A shutdown now"'
 bindsym $mod+BackSpace		exec 'prompt "Reboot computer?" "sudo -A shutdown -r now"'
 
 # lock screen
-bindsym $mod+e			exec swaylock -eFfki ~/Pictures/lockscreen.jpeg
+bindsym $mod+e			exec swaylock -eFfki ~/Pictures/lockscreen.png
 
 # Function keys
 # bindsym XF86MonBrightnessUp 	exec light -A 5
@@ -305,7 +307,7 @@ floating_modifier $mod normal
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg ~/Pictures/Desktop.jpeg stretch
+# output * bg ~/Pictures/Desktop.png stretch
 
 
 # Example configuration:
@@ -341,8 +343,8 @@ input {
 }
 
 # Update keyboard layout in waybar
-bindsym Mod1+Shift_L		exec "pkill -SIGRTMIN+1 waybar"
-bindsym Mod1+Shift_R		exec "pkill -SIGRTMIN+1 waybar"
+bindsym Mod1+Shift_L		exec "pkill -SIGRTMIN+1 waybar &"
+bindsym Mod1+Shift_R		exec "pkill -SIGRTMIN+1 waybar &"
 
 # Toggle Bar
 bindsym $mod+Shift+b		exec "killall waybar || waybar"
