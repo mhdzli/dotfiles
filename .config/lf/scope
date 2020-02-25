@@ -35,7 +35,7 @@ handle_mime() {
 	text/html) w3m -dump "${FILE_PATH}" ;;
 	text/troff) man ./ "${FILE_PATH}" | col -b ;;
 	text/* | */xml)
-            if [ "$( stat --printf='%s' -- "${FILE_PATH}" )" -gt "${HIGHLIGHT_SIZE_MAX}" ]; then
+           if [ "$( stat --printf='%s' -- "${FILE_PATH}" )" -gt "${HIGHLIGHT_SIZE_MAX}" ]; then
                 exit 2
             fi
             if [ "$( tput colors )" -ge 256 ]; then
@@ -50,6 +50,7 @@ handle_mime() {
         video/* | audio/*|application/octet-stream) mediainfo "${FILE_PATH}" || exit 1;;
         */pdf) pdftotext -l 10 -nopgbrk -q -- "${FILE_PATH}" - ;;
         *opendocument*) odt2txt "${FILE_PATH}" ;;
+#	*) highlight -O ansi "${FILE_PATH}" || cat "${FILE_PATH}";;
     esac
 }
 

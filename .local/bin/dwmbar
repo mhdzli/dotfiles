@@ -44,7 +44,7 @@ status() { \
 
 	# Get the volume of ALSA's master volume output.  Show an icon if or
 	# not muted.
-	amixer get Master | grep -o "[0-9]*%\|\[on\]\|\[off\]" | sed "s/\[on\]//;s/\[off\]//"
+	amixer get Master | grep -o "[0-9]*%\|\[on\]\|\[off\]" | sed "s/\[on\]/🔊/;s/\[off\]/🔈/"
 
 	echo "$delim"
 
@@ -91,9 +91,12 @@ status() { \
 	date '+%Y %b %d (%a) %I:%M%p'
 
 	echo "$delim"
+	#Persian calendar date
+	jalalidate
+
+	echo "$delim"
 
 	xkb-switch
-
 	}
 
 update() { \

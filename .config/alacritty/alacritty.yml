@@ -215,40 +215,40 @@ colors:
     background: '0xbbc5ff'
 
   # Normal colors
-  normal:
-    black:   '0x282a36'
-    red:     '0xf07178'
-    green:   '0xc3e88d'
-    yellow:  '0xffcb6b'
-    blue:    '0x82aaff'
-    magenta: '0xc792ea'
-    cyan:    '0x89ddff'
-    white:   '0xd0d0d0'
+  #normal:
+  #  black:   '0x282a36'
+  #  red:     '0xf07178'
+  #  green:   '0xc3e88d'
+  #  yellow:  '0xffcb6b'
+  #  blue:    '0x82aaff'
+  #  magenta: '0xc792ea'
+  #  cyan:    '0x89ddff'
+  #  white:   '0xd0d0d0'
 
   # Bright colors
-  bright:
-    black:   '0x434758'
-    red:     '0xff8b92'
-    green:   '0xddffa7'
-    yellow:  '0xffe585'
-    blue:    '0x9cc4ff'
-    magenta: '0xe1acff'
-    cyan:    '0xa3f7ff'
-    white:   '0xffffff'
+  #bright:
+  #  black:   '0x434758'
+  #  red:     '0xff8b92'
+  #  green:   '0xddffa7'
+  #  yellow:  '0xffe585'
+  #  blue:    '0x9cc4ff'
+  #  magenta: '0xe1acff'
+  #  cyan:    '0xa3f7ff'
+  #  white:   '0xffffff'
 
   # Dim colors
   #
   # If the dim colors are not set, they will be calculated automatically based
   # on the `normal` colors.
-  #dim:
-  #  black:   '0x000000'
-  #  red:     '0x8c3336'
-  #  green:   '0x7a8530'
-  #  yellow:  '0x97822e'
-  #  blue:    '0x506d8f'
-  #  magenta: '0x80638e'
-  #  cyan:    '0x497e7a'
-  #  white:   '0x9a9a9a'
+  dim:
+    black:   '0x000000'
+    red:     '0x8c3336'
+    green:   '0x7a8530'
+    yellow:  '0x97822e'
+    blue:    '0x506d8f'
+    magenta: '0x80638e'
+    cyan:    '0x497e7a'
+    white:   '0x9a9a9a'
 
   # Indexed Colors
   #

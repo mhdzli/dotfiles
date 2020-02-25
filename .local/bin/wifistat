@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
 
-grep '^\s*w' /proc/net/wireless | awk '{ print int($3 * 100 / 70) "%" }'
+# Wifi quality percentage and  icon if ethernet is connected.
+	grep "^\s*w" /proc/net/wireless | awk '{ print int($3 * 100 / 70) "%" }'
 

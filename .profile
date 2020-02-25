@@ -32,6 +32,10 @@ mpd >/dev/null 2>&1 &
 echo "$0" | grep "bash$" >/dev/null && [ -f ~/.bashrc ] && source "$HOME/.bashrc"
 
 # Start graphical server if i3 not already running.
-[ "$(tty)" = "/dev/tty1" ] && ! pgrep -x Xorg >/dev/null && exec startx
+[ "$(tty)" = "/dev/tty2" ] && ! pgrep -x Xorg >/dev/null && exec startx
 
-[ -z $DISPLAY ] && [ $(tty) = /dev/tty2 ] &&  XKB_DEFAULT_LAYOUT=us exec sway
+[ -z $DISPLAY ] && [ $(tty) = /dev/tty1 ] &&  XKB_DEFAULT_LAYOUT=us exec sway
+
+
+
+source /home/mzeinali/.config/broot/launcher/bash/br

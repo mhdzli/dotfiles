@@ -160,7 +160,7 @@ bindsym $mod+d		exec $menu
 bindsym $mod+c 		exec "mpv --no-osc --no-input-default-bindings --input-conf=/dev/null --title='mpvfloat' /dev/video0"
 
 #showkeys
-bindsym $mod+m		exec swaykeys
+bindsym $mod+p		exec "killall wshowkeys || wshowkeys"
 
 # Volume control
 bindsym $mod+a		exec "$term -e alsamixer"
@@ -240,7 +240,8 @@ bindsym $mod+print		exec bemenurecord
 #Launch applications
 bindsym $mod+w			exec $BROWSER
 bindsym $mod+g			exec gimp
-bindsym $mod+s			exec "$term -e lf"
+bindsym $mod+b			exec "$term -e lf"
+bindsym $mod+s			exec "$term -e broot -h"
 
 ### Clipboard 
 bindsym $mod+Shift+v	exec 'clipman pick --tool bemenu -T"--hb=#89cff0 --fn=monospace --fn=18 --hb=#89cff0 --hf=#000000 --tf=#000000 --tb=#2dc7bc" --histpath="~/.local/share/clipman.json"'
@@ -343,6 +344,9 @@ input {
 bindsym Mod1+Shift_L		exec "pkill -SIGRTMIN+1 waybar"
 bindsym Mod1+Shift_R		exec "pkill -SIGRTMIN+1 waybar"
 
+# Toggle Bar
+bindsym $mod+Shift+b		exec "killall waybar || waybar"
+
 #input type:keyboard xkb_layout us-ir
 #input * { xkb_options caps:escape }
 #
@@ -407,36 +411,36 @@ include /etc/sway/config.d/*
 ## $mod+[1-9,0]		workspace[1-10]
 ## $mod+Shift+[1-9,0]	move to workspace[1-10]
 ## 
-## $mod+a			alsamixer 
-## $mod+b
-## $mod+c			webcam
-## $mod+d			$MENU
-## $mod+e			lockscreen
-## $mod+f			fullscreen
-## $mod+g			gimp
-## $mod+h			focus left
-## $mod+i			select emoji
-## $mod+j			focus down
-## $mod+k			focus up
-## $mod+l			focus right
-## $mod+m			exec swaykeys
+## $mod+a		alsamixer 
+## $mod+b		file manager
+## $mod+c		webcam
+## $mod+d		$MENU
+## $mod+e		lockscreen
+## $mod+f		fullscreen
+## $mod+g		gimp
+## $mod+h		focus left
+## $mod+i		select emoji
+## $mod+j		focus down
+## $mod+k		focus up
+## $mod+l		focus right
+## $mod+m		
 ## $mod+n
-## $mod+o			opacity
-## $mod+p
-## $mod+q			kill
-## $mod+r			resize
-## $mod+s			$FILEMANAGER
-## $mod+t			split toggle
+## $mod+o		opacity
+## $mod+p		showkeys
+## $mod+q		kill
+## $mod+r		resize
+## $mod+s		search
+## $mod+t		split toggle
 ## $mod+u
-## $mod+v			clipboard
-## $mod+w			$BROWSER
-## $mod+x			shutdown
+## $mod+v		clipboard
+## $mod+w		$BROWSER
+## $mod+x		shutdown
 ## $mod+y		
 ## $mod+z		
 ## $mod+space		focus mod_toggle
 ## 
 ## $mod+Shift+a		focus parent
-## $mod+Shift+b
+## $mod+Shift+b		toggle bar
 ## $mod+Shift+c
 ## $mod+Shift+d		
 ## $mod+Shift+e		layout toggle split

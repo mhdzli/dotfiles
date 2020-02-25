@@ -1,0 +1,112 @@
+#!/bin/bash
+
+# dmenu/bemenu script for editing some of my more frequently edited config files.
+
+set_dmenu(){ \
+	menu="dmenu -l 20 -fn Monospace-18"
+	pf=""
+}
+set_bemenu(){ \
+	menu='bemenu --fn=monospace --fn=18 --hb=#89cff0 --hf=#000000 --tf=#000000 --tb=#2dc7bc -l 20'
+	pf="\\"
+}
+
+$WAYLAND_DISPLAY 2>/dev/null  && set_dmenu || set_bemenu
+declare options=("alacritty
+bash
+broot
+doom.d/config.el
+doom.d/init.el
+dunst
+dwm
+emacs.d/init.el
+init.vim
+lfrc
+lf/scop
+ranger
+scripts
+st
+swaywm
+sxhkd
+termite
+vifm
+vimrc
+waybar
+xresources
+zsh
+quit")
+
+choice=$(echo -e "${options[@]}" | $menu -i -p 'Edit config file: ')
+
+case "$choice" in
+	quit)
+		echo "Program terminated." && exit 1
+	;;
+	alacritty)
+		choice="$HOME/.config/alacritty/alacritty.yml"
+	;;
+	bash)
+		choice="$HOME/.bashrc"
+	;;
+	broot)
+		choice="$HOME/.config/broot/conf.toml"
+	;;
+	doom.d/config.el)
+		choice="$HOME/.doom.d/config.el"
+	;;
+	doom.d/init.el)
+		choice="$HOME/.doom.d/init.el"
+	;;
+	dunst)
+		choice="$HOME/.config/dunst/dunstrc"
+	;;
+	dwm)
+		choice="$HOME/repos/mhdzli/dwm/config.def.h"
+	;;
+	emacs.d/init.el)
+		choice="$HOME/.emacs.d/init.el"
+	;;
+	init.vim)
+		choice="/home/mzeinali/.config/nvim/init.vim"
+	;;
+	lfrc)
+		choice="/home/mzeinali/.config/lf/lfrc"
+	;;
+	lf/scop)
+		choice="/home/mzeinali/.config/lf/scope"
+	;;
+	ranger)
+		choice="$HOME/.config/ranger/"
+	;;
+	scripts)
+		choice="/home/mzeinali/.local/bin/"
+	;;
+	st)
+		choice="/home/mzeinali/repos/mhdzli/st/config.h"
+	;;
+	swaywm)
+		choice="$HOME/.config/sway/config"
+	;;
+	sxhkd)
+		choice="$HOME/.config/sxhkd/sxhkdrc"
+	;;
+	termite)
+		choice="$HOME/.config/termite/config"
+	;;
+	vifm)
+		choice="$HOME/.config/vifm/vifmrc"
+	;;
+	vimrc)
+		choice="$HOME/.vimrc"
+	;;
+	xresources)
+		choice="$HOME/.Xresources"
+	;;
+	zsh)
+		choice="$HOME/.zshrc"
+	;;
+	*)
+		exit 1
+	;;
+esac
+nvim "$choice"

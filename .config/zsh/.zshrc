@@ -104,3 +104,7 @@ bindkey -s '^o' 'lfcd\n'  # zsh
  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 
 source /home/mzeinali/.config/zsh/plugins/git.plugin.zsh
+
+
+
+source /home/mzeinali/.config/broot/launcher/bash/br

@@ -48,7 +48,7 @@ window#waybar {
 	background: #af005f;
 }
 
-#clock, #custom-jalalidate, #custom-weather, #custom-disk_home, #custom-disk_root, #temperature, #cpu, #memory, #network, #backlight, #pulseaudio, #battery, #tray, #idle_inhibitor {
+#clock, #custom-jalalidate, #custom-weather, #custom-disk_home, #custom-disk_root,#custom-wkblayout, #temperature, #cpu, #memory, #network, #backlight, #pulseaudio, #battery, #tray, #idle_inhibitor {
 	padding: 0 3px;
 /*	background-color: #000000; */
 	background: rgba(0, 0, 28, 0.8);

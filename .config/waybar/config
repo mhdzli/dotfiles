@@ -27,9 +27,9 @@
 		"backlight",
 		"pulseaudio",
 		"battery",
-		"idle_inhibitor",
+		"custom/wkblayout",
 		"tray",
-		"custom/wkblayout"],
+		"idle_inhibitor"],
 
 	"sway/mode": {
 		"format": "{}" 
@@ -152,7 +152,8 @@
 		"tooltip": "false"
 	},
 
-	"custom/jalalidate": {
+	// Persian calendar
+	"custom/jalalidate": { 
 		"format": "{}",
 		"interval": 18000,
 //		"exec": "jalalidate"
@@ -164,15 +165,18 @@
 		"format": "{}",
 		"interval": 18000,
 		"exec": "weather",
+		//ansiweather -l shiraz,IR -u metric -s true -f 1 -a false | cut -d' ' -f2,8-
 		"exec-if": "ping openweathermap.org -c1",
 		"tooltip": "false"
 	},
 
 	"custom/wkblayout": {
-		"format": "{}",
+		"format": "<span color='#11eec2'>🖋</span> {}",
 		"interval": 30,
 		"signal": 1,
+		// bindsym the grp (switch layout shortcut) option in your sway confik to exec "pkill -SIGRTMIN+1 waybar"
 		"exec": "wkblayout"
+		//swaymsg -t get_inputs | grep -m1 "xkb_active_layout_name" | cut -d '"' -f4
 	}
 
 }
