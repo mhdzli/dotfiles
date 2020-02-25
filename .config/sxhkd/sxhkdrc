@@ -59,7 +59,7 @@ XF86AudioMute
 	pulsemixer --toggle-mute; pkill -RTMIN+10 dwmblocks
 
 XF86Audio{Raise,Lower}Volume
-	pulsemixer --Change-Volume {+,-}5; pkill -RTMIN+10 dwmblocks
+	pulsemixer --change-volume {+,-}5 --max-volume 100; pkill -RTMIN+10 dwmblocks
 
 
 ## Brightnesskeys
