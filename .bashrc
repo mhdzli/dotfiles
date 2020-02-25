@@ -9,12 +9,13 @@
 shopt -s autocd #Allows you to cd into directory merely by typing the directory name.
 HISTSIZE= HISTFILESIZE= # Infinite history.
 
-#PS1='[\u@\h \W]\$ '
-
+# PS1='[\u@\h \W]\$ '
+# PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput sgr0)\]\[$(tput setaf 7)\]   \[$(tput bold)\]\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\W\[$(tput setaf 1)\]]\[$(tput setaf 2)\]\\$ \[$(tput sgr0)\]"
 PROMPT_PARSER(){
-	printf -v X "%.3d" $?
-	Dir=${PWD##*/}
-	[ "${PWD%/*}" == "/home" ] && Dir="~"
+#	printf -v X "%.3d" $?
+	printf -v X "\[$(tput bold)\]%d\u\[$(tput sgr0)\]\[$(tput setaf 7)\]   \[$(tput bold)\]\[$(tput setaf 4)\]\h%d" $? &>/dev/null
+#	Dir=${PWD##*/}
+#	[ "${PWD%/*}" == "/home" ] && Dir="~"
 	BRed='\033[1;31m'
 	White='\033[2;37m'
 	Reset='\033[0m'
@@ -101,12 +102,10 @@ PROMPT_PARSER(){
 		done <<< "$Status"
 		# End of specially-ordered while loops.
 	
-		PS1="\[${Reset}\]╭──╼${X}╾──☉  ${Desc}\[${Reset}\]\n╰─☉  $Dir:$ "
 	else
-#		printf -v Desc "${BRed}☡  ${White} $Dir: Sleepy git..."
-		PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput sgr0)\]\[$(tput setaf 7)\]   \[$(tput bold)\]\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\W\[$(tput setaf 1)\]]\[$(tput setaf 2)\]\\$ \[$(tput sgr0)\]"
+		printf -v Desc "${BRed}☡  ${White} Sleepy git..."
 	fi
-
+		PS1="\[$(tput setaf 3)\]╭──╼${X}╾──☉ \[$(tput sgr0)\]${Desc}\n\[$(tput setaf 5)\]╰─☉ \W\[$(tput setaf 2)\]\\$ \[$(tput sgr0)\]"
 }
 
 PROMPT_COMMAND='PROMPT_PARSER'
