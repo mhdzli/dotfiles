@@ -13,12 +13,17 @@ HISTSIZE= HISTFILESIZE= # Infinite history.
 # PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput sgr0)\]\[$(tput setaf 7)\]   \[$(tput bold)\]\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\W\[$(tput setaf 1)\]]\[$(tput setaf 2)\]\\$ \[$(tput sgr0)\]"
 PROMPT_PARSER(){
 #	printf -v X "%.3d" $?
-	printf -v X "\[$(tput bold)\]%d\u\[$(tput sgr0)\]\[$(tput setaf 7)\]   \[$(tput bold)\]\[$(tput setaf 4)\]\h%d" $? &>/dev/null
+printf -v X "  %.3d " $? &>/dev/null
 #	Dir=${PWD##*/}
 #	[ "${PWD%/*}" == "/home" ] && Dir="~"
 	BRed='\033[1;31m'
 	White='\033[2;37m'
+	BPurple='\033[1;35m'
+	BYellow='\033[1;33m'
+	Bgreen='\033[1;32m'
+	BBlue='\033[1;34m'
 	Reset='\033[0m'
+
 
 	if git rev-parse --is-inside-work-tree &> /dev/null; then
 		GI[0]='≎' # Clean.
@@ -105,7 +110,7 @@ PROMPT_PARSER(){
 	else
 		printf -v Desc "${BRed}☡  ${White} Sleepy git..."
 	fi
-		PS1="\[$(tput setaf 3)\]╭──╼${X}╾──☉ \[$(tput sgr0)\]${Desc}\n\[$(tput setaf 5)\]╰─☉ \W\[$(tput setaf 2)\]\\$ \[$(tput sgr0)\]"
+		PS1="${BYellow}╭──╼\u${Reset}${X}${BBlue}\h╾──☉ ${Reset}${Desc}\n${BPurple}╰─☉ \W${Bgreen}\\$ ${Reset}"
 }
 
 PROMPT_COMMAND='PROMPT_PARSER'
