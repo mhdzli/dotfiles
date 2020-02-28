@@ -50,6 +50,7 @@ set mouse=a
 set nohlsearch
 set clipboard=unnamedplus
 set cursorline
+set so=13
 
 " Some basics:
 	set nocompatible
