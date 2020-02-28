@@ -4,14 +4,7 @@ if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
 	silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ~/.config/nvim/autoload/plug.vim
 	autocmd VimEnter * PlugInstall
 endif
-
-" `<Tab>`/`<S-Tab>` to move between matches without leaving incremental search.
-" Note dependency on `'wildcharm'` being set to `<C-z>` in order for this to
-" work.
-set wildcharm=<C-z>
-cnoremap <expr> <Tab> getcmdtype() == '/' \|\| getcmdtype() == '?' ? '<CR>/<C-r>/' : '<C-z>'
-cnoremap <expr> <S-Tab> getcmdtype() == '/' \|\| getcmdtype() == '?' ? '<CR>?<C-r>/' : '<S-Tab>'
-
+nnoremap <C-a> :set cursorline!<CR>
 nnoremap <C-f> :call HighlightNearCursor()<CR>
 function HighlightNearCursor()
   if !exists("s:highlightcursor")
@@ -23,7 +16,8 @@ function HighlightNearCursor()
   endif
 endfunction
 
-nnoremap <C-a> :set cursorline!<CR> 
+colorscheme tfl
+
 highlight CursorLineNr cterm=NONE ctermbg=12 ctermfg=1 gui=NONE guibg=#ffffff guifg=#c5eff0
 highlight CursorLine cterm=NONE ctermbg=12 ctermfg=0 gui=NONE guibg=#ffffff guifg=#c5eff0
 
@@ -46,7 +40,7 @@ set go=a
 set mouse=a
 set nohlsearch
 set clipboard=unnamedplus
-set scrolloff=10
+set cursorline
 
 " Some basics:
 	set nocompatible
