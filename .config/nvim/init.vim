@@ -4,6 +4,15 @@ if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
 	silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ~/.config/nvim/autoload/plug.vim
 	autocmd VimEnter * PlugInstall
 endif
+
+" `<Tab>`/`<S-Tab>` to move between matches without leaving incremental search.
+" Note dependency on `'wildcharm'` being set to `<C-z>` in order for this to
+" work.
+set wildcharm=<C-z>
+cnoremap <expr> <Tab> getcmdtype() == '/' \|\| getcmdtype() == '?' ? '<CR>/<C-r>/' : '<C-z>'
+cnoremap <expr> <S-Tab> getcmdtype() == '/' \|\| getcmdtype() == '?' ? '<CR>?<C-r>/' : '<S-Tab>'
+
+
 nnoremap <C-a> :set cursorline!<CR>
 nnoremap <C-f> :call HighlightNearCursor()<CR>
 function HighlightNearCursor()
