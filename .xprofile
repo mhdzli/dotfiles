@@ -5,7 +5,6 @@ unclutter &		# Remove mouse when idle
 #xcompmgr &		# xcompmgr for transparency
 compton &
 dunst &	                # dunst for notifications
-#keymap &		# some keyboard remap 
 dwmblocks &             # dwmbar
 sxhkd &
 xrdb ~/.Xdefaults &
