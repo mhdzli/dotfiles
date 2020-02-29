@@ -1,6 +1,15 @@
 #!/bin/sh
 # Updates weather forecast
-ping -q -w 1 -c 1 "$(ip r | grep default | tail -1 | cut -d ' ' -f 3)" >/dev/null || exit
+
+ip r | while read Def _ IP _; do
+	case $Def in
+		default)
+			ping -q -w 1 -c 1 "$IP" >/dev/null || exit
+
+			break ;;
+	esac
+done
+
 #location="$1"; [ -z "$location" ] || location="$location+"
 #curl -s wttr.in/shiraz?format=4
 #pkill -RTMIN+5 i3blocks && notify-send "🌞 Weather forecast updated."
