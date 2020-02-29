@@ -1,0 +1,233 @@
+
+#mako-configurationfile
+
+#DESCRIPTION
+#Theconfigfileislocatedat~/.config/mako/configorat
+#$XDG_CONFIG_HOME/mako/config.Optionlinescanbespecifiedto
+#configuremakolikeso:
+#
+#key=value
+#
+#Emptylinesandlinesthatbeginwith#areignored.
+
+# GLOBAL CONFIGURATION OPTIONS
+# Set maximum number of visible notifications to n.
+max-visible=3
+
+# Set the default timeout to timeout in milliseconds. To dis# able the timeout, set it to zero.
+# Default: 0
+default-timeout=1000
+
+# Set background color to color. See COLORS for more information.
+# Default: #285577FF
+background-color=#1d1f21
+
+# Set text color to color. See COLORS for more information.
+# Default: #FFFFFFFF
+text-color=#979a9a
+
+# Sorts incoming notifications by time and/or priority in as cending(+) or descending(-) order.
+# +/-time | +/-priority
+# sort=-time 
+
+# Show notifications on the specified output. If empty, notifications will appear on the focused output.
+# Requires the compositor to support the Wayland protocol xdg-output-unstable-v1 version 2.
+# Default: ""
+# output=name
+
+# Arrange mako at the specified layer, relative to normal windows. Supported values are background, bottom, top, and
+# overlay. Using overlay will cause notifications to be displayed above fullscreen windows, though this may also occur
+# at top depending on your compositor.
+# Default: top
+# layer=layer
+
+# Show notifications at the specified position on the output.
+# Supported values are top-right, top-center, top-left, bottom-right, bottom-center, bottom-left, and center.
+# Default: top-right
+# anchor=position
+
+## STYLE OPTIONS
+# Set font to font, in Pango format.
+# Default: monospace 10
+# font=font
+
+# Set width of notification popups.
+# Default: 300
+# width=px
+
+# Set maximum height of notification popups. Notifications
+# whose text takes up less space are shrunk to fit.
+# Default: 100
+# height=px  
+
+# Set margin of each edge to the size specified by direc# tional. See DIRECTIONAL VALUES for more information.
+# Default: 10
+# margin=directional 
+
+# Set padding on each side to the size specified by direc# tional. See DIRECTIONAL VALUES for more information.
+# Default: 5
+# padding=directional 
+
+# Set popup border size to px pixels.
+# Default: 1
+# border-size=px 
+
+# Set popup border color to color. See COLORS for more infor# mation.
+# Default: #4C7899FF
+# border-color=color 
+
+# Set popup corner radius to px pixels.
+# Default: 0
+# border-radius=px 
+
+# Set popup progress indicator color to color. See COLOR for
+# more information. To draw the progress indicator on top of
+# the background color, use the over attribute. To replace the
+# background color, use the source attribute (this can be use# ful when the notification is semi-transparent).
+# Default: over #5588AAFF
+# progress-color=[over|source] color 
+
+# Show icons in notifications.
+# Default: 1
+# icons=0|1 
+
+# Set maximum icon size to px pixels.
+# Default: 64
+# max-icon-size=px 
+
+# Paths to search for icons when a notification specifies a
+# name instead of a full path. Colon-delimited. This approxi# mates the search algorithm used by the XDG Icon Theme Speci# fication, but does not support any of the theme metadata.
+# Therefore, if you want to search parent themes, you'll need
+# to add them to the path manually.
+# /usr/share/icons/hicolor and /usr/share/pixmaps are always
+# searched.
+# Default: ""
+# icon-path=path[:path...]
+
+# If 1, enable Pango markup. If 0, disable Pango markup. If
+# enabled, Pango markup will be interpreted in your format
+# specifier and in the body of notifications.
+# Default: 1
+# markup=0|1
+
+# Applications may request an action to be associated with ac# tivating a notification. Disabling this will cause mako to
+# ignore these requests.
+# Default: 1
+# actions=0|1
+
+# Set notification format string to format. See FORMAT SPECI# FIERS for more information. To change this for grouped noti# fications, set it within a grouped criteria.
+# Default: <b>%s</b>\n%b Default when grouped: (%g)
+# <b>%s</b>\n%b
+# format=format
+
+# If set, mako will ignore the expire timeout sent by notifi# cations and use the one provided by default-timeout instead.
+# Default: 0
+# ignore-timeout=0|1
+
+# A comma-separated list of criteria fields that will be com# pared to other visible notifications to determine if this
+# one should form a group with them. All listed criteria must
+# be exactly equal for two notifications to group.
+# Default: none
+# group-by=field[,field,...]
+
+# CRITERIA
+# In addition to the set of options at the top of the file, the
+# config file may contain zero or more sections, each containing
+# any combination of the STYLE OPTIONS. The sections, called criteria, are defined with an INI-like square bracket syntax. The
+# brackets may contain any number of fields, like so:
+#[field=value field2=value2 ...]
+
+# When a notification is received, it will be compared to the
+# fields defined in each criteria. If all of the fields match, the
+# style options within will be applied to the notification. Fields
+# not included in the criteria are not considered during the
+# match. A notification may match any number of criteria. This
+# matching occurs in the order the criteria are defined in the
+# config file, meaning that if multiple criteria match a notifica# tion, the last occurrence of any given style option will "win".
+
+# The following fields are available in criteria:
+# •app-name (string)
+# •app-icon (string)
+# •summary (string)
+
+# An exact match on the summary of the notification.
+# •urgency (one of "low", "normal", "high")
+# •category (string)
+# •desktop-entry (string)
+# •actionable (boolean)
+# •expiring (boolean)
+# •grouped (boolean)
+
+# Whether the notification is grouped with any others (its
+# group-index is not -1).
+# •group-index (int)
+#•The notification's index within its group, or -1 if it
+# is not grouped.
+# •hidden (boolean)
+#•hidden is special, it defines the style for the place# holder shown when the number of notifications or groups
+# exceeds max-visible.
+
+# If a field's value contains special characters, they may be es# caped with a backslash, or quoted:
+#[app-name="Google Chrome"]
+#[app-name=Google\ Chrome]
+
+# Quotes within quotes may also be escaped, and a literal back# slash may be specified as \\. No spaces are allowed around the
+# equal sign. Escaping equal signs within values is unnecessary.
+# Additionally, boolean values may be specified using any of
+# true/false, 0/1, or as bare words:
+# [actionable=true] [actionable=1] [actionable]
+# [actionable=false] [actionable=0] [!actionable]
+
+# There are three criteria always present at the front of the
+# list:
+# •An empty criteria which matches all notifications and con#tains the defaults for all style options, overwritten with
+#any configured in the global section.
+# •[grouped], which sets the default format for grouped notifi#cations and sets them invisible.
+# •[group-index=0], which makes the first member of each group
+#visible again.
+# These options can be overridden by simply defining the criteria
+# yourself and overriding them.
+
+# CRITERIA-ONLY STYLE OPTIONS
+# Some style options are not useful in the global context and
+# therefore have no associated command-line option.
+# Whether this notification should be invisible even if it is
+# above the max-visible cutoff. This is used primarily for
+# hiding members of groups. If you want to make more than the
+# first group member visible, turn this option off within a
+# group-index criteria.
+# Default: 0
+# invisible=0|1
+
+# COLORS
+# Colors can be specified as #RRGGBB or #RRGGBBAA.
+
+# DIRECTIONAL VALUES
+# Some options set values that affect all four edges of a notifi# cation. These options can be specified in several different
+# ways, depending on how much control over each edge is desired:
+# •A single value will apply to all four edges.
+# •Two values will set vertical and horizontal edges sepa#rately.
+# •Three will set top, horizontal, and bottom edges separately.
+# •Four will give each edge a separate value.
+
+# When specifying multiple values, they should be comma-separated.
+# For example, this would set the top margin to 10, left and right
+# to 20, and bottom to five:
+# margin=10,20,5
+
+# FORMAT SPECIFIERS
+# Format specification works similarly to printf(3), but with a
+# different set of specifiers.
+# %%Literal "%"
+# \\Literal "\"
+# \nNew Line
+
+# For notifications
+# %aApplication name
+# %sNotification summary
+# %bNotification body
+# %gNumber of notifications in the current group
+
+# For the hidden notifications placeholder
+# %hNumber of hidden notifications
+# %tTotal number of notifications
