@@ -58,16 +58,16 @@ multimon() { # Multi-monitor handler.
 allposs=$(xrandr -q | grep "connected")
 
 # Get all connected screens.
-screens=$(echo "$allposs" | grep " connected" | awk '{print $1}')
+screens=$(echo "$allposs" | awk '/ connected/ {print $1}')
 
 # Get user choice including multi-monitor and manual selection:
-chosen=$(printf "%s\\nmulti-monitor\\nmanual selection" "$screens" | dmenu -i -p "Select display arangement:") &&
+chosen=$(printf "%s\\nmulti-monitor\\nmanual selection" "$screens" | dmenu -i -p "Select display arrangement:") &&
 case "$chosen" in
 	"manual selection") arandr ; exit ;;
 	"multi-monitor") multimon ;;
 	*) xrandr --output "$chosen" --auto --scale 1.0x1.0 $(echo "$allposs" | grep -v "$chosen" | awk '{print "--output", $1, "--off"}' | tr '\n' ' ') ;;
 esac
 
-setbg		# Fix background if screen size/arangement has changed.
+setbg		# Fix background if screen size/arrangement has changed.
 remaps		# Re-remap keys if keyboard added (for laptop bases)
 pgrep -x dunst >/dev/null && killall dunst && setsid dunst & # Restart dunst to ensure proper location on screen

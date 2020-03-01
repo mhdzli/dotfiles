@@ -1,22 +1,30 @@
-#!/usr/bin/env sh
-
-# ~/Pictures/Desktop.png is the location of the system wallpaper.  This
-# script, if given an argument, moves it there.  This script without an
-# argument sets ~/Pictures/Desktop.png as the wallpaper, which is required on login
-# if you don't want a blakc screen.
 #!/bin/bash
 
-wp_dir=~/Pictures/Anime
+# ~/Pictures/Desktop.png is the location of the system wallpaper. This
+# script, if given an argument, moves it there. This script without an
+# argument sets ~/Pictures/Desktop.png as the wallpaper, which is required on
+# login if you don't want a black screen.
 
-randbg(){\
-	bg_list=($wp_dir/*)
-	n=${#bg_list[@]}
-	n=$((RANDOM%n))
-	rand_bg=$(basename ${bg_list[$n]})
+wp_dir=~/Pictures/Anime
+Desktop="$HOME/Pictures/Desktop.png"
+
+randbg(){
+	declare -a bg_list=()
+	for Image in "$wp_dir"/*.{jpg,jpeg,png}; {
+		if [ -f "$Image" ]; then
+			bg_list+=("$Image")
+		fi
+	}
+
+	n=$((RANDOM % ${#bg_list[@]}))
+	rand_bg=${bg_list[$n]##*/}
 }
 
-[ -n "$1" ] && [ -d "$wp_dir" ] && cp "$1" ~/Pictures/Desktop.png #&& notify-send -i "$HOME/Pictures/Desktop.png" "Wallpaper changed."
+if [ -n "$1" ] && [ -d "$wp_dir" ]; then
+	cp "$1" "$Desktop" # && notify-send -i "$Desktop" "Wallpaper changed."
+fi
 
-[ -z "$1" ] && randbg && cp $wp_dir/$rand_bg ~/Pictures/Desktop.png 
+[ -z "$1" ] && { randbg && cp "$wp_dir/$rand_bg" "$Desktop"; }
 
-$WAYLAND_DISPLAY 2>/dev/null  && xwallpaper --stretch ~/Pictures/Desktop.png || swaybg -i ~/Pictures/Desktop.png -m stretch 
+$WAYLAND_DISPLAY 2>/dev/null && xwallpaper --stretch "$Desktop" ||
+	swaybg -i "$Desktop" -m stretch

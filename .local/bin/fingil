@@ -8,9 +8,9 @@ convert () {
     out="" #set variable
 
     for i in $(seq 0 $((${#text} - 1))); do #split charactor
-        hex=$(echo "${text:$i:1}" | xxd -p) #convert ASCII to HEX
+        hex=$(xxd -p <<< "${text:$i:1}") #convert ASCII to HEX
 
-        case "$hex" in #convert HEXs
+        case $hex in #convert HEXs
             "220a") #"
                 out="d89b0a" #؛
             ;;
@@ -492,11 +492,11 @@ convert () {
                 out="7e0a" #~
             ;;
             *)
-                out="${hex}"
+                out=$hex
             ;;
         esac
 
-        out=$(echo "$out" | xxd -p -r) #convert HEX to ACSII
+        out=$(xxd -p -r <<< "$out") #convert HEX to ACSII
         echo -ne "$out"\\r #return out variable
     done
 }
