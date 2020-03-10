@@ -30,7 +30,7 @@ exec wl-paste -p -t text --watch clipman store --histpath="~/.local/share/clipma
 # Random background
 exec setbg
 
-# Notifications
+# Notification
 exec mako
 
 # Your preferred application launcher
@@ -284,22 +284,29 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+set $opacity 0.98
+for_window [class=".*"] opacity $opacity
+for_window [app_id=".*"] opacity $opacity
+
 mode "opacity" {
     bindsym 0 opacity 1
     bindsym 1 opacity 0.55
-    bindsym 2 opacity 0.60
-    bindsym 3 opacity 0.65
-    bindsym 4 opacity 0.70
-    bindsym 5 opacity 0.75
-    bindsym 6 opacity 0.80
-    bindsym 7 opacity 0.85
-    bindsym 8 opacity 0.90
-    bindsym 9 opacity 0.95
+    bindsym 2 opacity 0.65
+    bindsym 3 opacity 0.70
+    bindsym 4 opacity 0.75
+    bindsym 5 opacity 0.80
+    bindsym 6 opacity 0.85
+    bindsym 7 opacity 0.90
+    bindsym 8 opacity 0.95
+    bindsym 9 opacity 0.98
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 bindsym $mod+o		mode "opacity"
+
+bindsym $mod+slash	opacity plus 0.02
+bindsym $mod+period	opacity minus 0.02
 
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
@@ -370,10 +377,10 @@ bindsym $mod+Shift+b		exec "killall waybar || waybar"
 exec {
 	waybar
 	swayidle -w \
-                timeout 300 'swaylock -eFfki ~/Pictures/lockscreen.png' \
+                timeout 300 'swaylock -eFfki ~/Pictures/lockscreen.jpeg' \
 		timeout 600 'swaymsg "output * dpms off"' \
                 resume 'swaymsg "output * dpms on"' \
-                before-sleep 'swaylock -eFfki ~/Pictures/lockscreen.png' 
+                before-sleep 'swaylock -eFfki ~/Pictures/lockscreen.jpeg' 
 	mako
 
 	dino
@@ -451,7 +458,7 @@ include /etc/sway/config.d/*
 ## $mod+Shift+d		
 ## $mod+Shift+e		layout toggle split
 ## $mod+Shift+f
-## $mod+Shift+g		decrease gaps
+## $mod+Shift+g		
 ## $mod+Shift+h		move left
 ## $mod+Shift+i
 ## $mod+Shift+j		move down
@@ -485,7 +492,7 @@ include /etc/sway/config.d/*
 ## F10			mute
 ## F11			decrease audio
 ## F12			increase audio
-## print			fullscreen screenshot
+## print		fullscreen screenshot
 ## 
 ## Shift+F1
 ## Shift+F2
@@ -519,16 +526,18 @@ include /etc/sway/config.d/*
 ## $mod+minus		decrease gaps
 ## $mod+grave		scratchpad show
 ## $mod+Escape		exit
-## $mod+BackSpace		reboot
+## $mod+BackSpace	reboot
 ## $mod+Return		$TERMINAL
 ## $mod+left		focus left
 ## $mod+right		focus right
-## $mod+up			focus up
+## $mod+up		focus up
 ## $mod+down		focus down
 ## $mod+bracketleft	shrink width
 ## $mod+bracketright	grow width
 ## $mod+semicolon	shrink height
 ## $mod+apostrophe	grow height
+## $mod+slash
+## $mod+period
 ## 
 ## $mod+Shift+grave	move scratchpad
 ## $mod+underscore	zero gaps
@@ -543,5 +552,7 @@ include /etc/sway/config.d/*
 ## $mod+Shift+bracketright	adjust grow width
 ## $mod+Shift+semicolon		adjust shrink height
 ## $mod+Shift+apostrophe	adjust grow height
+## $mod+Shift+slash
+## $mod+Shift+period
 ##
 ## $alt+{Shift_L,Shift_R}	change keyboard layout
