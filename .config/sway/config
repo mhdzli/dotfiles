@@ -11,7 +11,7 @@
 set $mod	Mod4
 set $alt	Mod1
 # Run pure wayland
-# xwayland disable
+xwayland disable
 
 # Your preferred terminal emulator
 set $term	alacritty
