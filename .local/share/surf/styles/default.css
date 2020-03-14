@@ -1,32 +1,5 @@
-body {
-    background-color: #0f0f17 !important;
-    color: #efefef !important;
-}
-
-#header {
-
-    background-color: #0f0f17 !important;
-    clear: both;
-    color: #76d9d9 !important;
-
-}
-#menu {
-    clear: both;
-    color: #069;
-    overflow: hidden;
-    background-color: #186bb9;
-    padding: 0.7ex;
-    border: 0px !important;
-}
-
-a {
-	color: #7373ef !important;
-}
-
-#header a {
-	color: #7373ef !important;
-}
-
-#menu a {
-	color: #f6ecec !important;
+* {
+    background: #262626 !important;
+    border-color: #f0e7e7 !important;
+    color: #f3ecec !important;
 }

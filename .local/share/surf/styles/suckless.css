@@ -1,0 +1,47 @@
+:root
+{
+    --main-bg-color: #262626;
+	--main-fg-color: #e1d9d9;
+	--lighter-bg-color: #3e3e3e;
+    --lighter-fg-color: #f6ecec;
+	--highlight-bg-color: #424242;
+    --highlight-fg-color: #ddd;
+}
+
+body
+{
+    background-color: var(--main-bg-color) !important;
+    color: var(--main-fg-color) !important;
+}
+
+#menu
+{
+    clear: both;
+    color: var(--lighter-fg-color) !important;
+    overflow: hidden;
+    background-color: #186bb9 !important;
+    padding: 0.7ex;
+    border: 0px !important;
+}
+
+#nav a:hover
+{
+    background-color: var(--highlight-bg-color) !important;
+    color: var(--main-fg-color) !important;
+}
+
+#header {
+
+    background-color: var(--main-bg-color) !important;
+    color: #76d9d9 !important;
+
+}
+
+a {
+	color: #7373ef !important;
+}
+
+#menu a {
+	color: var(--lighter-fg-color) !important;
+}
+

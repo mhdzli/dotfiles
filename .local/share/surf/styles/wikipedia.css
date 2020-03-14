@@ -1,0 +1,96 @@
+:root
+{
+    --main-bg-color: #262626;
+    --main-fg-color: #f0e7e7;
+    --lighter-bg-color: #3e3e3e;
+}
+
+* {
+    background: var(--main-bg-color) !important;
+    border-color: var(--lighter-bg-color) !important;
+    color: var(--main-fg-color) !important;
+}
+
+body, html {
+	background-attachment: fixed !important;
+	background-clip: border-box !important;
+	background-origin: padding-box !important;
+	background-position: center center !important;
+	background-repeat: no-repeat !important;
+	background-size: cover !important;
+} 
+
+a:link {
+    color: #5ea79c !important;
+}
+
+pre,
+a:visited {
+    color: #27a607 !important;
+}
+
+h1,
+h1 *,
+h2,
+h2 *,
+h3,
+h3 *,
+h4,
+h4 *,
+h5,
+h5 *,
+h6,
+h6 *,
+a:hover {
+    color: #809f4a !important;
+}
+
+b,
+b *,
+strong,
+strong * {
+    color: #c16901 !important;
+}
+
+li,
+i,
+i * {
+    color: #ec9157 !important;
+}
+
+input,
+button,
+select,
+textarea {
+    background: var(--main-bg-color) !important;
+    border: 1px solid var(--lighter-bg-color) !important;
+}
+
+img[src*="Wikipedia_wordmark"],
+img[src*="logo"], 
+img[src*="icon"], 
+img[src*="folder"],
+img[src*="/poweredby_mediawiki_88x31.png"],
+img[src*="Bookshelf"],
+img[src*="/wikimedia-button.png"],
+img[src*="174px-Wikipedia-word1_7.png"] {
+display: none !important;
+}
+
+ul {
+    list-style-image: none !important;
+}
+
+#simpleSearch label{
+background: none !important;
+}
+
+#p-logo a {
+    background: url(http://upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png) no-repeat !important;
+    position: absolute !important;
+    clip: rect(0, 135px, 115px, 0) !important;
+    height: 115px !important;
+    overflow: hidden !important;
+    margin-top: 30px !important;
+}
+
