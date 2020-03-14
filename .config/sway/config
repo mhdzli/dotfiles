@@ -377,10 +377,10 @@ bindsym $mod+Shift+b		exec "killall waybar || waybar"
 exec {
 	waybar
 	swayidle -w \
-                timeout 300 'swaylock -eFfki ~/Pictures/lockscreen.jpeg' \
+                timeout 300 'swaylock -eFfki ~/Pictures/lockscreen.png' \
 		timeout 600 'swaymsg "output * dpms off"' \
                 resume 'swaymsg "output * dpms on"' \
-                before-sleep 'swaylock -eFfki ~/Pictures/lockscreen.jpeg' 
+                before-sleep 'swaylock -eFfki ~/Pictures/lockscreen.png' 
 	mako
 
 	dino

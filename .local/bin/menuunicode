@@ -30,6 +30,6 @@ case $pf in
 		;;
 	"\\")
 		echo "$c" | tr -d '\n' | wl-copy
-		echo "OK" | $menu -i
+		notify-send "'$c' copied to primary." &
 esac
 
