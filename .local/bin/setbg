@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # ~/Pictures/Desktop.png is the location of the system wallpaper. This
 # script, if given an argument, moves it there. This script without an
@@ -8,23 +8,29 @@
 wp_dir=~/Pictures/Anime
 Desktop="$HOME/Pictures/Desktop.png"
 
-randbg(){
-	declare -a bg_list=()
-	for Image in "$wp_dir"/*.{jpg,jpeg,png}; {
-		if [ -f "$Image" ]; then
-			bg_list+=("$Image")
-		fi
-	}
+#randbg(){
+#	declare -a bg_list=()
+#	for Image in "$wp_dir"/*.{jpg,jpeg,png}; {
+#		if [ -f "$Image" ]; then
+#			bg_list+=("$Image")
+#		fi
+#	}
+#
+#	n=$((RANDOM % ${#bg_list[@]}))
+#	rand_bg=${bg_list[$n]##*/}
+#}
+#
+#if [ -f "$1" ]; then
+#	cp "$1" "$Desktop" # && notify-send -i "$Desktop" "Wallpaper changed."
+#fi
+#
+#[ -z "$1" ]  && [ -d "$wp_dir" ] && { randbg && cp "$wp_dir/$rand_bg" "$Desktop"; }
 
-	n=$((RANDOM % ${#bg_list[@]}))
-	rand_bg=${bg_list[$n]##*/}
-}
+[ -f "$1" ] && cp "$1" "$Desktop"  && notify-send -i "$Desktop" "Wallpaper changed."
 
-if [ -n "$1" ] && [ -d "$wp_dir" ]; then
-	cp "$1" "$Desktop" # && notify-send -i "$Desktop" "Wallpaper changed."
-fi
+[ -d "$1" ] && cp "$(find "$1"/*.{jpg,jpeg,png} -type f | shuf -n 1)" "$Desktop" && notify-send -i "$Desktop" "Random Wallpaper chosen."
 
-[ -z "$1" ] && { randbg && cp "$wp_dir/$rand_bg" "$Desktop"; }
+[ -z "$1" ] && [ -d "$wp_dir" ] && cp "$(find "$wp_dir"/*.{jpg,jpeg,png} -type f | shuf -n 1)" "$Desktop"
 
 $WAYLAND_DISPLAY 2>/dev/null && xwallpaper --stretch "$Desktop" ||
 	swaybg -i "$Desktop" -m stretch
