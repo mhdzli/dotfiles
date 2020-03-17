@@ -1,6 +1,8 @@
 # mz-dotfiles
 My [dwm](https://github.com/mhdzli/dwm) and sway config and dotfiles for [DWM](https://github.com/mhdzli/dwm) and [SWAYWM](https://swaywm.org/)
+
 I prefer to keep most of my system configs in my `$HOME`. But some of them are needed to be done in `root` directory. So I add those into [root/etc](https://github.com/mhdzli/dotfiles/tree/master/root/etc). These configs are needed to add a few functions for my laptop and in most cases you don't need them.(eg: A [systemd rule](https://github.com/mhdzli/dotfiles/blob/master/root/etc/udev/rules.d/99_battery_threshold.rules) to set charging [threshold for battery](https://fosstodon.org/@mzeinali/103684222479793025).)
+
 I use us,ir layout for may keyboard and there are some configs related to that. you may not need those too.
 
 ## My scripts
