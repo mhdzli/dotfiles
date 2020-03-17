@@ -1,17 +1,25 @@
-# dotfiles
-My [dwm](https://github.com/mhdzli/dwm) and sway config and dotfiles mostly are forked from Luke Smith and Derek Taylor.
+# mz-dotfiles
+My [dwm](https://github.com/mhdzli/dwm) and sway config and dotfiles for [DWM](https://github.com/mhdzli/dwm) and [SWAYWM](https://swaywm.org/)
+I prefer to keep most of my system configs in my `$HOME`. but some of them are needed to be done in `root` directory. So I add those into [root/etc](https://github.com/mhdzli/dotfiles/tree/master/root/etc). These configs are for my some of my laptop functions and in most cases you don't need them.(eg: A [systemd rule](https://github.com/mhdzli/dotfiles/blob/master/root/etc/udev/rules.d/99_battery_threshold.rules) to set charging [threshold for battery](https://fosstodon.org/@mzeinali/103684222479793025).)
+I use us,ir layout for may keyboard and there are some configs related to that. you may not need those too.
 
+## My scripts
+Most of them are in `.local/bin`. You can use them in both `Wayland` and `X`. I switch between `Sway` in `tty1` and `DWM` in `tty2` without any problem. 
 
-dwm screenshots:
+## Key bindings
+
+Most of my key bindings in `Sway` And `DWM + sxhkd` are similar and you can find a help at the end of my [Sway config](https://github.com/mhdzli/dotfiles/blob/master/.config/sway/config)
+
+## dwm screenshots:
 
 ![https://github.com/mhdzli/dotfiles/blob/master/screenshots/dwm-01.png](https://github.com/mhdzli/dotfiles/blob/master/screenshots/dwm-01.png)
 ![https://github.com/mhdzli/dotfiles/blob/master/screenshots/dwm-03.png](https://github.com/mhdzli/dotfiles/blob/master/screenshots/dwm-03.png)
 
-sway screenshots:
+## sway screenshots:
 
 ![https://github.com/mhdzli/dotfiles/blob/master/screenshots/sway-01.png](https://github.com/mhdzli/dotfiles/blob/master/screenshots/sway-01.png)
 ![https://github.com/mhdzli/dotfiles/blob/master/screenshots/sway-02.png](https://github.com/mhdzli/dotfiles/blob/master/screenshots/sway-02.png)
 
-waybar screenshot:
+## waybar screenshot:
 ![https://github.com/mhdzli/dotfiles/blob/master/screenshots/waybar_screenshot.png](https://github.com/mhdzli/dotfiles/blob/master/screenshots/waybar_screenshot.png)
 
