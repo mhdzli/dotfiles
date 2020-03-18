@@ -14,9 +14,11 @@ export FILE="vifm"
 export NOTMUCH_CONFIG="$HOME/.config/notmuch-config"
 export GTK2_RC_FILES="$HOME/.config/gtk-2.0/gtkrc-2.0"
 export ZDOTDIR="$HOME/.config/zsh"
+
+# Wayland env wariables
 export MOZ_ENABLE_WAYLAND=1
 export MOZ_WAYLAND_USE_VAAPI=1
-
+export QT_QPA_PLATFORM=wayland-egl 
 
 # less/man colors
 export LESS=-R
