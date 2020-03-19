@@ -32,5 +32,5 @@ Desktop="$HOME/Pictures/Desktop.png"
 
 [ -z "$1" ] && [ -d "$wp_dir" ] && cp "$(find "$wp_dir"/*.{jpg,jpeg,png} -type f | shuf -n 1)" "$Desktop"
 
-$WAYLAND_DISPLAY 2>/dev/null && xwallpaper --stretch "$Desktop" ||
+[ -z $WAYLAND_DISPLAY ] && xwallpaper --stretch "$Desktop" ||
 	swaybg -i "$Desktop" -m stretch

@@ -13,7 +13,7 @@ set_bemenu(){
 	pf="\\"
 }
 
-$WAYLAND_DISPLAY 2>/dev/null  && set_dmenu || set_bemenu
+[ -z $WAYLAND_DISPLAY ]  && set_dmenu || set_bemenu
 
 getmount() {
 	[ -z "$chosen" ] && exit 1

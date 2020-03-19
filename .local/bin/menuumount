@@ -11,7 +11,7 @@ set_bemenu(){ \
 	pf="\\"
 }
 
-$WAYLAND_DISPLAY 2>/dev/null  && set_dmenu || set_bemenu
+[ -z $WAYLAND_DISPLAY ]  && set_dmenu || set_bemenu
 unmountusb() {
 	[ -z "$drives" ] && exit
 	chosen=$(echo "$drives" | $menu -i -p "Unmount which drive?" | awk '{print $1}')
