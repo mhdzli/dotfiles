@@ -33,7 +33,7 @@ export LESS_TERMCAP_ue="$(printf '%b' '[0m')"; a="${a%_}"
 # gtk3 and qt5 themes
 
 export QT_STYLE_OVERRIDE="kvantum-dark"
-export GTK_THEME="Adwaita:dark"
+# export GTK_THEME="Adwaita:dark"
 
 mpd >/dev/null 2>&1 &
 
