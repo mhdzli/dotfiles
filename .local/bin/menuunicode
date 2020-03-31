@@ -14,7 +14,7 @@ set_bemenu(){ \
 [ "$pf" = "" ] & xclip -h 2>/dev/null || exit
 [ "$pf" = "\\" ] & wl-copy -h >/dev/null || exit
 
-chosen=$(grep -v "#" ~/.config/emoji | $menu -i )
+chosen=$(grep -v "#" ~/.local/share/emoji | $menu -i )
 
 [ "$chosen" != "" ] || exit
 
