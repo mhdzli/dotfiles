@@ -53,6 +53,13 @@ static unsigned int actionfps = 30;
 static unsigned int blinktimeout = 800;
 
 /*
+ * interval (in milliseconds) between each successive call to ximspot. This
+ * improves terminal performance while not reducing functionality to those
+ * whom need XIM support.
+ */
+int ximspot_update_interval = 1000;
+
+/*
  * thickness of underline and bar cursors
  */
 static unsigned int cursorthickness = 2;
