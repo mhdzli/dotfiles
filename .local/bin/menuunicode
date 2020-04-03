@@ -11,8 +11,9 @@ set_bemenu(){ \
 
 [ -z $WAYLAND_DISPLAY ]  && set_dmenu || set_bemenu
 
-[ "$pf" = "" ] & xclip -h 2>/dev/null || exit
-[ "$pf" = "\\" ] & wl-copy -h >/dev/null || exit
+[ xclip -h 2>/dev/null ] || [ -n $WAYLAND_DISPLAY ] || echo exit
+
+ wl-copy -h >/dev/null || [ -z $WAYLAND_DISPLAY ] || exit
 
 chosen=$(grep -v "#" ~/.local/share/emoji | $menu -i )
 
