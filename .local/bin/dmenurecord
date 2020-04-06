@@ -1,5 +1,14 @@
 #!/usr/bin/env sh
 
+# Attention:
+# kmsgrab needs elevated permissions
+# sudo setcap cap_sys_admin+ep /usr/bin/ffmpeg
+# x11capture assumes INTEL HARDWARE for hardware encoding.
+# Relies on https://github.com/andykitchen/swcursor for showing a readable cursor.
+# 
+# Useful information:
+# https://trac.ffmpeg.org/wiki/Capture/Desktop
+#
 # Usage:
 # `$0`: Ask for recording type via dmenu
 # `$0 screencast`: Record both audio and screen
@@ -117,7 +126,7 @@ audio() { \
 	}
 
 askrecording() { \
-	choice=$(printf "screencast\\nvideo\\naudio\\nwebcam\\nwebcam (hi-def)\\nvaapicast\\nvaapivideo\\nwindow" | dmenu -i -p "Select recording style:")
+	choice=$(printf "screencast\\nvideo\\naudio\\nwebcam\\nwebcam (hi-def)\\nvaapicast\\nvaapivideo\\nwindow" | dmenu -i -fn Monospace-14 -p "Select recording style:")
 	case "$choice" in
 		screencast) screencast;;
 		audio) audio;;
