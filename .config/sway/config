@@ -382,9 +382,6 @@ exec {
                 resume 'swaymsg "output * dpms on"' \
                 before-sleep 'swaylock -eFfki ~/Pictures/lockscreen.png' 
 	mako
-
-	dino
-	firefox-developer-edition
 }
 
 ### Another status Bar
