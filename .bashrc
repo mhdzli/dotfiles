@@ -1,6 +1,4 @@
-##!/usr/bin/env bash
-# ~/.bashrc
-#
+# My bashrc
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -126,10 +124,14 @@ export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nomo
 
 # Changing "ls" to "exa"
 #alias ls='ls -a --color=auto'
-alias ls='exa -al --color=always --group-directories-first' # my preferred listing
-alias la='exa -a --color=always --group-directories-first'  # all files and dirs
-alias ll='exa -l --color=always --group-directories-first'  # long format
-alias lt='exa -aT --color=always --group-directories-first' # tree listing
+alias ls='exa -al --icons --color=always --group-directories-first' # my preferred listing
+alias la='exa -a --icons --color=always --group-directories-first' # all files and dirs
+alias ll='exa -l --icons --color=always --group-directories-first' # long format
+alias lt='exa -aT --icons --color=always --group-directories-first' # tree listing
+alias lsd='lsd -hA --group-dirs first'
+alias lst='lsd -A --group-dirs first --tree'
+alias du='du -ahd 1'
+alias ds='dust -d 1'
 
 # broot
 alias bl='br -dhp'
@@ -139,15 +141,17 @@ alias shdn='shutdown now'
 
 # alias vifm='sh $HOME/.config/vifm/scripts/vifmrun'
 alias tor='sh -x /home/mzeinali/Downloads/Software/tor-browser_en-US/Browser/start-tor-browser --detach'
+
 # adding flags
-alias cp="cp -i"                          # confirm before overwriting something
-alias df='df -h'                          # human-readable sizes
-alias free='free -m'                      # show sizes in MB
+alias cp="cp -i" # confirm before overwriting something
+alias mv="mv -i" # confirm before overwriting something
+alias rm="rm -i" # confirm before overwriting something
+
+alias df='df -h' # human-readable sizes
+alias free='free -m' # show sizes in MB
 alias lynx='lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss -vikeys'
 alias a2c='aria2c -c -x 16 -s 16 -k 1M -d ~/Downloads'
 alias imv='imv -b 1D2330 -d'
 alias ts='tabbed surf -pe'
-
-
 
 source /home/mzeinali/.config/broot/launcher/bash/br
