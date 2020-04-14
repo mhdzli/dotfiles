@@ -20,7 +20,7 @@ hi ColorColumn        ctermbg=235          ctermfg=250
 hi Comment            ctermbg=NONE         ctermfg=241
 hi Condtional         ctermbg=NONE         ctermfg=196
 hi Constant           ctermbg=NONE         ctermfg=252
-hi CursorColumn       ctermbg=NONE         ctermfg=NONE
+hi CursorColumn       ctermbg=236          ctermfg=NONE
 hi Cursor             ctermbg=NONE         ctermfg=NONE
 hi CursorLine         ctermbg=237          cterm=bold
 hi Debug              ctermbg=255          ctermfg=NONE

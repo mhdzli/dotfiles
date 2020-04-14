@@ -1,3 +1,5 @@
+let mapleader =","
+
 if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
 	echo "Downloading junegunn/vim-plug to manage plugins..."
 	silent !mkdir -p ~/.config/nvim/autoload/
@@ -13,23 +15,23 @@ cnoremap <expr> <Tab> getcmdtype() == '/' \|\| getcmdtype() == '?' ? '<CR>/<C-r>
 cnoremap <expr> <S-Tab> getcmdtype() == '/' \|\| getcmdtype() == '?' ? '<CR>?<C-r>/' : '<S-Tab>'
 
 
-nnoremap <C-a> :set cursorline!<CR>
-nnoremap <C-f> :call HighlightNearCursor()<CR>
-function HighlightNearCursor()
-  if !exists("s:highlightcursor")
-    match Todo /\k*\%#\k*/
-    let s:highlightcursor=1
-  else
-    match None
-    unlet s:highlightcursor
-  endif
-endfunction
+" nnoremap <C-a> :set cursorline!<CR>
+" nnoremap <C-f> :call HighlightNearCursor()<CR>
+" function HighlightNearCursor()
+"   if !exists("s:highlightcursor")
+"     match Todo /\k*\%#\k*/
+"     let s:highlightcursor=1
+"   else
+"     match None
+"     unlet s:highlightcursor
+"   endif
+" endfunction
 
 colorscheme tfl
 
 highlight CursorLineNr cterm=NONE ctermbg=12 ctermfg=1 gui=NONE guibg=#ffffff guifg=#c5eff0
 highlight CursorLine cterm=NONE ctermbg=12 ctermfg=0 gui=NONE guibg=#ffffff guifg=#c5eff0
-
+highlight cursorcolumn cterm=NONE ctermbg=12 ctermfg=0 gui=NONE guibg=#ffffff guifg=#c5eff0
 
 call plug#begin('~/.config/nvim/plugged')
 Plug 'scrooloose/nerdtree'
@@ -37,7 +39,7 @@ Plug 'junegunn/goyo.vim'
 Plug 'vimwiki/vimwiki'
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-commentary'
-Plug 'vifm/vifm.vim'
+"Plug 'vifm/vifm.vim'
 Plug 'kovetskiy/sxhkd-vim'
 Plug 'Yggdroot/indentLine'
 Plug 'eparreno/vim-l9'
@@ -50,6 +52,7 @@ set mouse=a
 set nohlsearch
 set clipboard=unnamedplus
 set cursorline
+set cursorcolumn
 set so=13
 
 " Some basics:
@@ -62,9 +65,11 @@ set so=13
 "	set list lcs=tab:\|\ 
 "	syntax enable
 "	nnoremap c "_c
+"	autocmd InsertEnter * norm zz
 
 " Enable autocompletion:
 	set wildmode=longest,list,full
+
 " Disables automatic commenting on newline:
 	autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
@@ -79,7 +84,7 @@ set so=13
 
 
 " Spell-check set to <leader>o, 'o' for 'orthography':
-	map <leader>o :setlocal spell! spelllang=en_us<CR>
+	map <leader>s :setlocal spell! spelllang=en_us<CR>
 
 " Splits open at the bottom and right, which is non-retarded, unlike vim defaults.
 	set splitbelow splitright
@@ -93,9 +98,6 @@ set so=13
 	map <C-j> <C-w>j
 	map <C-k> <C-w>k
 	map <C-l> <C-w>l
-
-" Check file in shellcheck:
-	map <leader>s :!clear && shellcheck %<CR>
 
 
 " Compile document, be it groff/LaTeX/markdown/etc.
