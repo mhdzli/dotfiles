@@ -19,8 +19,8 @@ Most of my key bindings in `Sway` And `DWM + sxhkd` are similar and you can find
 
 ## sway screenshots:
 
-![https://github.com/mhdzli/dotfiles/blob/master/screenshots/sway-01.png](../blob/master/screenshots/sway-01.png)
-![https://github.com/mhdzli/dotfiles/blob/master/screenshots/sway-02.png](../blob/master/screenshots/sway-02.png)
+![https://github.com/mhdzli/dotfiles/blob/master/screenshots/sway-01.png](../master/screenshots/sway-01.png)
+![https://github.com/mhdzli/dotfiles/blob/master/screenshots/sway-02.png](../master/screenshots/sway-02.png)
 
 ## waybar screenshot:
 ![https://github.com/mhdzli/dotfiles/blob/master/screenshots/waybar_screenshot.png](../master/screenshots/waybar_screenshot.png)
