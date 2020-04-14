@@ -1,7 +1,7 @@
 # mz-dotfiles
 My configs and dotfiles for [DWM](https://github.com/mhdzli/dwm) and [SWAYWM](https://swaywm.org/).
 
-I prefer to keep most of my system configs in my `$HOME`. But some of them are needed to be done in `root` directory. So I add those into [root/etc](https://github.com/mhdzli/dotfiles/tree/master/root/etc). These configs are needed to add a few functions for my laptop and in most cases you don't need them.(eg: A [systemd rule](../master/root/etc/udev/rules.d/99_battery_threshold.rules) to set charging [threshold for battery](https://fosstodon.org/@mzeinali/103684222479793025).)
+I prefer to keep most of my system configs in my `$HOME`. But some of them are needed to be done in `root` directory. So I add those into [root/etc](../../tree/master/root/etc). These configs are needed to add a few functions for my laptop and in most cases you don't need them.(eg: A [systemd rule](../master/root/etc/udev/rules.d/99_battery_threshold.rules) to set charging [threshold for battery](https://fosstodon.org/@mzeinali/103684222479793025).)
 
 I use us,ir layout for may keyboard and there are some configs related to that. you may not need those too.
 
@@ -14,13 +14,13 @@ Most of my key bindings in `Sway` And `DWM + sxhkd` are similar and you can find
 
 ## dwm screenshots:
 
-![https://github.com/mhdzli/dotfiles/blob/master/screenshots/dwm-01.png](../master/screenshots/dwm-01.png)
-![https://github.com/mhdzli/dotfiles/blob/master/screenshots/dwm-03.png](../master/screenshots/dwm-03.png)
+![../master/screenshots/dwm-01.png](../master/screenshots/dwm-01.png)
+![../master/screenshots/dwm-03.png](../master/screenshots/dwm-03.png)
 
 ## sway screenshots:
 
-![https://github.com/mhdzli/dotfiles/blob/master/screenshots/sway-01.png](../master/screenshots/sway-01.png)
-![https://github.com/mhdzli/dotfiles/blob/master/screenshots/sway-02.png](../master/screenshots/sway-02.png)
+![../master/screenshots/sway-01.png](../master/screenshots/sway-01.png)
+![../master/screenshots/sway-02.png](../master/screenshots/sway-02.png)
 
 ## waybar screenshot:
 ![https://github.com/mhdzli/dotfiles/blob/master/screenshots/waybar_screenshot.png](../master/screenshots/waybar_screenshot.png)
