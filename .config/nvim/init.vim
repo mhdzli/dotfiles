@@ -53,7 +53,11 @@ set nohlsearch
 set clipboard=unnamedplus
 set cursorline
 set cursorcolumn
-set so=13
+" set scrolloff=13
+set so=13 
+" set sidescrolloff=13
+set siso=13
+
 
 " Some basics:
 	set nocompatible
