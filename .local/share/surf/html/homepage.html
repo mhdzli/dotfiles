@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <title>Home</title>
+    <link rel="stylesheet" href="../styles/homepage.css">
+    <link href="favicon.png" rel="shortcut icon" type="image/x-icon" />
+</head>
+<body>
+    <div id="search">
+        <input id="search-field" type="text" name="search-field"/>
+    </div>
+    <div class="container">
+        <div id="clock"></div>
+        <div class="weather-container">
+            <div class="row">
+                <div id="city" class="inline"></div>
+                <div id="weather-description"class="inline"></div>
+                <div class="inline">-</div>
+                <div id="temp" class="inline"></div>
+            </div>
+        </div>
+        <div class="bookmark-container">
+            <div class="bookmark-set">
+                <div class="bookmark-title">Top Sites</div>
+                <div class="bookmark-inner-container">
+                    <a class="bookmark" href="https://mail.tutanota.com/?r=login" target="_blank">Tutanota</a>
+                    <a class="bookmark" href="https://mail.protonmail.com/login" target="_blank">Protonmail</a>
+                    <a class="bookmark" href="https://pixelfed.de/login" target="_blank">Pixelfed</a>
+                    <a class="bookmark" href="https://fosstodon.org/web/getting-started" target="_blank">Fosstodon</a>
+                    <a class="bookmark" href="https://github.com/mhdzli/" target="_blank">Github</a>
+                    <a class="bookmark" href="https://git.ir/" target="_blank">Gitir</a>
+                    <a class="bookmark" href="https://yewtu.be/feed/trending" target="_blank">Yewtube</a>
+                </div>
+            </div>
+            <div class="bookmark-set">
+                <div class="bookmark-title">Arch Linux</div>
+                <div class="bookmark-inner-container">
+                    <a class="bookmark" href="https://www.archlinux.org/" target="_blank">Arch Homepage</a>
+                    <a class="bookmark" href="https://wiki.archlinux.org/" target="_blank">Arch Wiki</a>
+                    <a class="bookmark" href="https://www.archlinux.org/packages/" target="_blank">Arch Packages</a>
+                    <a class="bookmark" href="https://aur.archlinux.org/" target="_blank">AUR Home</a>
+                    <a class="bookmark" href="https://bugs.archlinux.org/" target="_blank">Arch Bugs</a>
+                    <a class="bookmark" href="https://bbs.archlinux.org/" target="_blank">Arch Forums</a>
+                    <a class="bookmark" href="https://www.archlinux.org/planet/" target="_blank">Planet Arch</a>
+                </div>
+            </div>
+            <div class="bookmark-set">
+                <div class="bookmark-title">Suckless</div>
+                <div class="bookmark-inner-container">
+                    <a class="bookmark" href="https://www.suckless.org/" target="_blank">Suckless Homepage</a>
+                    <a class="bookmark" href="https://git.suckless.org/" target="_blank">Suckless Source Code</a>
+                    <a class="bookmark" href="https://dwm.suckless.org/" target="_blank">dwm</a>
+                    <a class="bookmark" href="https://st.suckless.org/" target="_blank">st</a>
+                    <a class="bookmark" href="https://tools.suckless.org/dmenu/" target="_blank">dmenu</a>
+                    <a class="bookmark" href="https://surf.suckless.org/" target="_blank">surf</a>
+                    <a class="bookmark" href="https://tools.suckless.org/tabbed/" target="_blank">tabbed</a>
+                </div>
+            </div>
+            <div class="bookmark-set">
+                <div class="bookmark-title">Search engines</div>
+                <div class="bookmark-inner-container">
+                    <a class="bookmark" href="https://www.mojeek.com/" target="_blank">mojeek</a>
+                    <a class="bookmark" href="https://swisscows.com/" target="_blank">swisscows</a>
+                    <a class="bookmark" href="https://peekier.com/" target="_blank">peekier</a>
+                    <a class="bookmark" href="https://www.qwant.com/" target="_blank">qwant</a>
+                </div>
+            </div>
+            <div class="bookmark-set">
+            <div class="bookmark-title">Reddit</div>
+                <div class="bookmark-inner-container">
+                    <a class="bookmark" href="https://reddit.com/r/linux" target="_blank">/r/linux</a>
+                    <a class="bookmark" href="https://reddit.com/r/archlinux" target="_blank">/r/archlinux</a>
+                    <a class="bookmark" href="https://reddit.com/r/commandline" target="_blank">/r/commandline</a>
+                    <a class="bookmark" href="https://reddit.com/r/linux4noobs" target="_blank">/r/linux4noobs</a>
+                    <a class="bookmark" href="https://reddit.com/r/linuxquestions" target="_blank">/r/linuxquestions</a>
+                    <a class="bookmark" href="https://reddit.com/r/linuxmemes" target="_blank">/r/linuxmemes</a>
+                    <a class="bookmark" href="https://reddit.com/r/suckless" target="_blank">/r/suckless</a>
+                    <a class="bookmark" href="https://reddit.com/r/unixporn" target="_blank">/r/unixporn</a>
+                    <a class="bookmark" href="https://reddit.com/r/vim" target="_blank">/r/vim</a>
+                    <a class="bookmark" href="https://reddit.com/r/emacs" target="_blank">/r/emacs</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Search on enter key event
+        document.getElementById("search-field").addEventListener("keydown",  event => { 
+            if (event.keyCode === 13) {
+                var val = document.getElementById("search-field").value;
+                window.open("https://duckduckgo.com/?q=" + val);
+            }
+        });
+        // Get current time and format
+        getTime = () => {
+            let date = new Date(),
+                min = date.getMinutes(),
+                sec = date.getSeconds(),
+                hour = date.getHours();
+
+            return "" + 
+                (hour < 10 ? ("0" + hour) : hour) + ":" + 
+                (min < 10 ? ("0" + min) : min) + ":" + 
+                (sec < 10 ? ("0" + sec) : sec);
+        }
+
+        window.onload = () => {
+            let xhr = new XMLHttpRequest();
+            // Request to open weather map
+            xhr.open('GET', 'https://api.openweathermap.org/data/2.5/weather?q=shiraz&units=metric&appid=7f677228699cc2905446b8a32c72826c');
+            xhr.onload = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        let json = JSON.parse(xhr.responseText);
+                        console.log(json);
+                        document.getElementById("temp").innerHTML = json.main.temp.toFixed(0) + " C";
+                        document.getElementById("weather-description").innerHTML = json.weather[0].description;
+                        document.getElementById("city").innerHTML = json.name;
+                    } else {
+                        console.log('error msg: ' + xhr.status);
+                    }
+                }
+            }
+            xhr.send();
+            // Set up the clock
+            document.getElementById("clock").innerHTML = getTime();
+            // Set clock interval to tick clock
+            setInterval( () => {
+                document.getElementById("clock").innerHTML = getTime();
+            },100);
+        }
+
+        document.addEventListener("keydown", event => {
+            if (event.keyCode == 32) {          // Spacebar code to open search
+                document.getElementById('search').style.display = 'flex';
+                document.getElementById('search-field').focus();
+            } else if (event.keyCode == 27) {   // Esc to close search
+                document.getElementById('search-field').value = '';
+                document.getElementById('search-field').blur();
+                document.getElementById('search').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
