@@ -10,8 +10,10 @@ set ignorecase true
 # Custom Functions
 cmd open ${{
     case $(file --mime-type "$f" -bL) in
+        image/*) imv -b 1D2330 -d "$fx";;
+	video/*) mpv "$fx";;
         text/*|application/json) $EDITOR "$fx";;
-        video/*|application/pdf) xdg-open "$f" & disown;;
+        */pdf) zathura "$fx";;
         *) for f in "$fx"; do xdg-open "$f"> /dev/null 2> /dev/null & done;;
     esac
 }}
@@ -35,7 +37,7 @@ cmd sudomkfile ${{
 }}
 
 cmd setwallpaper ${{
-    cp "$f" ~/.config/wall.png && feh --bg-scale --no-fehbg "$f"
+    setbg "$f"
 }}
 
 cmd openterm ${{
