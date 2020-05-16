@@ -11,7 +11,7 @@ set_bemenu(){ \
 
 [ -z $WAYLAND_DISPLAY ]  && set_dmenu || set_bemenu
 
-[ xclip -h 2>/dev/null ] || [ -n $WAYLAND_DISPLAY ] || echo exit
+[ xclip -h 2>/dev/null ] || [ -n $WAYLAND_DISPLAY ] || exit
 
  wl-copy -h >/dev/null || [ -z $WAYLAND_DISPLAY ] || exit
 
