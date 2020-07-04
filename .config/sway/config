@@ -246,7 +246,7 @@ bindsym $mod+print		exec bemenurecord
 #Launch applications
 bindsym $mod+w			exec $BROWSER
 bindsym $mod+g			exec gimp
-bindsym $mod+b			exec "$term -e lf"
+bindsym $mod+b			exec "$term -e vifm"
 bindsym $mod+s			exec "$term -e broot -h"
 
 ### Clipboard 
@@ -314,6 +314,9 @@ bindsym $mod+period	opacity minus 0.02
 # Change normal to inverse to use left mouse button for resizing and right
 # mouse button for dragging.
 floating_modifier $mod normal
+for_window [app_id="mpv"] floating enable
+for_window [app_id="imv"] floating enable
+for_window [app_id="zathura"] floating enable
 
 ### Output configuration
 #
