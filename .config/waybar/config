@@ -1,5 +1,5 @@
 {
-//	"layer": "top", // Waybar at top layer
+	"layer": "top", // Waybar at top layer
 //	"position": "top", // Waybar position (top|bottom|left|right)
 //	"height": 30, // Waybar height (to be removed for auto height)
 //	"width": 1280, // Waybar width
@@ -14,14 +14,14 @@
 
 	"modules-center": [
 		"clock#1",
-		"clock#2",
+//		"clock#2",
 		"custom/jalalidate"
 	],
 
 	"modules-right": [
 		"custom/weather",
 //		"temperature",
-//		"cpu",
+		"cpu",
 //		"memory",
 		"network",
 		"backlight",
@@ -31,6 +31,17 @@
 		"tray",
 		"idle_inhibitor"],
 
+	"sway/workspaces": {
+		"disable-scroll": true,
+		"all-outputs": true,
+		"format": "{name}: {icon}",
+		"format-icons": {
+			"urgent": "",
+			"focused": "",
+			"default": ""
+		}
+	},
+	
 	"sway/mode": {
 		"format": "{}" 
 	},
@@ -58,7 +69,7 @@
 
 	"clock#1": {
 		"interval": 60,
-		"format": "⏰ {:%H:%M}",
+		"format": "⏰ {:%H:%M %F} 📅",
 		"tooltip-format": "{:%Y-%m-%d | %H:%M:%S}"
 		// "format-alt": "{:%Y-%m-%d}"
 	},
@@ -69,6 +80,16 @@
 		"tooltip-format": "{:%Y-%m-%d | %H:%M:%S}"
 		// "format-alt": "{:%Y-%m-%d}"
 	},
+
+	"cpu": {
+		"interval": 5,
+		"format": "{usage}% ({load}) ", // Icon: microchip
+		"states": {
+			"warning": 70,
+			"critical": 90
+		}
+	},
+
 /*
 	"cpu": {
 		"format": "🏭 {usage}%",
@@ -175,8 +196,9 @@
 		"interval": 30,
 		"signal": 1,
 		// bindsym the grp (switch layout shortcut) option in your sway confik to exec "pkill -SIGRTMIN+1 waybar"
-		"exec": "wkblayout"
+		"exec": "wkblayout",
 		//swaymsg -t get_inputs | grep -m1 "xkb_active_layout_name" | cut -d '"' -f4
+		"tooltip": "false"
 	}
 
 }
