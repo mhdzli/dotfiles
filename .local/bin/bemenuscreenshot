@@ -22,7 +22,7 @@ FOCUSED=`list_geometry focused`
 
 FILENAME="$(date +'%Y-%m-%d-%H%M%S_screenshot.png')"
 
-choice=$(printf "fullscreen\\nregion\\nfocused\\n$WINDOWS\\" | bemenu -i --fn "monospace 14" --hb "#89cff0" --hf "#000000" --tf "#000000" --tb "#2dc7bc" -l 10 -P " 📸 " -p "Select screenshot type:")
+choice=$(printf "fullscreen\\nregion\\nfocused\\n$WINDOWS" | bemenu -i --fn "monospace 14" --hb "#89cff0" --hf "#000000" --tf "#000000" --tb "#2dc7bc" -l 10 -P " 📸 " -p "Select screenshot type:")
 case "$choice" in
 	fullscreen) grim "pic-full-$FILENAME";;
 	region) grim -g "$(slurp)" "pic-selected-$FILENAME";;

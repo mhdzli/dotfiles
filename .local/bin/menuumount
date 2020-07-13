@@ -26,7 +26,7 @@ unmountandroid() { \
 	}
 
 asktype() { \
-	case "$(printf "USB\\nAndroid$pf" | $menu -i -p "Unmount a USB drive or Android device?")" in
+	case "$(printf "USB\\nAndroid" | $menu -i -p "Unmount a USB drive or Android device?")" in
 		USB) unmountusb ;;
 		Android) unmountandroid ;;
 		"") exit ;;

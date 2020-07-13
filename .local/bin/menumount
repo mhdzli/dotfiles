@@ -49,7 +49,7 @@ mountandroid() {
 }
 
 asktype() {
-	case $(printf "USB\\nAndroid$pf" | $menu -i -p "Mount a USB drive or Android device?") in
+	case $(printf "USB\\nAndroid" | $menu -i -p "Mount a USB drive or Android device?") in
 		USB) mountusb ;;
 		Android) mountandroid ;;
 		"") exit ;;

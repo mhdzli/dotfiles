@@ -52,7 +52,7 @@ vaapi() { \
 	}
 
 askrecording() { \
-	choice=$(printf "screencast\\nvideo\\nvaapi\\nwindow\\" | bemenu -i --fn "monospace 14" --hb "#89cff0" --hf "#000000" --tf "#000000" --tb "#2dc7bc" -l 10 -P " 🎥 " -p "Select recording style:")
+	choice=$(printf "screencast\\nvideo\\nvaapi\\nwindow" | bemenu -i --fn "monospace 14" --hb "#89cff0" --hf "#000000" --tf "#000000" --tb "#2dc7bc" -l 10 -P " 🎥 " -p "Select recording style:")
 	case "$choice" in
 		screencast) screencast;;
 		video) video;;
