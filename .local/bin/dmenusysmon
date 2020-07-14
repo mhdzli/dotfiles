@@ -3,16 +3,26 @@
 # Dmenu script for launching system monitoring commands.
 
 
+set_dmenu(){
+	menu="dmenu"
+	pf=""
+}
+set_bemenu(){
+	menu='bemenu --fn=monospace --fn=14 --hb=#89cff0 --hf=#000000 --tf=#000000 --tb=#2dc7bc -l 10 -P🌡'
+	pf="\\"
+}
+
+[ -z $WAYLAND_DISPLAY ]  && set_dmenu || set_bemenu
 
 cpu() {\
-	case "$(printf "cpuinfo\\nlscpu" | dmenu -i -p "Which info do you preffer?")" in
+	case "$(printf "cpuinfo\\nlscpu" | $menu -i -p "Which info do you preffer?")" in
 		cpuinfo) less /proc/cpuinfo ;;
 		lscpu) lscpu ;;
 	esac
 }
 
 sysmon() {\
-	smon="$(printf "htop\\nglances\\ngtop\\niftop\\niotop\\niptraf-ng\\nnmon\\ns-tui\\npowertop" | dmenu -i -p "Which Program do you preffer?")"
+	smon="$(printf "htop\\nglances\\ngtop\\niftop\\niotop\\niptraf-ng\\nnmon\\ns-tui\\npowertop" | $menu -i -p "Which Program do you preffer?")"
 	case $smon in
 		htop| \
 		glances| \
@@ -34,7 +44,7 @@ sysmon() {\
 }
 
 clockset() {\
-	case "$(printf "timedate\\nhwclock\\nsync&set" | dmenu -i -p "Which info do you preffer?")" in
+	case "$(printf "timedate\\nhwclock\\nsync&set" | $menu -i -p "Which info do you preffer?")" in
 		timedate) timedatectl status ;;
 		hwclock) sudo hwclock --show ;;
 		sync\&set) sudo ntpd -qg; sudo hwclock --systohc ;;
@@ -49,10 +59,11 @@ disk
 cpu
 System
 clockset
+battery
 network
 quit")
 
-choice=$(echo -e "${options[@]}" | dmenu -l -i -p 'System monitors: ')
+choice=$(echo -e "${options[@]}" | $menu -i -p 'System monitors: ')
 
 case $choice in
 	quit)
@@ -75,6 +86,8 @@ case $choice in
 	System) sysmon
 	;;
 	clockset) clockset
+	;;
+	battery) upower -i $(upower -e | grep BAT)
 	;;
 	network) nmcli device status; ip link show; nmcli connection show; cat /etc/resolv.conf
 	;;
