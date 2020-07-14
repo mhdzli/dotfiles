@@ -46,7 +46,7 @@ exec mako
 set $menu	exec bemenu-run -i -p "Run:"  --fn "monospace 14" --hb "#89cff0" --hf "#000000" --tf "#000000" --tb "#2dc7bc" -l 10 
 
 # Another alternative use wofi
-# set $rwofi wofi --show run
+set $rwofi wofi --columns 2 --show drun,run 
 # set $wwofi wofi --show window
 
 # # Default options
@@ -159,14 +159,14 @@ bindsym $mod+q 		kill
 
 # Start your launcher
 bindsym $mod+d		exec $menu
-# bindsym $mod+?	exec $rwofi
+bindsym $mod+Shift+d	exec $rwofi
 # bindsym $mod+?	exec $rwofi
 
 # Open Camera
 bindsym $mod+c 		exec "mpv --no-osc --no-input-default-bindings --input-conf=/dev/null --title='mpvfloat' /dev/video0"
 
 #showkeys
-bindsym $mod+p		exec "killall wshowkeys || wshowkeys"
+bindsym $mod+p		exec "killall wshowkeys || wshowkeys -a bottom"
 
 # Volume control
 bindsym $mod+a		exec "$term -e pulsemixer"
@@ -284,7 +284,7 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-set $opacity 0.98
+set $opacity 1
 for_window [class=".*"] opacity $opacity
 for_window [app_id=".*"] opacity $opacity
 
@@ -436,7 +436,7 @@ include /etc/sway/config.d/*
 ## $mod+j		focus down
 ## $mod+k		focus up
 ## $mod+l		focus right
-## $mod+m		
+## $mod+m		music player
 ## $mod+n
 ## $mod+o		opacity
 ## $mod+p		showkeys
