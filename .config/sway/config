@@ -46,7 +46,7 @@ exec mako
 set $menu	exec bemenu-run -i -p "Run:"  --fn "monospace 14" --hb "#89cff0" --hf "#000000" --tf "#000000" --tb "#2dc7bc" -l 10 
 
 # Another alternative use wofi
-# set $rwofi wofi --show run
+set $rwofi "wofi --show drun,run"
 # set $wwofi wofi --show window
 
 # # Default options
@@ -113,6 +113,15 @@ bindsym $mod+Shift+8	move container to workspace $ws8
 bindsym $mod+Shift+9	move container to workspace $ws9
 bindsym $mod+Shift+0	move container to workspace $ws10
 
+# apps
+for_window {
+    [app_id="firefox*"] move container to workspace $ws2, focus
+    [app_id="telegram*"] move container to workspace $ws3, focus
+
+    # for firefox pip mode
+    [title="Picture-in-Picture"] floating enable
+}
+
 # Moving around:
 #
 # Move your focus around
@@ -159,7 +168,7 @@ bindsym $mod+q 		kill
 
 # Start your launcher
 bindsym $mod+d		exec $menu
-# bindsym $mod+?	exec $rwofi
+bindsym $mod+Shift+d	exec $rwofi
 # bindsym $mod+?	exec $rwofi
 
 # Open Camera
@@ -284,7 +293,7 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-set $opacity 0.98
+set $opacity 1
 for_window [class=".*"] opacity $opacity
 for_window [app_id=".*"] opacity $opacity
 
@@ -314,9 +323,11 @@ bindsym $mod+period	opacity minus 0.02
 # Change normal to inverse to use left mouse button for resizing and right
 # mouse button for dragging.
 floating_modifier $mod normal
-for_window [app_id="mpv"] floating enable
-for_window [app_id="imv"] floating enable
-for_window [app_id="zathura"] floating enable
+for_window {
+	[app_id="mpv"] floating enable
+	[app_id="imv"] floating enable
+	[app_id="zathura"] floating enable
+}
 
 ### Output configuration
 #
