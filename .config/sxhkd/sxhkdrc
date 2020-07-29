@@ -12,7 +12,7 @@ super + r
 super + shift + m
 	mlterm
 super + s
-	dmenusysmon
+	menusysmon
 super + v
 	$TERMINAL -e nvim -c VimwikiIndex
 super + a
