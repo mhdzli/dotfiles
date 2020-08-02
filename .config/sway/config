@@ -382,6 +382,9 @@ input {
 		xkb_model "asus_laptop"
 		# no click needed
 		tap enabled
+		dwt enabled
+#		natural_scroll enabled
+		middle_emulation enabled
 		xkb_options "caps:escape_shifted_capslock,grp:alt_shift_toggle,altwin:menu_win"
 	}
 }
