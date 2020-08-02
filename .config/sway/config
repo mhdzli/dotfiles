@@ -146,6 +146,8 @@ bindsym {
 	$mod+Down	focus down
 	$mod+Up		focus up
 	$mod+Right	focus right
+
+	$alt+Tab	focus next
 	
 	# Move the focused window with the same, but add Shift
 	$mod+Shift+$left	move left
@@ -594,3 +596,4 @@ include /etc/sway/config.d/*
 ## $mod+Shift+period
 ##
 ## $alt+{Shift_L,Shift_R}	change keyboard layout
+## $alt+Tab			focus next
