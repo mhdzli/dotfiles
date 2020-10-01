@@ -1,0 +1,23 @@
+[Default Applications]
+
+# xdg-open will use these settings to determine how to open filetypes.
+# These .desktop entries can also be seen and changed in ~/.local/share/applications/
+
+text/x-shellscript=text.desktop;
+text/markdown=text.desktop;
+text/plain=text.desktop;
+application/postscript=pdf.desktop;
+application/pdf=pdf.desktop;
+image/png=img.desktop;
+image/jpeg=img.desktop;
+image/gif=img.desktop;
+image/x-canon-cr2=img.desktop;
+video/x-matroska=video.desktop
+video/mp4=video.desktop;
+inode/directory=file.desktop
+#x-scheme-handler/magnet=torrent.desktop;
+#application/x-bittorrent=torrent.desktop;
+#x-scheme-handler/mailto=mail.desktop;
+#application/rss+xml=rss.desktop
+
+
