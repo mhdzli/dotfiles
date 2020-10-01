@@ -65,7 +65,11 @@ set norunexec
 
 " Selected color scheme
 
-colorscheme Default
+colorscheme gruvbox
+
+" Show line numbers
+
+set number relativenumber
 
 " Format for displaying time in file list. For example:
 " TIME_STAMP_FORMAT=%m/%d-%H:%M
@@ -224,14 +228,14 @@ fileviewer *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
         " \ ffprobe -pretty %c 2>&1
 
 " Web
-filetype *.html,*.htm
-        \ {Open with dwb}
-        \ dwb %f %i &,
-        \ {Open with firefox}
-        \ firefox %f &,
-        \ {Open with uzbl}
-        \ uzbl-browser %f %i &,
-filetype *.html,*.htm links, lynx
+"filetype *.html,*.htm
+"        \ {Open with dwb}
+"        \ dwb %f %i &,
+"        \ {Open with firefox}
+"        \ firefox %f &,
+"        \ {Open with uzbl}
+"        \ uzbl-browser %f %i &,
+"filetype *.html,*.htm links, lynx
 
 " Object
 filetype *.o nm %f | less
@@ -243,7 +247,7 @@ fileviewer *.[1-8] man ./%c | col -b
 " Images
 filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
         \ {View in imv}
-        \ imv -b 1D2330 -d %d &,
+        \ imv -b 1D2330 -d %c &,
 	\ {View in sxiv}
         \ sxiv -ia %c %d &,
         \ {View in feh}
@@ -252,10 +256,14 @@ filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
         \ cacaview %c &,
 fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.xpm
 	"\ chafa --fill=block --symbols=block -c 256 -s %pwx%ph %c
-        \ vifmimg draw %px %py %pw %ph %c
+        "\ kitty icat --place=%pwx%ph@%pxx%py %c 
+	"\ %pc
+	"\ kitty icat --clear
+	\ vifmimg draw %px %py %pw %ph %c
         \ %pc
         \ vifmimg clear
-        " Get w3m image previews inside vifm
+        
+	" Get w3m image previews inside vifm
 		" \ imgt %px %py %pw %ph %c
         " \ %pc
         " \ imgc %px %py %pw %ph   NOT NEEDED IN XTERM
