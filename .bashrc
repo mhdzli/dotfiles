@@ -151,7 +151,7 @@ alias df='df -h' # human-readable sizes
 alias free='free -m' # show sizes in MB
 alias lynx='lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss -vikeys'
 alias a2c='aria2c -c -x 16 -s 16 -k 1M -d ~/Downloads'
-alias imv='imv -b 1D2330 -d'
+alias imv='imv -b 1D2330'
 alias ts='tabbed surf -pe'
 
 source /home/mzeinali/.config/broot/launcher/bash/br

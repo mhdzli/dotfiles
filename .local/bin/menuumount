@@ -8,7 +8,7 @@ set_dmenu(){ \
 }
 set_bemenu(){ \
 	menu='bemenu --fn=monospace --fn=14 --hb=#89cff0 --hf=#000000 --tf=#000000 --tb=#2dc7bc -l 10 -P⚓'
-	pf="\\"
+	pf=""
 }
 
 [ -z $WAYLAND_DISPLAY ]  && set_dmenu || set_bemenu
