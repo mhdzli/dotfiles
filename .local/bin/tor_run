@@ -1,0 +1,8 @@
+#!/bin/bash
+
+[[ $(systemctl status tor.service | grep running) ]] && ( printf "Tor is running, stopping tor\n" & sudo systemctl stop tor.service ) || printf "Tor is not running\n"
+printf "Starting tor\n"
+sudo systemctl start tor.service
+sleep 4
+printf "Checking if Tor is connected\n"
+systemctl status tor.service #journalctl -exfu tor
