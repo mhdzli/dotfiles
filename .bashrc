@@ -122,7 +122,7 @@ set -o vi
 ### SET VIM AS MANPAGER ###
 export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nomod nolist noma' -\""
 
-# Changing "ls" to "exa"
+# Replace "ls" with "exa"
 #alias ls='ls -a --color=auto'
 alias ls='exa -al --icons --color=always --group-directories-first' # my preferred listing
 alias la='exa -a --icons --color=always --group-directories-first' # all files and dirs
@@ -132,6 +132,9 @@ alias lsd='lsd -hA --group-dirs first'
 alias lst='lsd -A --group-dirs first --tree'
 alias du='du -ahd 1'
 alias ds='dust -d 1'
+
+# Replace cat with bat
+alias cat='bat'
 
 # broot
 alias bl='br -dhp'
