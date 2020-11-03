@@ -134,7 +134,7 @@ alias du='du -ahd 1'
 alias ds='dust -d 1'
 
 # Replace cat with bat
-alias cat='bat'
+alias cat='bat -A'
 
 # broot
 alias bl='br -dhp'
