@@ -145,7 +145,7 @@ alias v='nvim'
 alias shdn='shutdown now'
 
 # alias vifm='sh $HOME/.config/vifm/scripts/vifmrun'
-alias tor='sh -x /home/mzeinali/Downloads/Software/tor-browser_en-US/Browser/start-tor-browser --detach'
+# alias tor='sh -x /home/mzeinali/Downloads/Software/tor-browser_en-US/Browser/start-tor-browser --detach'
 
 # adding flags
 alias cp="cp -i" # confirm before overwriting something
