@@ -1,6 +1,6 @@
 # My bashrc
 # If not running interactively, don't do anything
-[[ $- != *i* ]] && return
+[[ $- == *i* ]] || return
 
 # stty -ixon # Disable ctrl-s and ctrl-q.
 
