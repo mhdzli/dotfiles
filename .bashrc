@@ -1,6 +1,6 @@
 # My bashrc
 # If not running interactively, don't do anything
-[[ $- != *i* ]] && return
+[[ $- == *i* ]] || return
 
 # stty -ixon # Disable ctrl-s and ctrl-q.
 
@@ -122,7 +122,7 @@ set -o vi
 ### SET VIM AS MANPAGER ###
 export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nomod nolist noma' -\""
 
-# Changing "ls" to "exa"
+# Replace "ls" with "exa"
 #alias ls='ls -a --color=auto'
 alias ls='exa -al --icons --color=always --group-directories-first' # my preferred listing
 alias la='exa -a --icons --color=always --group-directories-first' # all files and dirs
@@ -133,6 +133,11 @@ alias lst='lsd -A --group-dirs first --tree'
 alias du='du -ahd 1'
 alias ds='dust -d 1'
 
+# Replace cat with bat
+alias cat='bat'
+alias cata='bat -A'
+
+
 # broot
 alias bl='br -dhp'
 alias bs='br --sizes'
@@ -140,7 +145,7 @@ alias v='nvim'
 alias shdn='shutdown now'
 
 # alias vifm='sh $HOME/.config/vifm/scripts/vifmrun'
-alias tor='sh -x /home/mzeinali/Downloads/Software/tor-browser_en-US/Browser/start-tor-browser --detach'
+# alias tor='sh -x /home/mzeinali/Downloads/Software/tor-browser_en-US/Browser/start-tor-browser --detach'
 
 # adding flags
 alias cp="cp -i" # confirm before overwriting something
