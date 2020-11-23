@@ -8,6 +8,7 @@
     "json",
     "javascriptreact",
     "typescript.tsx",
+    "python",
     "graphql"
   ],
   "explorer.icon.enableNerdfont": true,
@@ -16,7 +17,7 @@
   "explorer.file.showHiddenFiles": true,
   "explorer.file.column.clip.copy": "",
   "explorer.file.column.clip.cut": "",
-  "explorer.keyMappings": {
+  "explorer.keyMappings.global": {
     "gk": "expandablePrev",
     "gj": "expandableNext",
 
