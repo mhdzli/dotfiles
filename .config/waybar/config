@@ -34,7 +34,7 @@
 	"sway/workspaces": {
 		"disable-scroll": true,
 		"all-outputs": true,
-		"format": "{icon}",
+		"format": "{name}",
 		"format-icons": {
 			"urgent": "<span color='#e85c5c'></span>",
 			"focused": "<span color='#8af0f0'></span>",

@@ -87,16 +87,16 @@ client.placeholder	$elegant	$magenta	$silver		$white		$magenta
 
 # Workspaces:
 set {
-	$ws1	"1:🐧"
-	$ws2	"2:🦊"
-	$ws3	"3:🌍" 
-	$ws4	"4:🎥" 
-	$ws5	"5:📷"
-	$ws6	"6:🎷"
-	$ws7	"7:📮"
-	$ws8	"8:📖" 
-	$ws9	"9:💻"
-	$ws10	"10:🔧"
+	$ws1	"1:"
+	$ws2	"2:"
+	$ws3	"3:" 
+	$ws4	"4:" 
+	$ws5	"5:"
+	$ws6	"6:"
+	$ws7	"7:"
+	$ws8	"8:" 
+	$ws9	"9:﬎"
+	$ws10	"10:"
 }
 ### Key bindings
 bindsym {
@@ -268,7 +268,7 @@ bindsym {
 	#Launch applications
 	$mod+w			exec $BROWSER
 	$mod+g			exec gimp
-	$mod+b			exec "$term -e vifm"
+	$mod+b			exec "$term -e bicon ir vifm"
 	$mod+s			exec "$term -e broot -h"
 	
 	### Clipboard 

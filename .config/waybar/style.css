@@ -1,6 +1,6 @@
 * {
 	border: none;
-	background: none;
+	background: rgba(28, 28, 28, 0.6);
 	border-radius: 0;
 	font-family: "monospace";
 	font-size: 15;
@@ -34,7 +34,7 @@
 #workspaces button {
 	padding: 0 5px;
 /*	background: rgba(28, 28, 28, 0.9);*/
-/*	color: #e7f2f2;*/
+	color: #b8b8b8;
 /*	margin: 0 1px;*/ 
 }
 #workspaces button:hover {
@@ -46,8 +46,8 @@
 #workspaces button.focused {
 	padding: 0 5px;
 	border-radius: 10;
-/*	background: #00afd7;
-	color: #1b1d1e;*/
+/*	background: #00afd7;*/
+	color: #8af0f0;
 	margin: 0 0px;
 }
 
