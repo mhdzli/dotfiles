@@ -3,7 +3,7 @@
 	background: none;
 	border-radius: 0;
 	font-family: "monospace";
-	font-size: 13;
+	font-size: 15;
 	min-height: 0;
 }
 
@@ -28,13 +28,13 @@
 	border-bottom-left-radius: 10px;
 	border-top-right-radius: 10px;
 	border-bottom-right-radius: 10px;
-	background: rgba(28, 28, 28, 0.5);
+	background: rgba(28, 28, 28, 0.8);
 }
 
 #workspaces button {
 	padding: 0 5px;
-/*	background: rgba(28, 28, 28, 0.5);*/
-	color: #e7f2f2;
+/*	background: rgba(28, 28, 28, 0.9);*/
+/*	color: #e7f2f2;*/
 /*	margin: 0 1px;*/ 
 }
 #workspaces button:hover {
@@ -46,8 +46,8 @@
 #workspaces button.focused {
 	padding: 0 5px;
 	border-radius: 10;
-	background: #00afd7;
-	color: #1b1d1e;
+/*	background: #00afd7;
+	color: #1b1d1e;*/
 	margin: 0 0px;
 }
 
@@ -63,7 +63,7 @@
 #clock, #custom-jalalidate, #custom-weather, #custom-disk_home, #custom-disk_root,#custom-wkblayout, #temperature, #cpu, #memory, #network, #backlight, #pulseaudio, #battery, #tray, #idle_inhibitor {
 	padding: 0 3px;
 /*	background-color: #000000; */
-	background: rgba(28, 28, 28, 0.5);
+	background: rgba(28, 28, 28, 0.8);
 /*	margin: 0 2px;*/
 }
 
@@ -83,6 +83,7 @@
 }
 
 #custom-jalalidate {
+	margin-right: 8px;
 	border-top-right-radius: 10px;
 	border-bottom-right-radius: 10px;
 }
@@ -136,5 +137,6 @@
 }
 
 #tray {
+	margin-left: 1px;
 }
 

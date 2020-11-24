@@ -1,5 +1,5 @@
 {
-	"layer": "top", // Waybar at top layer
+//	"layer": "top", // Waybar at top layer
 //	"position": "top", // Waybar position (top|bottom|left|right)
 //	"height": 30, // Waybar height (to be removed for auto height)
 //	"width": 1280, // Waybar width
@@ -28,17 +28,17 @@
 		"pulseaudio",
 		"battery",
 		"custom/wkblayout",
-		"tray",
-		"idle_inhibitor"],
+		"idle_inhibitor",
+		"tray"],
 
 	"sway/workspaces": {
 		"disable-scroll": true,
 		"all-outputs": true,
-		"format": "{name}: {icon}",
+		"format": "{icon}",
 		"format-icons": {
-			"urgent": "",
-			"focused": "",
-			"default": ""
+			"urgent": "<span color='#e85c5c'></span>",
+			"focused": "<span color='#8af0f0'></span>",
+			"default": "<span color='#b8b8b8'></span>"
 		}
 	},
 	
@@ -69,7 +69,7 @@
 
 	"clock#1": {
 		"interval": 60,
-		"format": "⏰ {:%H:%M %F} 📅",
+		"format": "<span color='#cde9f0'> {:%H:%M %F} </span>",
 		"tooltip-format": "{:%Y-%m-%d | %H:%M:%S}"
 		// "format-alt": "{:%Y-%m-%d}"
 	},
@@ -83,7 +83,7 @@
 
 	"cpu": {
 		"interval": 5,
-		"format": "{usage}% ({load}) ", // Icon: microchip
+		"format": "<span color='#eb8a60'> {usage}% ({load})</span>", // Icon: microchip
 		"states": {
 			"warning": 70,
 			"critical": 90
@@ -112,13 +112,13 @@
 */
 	"network": {
 		// "interface": "wlp2*", // (Optional) To force the use of this interface
-		"format-wifi": "<span color='#589df6'></span> <span color='gray'>{essid}({signalStrength}%)</span>" ,
+		"format-wifi": "<span color='#589df6'></span> <span color='gray'>{signalStrength}%</span>" ,
 		"format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
 		"format-linked": "{ifname} (No IP) ",
-		"format-disconnected": "Disconnected ⚠",
-		"format-alt": "<span color='gray'>{ipaddr}</span> <span color='green'>⬇</span>{bandwidthDownBits} <span color='green'>⬆</span>{bandwidthUpBits}",
+		"format-disconnected": " ",
+		"format-alt": "<span color='gray'>{essid}</span> <span color='green'>⬇</span>{bandwidthDownBits} <span color='green'>⬆</span>{bandwidthUpBits}",
 		"interval": 60,
-		"tooltip-format": "{ifname}↪{ipaddr}"
+		"tooltip-format": "{ifname}  {ipaddr}"
 	},
 
 	"pulseaudio": {
@@ -155,19 +155,19 @@
 	},
 */
 	"tray": {
-		"icon-size": 21,
-		"spacing": 10
+		"icon-size": 18,
+		"spacing": 5
 	},
 
 	"custom/disk_home": {
-		"format": "🏠 {} ",
+		"format": "<span color='#11eec2'> {} </span>",
 		"interval": 3600,
 		"exec": "df -h --output=avail $HOME | tail -1 | tr -d ' '",
 		"tooltip": "false"
 	},
 
 	"custom/disk_root": {
-		"format": "💽 {} ",
+		"format": "<span color='#a1b5e9'> {} </span>",
 		"interval": 3600,
 		"exec": "df -h --output=avail / | tail -1 | tr -d ' '",
 		"tooltip": "false"
@@ -175,7 +175,7 @@
 
 	// Persian calendar
 	"custom/jalalidate": { 
-		"format": "{}",
+		"format": "<span color='#cde9f0'>{}</span>",
 		"interval": 18000,
 //		"exec": "jalalidate"
 		"exec": "pcal -t",
@@ -183,7 +183,7 @@
 	},
 
 	"custom/weather": {
-		"format": "{}",
+		"format": "<span color='#22dfda'>{}</span>",
 		"interval": 18000,
 		"exec": "weather",
 		//ansiweather -l shiraz,IR -u metric -s true -f 1 -a false | cut -d' ' -f2,8-
