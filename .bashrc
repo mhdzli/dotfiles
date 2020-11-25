@@ -160,4 +160,8 @@ alias a2c='aria2c -c -x 16 -s 16 -k 1M -d ~/Downloads'
 alias imv='imv -b 1D2330'
 alias ts='tabbed surf -pe'
 
+# pandoc
+alias pdmdpdf='pandoc -t ms -s -o' # use roff ms as pdf engine
+alias pdmdhtml='pandoc -s -o' # stand alone html
+
 source /home/mzeinali/.config/broot/launcher/bash/br
