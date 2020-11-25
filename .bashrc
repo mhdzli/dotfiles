@@ -120,7 +120,8 @@ PROMPT_COMMAND='PROMPT_PARSER'
 set -o vi
 
 ### SET VIM AS MANPAGER ###
-export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nomod nolist noma' -\""
+export MANPAGER="/bin/sh -c \"col -b | nvim -c 'set ft=man ts=8 nomod nolist noma' -\""
+# export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nomod nolist noma' -\""
 
 # Replace "ls" with "exa"
 #alias ls='ls -a --color=auto'
