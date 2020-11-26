@@ -163,5 +163,9 @@ alias ts='tabbed surf -pe'
 # pandoc
 alias pdmdpdf='pandoc -t ms -s -o' # use roff ms as pdf engine
 alias pdmdhtml='pandoc -s -o' # stand alone html
+alias pdmd='pandoc -s -t markdown -o'
+alias pddocxmd='pandoc -s --wrap=none --reference-links -t markdown -o'
+# scrcpy as webcam
+alias scwc="scrcpy --rotation 3 --crop 1080:1400:0:200"
 
 source /home/mzeinali/.config/broot/launcher/bash/br
