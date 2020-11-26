@@ -132,11 +132,12 @@ call plug#end()
 
 """ VimWiki - Ensure files are read as what I want:
 	let g:vimwiki_ext2syntax = {'.Rmd': 'markdown', '.rmd': 'markdown','.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
-	map <leader>v :VimwikiIndex
+	map <leader>v :VimwikiIndex<CR>
 	let g:vimwiki_list = [{'path': '~/repos/writings', 'syntax': 'markdown', 'ext': '.md'}]
 	autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
 	autocmd BufRead,BufNewFile *.ms,*.me,*.mom,*.man set filetype=groff
 	autocmd BufRead,BufNewFile *.tex set filetype=tex
+	nnoremap <C-x> f(yi(:!xdg-open <C-r>"<CR><CR>
 " --------------------------------------------------
 
 """ Coc
@@ -269,6 +270,13 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Update binds when sxhkdrc is updated.
 	autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
+" --------------------------------------------------
+
+"  --- Run Codes ---
+
+""" Python
+        autocmd FileType python map <buffer> <F5> :w<CR>:exec '!python' shellescape(@%, 1)<CR>
+        autocmd FileType python imap <buffer> <F5> <esc>:w<CR>:exec '!python' shellescape(@%, 1)<CR>
 " --------------------------------------------------
 
 " Compile document, be it groff/LaTeX/markdown/etc.
