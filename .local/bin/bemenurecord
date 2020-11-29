@@ -30,23 +30,23 @@ killrecording() {
 	}
 
 screencast() { \
-	wf-recorder -f "$HOME/screencast-$(date '+%y%m%d-%H%M-%S').mkv" &
+	wf-recorder -c libx264rgb -f "$HOME/screencast-$(date '+%y%m%d-%H%M-%S').mkv" &
 	echo $! > /tmp/recordingpid
 #	updateicon "⏺️🎙️"
        	}
 
 video() { \
-	wf-recorder -a -f "$HOME/video-$(date '+%y%m%d-%H%M-%S').mkv" &
+	wf-recorder -a -c libx264rgb -f "$HOME/video-$(date '+%y%m%d-%H%M-%S').mkv" &
 	echo $! > /tmp/recordingpid
 #	updateicon "⏺️"
 	}
 window() { \
-	wf-recorder -a -g "$(slurp)" -f "$HOME/window-$(date '+%y%m%d-%H%M-%S').mkv" &
+	wf-recorder -a -c libx264rgb -g "$(slurp)" -f "$HOME/window-$(date '+%y%m%d-%H%M-%S').mkv" &
 	echo $! > /tmp/recordingpid
 #	updateicon "⏺️"
 	}
 vaapi() { \
-	wf-recorder -a -f "$HOME/video-$(date '+%y%m%d-%H%M-%S').mkv" -c h264_vaapi -d /dev/dri/renderD128 &
+	wf-recorder -a -c h264_vaapi -d /dev/dri/renderD128 -f "$HOME/video-$(date '+%y%m%d-%H%M-%S').mkv" &
 	echo $! > /tmp/recordingpid
 #	updateicon "⏺️"
 	}
