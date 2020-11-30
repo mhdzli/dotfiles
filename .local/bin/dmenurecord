@@ -29,7 +29,7 @@ killrecording() {
 	kill -15 "$recpid"
 	rm -f /tmp/recordingpid
 	updateicon ""
-	pkill -RTMIN+9 "${STATUSBAR:-dwmblocks}"
+	pkill -RTMIN+9 "${STATUSBAR:?}"
 	# even after SIGTERM, ffmpeg may still run, so SIGKILL it.
 	sleep 3
 	kill -9 "$recpid"
@@ -139,7 +139,7 @@ askrecording() { \
 	}
 
 asktoend() { \
-	response=$(printf "No\\nYes" | dmenu -i -p "Recording still active. End recording?") &&
+	response=$(prompt "Recording still active. End recording?" "echo Yes") &&
 	[ "$response" = "Yes" ] &&  killrecording
 	}
 
