@@ -6,58 +6,58 @@
 # input a novel directory, it will prompt you to create that directory.
 set_dmenu(){
 	menu="dmenu"
-	pf=""
 }
 set_bemenu(){
 	menu='bemenu --fn=monospace --fn=14 --hb=#89cff0 --hf=#000000 --tf=#000000 --tb=#2dc7bc -l 10 -P⚓'
-	pf="\\"
 }
 
-[ -z $WAYLAND_DISPLAY ]  && set_dmenu || set_bemenu
+[ -z "$WAYLAND_DISPLAY" ]  && set_dmenu || set_bemenu
 
 getmount() {
 	[ -z "$chosen" ] && exit 1
-	mp=$(find $1 2>/dev/null | $menu -i -p "Type in mount point.") || exit 1
+	mp="$(find "$1" 2>/dev/null | $menu -i -p "Type in mount point.")" || exit 1
 	[ "$mp" = "" ] && exit 1
 	if [ ! -d "$mp" ]; then
 		mkdiryn=$(prompt "$mp does not exist. Create it?" "echo Yes")
-		[[ "$mkdiryn" = ^Yes ]] && (mkdir -p "$mp" || sudo -A mkdir -p "$mp")
+		[ "$mkdiryn" = "Yes" ] && (mkdir -p "$mp" || sudo -A mkdir -p "$mp")
 	fi
-}
+	}
 
-mountusb() {
-	chosen=$(echo "$usbdrives" | $menu -i -p "Mount which drive?" | awk '{print $1}')
+mountusb() { \
+	chosen="$(echo "$usbdrives" | $menu -i -p "Mount which drive?")" || exit 1
+	chosen="$(echo "$chosen" | awk '{print $1}')"
 	sudo -A mount "$chosen" 2>/dev/null && notify-send "💻 USB mounting" "$chosen mounted." && exit 0
-	alreadymounted=$(lsblk -nrpo "name,type,mountpoint" | awk '$2=="part"&&$3!~/\/boot|\/home$|SWAP/&&length($3)>1{printf "-not \\( -path *%s -prune \\) \\ \n",$3}')
+	alreadymounted=$(lsblk -nrpo "name,type,mountpoint" | awk '$3!~/\/boot|\/home$|SWAP/&&length($3)>1{printf "-not ( -path *%s -prune ) ",$3}')
 	getmount "/mnt /media /mount /home -maxdepth 5 -type d $alreadymounted"
-	partitiontype=$(lsblk -no "fstype" "$chosen")
-	case $partitiontype in
+	partitiontype="$(lsblk -no "fstype" "$chosen")"
+	case "$partitiontype" in
 		"vfat") sudo -A mount -t vfat "$chosen" "$mp" -o rw,umask=0000;;
-		"ntfs") sudo -A ntfs-3g "$chosen" "$mp" -o rw,umask=0000;;
-		*) sudo -A mount "$chosen" "$mp"; user=$(id -un); ug=$(groups | cut -d ' ' -f 1); sudo -A chown "$user":"$ug" "$mp";;
+		"exfat") sudo -A mount "$chosen" "$mp" -o uid="$(id -u)",gid="$(id -g)";;
+		*) sudo -A mount "$chosen" "$mp"; user="$(whoami)"; ug="$(groups | awk '{print $1}')"; sudo -A chown "$user":"$ug" "$mp";;
 	esac
 	notify-send "💻 USB mounting" "$chosen mounted to $mp."
-}
+	}
 
 mountandroid() {
-	chosen=$(echo "$anddrives" | $menu -i -p "Which Android device?" | cut -d : -f 1)
+	chosen="$(echo "$anddrives" | $menu -i -p "Which Android device?")" || exit 1
+	chosen="$(echo "$chosen" | cut -d : -f 1)"
 	getmount "$HOME -maxdepth 3 -type d"
 	simple-mtpfs --device "$chosen" "$mp"
-	echo "OK" | $menu -i -p "Tap Allow on your phone if it asks for permission and then press enter"
+	echo "OK" | $menu -i -p "Tap Allow on your phone if it asks for permission and then press enter" || exit 1
 	simple-mtpfs --device "$chosen" "$mp"
 	notify-send "🤖 Android Mounting" "Android device mounted to $mp."
-}
+	}
 
-asktype() {
-	case $(printf "USB\\nAndroid" | $menu -i -p "Mount a USB drive or Android device?") in
+asktype() { \
+	choice="$(printf "USB\\nAndroid" | $menu -i -p "Mount a USB drive or Android device?")" || exit 1
+	case $choice in
 		USB) mountusb ;;
 		Android) mountandroid ;;
-		"") exit ;;
 	esac
-}
+	}
 
 anddrives=$(simple-mtpfs -l 2>/dev/null)
-usbdrives=$(lsblk -rpo "name,type,size,mountpoint" | awk '$2=="part"&&$4==""{printf "%s (%s)\n",$1,$3}')
+usbdrives="$(lsblk -rpo "name,type,size,mountpoint" | grep 'part\|rom' | awk '$4==""{printf "%s (%s)\n",$1,$3}')"
 
 if [ -z "$usbdrives" ]; then
 	[ -z "$anddrives" ] && echo "No USB drive or Android device detected" && exit
