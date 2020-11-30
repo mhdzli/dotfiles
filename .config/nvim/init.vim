@@ -112,6 +112,7 @@ Plug 'junegunn/goyo.vim'
 Plug 'vimwiki/vimwiki'
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-commentary'
+Plug 'mzlogin/vim-markdown-toc'
 Plug 'kovetskiy/sxhkd-vim'
 Plug 'Yggdroot/indentLine'
 Plug 'eparreno/vim-l9'
@@ -133,7 +134,7 @@ call plug#end()
 """ VimWiki - Ensure files are read as what I want:
 	let g:vimwiki_ext2syntax = {'.Rmd': 'markdown', '.rmd': 'markdown','.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
 	map <leader>v :VimwikiIndex<CR>
-	let g:vimwiki_list = [{'path': '~/repos/writings', 'syntax': 'markdown', 'ext': '.md'}]
+	let g:vimwiki_list = [{'path': '~/.local/share/nextcloud/Notes/linux', 'syntax': 'markdown', 'ext': '.md'}]
 	autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
 	autocmd BufRead,BufNewFile *.ms,*.me,*.mom,*.man set filetype=groff
 	autocmd BufRead,BufNewFile *.tex set filetype=tex
@@ -275,8 +276,13 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 "  --- Run Codes ---
 
 """ Python
-        autocmd FileType python map <buffer> <F5> :w<CR>:exec '!python' shellescape(@%, 1)<CR>
-        autocmd FileType python imap <buffer> <F5> <esc>:w<CR>:exec '!python' shellescape(@%, 1)<CR>
+if has('nvim')
+        autocmd FileType python map <buffer> <F5> :w<CR>:exec 'term python' shellescape(@%, 1)<CR>a
+        autocmd FileType python imap <buffer> <F5> <esc>:w<CR>:exec 'term python' shellescape(@%, 1)<CR>a
+else
+        autocmd FileType python map <buffer> <F5> :w<CR>:exec '!clear && python' shellescape(@%, 1)<CR>
+        autocmd FileType python imap <buffer> <F5> <esc>:w<CR>:exec '!clear && python' shellescape(@%, 1)<CR>
+end
 " --------------------------------------------------
 
 " Compile document, be it groff/LaTeX/markdown/etc.
