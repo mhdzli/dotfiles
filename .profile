@@ -8,7 +8,7 @@ export GOPATH="$HOME/go"
 export PATH="$PATH:GOPATH/bin"
 export EDITOR="nvim"
 export TERMINAL="st"
-export BROWSER="firefox"
+export BROWSER="qutebrowser"
 export READER="zathura"
 export FILE="vifm"
 #export BIB="$HOME/Documents/LaTeX/uni.bib"
@@ -22,18 +22,33 @@ export ZDOTDIR="$HOME/.config/zsh"
 set_wayland_env(){
 	export MOZ_ENABLE_WAYLAND=1
 	export MOZ_WAYLAND_USE_VAAPI=1
-	export QT_QPA_PLATFORM=wayland-egl 
+	export MOZ_DBUS_REMOTE=1
+	export NO_AT_BRIDGE=1
+	export GDK_BACKEND=wayland
+	export ELM_ENGINE=wayland_egl
+	export CLUTTER_BACKEND=wayland
+	export SDL_VIDEODRIVER=wayland
+	export QT_QPA_PLATFORM=wayland-egl
+	export ECORE_EVAS_ENGINE=wayland-egl
+	export _JAVA_AWT_WM_NONREPARENTING=1
 }
 
 # less/man colors
 export LESS=-R
-export LESS_TERMCAP_mb=$(printf '[1;31m')
-export LESS_TERMCAP_md=$(printf '[1;36m')
-export LESS_TERMCAP_me=$(printf '[0m')
-export LESS_TERMCAP_so=$(printf '[01;44;33m')
-export LESS_TERMCAP_se=$(printf '[0m')
-export LESS_TERMCAP_us=$(printf '[1;32m')
-export LESS_TERMCAP_ue=$(printf '[0m')
+# export LESS_TERMCAP_mb="$(printf '%b' '[1;31m')"; a="${a%_}"
+# export LESS_TERMCAP_md="$(printf '%b' '[1;36m')"; a="${a%_}"
+# export LESS_TERMCAP_me="$(printf '%b' '[0m')"; a="${a%_}"
+# export LESS_TERMCAP_so="$(printf '%b' '[01;44;33m')"; a="${a%_}"
+# export LESS_TERMCAP_se="$(printf '%b' '[0m')"; a="${a%_}"
+# export LESS_TERMCAP_us="$(printf '%b' '[1;32m')"; a="${a%_}"
+# export LESS_TERMCAP_ue="$(printf '%b' '[0m')"; a="${a%_}"
+# export LESS_TERMCAP_mb=$(printf '[1;31m')
+# export LESS_TERMCAP_md=$(printf '[1;36m')
+# export LESS_TERMCAP_me=$(printf '[0m')
+# export LESS_TERMCAP_so=$(printf '[01;44;33m')
+# export LESS_TERMCAP_se=$(printf '[0m')
+# export LESS_TERMCAP_us=$(printf '[1;32m')
+# export LESS_TERMCAP_ue=$(printf '[0m')
 
 # gtk3 and qt5 themes
 
