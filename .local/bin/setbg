@@ -1,35 +1,18 @@
 #!/bin/sh
 
-# ~/Pictures/Desktop.png is the location of the system wallpaper. This
-# script, if given an argument, moves it there. This script without an
-# argument sets ~/Pictures/Desktop.png as the wallpaper, which is required on
-# login if you don't want a black screen.
+# This script does the following:
+#	Run by itself, set the wallpaper (at X start).
+#	If given a file, set that as the new wallpaper.
+#	If given a directory, choose random file in it.
 
+# Location of link to wallpaper link and default directory.
 wp_dir=~/Pictures/Anime
-Desktop="$HOME/Pictures/Desktop.png"
+wallpaper="$HOME/Pictures/Desktop.png"
 
-#randbg(){
-#	declare -a bg_list=()
-#	for Image in "$wp_dir"/*.{jpg,jpeg,png}; {
-#		if [ -f "$Image" ]; then
-#			bg_list+=("$Image")
-#		fi
-#	}
-#
-#	n=$((RANDOM % ${#bg_list[@]}))
-#	rand_bg=${bg_list[$n]##*/}
-#}
-#
-#if [ -f "$1" ]; then
-#	cp "$1" "$Desktop" # && notify-send -i "$Desktop" "Wallpaper changed."
-#fi
-#
-#[ -z "$1" ]  && [ -d "$wp_dir" ] && { randbg && cp "$wp_dir/$rand_bg" "$Desktop"; }
+[ -f "$1" ] && ln -sf "$(readlink -f "$1")" "$wallpaper"  && notify-send -i "$wallpaper" "Wallpaper changed."
 
-[ -f "$1" ] && cp "$1" "$Desktop"  && notify-send -i "$Desktop" "Wallpaper changed."
+[ -d "$1" ] && ln -sf "$(find "$(readlink -f "$1")" -iregex '.*.\(jpg\|jpeg\|png\|gif\)' -type f | shuf -n 1)" "$wallpaper" && notify-send -i "$wallpaper" "Random Wallpaper chosen."
 
-[ -d "$1" ] && cp "$(find "$1"/*.{jpg,jpeg,png} -type f | shuf -n 1)" "$Desktop" && notify-send -i "$Desktop" "Random Wallpaper chosen."
+[ -z "$1" ] && [ -d "$wp_dir" ] && ln -sf "$(find "$(readlink -f "$wp_dir")" -iregex '.*.\(jpg\|jpeg\|png\|gif\)' -type f | shuf -n 1)" "$wallpaper" && notify-send -i "$wallpaper" "Random Wallpaper chosen."
 
-[ -z "$1" ] && [ -d "$wp_dir" ] && cp "$(find "$wp_dir"/*.{jpg,jpeg,png} -type f | shuf -n 1)" "$Desktop"
-
-[ -z $WAYLAND_DISPLAY ] && xwallpaper --zoom "$Desktop" || pkill swaybg; swaybg -i "$Desktop" -m fill 2>/dev/null &
+[ -z $WAYLAND_DISPLAY ] && xwallpaper --zoom "$wallpaper" || pkill swaybg; swaybg -i "$wallpaper" -m fill 2>/dev/null &

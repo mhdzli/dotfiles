@@ -1,0 +1,6 @@
+#!/bin/bash
+
+[[ $(systemctl status tor.service | grep "Bootstrapped 100% (done): Done") ]] && ( printf "Tor is connected\n" ) && exit 0 || ( [[ $(systemctl status tor.service | grep running) ]] && ( printf "Tor is running, restarting tor\n" & sudo systemctl restart tor.service ) || (printf "Tor is not running, starting tor\n" & sudo systemctl start tor.service) )
+sleep 7
+printf "Checking if Tor is connected\n"
+(systemctl status tor.service | grep "Bootstrapped 100% (done): Done") || ( printf "Tor is not connected yet runnung journalctl" & (sleep 2 && journalctl -exfu tor))

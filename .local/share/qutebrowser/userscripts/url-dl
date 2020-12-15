@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+aria2c -c -x 16 -s 16 -k 1M -d ~/Downloads/qutebrowser "$QUTE_URL" && notify-send " Image has been downloaded"
+

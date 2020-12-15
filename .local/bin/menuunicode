@@ -9,28 +9,23 @@ set_bemenu(){ \
 	pf="\\"
 }
 
-[ -z $WAYLAND_DISPLAY ]  && set_dmenu || set_bemenu
+[ -z "$WAYLAND_DISPLAY" ]  && set_dmenu || set_bemenu
 
-[ xclip -h 2>/dev/null ] || [ -n $WAYLAND_DISPLAY ] || exit
+xclip -h 2>/dev/null || [ -n "$WAYLAND_DISPLAY" ] || exit
 
- wl-copy -h >/dev/null || [ -z $WAYLAND_DISPLAY ] || exit
+ wl-copy -h >/dev/null || [ -z "$WAYLAND_DISPLAY" ] || exit
 
-chosen=$(grep -v "#" ~/.local/share/emoji | $menu -i )
+chosen=$(cut -d ';' -f1 ~/.local/share/emoji | $menu -i -l 30 | sed "s/ .*//")
 
 [ "$chosen" != "" ] || exit
 
-c=$(echo "$chosen" | sed "s/ .*//")
-
 case $pf in
 	"")
-		echo "$c" | tr -d '\n' | xclip -selection clipboard
-		notify-send "'$c' copied to clipboard." &
-		s=$(echo "$chosen" | sed "s/.*; //" | awk '{print $1}')
-		echo "$s" | tr -d '\n' | xclip
-		notify-send "'$s' copied to primary." &
+		echo "$chosen" | tr -d '\n' | xclip -selection clipboard
+		notify-send "'$chosen' copied to clipboard." &
 		;;
 	"\\")
-		echo "$c" | tr -d '\n' | wl-copy
-		notify-send "'$c' copied to primary." &
+		echo "$chosen" | tr -d '\n' | wl-copy
+		notify-send "'$chosen' copied to primary." &
 esac
 

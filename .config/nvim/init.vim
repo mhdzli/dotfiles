@@ -7,7 +7,7 @@ if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
 	silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ~/.config/nvim/autoload/plug.vim
 	autocmd VimEnter * PlugInstall
 endif
-
+" --------------------------------------------------
 
 " --- Theme ---
 colorscheme tfl
@@ -32,7 +32,6 @@ highlight cursorcolumn cterm=NONE ctermbg=12 ctermfg=0 gui=NONE guibg=#ffffff gu
 "  endif
 "endfunction
 " --------------------------------------------------
-
 
 " --- Some basics ---
 set nocompatible
@@ -81,6 +80,30 @@ cnoremap <expr> <Tab> getcmdtype() == '/' \|\| getcmdtype() == '?' ? '<CR>/<C-r>
 cnoremap <expr> <S-Tab> getcmdtype() == '/' \|\| getcmdtype() == '?' ? '<CR>?<C-r>/' : '<S-Tab>'
 " --------------------------------------------------
 
+" --- Indent ---
+au BufNewFile,BufRead *.py
+    \ set expandtab       |" replace tabs with spaces
+    \ set autoindent      |" copy indent when starting a new line
+    \ set tabstop=4
+    \ set softtabstop=4
+    \ set shiftwidth=4
+
+au BufNewFile,BufRead *.js, *.html, *.css
+    \ set tabstop=2
+    \ set softtabstop=2
+    \ set shiftwidth=2
+" --------------------------------------------------
+
+" --- Folding ---
+set foldmethod=indent
+set foldlevel=99
+" Enable folding with the spacebar
+nnoremap <space> za
+" --------------------------------------------------
+
+" --- Flagging Unnecessary Whitespace ---
+"au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+" --------------------------------------------------
 
 " --- Plugins ---
 call plug#begin('~/.config/nvim/plugged')
@@ -89,27 +112,34 @@ Plug 'junegunn/goyo.vim'
 Plug 'vimwiki/vimwiki'
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-commentary'
+Plug 'mzlogin/vim-markdown-toc'
 Plug 'kovetskiy/sxhkd-vim'
 Plug 'Yggdroot/indentLine'
 Plug 'eparreno/vim-l9'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'lyokha/vim-xkbswitch'
+Plug 'vim-scripts/indentpython.vim'
 call plug#end()
+" --------------------------------------------------
 
 """ Goyo - makes text more readable when writing prose:
 	map <leader>f :Goyo \| set bg=light \| set linebreak<CR>
+" --------------------------------------------------
 
 """ NerdTree
 	map <leader>n :NERDTreeToggle<CR>
 	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" --------------------------------------------------
 
 """ VimWiki - Ensure files are read as what I want:
 	let g:vimwiki_ext2syntax = {'.Rmd': 'markdown', '.rmd': 'markdown','.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
-	map <leader>v :VimwikiIndex
-	let g:vimwiki_list = [{'path': '~/repos/writings', 'syntax': 'markdown', 'ext': '.md'}]
+	map <leader>v :VimwikiIndex<CR>
+	let g:vimwiki_list = [{'path': '~/.local/share/nextcloud/Notes/linux', 'syntax': 'markdown', 'ext': '.md'}]
 	autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
 	autocmd BufRead,BufNewFile *.ms,*.me,*.mom,*.man set filetype=groff
 	autocmd BufRead,BufNewFile *.tex set filetype=tex
+	nnoremap <C-x> f(yi(:!xdg-open <C-r>"<CR><CR>
+" --------------------------------------------------
 
 """ Coc
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
@@ -230,9 +260,10 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
+" --------------------------------------------------
+
 """ Xkb-switch
 	let g:XkbSwitchEnabled = 1
-" --------------------------------------------------
 
 "  --- Auto Functions ----
 " Run xrdb whenever Xdefaults or Xresources are updated.
@@ -240,6 +271,19 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Update binds when sxhkdrc is updated.
 	autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
+" --------------------------------------------------
+
+"  --- Run Codes ---
+
+""" Python
+if has('nvim')
+        autocmd FileType python map <buffer> <F5> :w<CR>:exec 'term python' shellescape(@%, 1)<CR>a
+        autocmd FileType python imap <buffer> <F5> <esc>:w<CR>:exec 'term python' shellescape(@%, 1)<CR>a
+else
+        autocmd FileType python map <buffer> <F5> :w<CR>:exec '!clear && python' shellescape(@%, 1)<CR>
+        autocmd FileType python imap <buffer> <F5> <esc>:w<CR>:exec '!clear && python' shellescape(@%, 1)<CR>
+end
+" --------------------------------------------------
 
 " Compile document, be it groff/LaTeX/markdown/etc.
 "	map <leader>c :w! \| !compiler <c-r>%<CR>

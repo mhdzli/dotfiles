@@ -29,13 +29,13 @@ sysmon() {\
 		gtop| \
 		nmon| \
 		s-tui)
-		exec st -e $smon
+		exec alacritty -e $smon
 		;;
 		iftop| \
 		iotop| \
 		powertop| \
 		iptraf-ng)
-		exec st -e sudo $smon
+		exec alacritty -e sudo $smon
 		;;
 		*)
 			exit 1

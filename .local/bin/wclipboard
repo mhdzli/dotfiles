@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 c=$(sed -e 's/%/%%/g;s/..//;s/..$/\\/;s/\",\"/\\n/g' /home/mzeinali/.local/share/clipman/clipman-primary.json)
 

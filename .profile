@@ -3,9 +3,12 @@
 
 # Adds `~/.local/bin/` and all subdirectories to $PATH
 export PATH="$PATH:$HOME/.local/bin/"
+export PATH="$PATH:$HOME/.gem/ruby/2.7.0/bin"
+export GOPATH="$HOME/go"
+export PATH="$PATH:GOPATH/bin"
 export EDITOR="nvim"
 export TERMINAL="st"
-export BROWSER="firefox"
+export BROWSER="qutebrowser"
 export READER="zathura"
 export FILE="vifm"
 #export BIB="$HOME/Documents/LaTeX/uni.bib"
@@ -16,24 +19,45 @@ export GTK2_RC_FILES="$HOME/.config/gtk-2.0/gtkrc-2.0"
 export ZDOTDIR="$HOME/.config/zsh"
 
 # Wayland env wariables
-export MOZ_ENABLE_WAYLAND=1
-export MOZ_WAYLAND_USE_VAAPI=1
-export QT_QPA_PLATFORM=wayland-egl 
+set_wayland_env(){
+	export MOZ_ENABLE_WAYLAND=1
+	export MOZ_WAYLAND_USE_VAAPI=1
+	export MOZ_DBUS_REMOTE=1
+	export NO_AT_BRIDGE=1
+	export GDK_BACKEND=wayland
+	export GTK_IM_MOUDLE=xim
+	export ELM_ENGINE=wayland_egl
+	export CLUTTER_BACKEND=wayland
+	export SDL_VIDEODRIVER=wayland
+	export QT_QPA_PLATFORM=wayland-egl
+	export ECORE_EVAS_ENGINE=wayland-egl
+	export _JAVA_AWT_WM_NONREPARENTING=1
+	export XMODIFIERS=@im=ibus
+#	export QT_IM_MODULE=ibus
+#	export XDG_SESSION_TYPE=wayland
+}
 
 # less/man colors
 export LESS=-R
-export LESS_TERMCAP_mb="$(printf '%b' '[1;31m')"; a="${a%_}"
-export LESS_TERMCAP_md="$(printf '%b' '[1;36m')"; a="${a%_}"
-export LESS_TERMCAP_me="$(printf '%b' '[0m')"; a="${a%_}"
-export LESS_TERMCAP_so="$(printf '%b' '[01;44;33m')"; a="${a%_}"
-export LESS_TERMCAP_se="$(printf '%b' '[0m')"; a="${a%_}"
-export LESS_TERMCAP_us="$(printf '%b' '[1;32m')"; a="${a%_}"
-export LESS_TERMCAP_ue="$(printf '%b' '[0m')"; a="${a%_}"
+# export LESS_TERMCAP_mb="$(printf '%b' '[1;31m')"; a="${a%_}"
+# export LESS_TERMCAP_md="$(printf '%b' '[1;36m')"; a="${a%_}"
+# export LESS_TERMCAP_me="$(printf '%b' '[0m')"; a="${a%_}"
+# export LESS_TERMCAP_so="$(printf '%b' '[01;44;33m')"; a="${a%_}"
+# export LESS_TERMCAP_se="$(printf '%b' '[0m')"; a="${a%_}"
+# export LESS_TERMCAP_us="$(printf '%b' '[1;32m')"; a="${a%_}"
+# export LESS_TERMCAP_ue="$(printf '%b' '[0m')"; a="${a%_}"
+# export LESS_TERMCAP_mb=$(printf '[1;31m')
+# export LESS_TERMCAP_md=$(printf '[1;36m')
+# export LESS_TERMCAP_me=$(printf '[0m')
+# export LESS_TERMCAP_so=$(printf '[01;44;33m')
+# export LESS_TERMCAP_se=$(printf '[0m')
+# export LESS_TERMCAP_us=$(printf '[1;32m')
+# export LESS_TERMCAP_ue=$(printf '[0m')
 
 # gtk3 and qt5 themes
 
 export QT_STYLE_OVERRIDE="kvantum-dark"
-# export GTK_THEME="Adwaita:dark"
+export GTK_THEME="Adwaita:dark"
 
 mpd >/dev/null 2>&1 &
 
@@ -43,8 +67,9 @@ echo "$0" | grep "bash$" >/dev/null && [ -f ~/.bashrc ] && source "$HOME/.bashrc
 
 # Start graphical server if i3 not already running.
 [ "$(tty)" = "/dev/tty2" ] && ! pgrep -x Xorg >/dev/null && exec startx
+[ "$(tty)" = "/dev/tty3" ] && ! pgrep -x Xorg >/dev/null && exec startx
 
-[ -z $DISPLAY ] && [ $(tty) = /dev/tty1 ] &&  XKB_DEFAULT_LAYOUT=us exec sway
+[ -z $DISPLAY ] && [ $(tty) = /dev/tty1 ] && set_wayland_env &&  XKB_DEFAULT_LAYOUT=us exec sway
 
 
 

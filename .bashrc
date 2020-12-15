@@ -1,6 +1,6 @@
 # My bashrc
 # If not running interactively, don't do anything
-[[ $- != *i* ]] && return
+[[ $- == *i* ]] || return
 
 # stty -ixon # Disable ctrl-s and ctrl-q.
 
@@ -120,9 +120,10 @@ PROMPT_COMMAND='PROMPT_PARSER'
 set -o vi
 
 ### SET VIM AS MANPAGER ###
-export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nomod nolist noma' -\""
+export MANPAGER="/bin/sh -c \"col -b | nvim -c 'set ft=man ts=8 nomod nolist noma' -\""
+# export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nomod nolist noma' -\""
 
-# Changing "ls" to "exa"
+# Replace "ls" with "exa"
 #alias ls='ls -a --color=auto'
 alias ls='exa -al --icons --color=always --group-directories-first' # my preferred listing
 alias la='exa -a --icons --color=always --group-directories-first' # all files and dirs
@@ -133,6 +134,11 @@ alias lst='lsd -A --group-dirs first --tree'
 alias du='du -ahd 1'
 alias ds='dust -d 1'
 
+# Replace cat with bat
+alias cat='bat'
+alias cata='bat -A'
+
+
 # broot
 alias bl='br -dhp'
 alias bs='br --sizes'
@@ -140,7 +146,7 @@ alias v='nvim'
 alias shdn='shutdown now'
 
 # alias vifm='sh $HOME/.config/vifm/scripts/vifmrun'
-alias tor='sh -x /home/mzeinali/Downloads/Software/tor-browser_en-US/Browser/start-tor-browser --detach'
+# alias tor='sh -x /home/mzeinali/Downloads/Software/tor-browser_en-US/Browser/start-tor-browser --detach'
 
 # adding flags
 alias cp="cp -i" # confirm before overwriting something
@@ -153,5 +159,13 @@ alias lynx='lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss -vikeys'
 alias a2c='aria2c -c -x 16 -s 16 -k 1M -d ~/Downloads'
 alias imv='imv -b 1D2330'
 alias ts='tabbed surf -pe'
+
+# pandoc
+alias pdmdpdf='pandoc -t ms -s -o' # use roff ms as pdf engine
+alias pdmdhtml='pandoc -s -o' # stand alone html
+alias pdmd='pandoc -s -t markdown -o'
+alias pddocxmd='pandoc -s --wrap=none --reference-links -t markdown -o'
+# scrcpy as webcam
+alias scwc="scrcpy --rotation 3 --crop 1080:1400:0:200"
 
 source /home/mzeinali/.config/broot/launcher/bash/br
