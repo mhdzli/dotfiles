@@ -192,6 +192,7 @@ User tor
 SocksPort 9050
 DNSPort 5353
 TransPort 9040
+HTTPTunnelPort 127.0.0.1:8118
 
 UseBridges 1
 ClientTransportPlugin obfs4 exec /usr/bin/obfs4proxy
