@@ -7,11 +7,10 @@
 shopt -s autocd #Allows you to cd into directory merely by typing the directory name.
 HISTSIZE= HISTFILESIZE= # Infinite history.
 
-# PS1='[\u@\h \W]\$ '
-# PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput sgr0)\]\[$(tput setaf 7)\]   \[$(tput bold)\]\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\W\[$(tput setaf 1)\]]\[$(tput setaf 2)\]\\$ \[$(tput sgr0)\]"
+Distro="$(lsb_release -i | cut -f 2)"
 PROMPT_PARSER(){
 #	printf -v X "%.3d" $?
-printf -v X "  %.3d " $? &>/dev/null
+printf -v X " %.3d " $? &>/dev/null
 #	Dir=${PWD##*/}
 #	[ "${PWD%/*}" == "/home" ] && Dir="~"
 	BRed='\033[1;31m'
@@ -21,6 +20,8 @@ printf -v X "  %.3d " $? &>/dev/null
 	Bgreen='\033[1;32m'
 	BBlue='\033[1;34m'
 	Reset='\033[0m'
+
+	Disro=$(lsb_release -i | cut -f 2)
 
 
 	if git rev-parse --is-inside-work-tree &> /dev/null; then
@@ -108,10 +109,12 @@ printf -v X "  %.3d " $? &>/dev/null
 	else
 		printf -v Desc "${BRed}☡  ${White} Sleepy git..."
 	fi
-		PS1="${BYellow}╭──╼\u${Reset}${X}${BBlue}\h╾──☉ ${Reset}${Desc}\n${BPurple}╰─☉ \W${Bgreen}\\$ ${Reset}"
+		PS1="${BYellow}╭──╼\u${Reset}${X}${BBlue}\h╾──☉ ${Reset}${Desc}\n\[$(tput bold)\]\[$(tput setaf 2)\]╰─╼${Distro}\[$(tput sgr0)\]\[$(tput setaf 7)\]  \[$(tput bold)\]\[$(tput setaf 5)\]\W╾──☉ \[$(tput setaf 1)\]\\$ \[$(tput sgr0)\]"
 }
 
 PROMPT_COMMAND='PROMPT_PARSER'
+# PS1='[\u@\h \W]\$ '
+# PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput sgr0)\]\[$(tput setaf 7)\]   \[$(tput bold)\]\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\W\[$(tput setaf 1)\]]\[$(tput setaf 2)\]\\$ \[$(tput sgr0)\]"
 
 ## Change the prompt inside ranger
 # if [ -n "$RANGER_LEVEL" ]; then export PS1="[ranger]$PS1"; fi
@@ -156,16 +159,23 @@ alias rm="rm -i" # confirm before overwriting something
 alias df='df -h' # human-readable sizes
 alias free='free -m' # show sizes in MB
 alias lynx='lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss -vikeys'
-alias a2c='aria2c -c -x 16 -s 16 -k 1M -d ~/Downloads'
+alias a2c='aria2c -c -x 16 -s 16 -k 1M -d ~/Data'
 alias imv='imv -b 1D2330'
 alias ts='tabbed surf -pe'
 
 # pandoc
-alias pdmdpdf='pandoc -t ms -s -o' # use roff ms as pdf engine
-alias pdmdhtml='pandoc -s -o' # stand alone html
+alias pdmdpdf='pandoc -t ms --highlight-style=kate -s -o' # use roff ms as pdf engine
+alias pdmdhtml='pandoc --highlight-style=kate -s -o' # stand alone html
 alias pdmd='pandoc -s -t markdown -o'
 alias pddocxmd='pandoc -s --wrap=none --reference-links -t markdown -o'
+
 # scrcpy as webcam
 alias scwc="scrcpy --rotation 3 --crop 1080:1400:0:200"
+
+# cd
+alias cW="cd $HOME/.local/share/nextcloud/Notes/"
+alias cG="cd $HOME/repos/github/mhdzli"
+alias cV="cd $HOME/Videos"
+ 
 
 source /home/mzeinali/.config/broot/launcher/bash/br
