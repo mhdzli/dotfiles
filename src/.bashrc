@@ -174,5 +174,5 @@ PROMPT_COMMAND='PROMPT_PARSER'
 ## Change the prompt inside ranger
 # if [ -n "$RANGER_LEVEL" ]; then export PS1="[ranger]$PS1"; fi
 
-source $HOME/.config/broot/launcher/bash/br
-source $HOME/.config/shell/aliasrc
+[ -f "$HOME/.config/broot/launcher/bash/br" ] && source $HOME/.config/broot/launcher/bash/br
+[ -f "$HOME/.config/shell/aliasrc" ] && source $HOME/.config/shell/aliasrc
