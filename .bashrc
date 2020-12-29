@@ -1,28 +1,34 @@
-# My bashrc
-# If not running interactively, don't do anything
+### My bashrc
+### If not running interactively, don't do anything
 [[ $- == *i* ]] || return
 
 # stty -ixon # Disable ctrl-s and ctrl-q.
 
-shopt -s autocd #Allows you to cd into directory merely by typing the directory name.
+### cd into directory merely by typing the directory name. ###
+shopt -s autocd 
 HISTSIZE= HISTFILESIZE= # Infinite history.
+
+### Enable vi mode ###
+set -o vi
+
+### Set vim as manpager ###
+export MANPAGER="/bin/sh -c \"col -b | nvim -c 'set ft=man ts=8 nomod nolist noma' -\""
+# export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nomod nolist noma' -\""
+ 
+
+##################################################################################
+### Awesome git prompts source: https://github.com/terminalforlife/BashConfig/ ###
+##################################################################################
+# ANSI color escape sequences. Useful else, not just the prompt.
+C_Red='\e[2;31m';       C_BRed='\e[1;31m';      C_Green='\e[2;32m';
+C_BGreen='\e[1;32m';    C_Yellow='\e[2;33m';    C_BYellow='\e[1;33m';
+C_Grey='\e[2;37m';      C_Reset='\e[0m';        C_BPink='\e[1;35m';
+C_Italic='\e[3m';       C_Blue='\e[2;34m';      C_BBlue='\e[1;34m';
+C_Pink='\e[2;35m';      C_Cyan='\e[2;36m';      C_BCyan='\e[1;36m'
 
 Distro="$(lsb_release -i | cut -f 2)"
 PROMPT_PARSER(){
-#	printf -v X "%.3d" $?
 printf -v X " %.3d " $? &>/dev/null
-#	Dir=${PWD##*/}
-#	[ "${PWD%/*}" == "/home" ] && Dir="~"
-	BRed='\033[1;31m'
-	White='\033[2;37m'
-	BPurple='\033[1;35m'
-	BYellow='\033[1;33m'
-	Bgreen='\033[1;32m'
-	BBlue='\033[1;34m'
-	Reset='\033[0m'
-
-	Disro=$(lsb_release -i | cut -f 2)
-
 
 	if git rev-parse --is-inside-work-tree &> /dev/null; then
 		GI[0]='≎' # Clean.
@@ -37,7 +43,7 @@ printf -v X " %.3d " $? &>/dev/null
 
 		Status=`git status 2> /dev/null`
 		Top=`git rev-parse --show-toplevel`
-		printf -v Desc "${BRed}∷  ${White}Looking under the hood..."
+		printf -v Desc "${C_BRed}∷  ${C_Grey}Looking under the hood..."
 
 		if [ -n "$Top" ]; then
 			# Get the current branch name.
@@ -48,14 +54,14 @@ printf -v X " %.3d " $? &>/dev/null
 		# While loops in special order:
 		while read -ra Z; do
 			if [ "${Z[0]}${Z[1]}" == 'Initialcommit' ]; then
-				Desc="${BRed}${GI[5]}  ${White}Branch '${GB:-?}' has no commits, yet."
+				Desc="${C_BRed}${GI[5]}  ${C_Grey}Branch '${GB:-?}' has no commits, yet."
 				break
 			fi
 		done <<< "$Status"
 
 		while read -ra Z; do
 			if [ "${Z[0]}${Z[1]}${Z[2]}" == '(fixconflictsand' ]; then
-				Desc="${BRed}${GI[7]}  ${White}Branch '${GB:-?}' has conflict(s)."
+				Desc="${C_BRed}${GI[7]}  ${C_Grey}Branch '${GB:-?}' has conflict(s)."
 				break
 			fi
 		done <<< "$Status"
@@ -64,14 +70,14 @@ printf -v X " %.3d " $? &>/dev/null
 			if [ "${Z[0]}${Z[1]}${Z[2]}" == 'nothingtocommit,' ]; then
 				TTLCommits=`git rev-list --count HEAD`
 
-				Desc="${BRed}${GI[0]}  ${White}Branch '${GB:-?}' is $TTLCommits commit(s) clean."
+				Desc="${C_BRed}${GI[0]}  ${C_Grey}Branch '${GB:-?}' is $TTLCommits commit(s) clean."
 				break
 			fi
 		done <<< "$Status"
 
 		while read -ra Z; do
 			if [ "${Z[0]}${Z[1]}${Z[3]}" == 'Yourbranchahead' ]; then
-				Desc="${BRed}${GI[6]}  ${White}Branch '${GB:-?}' leads by ${Z[7]} commit(s)."
+				Desc="${C_BRed}${GI[6]}  ${C_Grey}Branch '${GB:-?}' leads by ${Z[7]} commit(s)."
 				break
 			fi
 		done <<< "$Status"
@@ -84,7 +90,7 @@ printf -v X " %.3d " $? &>/dev/null
 					[ "${LINE[0]}" == '??' ] && NFTTL+=1
 				done <<< "$(git status --short)"
 
-				Desc="${BRed}${GI[3]}  ${White}Branch '${GB:-?}' has $NFTTL new file(s)."
+				Desc="${C_BRed}${GI[3]}  ${C_Grey}Branch '${GB:-?}' has $NFTTL new file(s)."
 				break
 			fi
 		done <<< "$Status"
@@ -93,89 +99,80 @@ printf -v X " %.3d " $? &>/dev/null
 			if [ "${Z[0]}" == 'modified:' ]; then
 				readarray Buffer <<< "$(git --no-pager diff --name-only)"
 
-				Desc="${BRed}${GI[2]}  ${White}Branch '${GB:-?}' has ${#Buffer[@]} modified file(s)."
+				Desc="${C_BRed}${GI[2]}  ${C_Grey}Branch '${GB:-?}' has ${#Buffer[@]} modified file(s)."
 				break
 			fi
 		done <<< "$Status"
 
 		while read -ra Z; do
 			if [ "${Z[0]}${Z[1]}${Z[2]}${Z[3]}" == 'Changestobecommitted:' ]; then
-				Desc="${BRed}${GI[1]}  ${White}Branch '${GB:-?}' has changes to commit."
+				Desc="${C_BRed}${GI[1]}  ${C_Grey}Branch '${GB:-?}' has changes to commit."
 				break
 			fi
 		done <<< "$Status"
 		# End of specially-ordered while loops.
 	
 	else
-		printf -v Desc "${BRed}☡  ${White} Sleepy git..."
+		printf -v Desc "${C_BRed}☡  ${C_Grey} Sleepy git..."
 	fi
-		PS1="${BYellow}╭──╼\u${Reset}${X}${BBlue}\h╾──☉ ${Reset}${Desc}\n\[$(tput bold)\]\[$(tput setaf 2)\]╰─╼${Distro}\[$(tput sgr0)\]\[$(tput setaf 7)\]  \[$(tput bold)\]\[$(tput setaf 5)\]\W╾──☉ \[$(tput setaf 1)\]\\$ \[$(tput sgr0)\]"
+		PS1="${C_BYellow}╭──╼\u${C_Reset}${X}${C_BBlue}\h╾──☉ ${C_Reset}${Desc}\n\[$(tput bold)\]\[$(tput setaf 2)\]╰─╼${Distro}\[$(tput sgr0)\]\[$(tput setaf 7)\]  \[$(tput bold)\]\[$(tput setaf 5)\]\W╾──☉ \[$(tput setaf 1)\]\\$ \[$(tput sgr0)\]"
 }
 
+# PROMPT_PARSER2(){
+# 	if git rev-parse --is-inside-work-tree &> /dev/null; then
+# 		local Status=`git status -s`
+# 		if [ -n "$Status" ]; then
+# 			local StatusColor=$C_BRed
+# 		else
+# 			local StatusColor=$C_BGreen
+# 		fi
+
+# 		local Top=`git rev-parse --show-toplevel`
+# 		read Line < "$Top"/.git/HEAD
+# 		local Branch="$C_Italic$StatusColor${Line##*/}$C_Reset "
+# 	fi
+
+# 	if [ $1 -gt 0 ]; then
+# 		local Exit="$C_BRed🗴$C_Reset"
+# 	else
+# 		local Exit="$C_BGreen🗸$C_Reset"
+# 	fi
+
+# 	local Basename=${PWD##*/}
+# 	local Dirname=${PWD%/*}
+
+# 	if [ "$Dirname/$Basename" == '/' ]; then
+# 		printf -v CWD "$C_Italic$C_BGreen/$C_Reset"
+# 	else
+# 		CWD="$C_Grey$Dirname/$C_Italic$C_BGreen$Basename$C_Reset"
+
+# 		# If the CWD is too long, just show basename with '.../' prepended, if
+# 		# it's valid to do so. I think ANSI escape sequences are being counted
+# 		# in its length, causing it not work as it should, but I like the
+# 		# result, none-the-less.
+# 		local Slashes=${CWD//[!\/]/}
+# 		TempColumns=$((COLUMNS + 20)) # <-- Seems to work around sequences.
+# 		if [ ${#CWD} -gt $(((TempColumns - ${#Branch}) - 2)) ]; then
+# 			if [ ${#Slashes} -ge 2 ]; then
+# 				CWD="$C_Grey.../$C_Reset$C_BGreen$Basename$C_Reset"
+# 			else
+# 				CWD="$C_BGreen$Basename$C_Reset"
+# 			fi
+# 		fi
+# 	fi
+
+# 	PS1="$Exit $Branch$CWD\n: "
+
+# 	unset Line
+# }
+
 PROMPT_COMMAND='PROMPT_PARSER'
+# PROMPT_COMMAND='PROMPT_PARSER2 $?'
 # PS1='[\u@\h \W]\$ '
 # PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput sgr0)\]\[$(tput setaf 7)\]   \[$(tput bold)\]\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\W\[$(tput setaf 1)\]]\[$(tput setaf 2)\]\\$ \[$(tput sgr0)\]"
 
 ## Change the prompt inside ranger
 # if [ -n "$RANGER_LEVEL" ]; then export PS1="[ranger]$PS1"; fi
 
-### ENABLE VI MODE ###
-set -o vi
-
-### SET VIM AS MANPAGER ###
-export MANPAGER="/bin/sh -c \"col -b | nvim -c 'set ft=man ts=8 nomod nolist noma' -\""
-# export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nomod nolist noma' -\""
-
-# Replace "ls" with "exa"
-#alias ls='ls -a --color=auto'
-alias ls='exa -al --icons --color=always --group-directories-first' # my preferred listing
-alias la='exa -a --icons --color=always --group-directories-first' # all files and dirs
-alias ll='exa -l --icons --color=always --group-directories-first' # long format
-alias lt='exa -aT --icons --color=always --group-directories-first' # tree listing
-alias lsd='lsd -hA --group-dirs first'
-alias lst='lsd -A --group-dirs first --tree'
-alias du='du -ahd 1'
-alias ds='dust -d 1'
-
-# Replace cat with bat
-alias cat='bat'
-alias cata='bat -A'
-
-
-# broot
-alias bl='br -dhp'
-alias bs='br --sizes'
-alias v='nvim'
-alias shdn='shutdown now'
-
-# alias vifm='sh $HOME/.config/vifm/scripts/vifmrun'
-# alias tor='sh -x /home/mzeinali/Downloads/Software/tor-browser_en-US/Browser/start-tor-browser --detach'
-
-# adding flags
-alias cp="cp -i" # confirm before overwriting something
-alias mv="mv -i" # confirm before overwriting something
-alias rm="rm -i" # confirm before overwriting something
-
-alias df='df -h' # human-readable sizes
-alias free='free -m' # show sizes in MB
-alias lynx='lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss -vikeys'
-alias a2c='aria2c -c -x 16 -s 16 -k 1M -d ~/Data'
-alias imv='imv -b 1D2330'
-alias ts='tabbed surf -pe'
-
-# pandoc
-alias pdmdpdf='pandoc -t ms --highlight-style=kate -s -o' # use roff ms as pdf engine
-alias pdmdhtml='pandoc --highlight-style=kate -s -o' # stand alone html
-alias pdmd='pandoc -s -t markdown -o'
-alias pddocxmd='pandoc -s --wrap=none --reference-links -t markdown -o'
-
-# scrcpy as webcam
-alias scwc="scrcpy --rotation 3 --crop 1080:1400:0:200"
-
-# cd
-alias cW="cd $HOME/.local/share/nextcloud/Notes/"
-alias cG="cd $HOME/repos/github/mhdzli"
-alias cV="cd $HOME/Videos"
- 
-
-source /home/mzeinali/.config/broot/launcher/bash/br
+source $HOME/.config/broot/launcher/bash/br
+source $HOME/.config/shell/aliasrc
