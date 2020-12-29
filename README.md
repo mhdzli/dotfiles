@@ -12,16 +12,3 @@ Most of them are in `.local/bin`. You can use them in both `Wayland` and `X`. I 
 
 Most of my key bindings in `Sway` And `DWM + sxhkd` are similar and you can find a help at the end of my [Sway config](../master/src/.config/sway/config).
 
-## dwm screenshots:
-
-![../master/screenshots/dwm-01.png](../master/screenshots/dwm-01.png)
-![../master/screenshots/dwm-03.png](../master/screenshots/dwm-03.png)
-
-## sway screenshots:
-
-![../master/screenshots/sway-01.png](../master/screenshots/sway-01.png)
-![../master/screenshots/sway-02.png](../master/screenshots/sway-02.png)
-
-## waybar screenshot:
-![https://github.com/mhdzli/dotfiles/blob/master/screenshots/waybar_screenshot.png](../master/screenshots/waybar_screenshot.png)
-
