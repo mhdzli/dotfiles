@@ -53,6 +53,9 @@ exec {
 
 	# Notification
 	mako
+
+	# Music daemon
+	mpd
 }
 
 # # Default options
@@ -127,7 +130,10 @@ bindsym {
 
 # apps
 for_window {
+    [app_id="qutebrowser*"] move container to workspace $ws2, focus
     [app_id="firefox*"] move container to workspace $ws2, focus
+    # [app_id="mpv*"] move container to workspace $ws4, focus
+    [app_id="zathura*"] move container to workspace $ws8, focus
     [app_id="telegram*"] move container to workspace $ws3, focus
 
     # for firefox pip mode
@@ -174,8 +180,8 @@ bindsym {
 	# Basics:
 	#
 	# Start a terminal
-	$mod+Return	exec $term
-	$mod+Tab	workspace back_and_forth
+	$mod+Return		exec $term
+	$mod+Tab		workspace back_and_forth
 	
 	# Kill focused window
 	$mod+q 		kill
@@ -186,10 +192,10 @@ bindsym {
 	# bindsym $mod+?	exec $rwofi
 	
 	# Open Camera
-	$mod+c 		exec "mpv --no-osc --no-input-default-bindings --input-conf=/dev/null --title='mpvfloat' /dev/video0
+	$mod+c 		exec "mpv --no-osc --no-input-default-bindings --input-conf=/dev/null --title='mpvfloat' /dev/video0"
 	
 	#showkeys
-	$mod+p		exec "killall wshowkeys || wshowkeys"
+	$mod+p		exec "killall wshowkeys || wshowkeys -a bottom -t 1"
 	
 	# Volume control
 	$mod+a		exec "$term -e pulsemixer"
@@ -261,13 +267,14 @@ bindsym {
 	XF86MonBrightnessUp	exec incbrightness 
 	XF86MonBrightnessDown	exec decbrightness
 	XF86Display		exec "wdisplays"
+	XF86TouchpadToggle	exec toggletouchpad
 	#screencapture
 	print			exec grim "pic-full-$(date '+%y%m%d-%H%M-%S').png"
 	Shift+print		exec bemenuscreenshot
 	$mod+print		exec bemenurecord
 	#Launch applications
 	$mod+w			exec $BROWSER
-	$mod+g			exec gimp
+	$mod+g			exec gimp-2.99
 	$mod+b			exec "$term -e bicon ir vifm"
 	$mod+s			exec "$term -e broot -h"
 	
@@ -348,6 +355,7 @@ for_window {
 	[app_id="mpv"] floating enable
 	[app_id="imv"] floating enable
 	[app_id="zathura"] floating enable
+	[app_id="firefox*"] floating enable
 }
 
 ### Output configuration
@@ -397,7 +405,7 @@ input {
 # Update keyboard layout in waybar
 bindsym {
 	Mod1+Shift_L		exec "pkill -SIGRTMIN+1 waybar &"
-	Mod1+Shift_R		exec "pkill -SIGRTMIN+1 waybar &"
+	# Mod1+Shift_R		exec "pkill -SIGRTMIN+1 waybar &"
 
 	# Toggle Bar
 	$mod+Shift+b		exec "killall waybar || waybar"

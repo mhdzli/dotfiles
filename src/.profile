@@ -55,11 +55,8 @@ export LESS=-R
 # export LESS_TERMCAP_ue=$(printf '[0m')
 
 # gtk3 and qt5 themes
-
 export QT_STYLE_OVERRIDE="kvantum-dark"
 export GTK_THEME="Adwaita:dark"
-
-mpd >/dev/null 2>&1 &
 
 [ ! -f ~/.config/shortcutrc ] && shortcuts >/dev/null 2>&1
 
@@ -68,9 +65,6 @@ echo "$0" | grep "bash$" >/dev/null && [ -f ~/.bashrc ] && source "$HOME/.bashrc
 # Start graphical server if i3 not already running.
 [ "$(tty)" = "/dev/tty2" ] && ! pgrep -x Xorg >/dev/null && exec startx
 [ "$(tty)" = "/dev/tty3" ] && ! pgrep -x Xorg >/dev/null && exec startx
-
 [ -z $DISPLAY ] && [ $(tty) = /dev/tty1 ] && set_wayland_env &&  XKB_DEFAULT_LAYOUT=us exec sway
-
-
 
 source /home/mzeinali/.config/broot/launcher/bash/br
