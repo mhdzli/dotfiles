@@ -37,7 +37,7 @@ alias \
 alias \
 	cp='cp -iv' \
 	mv='mv -iv' \
-	rm='rm -vI' \
+	rm='rm -vIi' \
 	chown='chown -v' \
 	chmod='chmod -v' \
 	rmdir='rmdir -v' \
