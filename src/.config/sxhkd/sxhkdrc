@@ -89,7 +89,7 @@ super + F12
 	$TERMINAL -e nmtui; pkill -RTMIN+3 dwmblocks
 
 ## Change keyboard layout in dwmblocks
-alt + {Shift_L,Shift_R}
+alt + Shift_L
 	pkill -RTMIN+2 dwmblocks
 
 
