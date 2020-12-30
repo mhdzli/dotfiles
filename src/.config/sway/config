@@ -379,15 +379,18 @@ for_window {
 #}
 #
 input {
-	* {
+	type:keyboard {
 		xkb_layout "us,ir"
 		xkb_model "asus_laptop"
+		xkb_options "caps:escape_shifted_capslock,grp:lalt_lshift_toggle,altwin:menu_win"
+	}
+
+	type:touchpad {
 		# no click needed
 		tap enabled
 		dwt enabled
 #		natural_scroll enabled
 		middle_emulation enabled
-		xkb_options "caps:escape_shifted_capslock,grp:alt_shift_toggle,altwin:menu_win"
 	}
 }
 
