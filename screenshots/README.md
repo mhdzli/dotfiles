@@ -10,6 +10,8 @@
 ![sway-01.png](sway-01.png)
 ![sway-02.png](sway-02.png)
 
-## waybar screenshot:
+## waybar screenshots:
+Old one:
 ![waybar_screenshot.png](waybar_screenshot.png)
+New one:
 ![waybar_02.png](waybar_02.png)
