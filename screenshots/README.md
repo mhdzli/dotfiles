@@ -12,4 +12,4 @@
 
 ## waybar screenshot:
 ![waybar_screenshot.png](waybar_screenshot.png)
-
+![waybar_02.png](waybar_02.png)
