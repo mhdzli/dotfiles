@@ -1,0 +1,74 @@
+[theme]
+name = "solarized-dark"
+[theme.overrides]
+separator = "\u2770"
+separator_bg = "#002b36"
+separator_fg = "#93a1a1"
+
+[icons]
+name = "awesome"
+
+[[block]]
+block = "custom"
+command = ''' weather '''
+interval = 21600
+
+[[block]]
+block = "disk_space"
+path = "/"
+alias = ""
+info_type = "available"
+unit = "GB"
+interval = 20
+warning = 20.0
+alert = 10.0
+
+[[block]]
+block = "disk_space"
+path = "/home/mzeinali/"
+alias = ""
+info_type = "available"
+unit = "GB"
+interval = 20
+warning = 0
+alert = 0
+
+[[block]]
+block = "memory"
+display_type = "memory"
+format_mem = "{Mug}"
+format_swap = "{SUg}"
+
+[[block]]
+block = "cpu"
+interval = 1
+
+[[block]]
+block = "net"
+device = "wls1"
+format = "{signal_strength}"
+interval = 5
+use_bits = false
+
+[[block]]
+block = "backlight"
+device = "/sys/class/backlight/"
+
+[[block]]
+block = "sound"
+
+[[block]]
+block = "custom"
+command = ''' jalalidate '''
+interval = "once"
+
+[[block]]
+block = "time"
+interval = 60
+format = "%a %d/%m %R"
+
+[[block]]
+block = "keyboard_layout"
+driver = "sway"
+format = " {layout}"
+sway_kb_identifier = "1:1:AT_Translated_Set_2_keyboard"
