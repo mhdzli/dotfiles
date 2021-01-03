@@ -427,13 +427,13 @@ exec {
 }
 
 # Status bar
-set $status_bar i3status-rs
 
 # bar swaybar_command waybar
 bar {
     font pango:monospace, FontAwesome 12
     position top
     status_command /usr/bin/i3status-rs ~/.config/i3status-rust/config.toml
+    modifier none
     colors {
         separator #666666
         background #222222
@@ -451,7 +451,8 @@ bindsym {
 	# Mod1+Shift_R		exec "pkill -SIGRTMIN+1 waybar &"
 
 	# Toggle Bar
-	$mod+Shift+b		exec "killall waybar || waybar"
+	# $mod+Shift+b		exec "killall waybar || waybar"
+	$mod+Shift+b 		bar mode toggle
 }
 
 ### Another status Bar
