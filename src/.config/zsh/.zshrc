@@ -71,5 +71,5 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f $HOME/.config/zsh/.p10k.zsh ]] || source $HOME/.config/zsh/.p10k.zsh
 
-# To customize spaceship prompt, edit ~/.config/zsh/.p10k.zsh.
+# To customize spaceship prompt, edit ~/.config/zsh/.spaceship.zsh.
 # [[ ! -f $HOME/.config/zsh/.spaceship.zsh ]] || source $HOME/.config/zsh/.spaceship.zsh
