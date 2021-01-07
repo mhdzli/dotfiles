@@ -1,0 +1,75 @@
+#!/bin/sh
+
+# Colorize commands when possible.
+alias \
+	grep="grep --color=auto" \
+	diff="diff --color=auto" 
+#	ls='ls --quoting-style=literal -pq --time-style=iso --color=auto --group-directories-first --show-control-chars'
+
+# Replace "ls" with "exa"
+alias \
+	ls='exa -al --icons --color=always --group-directories-first' \
+	la='exa -a --icons --color=always --group-directories-first' \
+	ll='exa -l --icons --color=always --group-directories-first' \
+	lt='exa -aT --icons --color=always --group-directories-first' \
+	lsd='lsd -hA --group-dirs first' \
+	lst='lsd -A --group-dirs first --tree'
+
+# Replace cat with bat
+alias \
+	cat='bat' \
+	cata='bat -A'
+
+# broot
+alias \
+	bl='br -dhp' \
+	bs='br --sizes'
+
+# These common commands are just too long! Abbreviate them.
+alias \
+	v='nvim' \
+	magit="nvim -c MagitOnly" \
+	g='git' \
+	sdn='sudo shutdown -h now' \
+	p='sudo pacman'
+
+# Verbosity and settings that you pretty much just always are going to want.
+alias \
+	cp='cp -iv' \
+	mv='mv -iv' \
+	rm='rm -vIi' \
+	chown='chown -v' \
+	chmod='chmod -v' \
+	rmdir='rmdir -v' \
+	mkd='mkdir -pv' \
+	lsblkid='lsblk -o name,label,fstype,size,uuid --noheadings' \
+	df='df -h' \
+	du='du -ahd 1' \
+	ds='dust -d 1' \
+	free='free -m' \
+	dwatch='watch -n 0.1 -t "ls -SsCphq --color=auto --group-directories-first"'
+	yt='youtube-dl --add-metadata -i' \
+	yta='yt -x -f bestaudio/best' \
+	ffmpeg='ffmpeg -hide_banner' \
+	fmpg="ffmpeg -v 0 -stats" \
+	alias ln='ln -v' \
+	lynx='lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss -vikeys' \
+	a2c='aria2c -c -x 16 -s 16 -k 1M -d' \
+	imv='imv -b 1D2330' \
+	ts='tabbed surf -pe' \
+
+# pandoc
+alias \
+	pdmdpdf='pandoc -t ms --highlight-style=kate -s -o' \
+	pdmdhtml='pandoc --highlight-style=kate -s -o' \
+	pdmd='pandoc -s -t markdown -o' \
+	pddocxmd='pandoc -s --wrap=none --reference-links -t markdown -o'
+
+# scrcpy as webcam
+alias scwc="scrcpy --rotation 3 --crop 1080:1400:0:200"
+
+# cd
+alias \
+	cW="cd $HOME/.local/share/nextcloud/Notes/" \
+	cG="cd $HOME/repos/github/mhdzli" \
+	cV="cd $HOME/Videos"

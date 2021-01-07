@@ -8,7 +8,7 @@
 ### Variables
 
 # Run pure wayland
-xwayland disable
+# xwayland disable
 
 set {
 	# Logo key. Use Mod1 for Alt.
@@ -24,7 +24,7 @@ set {
 	# Your preferred terminal emulator
 	$term	alacritty
 	#$term	kitty -e tmux
-
+	
 	# Your preferred application launcher
 	# Note: pass the final command to swaymsg so that the resulting window can be opened
 	# on the original workspace that the command was run on.
@@ -52,6 +52,9 @@ exec {
 
 	# Notification
 	mako
+
+	# Music daemon
+	mpd
 }
 
 # # Default options
@@ -126,7 +129,10 @@ bindsym {
 
 # apps
 for_window {
+    [app_id="qutebrowser*"] move container to workspace $ws2, focus
     [app_id="firefox*"] move container to workspace $ws2, focus
+    # [app_id="mpv*"] move container to workspace $ws4, focus
+    [app_id="zathura*"] move container to workspace $ws8, focus
     [app_id="telegram*"] move container to workspace $ws3, focus
 
     # for firefox pip mode
@@ -173,8 +179,8 @@ bindsym {
 	# Basics:
 	#
 	# Start a terminal
-	$mod+Return	exec $term
-	$mod+Tab	workspace back_and_forth
+	$mod+Return		exec $term
+	$mod+Tab		workspace back_and_forth
 	
 	# Kill focused window
 	$mod+q 		kill
@@ -185,10 +191,10 @@ bindsym {
 	# bindsym $mod+?	exec $rwofi
 	
 	# Open Camera
-	$mod+c 		exec "mpv --no-osc --no-input-default-bindings --input-conf=/dev/null --title='mpvfloat' /dev/video0
+	$mod+c 		exec "mpv --no-osc --no-input-default-bindings --input-conf=/dev/null --title='mpvfloat' /dev/video0"
 	
 	#showkeys
-	$mod+p		exec "killall wshowkeys || wshowkeys"
+	$mod+p		exec "killall wshowkeys || wshowkeys -a bottom -t 1"
 	
 	# Volume control
 	$mod+a		exec "$term -e pulsemixer"
@@ -260,13 +266,14 @@ bindsym {
 	XF86MonBrightnessUp	exec incbrightness 
 	XF86MonBrightnessDown	exec decbrightness
 	XF86Display		exec "wdisplays"
+	XF86TouchpadToggle	exec toggletouchpad
 	#screencapture
 	print			exec grim "pic-full-$(date '+%y%m%d-%H%M-%S').png"
 	Shift+print		exec bemenuscreenshot
 	$mod+print		exec bemenurecord
 	#Launch applications
 	$mod+w			exec $BROWSER
-	$mod+g			exec gimp
+	$mod+g			exec gimp-2.99
 	$mod+b			exec "$term -e bicon ir vifm"
 	$mod+s			exec "$term -e broot -h"
 	
@@ -346,7 +353,9 @@ floating_modifier $mod normal
 for_window {
 	[app_id="mpv"] floating enable
 	[app_id="imv"] floating enable
-	[app_id="zathura"] floating enable
+	[app_id="vimiv"] floating enable
+#	[app_id="zathura"] floating enable
+	[app_id="firefox*"] floating enable
 }
 
 ### Output configuration
@@ -378,25 +387,19 @@ for_window {
 #}
 #
 input {
-	* {
+	type:keyboard {
 		xkb_layout "us,ir"
 		xkb_model "asus_laptop"
+		xkb_options "caps:escape_shifted_capslock,grp:lalt_lshift_toggle,altwin:menu_win"
+	}
+
+	type:touchpad {
 		# no click needed
 		tap enabled
 		dwt enabled
 #		natural_scroll enabled
 		middle_emulation enabled
-		xkb_options "caps:escape_shifted_capslock,grp:alt_shift_toggle,altwin:menu_win"
 	}
-}
-
-# Update keyboard layout in waybar
-bindsym {
-	Mod1+Shift_L		exec "pkill -SIGRTMIN+1 waybar &"
-	Mod1+Shift_R		exec "pkill -SIGRTMIN+1 waybar &"
-
-	# Toggle Bar
-	$mod+Shift+b		exec "killall waybar || waybar"
 }
 
 #input type:keyboard xkb_layout us-ir
@@ -408,7 +411,6 @@ bindsym {
 
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
-
 
 # Status Bar & Idle configuration
 #
@@ -423,8 +425,34 @@ exec {
 	mako
 }
 
-bar swaybar_command waybar
+# Status bar
 
+# bar swaybar_command waybar
+bar {
+    font pango:monospace, FontAwesome 12
+    position top
+    status_command /usr/bin/i3status-rs ~/.config/i3status-rust/config.toml
+    modifier none
+    colors {
+        separator #666666
+        background #222222
+        statusline #dddddd
+        focused_workspace #0088CC #0088CC #ffffff
+        active_workspace #333333 #333333 #ffffff
+        inactive_workspace #333333 #333333 #888888
+        urgent_workspace #2f343a #900000 #ffffff
+    }
+}
+
+# Update keyboard layout in waybar
+bindsym {
+	Mod1+Shift_L		exec "pkill -SIGRTMIN+1 i3status-rs &"
+	# Mod1+Shift_R		exec "pkill -SIGRTMIN+1 waybar &"
+
+	# Toggle Bar
+	# $mod+Shift+b		exec "killall waybar || waybar"
+	$mod+Shift+b 		bar mode toggle
+}
 
 ### Another status Bar
 #bar {

@@ -251,6 +251,8 @@ fileviewer *.[1-8] man ./%c | col -b
 filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
         \ {View in imv}
         \ imv -b 1D2330 -d %c &,
+        \ {View in vimiv}
+	\ vimiv %c &,
 	\ {View in sxiv}
         \ sxiv -ia %c %d &,
         \ {View in feh}

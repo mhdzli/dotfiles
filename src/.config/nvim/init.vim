@@ -39,6 +39,8 @@ filetype plugin on
 syntax on
 set encoding=utf-8
 set number relativenumber
+set path+=** " Recursive file matching
+set wildmenu " Tab auto completion in command mode
 "setlocal foldmethod=indent " Set folding method
 "set list lcs=tab:\|\ 
 "syntax enable
@@ -80,6 +82,20 @@ cnoremap <expr> <Tab> getcmdtype() == '/' \|\| getcmdtype() == '?' ? '<CR>/<C-r>
 cnoremap <expr> <S-Tab> getcmdtype() == '/' \|\| getcmdtype() == '?' ? '<CR>?<C-r>/' : '<S-Tab>'
 " --------------------------------------------------
 
+" --- File Browser ---
+""" Netrw
+let g:netrw_banner=0 " Disable annoying banner
+let g:netrw_browser_split=4 " Open in prior window
+let g:netrw_altv=1 " Open splits to the right
+let g:netrw_liststyle=3 " Tree view
+let g:netrw_lis_hide=netrw_gitignore#Hide()
+let g:netrw_lis_hide.=',\(^\|\s\s\)\zs\.\S\+'
+
+map <leader>n :Lexplore!<CR>
+map <leader>N :Hexplore!<CR>
+
+" --------------------------------------------------
+
 " --- Indent ---
 au BufNewFile,BufRead *.py
     \ set expandtab       |" replace tabs with spaces
@@ -107,7 +123,6 @@ nnoremap <space> za
 
 " --- Plugins ---
 call plug#begin('~/.config/nvim/plugged')
-Plug 'scrooloose/nerdtree'
 Plug 'junegunn/goyo.vim'
 Plug 'vimwiki/vimwiki'
 Plug 'bling/vim-airline'
@@ -124,11 +139,6 @@ call plug#end()
 
 """ Goyo - makes text more readable when writing prose:
 	map <leader>f :Goyo \| set bg=light \| set linebreak<CR>
-" --------------------------------------------------
-
-""" NerdTree
-	map <leader>n :NERDTreeToggle<CR>
-	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " --------------------------------------------------
 
 """ VimWiki - Ensure files are read as what I want:
@@ -277,11 +287,11 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 """ Python
 if has('nvim')
-        autocmd FileType python map <buffer> <F5> :w<CR>:exec 'term python' shellescape(@%, 1)<CR>a
-        autocmd FileType python imap <buffer> <F5> <esc>:w<CR>:exec 'term python' shellescape(@%, 1)<CR>a
+        autocmd FileType python map <buffer> <leader>r :w<CR>:exec 'term python' shellescape(@%, 1)<CR>a
+        autocmd FileType python imap <buffer> <leader>r <esc>:w<CR>:exec 'term python' shellescape(@%, 1)<CR>a
 else
-        autocmd FileType python map <buffer> <F5> :w<CR>:exec '!clear && python' shellescape(@%, 1)<CR>
-        autocmd FileType python imap <buffer> <F5> <esc>:w<CR>:exec '!clear && python' shellescape(@%, 1)<CR>
+        autocmd FileType python map <buffer> <leader>r :w<CR>:exec '!clear && python' shellescape(@%, 1)<CR>
+        autocmd FileType python imap <buffer> <leader>r <esc>:w<CR>:exec '!clear && python' shellescape(@%, 1)<CR>
 end
 " --------------------------------------------------
 
