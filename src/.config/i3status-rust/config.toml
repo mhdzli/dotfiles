@@ -58,6 +58,11 @@ device = "/sys/class/backlight/"
 block = "sound"
 
 [[block]]
+block = "battery"
+interval = 10
+format = "{percentage}% {time}"
+
+[[block]]
 block = "custom"
 command = ''' jalalidate '''
 interval = "once"
