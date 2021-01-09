@@ -35,10 +35,11 @@ set {
 	#$menu	dmenu_path | $_menu "" | xargs -rI{} swaymsg "exec {}"
 	#$menu	j4-dmenu-desktop --dmenu='bemenu -i --nb "#3f3f3f" --nf "#dcdccc" --fn "pango:DejaVu Sans Mono 12"' --term='termite'
 	#$menu	exec bemenu-run -i -p "Run:"  --fn "pango:monospace 14" --hf "#2B83A6" --tf "#2B83A6"
-	$menu	exec bemenu-run -i -p "Run:"  --fn "monospace 14" --hb "#89cff0" --hf "#000000" --tf "#000000" --tb "#2dc7bc" -l 10 
+	#$menu	exec bemenu-run -i -p "Run:"  --fn "monospace 14" --hb "#89cff0" --hf "#000000" --tf "#000000" --tb "#2dc7bc" -l 10 
+	menu exec rofi -show
 	
 	# Another alternative use wofi
-	$rwofi "wofi --show drun,run"
+	#$rwofi "wofi --show drun,run"
 	#$wwofi wofi --show window
 }
 
@@ -269,8 +270,8 @@ bindsym {
 	XF86TouchpadToggle	exec toggletouchpad
 	#screencapture
 	print			exec grim "pic-full-$(date '+%y%m%d-%H%M-%S').png"
-	Shift+print		exec bemenuscreenshot
-	$mod+print		exec bemenurecord
+	Shift+print		exec wayscreenshot
+	$mod+print		exec wayrecord
 	#Launch applications
 	$mod+w			exec $BROWSER
 	$mod+g			exec gimp-2.99
@@ -278,7 +279,7 @@ bindsym {
 	$mod+s			exec "$term -e broot -h"
 	
 	### Clipboard 
-	$mod+Shift+v	exec 'clipman pick --tool bemenu -T"--hb=#89cff0 --fn=monospace --fn=18 --hb=#89cff0 --hf=#000000 --tf=#000000 --tb=#2dc7bc" --histpath="~/.local/share/clipman.json"'
+	$mod+Shift+v	exec 'clipman pick --tool rofi -T"--hb=#89cff0 --fn=monospace --fn=18 --hb=#89cff0 --hf=#000000 --tf=#000000 --tb=#2dc7bc" --histpath="~/.local/share/clipman.json"'
 	$mod+v		exec "wclipboard"
 	
 	### Mounting Function

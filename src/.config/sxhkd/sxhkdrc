@@ -7,6 +7,8 @@
 # The f thru ; keys on the home row
 # The b key on the bottom row (hides the bar in either case)
 
+super + d
+	rofi -show
 super + r
 	$TERMINAL -e bicon ir sh $HOME/.config/vifm/scripts/vifmrun
 super + shift + m
@@ -45,13 +47,13 @@ Print
 	maim pic-full-$(date '+%y%m%d-%H%M-%S').png
 ## Pick screenshot type
 shift + Print
-	maimpick
+	xscreenshot
 
 ## Record audio or video; Del: kill recording
 super + Print
-	dmenurecord
+	xrecord
 super + Delete
-	dmenurecord kill
+	xrecord kill
 
 
 ## Audiokeys
@@ -117,7 +119,7 @@ alt + Shift_L
 #XF86Audio{Rewind,Forward}
 #	mpc seek {-,+}10
 #XF86AudioRecord
-#	dmenurecord
+#	xrecord
 #XF86AudioMedia
 #	$TERMINAL -e ncmpcpp
 #XF86Launch1
@@ -147,4 +149,4 @@ alt + Shift_L
 #super + shift + q
 #	kill -9 `xdotool getwindowfocus getwindowpid`
 #super + d
-#	dmenu_run -p "Run:"
+#	rofi -show
