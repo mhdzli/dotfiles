@@ -10,7 +10,6 @@
 # Run pure wayland
 # xwayland disable
 
-
 set {
 	# Logo key. Use Mod1 for Alt.
 	$mod	Mod4
@@ -504,7 +503,7 @@ include /etc/sway/config.d/*
 ## $mod+j		focus down
 ## $mod+k		focus up
 ## $mod+l		focus right
-## $mod+m		
+## $mod+m		music player
 ## $mod+n
 ## $mod+o		opacity
 ## $mod+p		showkeys
