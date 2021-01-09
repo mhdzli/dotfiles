@@ -1,0 +1,12 @@
+configuration {
+
+	modi: "drun,run";
+	width: 50;
+	show-icons: true;
+	icon-theme: "papirus";
+	lines: 15;
+	fake-transparency: true;
+	sidebar-mode: true;
+	theme: "theme/dracula-dark.rasi";
+}
+
