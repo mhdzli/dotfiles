@@ -13,7 +13,7 @@ set_waymenu(){ \
 	pf=""
 }
 
-[ -z $WAYLAND_DISPLAY ]  && set_dmenu || set_bemenu
+[ -z $WAYLAND_DISPLAY ]  && set_xmenu || set_waymenu
 unmountusb() {
 	[ -z "$drives" ] && exit
 	chosen="$(echo "$drives" | $menu -i -p "Unmount which drive?")" || exit 1
