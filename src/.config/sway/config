@@ -8,7 +8,8 @@
 ### Variables
 
 # Run pure wayland
-# xwayland disable
+xwayland disable
+
 
 set {
 	# Logo key. Use Mod1 for Alt.
@@ -28,15 +29,12 @@ set {
 	# Your preferred application launcher
 	# Note: pass the final command to swaymsg so that the resulting window can be opened
 	# on the original workspace that the command was run on.
-	#$menu	swaymsg exec BEMENU_BACKEND=wayland "$(dmenu_path | bemenu -b --list 20)"
 	#$menu	dmenu_path | dmenu | xargs swaymsg exec --
 	#$menu	dmenu_path | dmenu -fn "Terminus (TTF):pixelsize=28" | xargs swaymsg exec
-	#$menu	bemenu --fn "Monospace 12" --hf "#2B83A6" --tf "#2B83A6" -p
 	#$menu	dmenu_path | $_menu "" | xargs -rI{} swaymsg "exec {}"
 	#$menu	j4-dmenu-desktop --dmenu='bemenu -i --nb "#3f3f3f" --nf "#dcdccc" --fn "pango:DejaVu Sans Mono 12"' --term='termite'
-	#$menu	exec bemenu-run -i -p "Run:"  --fn "pango:monospace 14" --hf "#2B83A6" --tf "#2B83A6"
-	#$menu	exec bemenu-run -i -p "Run:"  --fn "monospace 14" --hb "#89cff0" --hf "#000000" --tf "#000000" --tb "#2dc7bc" -l 10 
-	menu exec rofi -show
+	#$menu	bemenu-run -i -p "Run:"  --fn "monospace 14" --hb "#89cff0" --hf "#000000" --tf "#000000" --tb "#2dc7bc" -l 10 
+	$menu "rofi -show"
 	
 	# Another alternative use wofi
 	#$rwofi "wofi --show drun,run"
@@ -45,8 +43,8 @@ set {
 
 exec {
 	# Clipman configuration
-	wl-paste -t text --watch clipman store 1>> ~/.local/share/clipman/clipman.log 2>&1 &
-	wl-paste -p -t text --watch clipman store --histpath="~/.local/share/clipman/clipman-primary.json"
+	wl-paste -t text --watch clipman store --max-items=30 --histpath="~/.local/share/clipman/clipman.json" 1>> ~/.local/share/clipman/clipman.log 2>&1 &
+	wl-paste -p -t text --watch clipman store -P --histpath="~/.local/share/clipman/clipman-primary.json"
 	
 	# Random background
 	setbg
@@ -188,9 +186,10 @@ bindsym {
 	
 	# Start your launcher
 	$mod+d		exec $menu
-	$mod+Shift+d	exec $rwofi
-	# bindsym $mod+?	exec $rwofi
 	
+	# Music Player
+	$mod+m		exec "$term -e ncmpcpp"
+
 	# Open Camera
 	$mod+c 		exec "mpv --no-osc --no-input-default-bindings --input-conf=/dev/null --title='mpvfloat' /dev/video0"
 	
@@ -279,8 +278,8 @@ bindsym {
 	$mod+s			exec "$term -e broot -h"
 	
 	### Clipboard 
-	$mod+Shift+v	exec 'clipman pick --tool rofi -T"--hb=#89cff0 --fn=monospace --fn=18 --hb=#89cff0 --hf=#000000 --tf=#000000 --tb=#2dc7bc" --histpath="~/.local/share/clipman.json"'
-	$mod+v		exec "wclipboard"
+	$mod+v			exec 'clipman pick --tool rofi --histpath="~/.local/share/clipman/clipman.json"'
+	$mod+Shift+v		exec "wclipboard"
 	
 	### Mounting Function
 	$mod+F9		exec "menumount"
@@ -492,7 +491,7 @@ include /etc/sway/config.d/*
 ## $mod+[1-9,0]		workspace[1-10]
 ## $mod+Shift+[1-9,0]	move to workspace[1-10]
 ## 
-## $mod+a		alsamixer 
+## $mod+a		pulsemixer 
 ## $mod+b		file manager
 ## $mod+c		webcam
 ## $mod+d		$MENU
