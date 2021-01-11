@@ -11,4 +11,4 @@
 # 	bemenu) [ "$(printf "No\\nYes" | bemenu -i -p "$1" --fn "monospace 16" --tb "#ff2828" --tf "#e6e6fa" --fb "#850000" --nb "#850000" --hb "#cc4545" --hf "#e5fefe" -P "    ☠️    " -l 10 )" = "Yes" ] && $2
 # esac
 
-[ "$(printf "No\\nYes" | rofi -dmenu -i -p "$1")" = "Yes" ] && $2
+[ "$(printf "No\\nYes" | rofi -dmenu -lines 4  -theme-str '* { font: "Monospace 18"; background-color: #ff2828; active-background: #cc4545; }' -i -p "$1")" = "Yes" ] && $2
