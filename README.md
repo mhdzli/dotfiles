@@ -10,5 +10,5 @@ Most of them are in `.local/bin`. You can use them in both `Wayland` and `X`. I 
 
 ## Key bindings
 
-Most of my key bindings in `Sway` And `DWM + sxhkd` are similar and you can find a help at the end of my [Sway config](../master/src/.config/sway/config).
+Most of my key bindings in `Sway` And `DWM` are similar and you can find a help at the end of my [Sway config](../master/src/.config/sway/config).
 

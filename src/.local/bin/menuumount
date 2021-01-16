@@ -1,19 +1,10 @@
 #!/bin/sh
-# A dmenu/bemenu prompt to unmount drives.
+# A menu prompt to unmount drives.
 # Provides you with mounted partitions, select one to unmount.
 # Drives mounted at /, /boot and /home will not be options to unmount.
-set_xmenu(){ \
-	# menu="dmenu"
-	menu="rofi -dmenu"
-	pf=""
-}
-set_waymenu(){ \
-	# menu='bemenu --fn=monospace --fn=14 --hb=#89cff0 --hf=#000000 --tf=#000000 --tb=#2dc7bc -l 10 -P⚓'
-	menu="rofi -dmenu"
-	pf=""
-}
 
-[ -z $WAYLAND_DISPLAY ]  && set_xmenu || set_waymenu
+menu="rofi -dmenu"
+
 unmountusb() {
 	[ -z "$drives" ] && exit
 	chosen="$(echo "$drives" | $menu -i -p "Unmount which drive?")" || exit 1

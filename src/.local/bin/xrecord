@@ -10,7 +10,7 @@
 # https://trac.ffmpeg.org/wiki/Capture/Desktop
 #
 # Usage:
-# `$0`: Ask for recording type via dmenu
+# `$0`: Ask for recording type via menu
 # `$0 screencast`: Record both audio and screen
 # `$0 video`: Record only screen
 # `$0 audio`: Record only audio
@@ -18,7 +18,6 @@
 #
 # If there is already a running instance, user will be prompted to end it.
 
-# menu='dmenu -fn Monospace-14'
 menu="rofi -dmenu"
 
 updateicon() { \

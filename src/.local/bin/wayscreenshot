@@ -12,7 +12,6 @@
 #   - without the `with_description` option:
 #      12,43 100x200
 
-# menu= 'bemenu --fn "monospace 14" --hb "#89cff0" --hf "#000000" --tf "#000000" --tb "#2dc7bc" -l 10 -P " 📸 "'
 menu="rofi -dmenu"
 
 function list_geometry () {

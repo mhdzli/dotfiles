@@ -1,17 +1,8 @@
 #!/usr/bin/env sh
 
-set_xmenu(){ \
-	# menu="dmenu -l 20 -fn Monospace-18"
-	menu='rofi -dmenu'
-	pf=""
-}
-set_waymenu(){ \
-	# menu='bemenu --fn=monospace --fn=18 --hb=#89cff0 --hf=#000000 --tf=#000000 --tb=#2dc7bc -l 20'
-	menu='rofi -dmenu'
-	pf="\\"
-}
+menu='rofi -dmenu'
 
-[ -z "$WAYLAND_DISPLAY" ]  && set_xmenu || set_waymenu
+[ -z "$WAYLAND_DISPLAY" ]  && pf="xorg" || pf="wayland"
 
 xclip -h 2>/dev/null || [ -n "$WAYLAND_DISPLAY" ] || exit
 
@@ -22,11 +13,11 @@ chosen=$(cut -d ';' -f1 ~/.local/share/emoji | $menu -i -l 30 | sed "s/ .*//")
 [ "$chosen" != "" ] || exit
 
 case $pf in
-	"")
+	"xorg")
 		echo "$chosen" | tr -d '\n' | xclip -selection clipboard
 		notify-send "'$chosen' copied to clipboard." &
 		;;
-	"\\")
+	"wayland")
 		echo "$chosen" | tr -d '\n' | wl-copy
 		notify-send "'$chosen' copied to primary." &
 esac

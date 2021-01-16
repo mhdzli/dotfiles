@@ -24,21 +24,12 @@ set {
 
 	# Your preferred terminal emulator
 	$term	alacritty
-	#$term	kitty -e tmux
 	
 	# Your preferred application launcher
 	# Note: pass the final command to swaymsg so that the resulting window can be opened
 	# on the original workspace that the command was run on.
-	#$menu	dmenu_path | dmenu | xargs swaymsg exec --
-	#$menu	dmenu_path | dmenu -fn "Terminus (TTF):pixelsize=28" | xargs swaymsg exec
-	#$menu	dmenu_path | $_menu "" | xargs -rI{} swaymsg "exec {}"
-	#$menu	j4-dmenu-desktop --dmenu='bemenu -i --nb "#3f3f3f" --nf "#dcdccc" --fn "pango:DejaVu Sans Mono 12"' --term='termite'
-	#$menu	bemenu-run -i -p "Run:"  --fn "monospace 14" --hb "#89cff0" --hf "#000000" --tf "#000000" --tb "#2dc7bc" -l 10 
 	$menu "rofi -show"
 	
-	# Another alternative use wofi
-	#$rwofi "wofi --show drun,run"
-	#$wwofi wofi --show window
 }
 
 exec {
@@ -416,7 +407,6 @@ input {
 #
 # Read `man 5 sway-bar` for more information about this section.
 exec {
-	#waybar
 	swayidle -w \
                 timeout 300 'swaylock -eFfki ~/Pictures/lockscreen.png' \
 		timeout 600 'swaymsg "output * dpms off"' \

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Usage:
-# `$0`: Ask for recording type via bemenu
+# `$0`: Ask for recording type via rofi
 # `$0 screencast`: Record both audio and screen
 # `$0 video`: Record only screen
 # `$0 audio`: Record only audio
@@ -15,7 +15,6 @@
 #	pkill -RTMIN+9 "${STATUSBAR:?}"
 #	}
 
-# menu='bemenu --fn "monospace 14" --hb "#89cff0" --hf "#000000" --tf "#000000" --tb "#2dc7bc" -l 10 -P " 🎥 "'
 menu="rofi -dmenu"
 
 killrecording() {
@@ -33,13 +32,13 @@ killrecording() {
 	}
 
 screencast() { \
-	wf-recorder -c libx264rgb -f "$HOME/screencast-$(date '+%y%m%d-%H%M-%S').mkv" &
+	wf-recorder -a -c libx264rgb -f "$HOME/screencast-$(date '+%y%m%d-%H%M-%S').mkv" &
 	echo $! > /tmp/recordingpid
 #	updateicon "⏺️🎙️"
        	}
 
 video() { \
-	wf-recorder -a -c libx264rgb -f "$HOME/video-$(date '+%y%m%d-%H%M-%S').mkv" &
+	wf-recorder -c libx264rgb -f "$HOME/video-$(date '+%y%m%d-%H%M-%S').mkv" &
 	echo $! > /tmp/recordingpid
 #	updateicon "⏺️"
 	}

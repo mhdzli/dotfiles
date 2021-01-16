@@ -1,19 +1,9 @@
 #!/bin/bash
 
-# dmenu/bemenu script for editing some of my more frequently edited config files.
+# script for editing some of my more frequently edited config files.
 
-set_dmenu(){ \
-	# menu="dmenu -l 20 -fn Monospace-18"
-	menu="rofi -dmenu"
-	pf=""
-}
-set_bemenu(){ \
-	# menu='bemenu --fn=monospace --fn=18 --hb=#89cff0 --hf=#000000 --tf=#000000 --tb=#2dc7bc -l 20'
-	menu="rofi -dmenu"
-	pf="\\"
-}
+menu="rofi -dmenu"
 
-[ -z $WAYLAND_DISPLAY ]  && set_dmenu || set_bemenu
 declare options=("alacritty
 bash
 broot

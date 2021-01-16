@@ -4,7 +4,6 @@
 # choose the kind of screenshot to take, including copying the image or even
 # highlighting an area to copy. scrotcucks on suicidewatch right now.
 
-# menu='dmenu -l 6'
 menu="rofi -dmenu"
 
 case "$(printf "a selected area\\ncurrent window\\nfull screen\\na selected area (copy)\\ncurrent window (copy)\\nfull screen (copy)" | $menu -i -p "Screenshot which area?")" in

@@ -1,20 +1,8 @@
 #!/bin/bash
 
-# Dmenu script for launching system monitoring commands.
+# Script for launching system monitoring commands.
 
-
-set_xmenu(){
-	# menu="dmenu"
-	menu="rofi -dmenu"
-	pf=""
-}
-set_waymenu(){
-	# menu='bemenu --fn=monospace --fn=14 --hb=#89cff0 --hf=#000000 --tf=#000000 --tb=#2dc7bc -l 10 -P🌡'
-	menu="rofi -dmenu"
-	pf="\\"
-}
-
-[ -z $WAYLAND_DISPLAY ]  && set_xmenu || set_waymenu
+menu="rofi -dmenu"
 
 cpu() {\
 	case "$(printf "cpuinfo\\nlscpu" | $menu -i -p "Which info do you preffer?")" in
