@@ -1,26 +1,44 @@
-#!/usr/bin/bash
+#!/bin/sh
 
-## ext - archive extractor
-## usage: ext <file>
+# A general, all-purpose extraction script. Not all extraction programs here
+# are installed by LARBS automatically.
+#
+# Default behavior: Extract archive into new directory
+# Behavior with `-c` option: Extract contents into current directory
 
-if [ -f $1 ] ; then
-  case $1 in
-    *.tar.bz2|*.tbz2)   tar xvjf $1 ;;
-    *.tar.xz)		tar -xf $1 ;;
-    *.tar.gz|*.tgz)    	tar xvzf $1 ;;
-    *.lzma)		unlzma $1 ;;
-    *.bz2)	        bunzip2 $1 ;;
-    *.rar)       	unrar x $1 ;;
-    *.gz)      		gunzip $1 ;;
-    *.tar)       	tar xf $1 ;;
-    *.zip)       	unzip $1 ;;
-    *.Z)         	uncompress $1 ;;
-    *.7z)        	7z x $1 ;;
-    *.xz)        	unxz $1 ;;
-    *.exe)		cabextract $1 ;;
-    *) printf "'%s' cannot be extracted via ext\\n" "$1" ;;
-  esac
+while getopts "hc" o; do case "${o}" in
+	c) extracthere="True" ;;
+	*) printf "Options:\\n   -c: Extract archive into current directory rather than a new one.\\n" && exit 1 ;;
+esac done
+
+if [ -z "$extracthere" ]; then
+	archive="$(readlink -f "$*")" &&
+	directory="$(echo "$archive" | sed 's/\.[^\/.]*$//')" &&
+	mkdir -p "$directory" &&
+	cd "$directory" || exit 1
 else
-  echo "'$1' is not a valid file"
+	archive="$(readlink -f "$(echo "$*" | cut -d' ' -f2)" 2>/dev/null)"
 fi
 
+[ -z "$archive" ] && printf "Give archive to extract as argument.\\n" && exit 1
+
+if [ -f "$archive" ] ; then
+	case "$archive" in
+		*.tar.bz2|*.tbz2) tar xvjf "$archive" ;;
+		*.tar.xz) tar -xf "$archive" ;;
+		*.tar.gz|*.tgz) tar xvzf "$archive" ;;
+		*.lzma) unlzma "$archive" ;;
+		*.bz2) bunzip2 "$archive" ;;
+		*.rar) unrar x -ad "$archive" ;;
+		*.gz) gunzip "$archive" ;;
+		*.tar) tar xvf "$archive" ;;
+		*.zip) unzip "$archive" ;;
+		*.Z) uncompress "$archive" ;;
+		*.7z) 7z x "$archive" ;;
+		*.xz) unxz "$archive" ;;
+		*.exe) cabextract "$archive" ;;
+		*) printf "extract: '%s' - unknown archive method\\n" "$archive" ;;
+	esac
+else
+	printf "File \"%s\" not found.\\n" "$archive"
+fi
