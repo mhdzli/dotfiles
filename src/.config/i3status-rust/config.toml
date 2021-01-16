@@ -64,7 +64,7 @@ format = "{percentage}% {time}"
 
 [[block]]
 block = "custom"
-command = ''' jalalidate '''
+command = ''' sb-jalalidate '''
 interval = "once"
 
 [[block]]
