@@ -17,6 +17,4 @@ dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XA
 # Here we start dwm.
 # The loop is just to enable dwm's "restart" feature (mod+F2).
 #exec dwm
-while :; do
-	ssh-agent dwm || break
-done
+ssh-agent dwm

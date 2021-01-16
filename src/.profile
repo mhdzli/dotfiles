@@ -3,6 +3,7 @@
 
 # Adds `~/.local/bin/` and all subdirectories to $PATH
 export PATH="$PATH:$HOME/.local/bin/"
+export PATH="$PATH:$HOME/.local/bin/statusbar/"
 export PATH="$PATH:$HOME/.gem/ruby/2.7.0/bin"
 export GOPATH="$HOME/go"
 export PATH="$PATH:GOPATH/bin"

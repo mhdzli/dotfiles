@@ -177,7 +177,7 @@
 	"custom/jalalidate": { 
 		"format": "<span color='#cde9f0'>{}</span>",
 		"interval": 18000,
-//		"exec": "jalalidate"
+//		"exec": "sb-jalalidate"
 		"exec": "pcal -t",
 		"tooltip": "false"
 	},
@@ -185,7 +185,7 @@
 	"custom/weather": {
 		"format": "<span color='#22dfda'>{}</span>",
 		"interval": 18000,
-		"exec": "weather",
+		"exec": "sb-forecast",
 		//ansiweather -l shiraz,IR -u metric -s true -f 1 -a false | cut -d' ' -f2,8-
 		"exec-if": "ping openweathermap.org -c1",
 		"tooltip": "false"

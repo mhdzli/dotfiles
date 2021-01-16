@@ -7,8 +7,6 @@ picom --config ~/.config/picom/picom.conf &
 dunst &	                # dunst for notifications
 #keymap &		# some keyboard remap 
 mpd &
-dwmblocks &             # dwmbar
-sxhkd &
 xrdb ~/.Xdefaults &
 setbg &
 

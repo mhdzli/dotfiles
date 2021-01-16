@@ -10,7 +10,7 @@ name = "awesome"
 
 [[block]]
 block = "custom"
-command = ''' weather '''
+command = ''' sb-forecast '''
 interval = 21600
 
 [[block]]
