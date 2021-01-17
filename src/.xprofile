@@ -10,6 +10,6 @@ mpd &
 xrdb ~/.Xdefaults &
 setbg &
 
-setxkbmap -model asus_laptop -layout us,ir -option "grp:alt_shift_toggle,caps:escape_shifted_capslock,altwin:menu_win" &
+setxkbmap -model asus_laptop -layout us,ir -option "grp:shifts_toggle,caps:escape_shifted_capslock,altwin:menu_win" &
 
 

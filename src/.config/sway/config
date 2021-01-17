@@ -381,7 +381,7 @@ input {
 	type:keyboard {
 		xkb_layout "us,ir"
 		xkb_model "asus_laptop"
-		xkb_options "caps:escape_shifted_capslock,grp:lalt_lshift_toggle,altwin:menu_win"
+		xkb_options "caps:escape_shifted_capslock,grp:shifts_toggle,altwin:menu_win"
 	}
 
 	type:touchpad {
@@ -436,7 +436,8 @@ bar {
 
 # Update keyboard layout in waybar
 bindsym {
-	Mod1+Shift_L		exec "pkill -SIGRTMIN+1 i3status-rs &"
+	Shift+Shift_L		exec "pkill -SIGRTMIN+1 i3status-rs &"
+	Shift+Shift_R		exec "pkill -SIGRTMIN+1 i3status-rs &"
 	# Mod1+Shift_R		exec "pkill -SIGRTMIN+1 waybar &"
 
 	# Toggle Bar
@@ -612,5 +613,5 @@ include /etc/sway/config.d/*
 ## $mod+Shift+slash
 ## $mod+Shift+period
 ##
-## $alt+{Shift_L,Shift_R}	change keyboard layout
+## Shift_L+Shift_R		change keyboard layout
 ## $alt+Tab			focus next
