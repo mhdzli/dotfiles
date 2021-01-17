@@ -2,10 +2,10 @@
 set preview false
 set previewer ~/.config/lf/scope
 set hidden true
-set color256 true
 set drawbox true
 set icons true
 set ignorecase true
+set relativenumber
 
 # Custom Functions
 cmd open ${{
