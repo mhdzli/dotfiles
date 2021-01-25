@@ -252,7 +252,7 @@ filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
         \ {View in imv}
         \ imv -b 1D2330 -d %c -c open -r %d &,
         \ {View in vimiv}
-	\ vimiv %c &,
+	\ vimiv %d &,
 	\ {View in sxiv}
         \ sxiv -ia %c %d &,
         \ {View in feh}
@@ -260,13 +260,14 @@ filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
         \ {View in cacaview}
         \ cacaview %c &,
 fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.xpm
+	\ convert %c -geometry %pwx%ph sixel:- %pd
 	"\ chafa --fill=block --symbols=block -c 256 -s %pwx%ph %c
-        "\ kitty icat --place=%pwx%ph@%pxx%py %c 
+	"\ kitty icat --place=%pwx%ph@%pxx%py --silent %c
 	"\ %pc
-	"\ kitty icat --clear
-	\ vifmimg draw %px %py %pw %ph %c
-        \ %pc
-        \ vifmimg clear
+	"\ kitty icat --clear --silent %pd
+	"\ vifmimg draw %px %py %pw %ph %c
+        "\ %pc
+        "\ vifmimg clear
         
 	" Get w3m image previews inside vifm
 		" \ imgt %px %py %pw %ph %c
@@ -415,13 +416,13 @@ filextype */
 " file types
 set classify=' :dir:/, :exe:, :reg:, :link:'
 " various file names
-set classify+=' ::../::, ::*.sh::, ::*.[hc]pp::, ::*.[hc]::, ::/^copying|license$/::, ::.git/,,*.git/::, ::*.epub,,*.fb2,,*.djvu::, ::*.pdf::, ::*.htm,,*.html,,**.[sx]html,,*.xml::'
+set classify+=' ::../::, ::*.sh::, ::*.[hc]pp::, ::*.[hc]::, ::/^copying|license$/::, ::.git/,,*.git/::, ::*.epub,,*.fb2,,*.djvu::, ::*.pdf::, ::*.htm,,*.html,,**.[sx]html,,*.xml::,::*.py::'
 " archives
-set classify+=' ::*.7z,,*.ace,,*.arj,,*.bz2,,*.cpio,,*.deb,,*.dz,,*.gz,,*.jar,,*.lzh,,*.lzma,,*.rar,,*.rpm,,*.rz,,*.tar,,*.taz,,*.tb2,,*.tbz,,*.tbz2,,*.tgz,,*.tlz,,*.trz,,*.txz,,*.tz,,*.tz2,,*.xz,,*.z,,*.zip,,*.zoo::'
+set classify+=' ::*.7z,,*.ace,,*.arj,,*.bz2,,*.cpio,,*.deb,,*.dz,,*.gz,,*.jar,,*.lzh,,*.lzma,,*.rar,,*.rpm,,*.rz,,*.tar,,*.taz,,*.tb2,,*.tbz,,*.tbz2,,*.tgz,,*.tlz,,*.trz,,*.txz,,*.tz,,*.tz2,,*.xz,,*.z,,*.zip,,*.zoo::'
 " images
 set classify+=' ::*.bmp,,*.gif,,*.jpeg,,*.jpg,,*.ico,,*.png,,*.ppm,,*.svg,,*.svgz,,*.tga,,*.tif,,*.tiff,,*.xbm,,*.xcf,,*.xpm,,*.xspf,,*.xwd::'
 " audio
-set classify+=' ::*.aac,,*.anx,,*.asf,,*.au,,*.axa,,*.flac,,*.m2a,,*.m4a,,*.mid,,*.midi,,*.mp3,,*.mpc,,*.oga,,*.ogg,,*.ogx,,*.ra,,*.ram,,*.rm,,*.spx,,*.wav,,*.wma,,*.ac3::'
+set classify+='::*.aac,,*.anx,,*.asf,,*.au,,*.axa,,*.flac,,*.m2a,,*.m4a,,*.mid,,*.midi,,*.mp3,,*.mpc,,*.oga,,*.ogg,,*.ogx,,*.ra,,*.ram,,*.rm,,*.spx,,*.wav,,*.wma,,*.ac3::'
 " media
 set classify+=' ::*.avi,,*.ts,,*.axv,,*.divx,,*.m2v,,*.m4p,,*.m4v,,.mka,,*.mkv,,*.mov,,*.mp4,,*.flv,,*.mp4v,,*.mpeg,,*.mpg,,*.nuv,,*.ogv,,*.pbm,,*.pgm,,*.qt,,*.vob,,*.wmv,,*.xvid::'
 " office files
