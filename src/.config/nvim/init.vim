@@ -18,6 +18,7 @@ highlight cursorcolumn cterm=NONE ctermbg=12 ctermfg=0 gui=NONE guibg=#ffffff gu
 
 " Set indent line color
 	let g:indentLine_char = '┊'
+set bg=light
 
 " Highlight cursor line/position
 "nnoremap <C-a> :set cursorline!<CR>
@@ -41,22 +42,25 @@ set encoding=utf-8
 set number relativenumber
 set path+=** " Recursive file matching
 set wildmenu " Tab auto completion in command mode
-"setlocal foldmethod=indent " Set folding method
-"set list lcs=tab:\|\ 
-"syntax enable
-"nnoremap c "_c
-"autocmd InsertEnter * norm zz
-set bg=light
+set wildmode=longest,list,full " enable autocompletion:
+set hidden
+set nowrap
 set go=a
 set mouse=a
 set nohlsearch
 set clipboard=unnamedplus
 set cursorline
 set cursorcolumn
+set colorcolumn=80
+vnoremap . :normal .<CR> " perform dot commands over visual blocks
 " Set scrolloff=13
 set so=13 
 " Set sidescrolloff=13
 set siso=13
+"set list lcs=tab:\|\ 
+"nnoremap c "_c
+"autocmd InsertEnter * norm zz
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o " disable automatic comment insertion
 
 " Shortcutting split navigation, saving a keypress:
 map <C-h> <C-w>h
@@ -97,12 +101,12 @@ map <leader>N :Hexplore!<CR>
 " --------------------------------------------------
 
 " --- Indent ---
-au BufNewFile,BufRead *.py
-    \ set expandtab       |" replace tabs with spaces
-    \ set autoindent      |" copy indent when starting a new line
-    \ set tabstop=4
-    \ set softtabstop=4
-    \ set shiftwidth=4
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab       " replace tabs with spaces
+set smartindent     " do smart autoindenting when starting a new line
+set autoindent      " copy indent when starting a new line
 
 au BufNewFile,BufRead *.js, *.html, *.css
     \ set tabstop=2
@@ -123,17 +127,18 @@ nnoremap <space> za
 
 " --- Plugins ---
 call plug#begin('~/.config/nvim/plugged')
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/goyo.vim'
+Plug 'Yggdroot/indentLine'
+Plug 'vim-scripts/indentpython.vim'
+Plug 'kovetskiy/sxhkd-vim'
+Plug 'jreybert/vimagit'
 Plug 'vimwiki/vimwiki'
+Plug 'eparreno/vim-l9'
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-commentary'
 Plug 'mzlogin/vim-markdown-toc'
-Plug 'kovetskiy/sxhkd-vim'
-Plug 'Yggdroot/indentLine'
-Plug 'eparreno/vim-l9'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'lyokha/vim-xkbswitch'
-Plug 'vim-scripts/indentpython.vim'
 call plug#end()
 " --------------------------------------------------
 
