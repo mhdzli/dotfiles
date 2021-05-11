@@ -18,6 +18,7 @@ block = "disk_space"
 path = "/"
 alias = ""
 info_type = "available"
+format = "{icon} {available}"
 unit = "GB"
 interval = 20
 warning = 20.0
@@ -26,8 +27,8 @@ alert = 10.0
 [[block]]
 block = "disk_space"
 path = "/home/mzeinali/"
-alias = ""
 info_type = "available"
+format = "{available}"
 unit = "GB"
 interval = 20
 warning = 0
@@ -36,8 +37,8 @@ alert = 0
 [[block]]
 block = "memory"
 display_type = "memory"
-format_mem = "{Mug}"
-format_swap = "{SUg}"
+format_mem = "{mem_used;G}"
+format_swap = "{swap_used;G}"
 
 [[block]]
 block = "cpu"
@@ -48,7 +49,6 @@ block = "net"
 device = "wls1"
 format = "{signal_strength}"
 interval = 5
-use_bits = false
 
 [[block]]
 block = "backlight"
