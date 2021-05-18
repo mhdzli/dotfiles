@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+while true; do
+    jalali_date="$(sb-jalalidate)"
+    echo "jalali_date|string|${jalali_date}"
+    echo ""
+    sleep 3600
+done

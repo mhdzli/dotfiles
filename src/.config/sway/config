@@ -250,9 +250,9 @@ bindsym {
 	# Function keys
 	#XF86MonBrightnessUp 	exec light -A 5
 	#XF86MonBrightnessDown exec light -U 5
-	XF86AudioLowerVolume	exec "sound -c down"
-	XF86AudioRaiseVolume	exec "sound -c up"
-	XF86AudioMute		exec "sound -c mute"
+	XF86AudioLowerVolume	exec "pulsemixer --change-volume -5"
+	XF86AudioRaiseVolume	exec "pulsemixer --change-volume +5  --max-volume 100"
+	XF86AudioMute		exec "pulsemixer --toggle-mute"
 	XF86MonBrightnessUp	exec incbrightness 
 	XF86MonBrightnessDown	exec decbrightness
 	XF86Display		exec "wdisplays"
@@ -412,36 +412,37 @@ exec {
                 resume 'swaymsg "output * dpms on"' \
                 before-sleep 'swaylock -eFfki ~/Pictures/lockscreen.png' 
 	mako
+    yambar
 }
 
 # Status bar
 
 # bar swaybar_command waybar
-bar {
-    font pango:monospace, FontAwesome 12
-    position top
-    status_command /usr/bin/i3status-rs ~/.config/i3status-rust/config.toml
-    modifier none
-    colors {
-        separator #666666
-        background #222222
-        statusline #dddddd
-        focused_workspace #0088CC #0088CC #ffffff
-        active_workspace #333333 #333333 #ffffff
-        inactive_workspace #333333 #333333 #888888
-        urgent_workspace #2f343a #900000 #ffffff
-    }
-}
+# bar {
+#     font pango:monospace, FontAwesome 12
+#     position top
+#     status_command /usr/bin/i3status-rs ~/.config/i3status-rust/config.toml
+#     modifier none
+#     colors {
+#         separator #666666
+#         background #222222
+#         statusline #dddddd
+#         focused_workspace #0088CC #0088CC #ffffff
+#         active_workspace #333333 #333333 #ffffff
+#         inactive_workspace #333333 #333333 #888888
+#         urgent_workspace #2f343a #900000 #ffffff
+#     }
+# }
 
-# Update keyboard layout in waybar
+# Update keyboard layout in bar
 bindsym {
-	Shift+Shift_L		exec "pkill -SIGRTMIN+1 i3status-rs &"
-	Shift+Shift_R		exec "pkill -SIGRTMIN+1 i3status-rs &"
+	# Shift+Shift_L		exec "pkill -SIGRTMIN+1 i3status-rs &"
+	# Shift+Shift_R		exec "pkill -SIGRTMIN+1 i3status-rs &"
 	# Mod1+Shift_R		exec "pkill -SIGRTMIN+1 waybar &"
 
 	# Toggle Bar
-	# $mod+Shift+b		exec "killall waybar || waybar"
-	$mod+Shift+b 		bar mode toggle
+	$mod+Shift+b		exec "killall yambar || yambar"
+	# $mod+Shift+b 		bar mode toggle
 }
 
 ### Another status Bar

@@ -11,12 +11,15 @@ case "$(readlink -f /sbin/init)" in
 esac
 
 cmds="\
-🔒 lock		slock
-🚪 leave dwm	kill -TERM $(pgrep -u $USER "\bdwm$")
-♻ renew dwm	kill -HUP $(pgrep -u $USER "\bdwm$")
-🐻 hibernate	slock ${hib:-systemctl suspend-then-hibernate -i}
-🔃 reboot	${reb:-sudo -A reboot}
-🖥 shutdown	${shut:-sudo -A shutdown -h now}"
+ lock	dwm		slock
+ leave dwm		kill -TERM $(pgrep -u $USER "\bdwm$")
+ renew dwm		kill -HUP $(pgrep -u $USER "\bdwm$")
+ lock	sway	swaylock -eFfki ~/Pictures/lockscreen.png
+ leave sway	pkill sway
+ renew sway	swaymsg reload
+⏾ hibernate		${hib:-systemctl suspend-then-hibernate -i}
+ reboot		${reb:-sudo -A reboot}
+⏻ shutdown		${shut:-sudo -A shutdown -h now}"
 
 choice="$(echo "$cmds" | cut -d'	' -f 1 | $menu)" || exit 1
 
