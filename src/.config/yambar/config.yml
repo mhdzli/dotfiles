@@ -8,7 +8,7 @@
 awesome: &awesome Font Awesome 5 Free:style=solid:pixelsize=14
 awesome_brands: &awesome_brands Font Awesome 5 Brands:pixelsize=16
 
-std_underline: &std_underline {underline: { size: 2, color: ff0000ff}}
+std_underline: &std_underline {underline: { size: 2, color: 00ffffff}}
 
 # This is THE bar configuration
 bar:
@@ -36,7 +36,7 @@ bar:
           - string: &default {<<: *i3_common, text: "{name}"}
           - string: &surfing {<<: *i3_common, text: , font: *awesome_brands}
           - focused: &focused
-              deco: {stack: [background: {color: ffa0a04c}, <<: *std_underline]}
+              deco: {stack: [background: {color: 00afd7af}, <<: *std_underline]}
           - invisible: &invisible {foreground: ffffff55}
           - urgent: &urgent
               foreground: 000000ff
@@ -85,8 +85,7 @@ bar:
                     - string: {text: ": "}
                     - string: {text: "{title}", max: 35}
 
-  # center:
-  #   - mpd:
+
   #       host: /home/mzeinali/.config/mpd/socket
   #       anchors:
   #         list: &artist_album_title
@@ -133,14 +132,14 @@ bar:
               false:
                 map:
                   tag: optical
-                  on-click: udisksctl mount -b {device}
+                  on-click: menumount
                   values:
                     false: [{string: *drive}, {string: {text: "{label}"}}]
                     true: [{string: *optical}, {string: {text: "{label}"}}]
               true:
                 map:
                   tag: optical
-                  on-click: udisksctl unmount -b {device}
+                  on-click: menuumount
                   values:
                     false:
                       - string: {<<: *drive, deco: *std_underline}
@@ -248,9 +247,9 @@ bar:
         content:
           - string: {text: , font: *awesome}
           - string: {text: "{layout}"}
-    # - label:
-    #     content:
-    #       string:
-    #         on-click: sysact
-    #         text: 
-    #         font: *awesome
+    - label:
+        content:
+          string:
+            on-click: sysact
+            text: 
+            font: *awesome
