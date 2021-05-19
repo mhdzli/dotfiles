@@ -10,6 +10,8 @@ case "$(readlink -f /sbin/init)" in
 	*openrc*) reb="sudo -A openrc-shutdown -r"; shut="sudo -A openrc-shutdown -p" ;;
 esac
 
+pgrep swayidle > /dev/null && active_idle=" swayidle" || active_idle=" swayidle"
+
 cmds="\
  lock	dwm		slock
  leave dwm		kill -TERM $(pgrep -u $USER "\bdwm$")
@@ -19,7 +21,8 @@ cmds="\
  renew sway	swaymsg reload
 ⏾ hibernate		${hib:-systemctl suspend-then-hibernate -i}
  reboot		${reb:-sudo -A reboot}
-⏻ shutdown		${shut:-sudo -A shutdown -h now}"
+⏻ shutdown		${shut:-sudo -A shutdown -h now}
+${active_idle}	toggle_swayidle"
 
 choice="$(echo "$cmds" | cut -d'	' -f 1 | $menu)" || exit 1
 
