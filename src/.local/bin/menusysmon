@@ -63,7 +63,7 @@ case $choice in
         lspci -vnn | grep -i --color 'vga\|3d\|2d' -A 12; echo -e '\nScreen list:'; xrandr -q | grep normal
 	;;
 	audio)
-        lspci -vnn | grep -i --color audio -A 12; echo; pacmd list-cards | grep 'active profile'; echo; aplay --list-devices
+        lspci -vnn | grep -i --color audio -A 12; echo; pactl info; echo; pactl list sinks; echo; aplay --list-devices
 	;;
 	memory)
         free -h
