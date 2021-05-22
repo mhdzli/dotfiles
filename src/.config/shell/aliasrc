@@ -31,7 +31,8 @@ alias \
 	magit="nvim -c MagitOnly" \
 	g='git' \
 	sdn='sudo shutdown -h now' \
-	p='sudo pacman'
+	p='sudo pacman' \
+    :q='exit'
 
 # Verbosity and settings that you pretty much just always are going to want.
 alias \
