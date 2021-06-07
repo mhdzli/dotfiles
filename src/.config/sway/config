@@ -8,7 +8,7 @@
 ### Variables
 
 # Run pure wayland
-xwayland disable
+# xwayland disable
 
 set {
 	# Logo key. Use Mod1 for Alt.
@@ -22,7 +22,7 @@ set {
 	$right	l
 
 	# Your preferred terminal emulator
-	$term	alacritty
+	$term	foot
 	
 	# Your preferred application launcher
 	# Note: pass the final command to swaymsg so that the resulting window can be opened
@@ -43,7 +43,7 @@ exec {
 	mako
 
 	# Music daemon
-	mpd
+	# mpd
 }
 
 # # Default options
@@ -178,7 +178,7 @@ bindsym {
 	$mod+d		exec $menu
 	
 	# Music Player
-	$mod+m		exec "$term -e ncmpcpp"
+	$mod+m		exec "$term ncmpcpp"
 
 	# Open Camera
 	$mod+c 		exec "mpv --no-osc --no-input-default-bindings --input-conf=/dev/null --title='mpvfloat' /dev/video0"
@@ -187,7 +187,7 @@ bindsym {
 	$mod+p		exec "killall wshowkeys || wshowkeys -a bottom -t 1"
 	
 	# Volume control
-	$mod+a		exec "$term -e pulsemixer"
+	$mod+a		exec "$term pulsemixer"
 	
 	# Layout stuff:
 	$mod+t			split toggle
@@ -264,8 +264,8 @@ bindsym {
 	#Launch applications
 	$mod+w			exec $BROWSER
 	$mod+g			exec gimp-2.99
-	$mod+b			exec "$term -e bicon ir vifm"
-	$mod+s			exec "$term -e broot -h"
+	$mod+b			exec "$term bicon ir vifm"
+	$mod+s			exec "$term broot -h"
 	
 	### Clipboard 
 	$mod+v			exec 'clipman pick --tool rofi --histpath="~/.local/share/clipman/clipman.json"'
@@ -274,7 +274,7 @@ bindsym {
 	### Mounting Function
 	$mod+F9		exec "menumount"
 	$mod+F10	exec "menuumount"
-	$mod+F12	exec "$term -e nmtui"
+	$mod+F12	exec "$term nmtui"
 }
 
 # Resizing containers:
