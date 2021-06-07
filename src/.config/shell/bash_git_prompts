@@ -8,7 +8,7 @@ C_Grey='\e[2;37m';      C_Reset='\e[0m';        C_BPink='\e[1;35m';
 C_Italic='\e[3m';       C_Blue='\e[2;34m';      C_BBlue='\e[1;34m';
 C_Pink='\e[2;35m';      C_Cyan='\e[2;36m';      C_BCyan='\e[1;36m'
 
-Distro="$(lsb_release -i | cut -f 2)"
+Distro="$(cat /etc/issue | cut -f 1 -d ' ')"
 PROMPT_PARSER(){
 printf -v X " %.3d " $? &>/dev/null
 
