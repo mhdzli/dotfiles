@@ -73,3 +73,5 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 
 # To customize spaceship prompt, edit ~/.config/zsh/.spaceship.zsh.
 # [[ ! -f $HOME/.config/zsh/.spaceship.zsh ]] || source $HOME/.config/zsh/.spaceship.zsh
+
+source /home/mzeinali/.config/broot/launcher/bash/br
