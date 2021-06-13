@@ -14,7 +14,7 @@ Most of my key bindings in `Sway` And `DWM` are similar and you can find a help 
 
 ## Other Menu Apps
 
-Right now I'm using [`lbnon fork of rofi`](https://github.com/lbonn/rofi) which works in both `Wayland` and `X11` but if you want to use  other mene apps I recommend you use dmenu on `X11` and on sway you can have `bemenu`, `wofi` or even there are forks of `dmenu` which run on native wayland.
+Right now I'm using [`lbnon fork of rofi`](https://github.com/lbonn/rofi) which works in both `Wayland` and `X11` but if you want to use  other menu (app launcher) apps I recommend you use dmenu on `X11` and on sway you can have `bemenu`, `wofi` or even there are forks of `dmenu` which run on native wayland.
 
 <details>
 <summary>Here are some example configs for sway:</summary>
