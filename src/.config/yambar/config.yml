@@ -21,7 +21,7 @@ bar:
   font: Monospace:pixelsize=16
 
   foreground: ffffffff
-  background: 111111cc
+  background: 111111aa
 
   border:
     width: 1
@@ -242,7 +242,22 @@ bar:
     #           items:
     #               - string: {text: "{layout}"}
     #               - string: {text: "{title}"}
-  # center:
+
+  center:
+    - clock:
+        time-format: "%H:%M"
+        content:
+          - string: {text: , font: *awesome}
+          - string: {text: "{date}", right-margin: 5}
+          - string: {text: , font: *awesome}
+          - string: {text: "{time}"}
+
+    - script:
+        path: /home/mzeinali/.config/yambar/jalali_date
+        content:
+          - string: {text: , font: *awesome}
+          - string: {text: "{jalali_date}"}
+
   #   - mpd:
   #       host: /home/mzeinali/.config/mpd/socket
   #       anchors:
@@ -266,7 +281,6 @@ bar:
   #                 values:
   #                   playing: {string: {text: "{title}", foreground: ffa0a0ff}}
   #                   paused: {string: {text: "{title}", foreground: ffffff66}}
-
   #       content:
   #         map:
   #           margin: 10
@@ -324,6 +338,16 @@ bar:
     #                     default: {string: {text: , font: *awesome}}
     #                     values:
     #                       "": {string: {text: , font: *awesome, foreground: ffffff66}}
+
+    - script:
+        path: /home/mzeinali/.config/yambar/pacman
+        args: [] 
+        content:
+          map:
+            tag: pkg
+            default: { string: { text: " {pacman} +  {aur} = {pkg}" } }
+            values:
+              0: {string: {text: }}
 
     - network:
         name: wlp2s0
@@ -393,20 +417,6 @@ bar:
                 - string: {text: , foreground: 00ff00ff, font: *awesome}
                 - string: {text: "{capacity}% full"}
 
-    - clock:
-        time-format: "%H:%M"
-        content:
-          - string: {text: , font: *awesome}
-          - string: {text: "{date}", right-margin: 5}
-          - string: {text: , font: *awesome}
-          - string: {text: "{time}"}
-
-    - script:
-        path: /home/mzeinali/.config/yambar/jalali_date
-        content:
-          - string: {text: , font: *awesome}
-          - string: {text: "{jalali_date}"}
-
     - sway-xkb:
         identifiers: [1:1:AT_Translated_Set_2_keyboard]
         content:
@@ -419,3 +429,4 @@ bar:
             on-click: sysact
             text: 
             font: *awesome
+
