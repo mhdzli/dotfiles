@@ -193,11 +193,7 @@
 
 	"custom/wkblayout": {
 		"format": "<span color='#11eec2'>🖋</span> {}",
-		"interval": 30,
-		"signal": 1,
-		// bindsym the grp (switch layout shortcut) option in your sway confik to exec "pkill -SIGRTMIN+1 waybar"
-		"exec": "wkblayout",
-		//swaymsg -t get_inputs | grep -m1 "xkb_active_layout_name" | cut -d '"' -f4
+        "exec": "swaymsg -mrt subscribe '[\"input\"]' | jq -r --unbuffered \"select(.change == \\\"xkb_layout\\\") | .input | select(.type == \\\"keyboard\\\") | .xkb_active_layout_name | .[0:2]\"",
 		"tooltip": "false"
 	}
 
