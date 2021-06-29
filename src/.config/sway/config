@@ -8,7 +8,7 @@
 ### Variables
 
 # Run pure wayland
-# xwayland disable
+xwayland disable
 
 set {
 	# Logo key. Use Mod1 for Alt.
@@ -40,7 +40,7 @@ exec {
 	setbg
 
 	# Notification
-	mako
+	dunst
 
 	# Music daemon
 	# mpd
@@ -49,8 +49,8 @@ exec {
 # # Default options
 #for_window [class="^.*"] border pixel 2
 default_border pixel
-gaps inner 4
-gaps outer 4 
+gaps inner 1
+gaps outer 1 
 
 # Seat configuration
 seat * hide_cursor 3000
@@ -411,7 +411,6 @@ exec {
 		timeout 600 'swaymsg "output * dpms off"' \
                 resume 'swaymsg "output * dpms on"' \
                 before-sleep 'swaylock -eFfki ~/Pictures/lockscreen.png' 
-	mako
     yambar
 }
 
