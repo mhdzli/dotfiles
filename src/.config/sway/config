@@ -57,24 +57,24 @@ seat * hide_cursor 3000
 
 # Defining colors
 set {
-	$white		#ffffff
-	$cyan		#00afd7
-	$acqua		#00d787 
-	$wine		#72003e
-	$magenta	#af005f
-	$orange		#ff8700
-	$silver		#e4e4e4
-	$elegant	#1b1d1e
+	$white		    #ffffff
+	$cyan		    #00afd7
+	$acqua		    #00d787 
+	$wine		    #72003e
+	$magenta	    #af005f
+	$orange		    #ff8700
+	$silver		    #e4e4e4
+	$elegant	    #1b1d1e
 	$transparent	#000000
 	#$transparent	#0000007f
 }
 
-# Set some nice 	colors		border		background	text		indicator	child_border
-client.focused		$elegant	$cyan		$elegant	$white		$cyan
-client.unfocused	$elegant	$elegant	$orange		$white		$elegant
+# Set some nice 	    colors		border		background	text		indicator	child_border
+client.focused		    $elegant	$cyan		$elegant	$white		$cyan
+client.unfocused	    $elegant	$elegant	$orange		$white		$elegant
 client.focused_inactive	$elegant	$elegant	$acqua		$magenta	$acqua
-client.urgent		$elegant	$magenta	$silver		$magenta	$magenta
-client.placeholder	$elegant	$magenta	$silver		$white		$magenta
+client.urgent		    $elegant	$magenta	$silver		$magenta	$magenta
+client.placeholder	    $elegant	$magenta	$silver		$white		$magenta
 
 # Workspaces:
 set {
@@ -190,14 +190,14 @@ bindsym {
 	$mod+a		exec "$term pulsemixer"
 	
 	# Layout stuff:
-	$mod+t			split toggle
+	$mod+t			    split toggle
 	$mod+underscore		gaps inner current set 0; gaps outer current set 0
-	$mod+equal		gaps inner current plus 2; gaps outer current plus 2
-	$mod+minus		gaps inner current minus 2; gaps outer current minus 2
-	$mod+plus		gaps inner current set 4; gaps outer current set 4
+	$mod+equal		    gaps inner current plus 2; gaps outer current plus 2
+	$mod+minus		    gaps inner current minus 2; gaps outer current minus 2
+	$mod+plus		    gaps inner current set 4; gaps outer current set 4
 	
 	# Emoji selection
-	$mod+i exec 	menuunicode
+	$mod+i  exec menuunicode
 	
 	
 	# You can "split" the current object of your focus 
@@ -240,8 +240,8 @@ bindsym {
 	
 	# Exit sway (logs you out of your Wayland session)
 	#$mod+? exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
-	$mod+escape		exec "prompt 'Leave Sway?' 'pkill sway'"
-	$mod+x			exec 'prompt "Shutdown computer?" "sudo -A shutdown now"'
+	$mod+escape		    exec "prompt 'Leave Sway?' 'pkill sway'"
+	$mod+x			    exec 'prompt "Shutdown computer?" "sudo -A shutdown now"'
 	$mod+BackSpace		exec 'prompt "Reboot computer?" "sudo -A shutdown -r now"'
 	
 	# lock screen
@@ -249,14 +249,14 @@ bindsym {
 	
 	# Function keys
 	#XF86MonBrightnessUp 	exec light -A 5
-	#XF86MonBrightnessDown exec light -U 5
+	#XF86MonBrightnessDown  exec light -U 5
 	XF86AudioLowerVolume	exec "pulsemixer --change-volume -5"
 	XF86AudioRaiseVolume	exec "pulsemixer --change-volume +5  --max-volume 100"
-	XF86AudioMute		exec "pulsemixer --toggle-mute"
-	XF86MonBrightnessUp	exec incbrightness 
+	XF86AudioMute		    exec "pulsemixer --toggle-mute"
+	XF86MonBrightnessUp	    exec incbrightness 
 	XF86MonBrightnessDown	exec decbrightness
-	XF86Display		exec "wdisplays"
-	XF86TouchpadToggle	exec toggletouchpad
+	XF86Display		        exec "wdisplays"
+	XF86TouchpadToggle	    exec toggletouchpad
 	#screencapture
 	print			exec grim "pic-full-$(date '+%y%m%d-%H%M-%S').png"
 	Shift+print		exec wayscreenshot
@@ -269,7 +269,7 @@ bindsym {
 	
 	### Clipboard 
 	$mod+v			exec 'clipman pick --tool rofi --histpath="~/.local/share/clipman/clipman.json"'
-	$mod+Shift+v		exec "wclipboard"
+	$mod+Shift+v	exec "wclipboard"
 	
 	### Mounting Function
 	$mod+F9		exec "menumount"
@@ -467,7 +467,7 @@ bindsym {
 # exec swayidle -w \
 #          timeout 300 'swaylock -f -c 000000' \
 #          timeout 600 'swaymsg "output * dpms off"' \
-#               resume 'swaymsg "output * dpms on"' \
+#          resume 'swaymsg "output * dpms on"' \
 #          before-sleep 'swaylock -f -c 000000'
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off

@@ -5,10 +5,11 @@
 export PATH="$PATH:$HOME/.local/bin/"
 export PATH="$PATH:$HOME/.local/bin/statusbar/"
 export PATH="$PATH:$HOME/.gem/ruby/2.7.0/bin"
+export PATH="$PATH:$HOME/.local/share/gem/ruby/3.0.0/bin"
 export GOPATH="$HOME/go"
 export PATH="$PATH:GOPATH/bin"
 export EDITOR="nvim"
-export TERMINAL="st"
+export TERMINAL="alacritty"
 export BROWSER="qutebrowser"
 export READER="zathura"
 export FILE="vifm"
@@ -38,6 +39,7 @@ set_wayland_env(){
 	export ECORE_EVAS_ENGINE=wayland-egl
 	export _JAVA_AWT_WM_NONREPARENTING=1
 	export XMODIFIERS=@im=ibus
+    export LIBSEAT_BACKEND=logind
 #	export QT_IM_MODULE=ibus
 #	export XDG_SESSION_TYPE=wayland
 }
