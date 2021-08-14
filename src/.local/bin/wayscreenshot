@@ -19,25 +19,24 @@ function list_geometry () {
 	swaymsg -t get_tree | jq -r '.. | (.nodes? // empty)[] | select(.'$1' and .pid) | "\(.rect.x),\(.rect.y) \(.rect.width)x\(.rect.height)'$append'"'
 }
 
-#WINDOWS=`list_geometry visible with_description`
-FOCUSED=`list_geometry focused`
+windows=`list_geometry visible with_description`
+focused=`list_geometry focused`
 
 
-FILENAME="$(date +'%Y-%m-%d-%H%M%S_screenshot.png')"
+filename="$(date +'%Y-%m-%d-%H%M%S_screenshot.png')"
 
-choice=$(printf "fullscreen\\nregion\\nfocused\\n$WINDOWS" | $menu -i -p "Select screenshot type:")
+choice=$(printf "fullscreen\\nregion\\nfocused\\n$windows" | $menu -i -p "Select screenshot type:")
 case "$choice" in
-	fullscreen) grim "pic-full-$FILENAME";;
-	region) grim -g "$(slurp)" "pic-selected-$FILENAME";;
-	focused) grim -g "$FOCUSED" "pic-focused-$FILENAME";;
-	*) 
-		echo "OK" | $menu -p "Screenshot is cancelled 📷 "
-		exit 0
-#	    ;;
-#	*)
-#		GEOMETRY="`echo \"$CHOICE\" | cut -d$'\t' -f1`"
-#	    grim -g "$GEOMETRY" "$FILENAME"
+	fullscreen) grim "pic-full-$filename";;
+	region) grim -g "$(slurp)" "pic-selected-$filename";;
+	focused) grim -g "$focused" "pic-focused-$filename";;
+	*)
+		geometry="`echo \"$choice\" | cut -d$'\t' -f1`"
+	    grim -g "$geometry" "pic-window-$filename"
+	# *) 
+	# 	echo "OK" | $menu -p "Screenshot is cancelled 📷 "
+	# 	exit 0
 esac
 
-# wl-copy < "$FILENAME"
+# wl-copy < "$filename"
 
