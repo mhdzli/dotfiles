@@ -54,5 +54,12 @@ if [ -z $WAYLAND_DISPLAY ]; then
 else
     if [[ "$1" == "draw" ]]; then
         chafa --fill=block --symbols=block -c 256 -s $4x$5 ${PWD}/$6
+
+    elif [[ "$1" == "videopreview" ]]; then
+        ffprobe -hide_banner -pretty "$6" 2>&1
+
+    elif [[ "$1" == "pdfpreview" ]]; then
+        pdftotext -nopgbrk "$6" -
+
     fi
 fi

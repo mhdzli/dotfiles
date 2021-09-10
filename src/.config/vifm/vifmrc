@@ -203,6 +203,8 @@ filetype *.djvu
 
 " Audio
 filetype *.wav,*.mp3,*.flac,*.m4a,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus
+       \ {Play using mpv}
+       \ mpv %c,
        \ {Play using ffplay}
        \ ffplay -nodisp -autoexit %c,
        \ {Play using MPlayer}
@@ -228,7 +230,7 @@ fileviewer *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
         \ vifmimg videopreview %px %py %pw %ph %c 
         \ %pc 
         \ vifmimg clear
-        " \ ffprobe -pretty %c 2>&1
+        " \ ffprobe -hide_banner -pretty %c 2>&1
 
 " Web
 "filetype *.html,*.htm
@@ -260,7 +262,8 @@ filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
         \ {View in cacaview}
         \ cacaview %c &,
 fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.xpm
-	\ convert %c -geometry %pwx%ph sixel:- %pd
+	\ img2sixel -w %pw %c %pd
+    "\ convert %c -geometry %pwx%ph sixel:- %pd
 	"\ chafa --fill=block --symbols=block -c 256 -s %pwx%ph %c
 	"\ kitty icat --place=%pwx%ph@%pxx%py --silent %c
 	"\ %pc
@@ -268,7 +271,6 @@ fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.xpm
 	"\ vifmimg draw %px %py %pw %ph %c
         "\ %pc
         "\ vifmimg clear
-        
 	" Get w3m image previews inside vifm
 		" \ imgt %px %py %pw %ph %c
         " \ %pc
@@ -452,6 +454,9 @@ set vifminfo=dhistory,savedirs,chistory,state,tui,shistory,
 " ------------------------------------------------------------------------------
 
 " Sample mappings
+
+" Move one line down after selecting a file
+nnoremap t tj
 
 " Start shell in current directory
 nnoremap s :shell<cr>
