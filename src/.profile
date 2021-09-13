@@ -61,6 +61,9 @@ export LESS=-R
 # export LESS_TERMCAP_us=$(printf '[1;32m')
 # export LESS_TERMCAP_ue=$(printf '[0m')
 
+# fzf options
+export FZF_DEFAULT_OPTS='--height 70% --layout=reverse --border'
+
 # gtk3 and qt5 themes
 export QT_STYLE_OVERRIDE="kvantum-dark"
 export GTK_THEME="Adwaita:dark"
