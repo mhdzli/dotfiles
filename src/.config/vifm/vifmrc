@@ -368,7 +368,7 @@ fileviewer *.7z 7z l %c
 " Office files
 filextype *.odt,*.doc,*.docx,*.xls,*.xlsx,*.odp,*.pptx libreoffice %f &
 fileviewer *.doc catdoc %c
-fileviewer *.docx docx2txt.pl %f -
+fileviewer *.docx docx2txt %f -
 
 " TuDu files
 filetype *.tudu tudu -f %c
@@ -380,6 +380,9 @@ filextype *.pro qtcreator %f &
 filextype */
         \ {View in thunar}
         \ Thunar %f &,
+
+" default preview
+fileviewer * highlight -O ansi -s dante %c
 
 " Syntax highlighting in preview
 "
