@@ -177,7 +177,7 @@ command! reload :write | restart
 " program.
 
 " md
-fileviewer *.md mdless
+fileviewer *.md mdless -c %c 2>/dev/null
 
 " Pdf
 filetype *.pdf zathura %c %i &, apvlv %c, xpdf %c
