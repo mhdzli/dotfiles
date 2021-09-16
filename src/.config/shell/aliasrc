@@ -2,7 +2,11 @@
 
 # Colorize commands when possible.
 alias \
-	grep="grep --color=auto" \
+    dir='dir --color=auto' \
+    vdir='vdir --color=auto' \
+    grep='grep --color=auto' \
+    egrep='egrep --color=auto' \
+    fgrep='fgrep --color=auto' \
 	diff="diff --color=auto" 
 #	ls='ls --quoting-style=literal -pq --time-style=iso --color=auto --group-directories-first --show-control-chars'
 
@@ -28,11 +32,18 @@ alias \
 # These common commands are just too long! Abbreviate them.
 alias \
 	v='nvim' \
-	magit="nvim -c MagitOnly" \
+	magit='nvim -c MagitOnly' \
 	g='git' \
 	sdn='sudo shutdown -h now' \
 	p='sudo pacman' \
     :q='exit'
+
+# Pacman 
+alias \
+    fixp='sudo rm /var/lib/pacman/db.lck' \
+    fixdb='sudo rm /var/lib/pacman/sync/*' \
+    cleanup='sudo pacman -Rns `pacman -Qtdq`' \
+    listp='pacman -Qqetti | grep -e Name -e Description'
 
 # Verbosity and settings that you pretty much just always are going to want.
 alias \
@@ -47,17 +58,21 @@ alias \
 	df='df -h' \
 	du='du -ahd 1' \
 	ds='dust -d 1' \
-	free='free -m' \
+	free='free -mh' \
+    jctlerror='journalctl -p 3 -xb' \
 	dwatch='watch -n 0.1 -t "ls -SsCphq --color=auto --group-directories-first"'
 	yt='youtube-dl --add-metadata -i' \
 	yta='yt -x -f bestaudio/best' \
 	ffmpeg='ffmpeg -hide_banner' \
 	fmpg="ffmpeg -v 0 -stats" \
-	alias ln='ln -v' \
+	ln='ln -v' \
 	lynx='lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss -vikeys' \
 	a2c='aria2c -c -x 16 -s 16 -k 1M -d' \
+    wget='wget -c ' \
 	imv='imv -b 1D2330' \
 	ts='tabbed surf -pe' \
+    ps='ps auxf' \
+    psmem='ps auxf | sort -nr -k 4'
 
 # pandoc
 alias \
@@ -72,5 +87,5 @@ alias scwc="scrcpy --rotation 3 --crop 1080:1400:0:200"
 # cd
 alias \
 	cW="cd $HOME/.local/share/nextcloud/Notes/" \
-	cG="cd $HOME/repos/github/mhdzli" \
+	cG="cd $HOME/repos/hub/mhdzli" \
 	cV="cd $HOME/Videos"
