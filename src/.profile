@@ -40,8 +40,10 @@ set_wayland_env(){
 	export _JAVA_AWT_WM_NONREPARENTING=1
 	export XMODIFIERS=@im=ibus
     export LIBSEAT_BACKEND=logind
-#	export QT_IM_MODULE=ibus
-#	export XDG_SESSION_TYPE=wayland
+	export XDG_SESSION_TYPE=wayland
+    export XDG_SESSION_DESKTOP=sway
+    export XDG_CURRENT_DESKTOP=sway
+	# export QT_IM_MODULE=ibus
 }
 
 # less/man colors
@@ -65,6 +67,7 @@ export LESS=-R
 export FZF_DEFAULT_OPTS='--height 70% --layout=reverse --border'
 
 # gtk3 and qt5 themes
+# export QT_QPA_PLATFORMTHEME="qt5ct"
 export QT_STYLE_OVERRIDE="kvantum-dark"
 export GTK_THEME="Adwaita:dark"
 
