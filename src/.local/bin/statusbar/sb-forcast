@@ -10,11 +10,11 @@ ip r | while read Def _ IP _; do
 	esac
 done
 
-geoip=$(curl -s https://freegeoip.app/json/)
-longitude=$(echo $geoip | jq .longitude)
-latitude=$(echo $geoip | jq .latitude)
-country_code=$(echo $geoip | jq .country_code | sed 's/\"//g')
-location="$1"; [ -z "$location" ] && location="$(echo $geoip | jq .city | sed 's/\"//g')"
+geoip=$(curl -s https://freegeoip.app/xml/)
+longitude=$(echo $geoip | grep "Longitude" | sed 's/[^a-zA-Z]<\/*Longitude>//g')
+latitude=$(echo $geoip | grep "Latitude" | sed 's/[^a-zA-Z]<\/*Latitude>//g')
+country_code=$(echo $geoip | grep "CountryCode" | sed 's/[^a-zA-Z]<\/*CountryCode>//g')
+location="$1"; [ -z "$location" ] && location="$(echo $geoip | grep "City" | sed 's/[^a-zA-Z]*<\/*City>//g')"
 # curl -s wttr.in/"$location"?format=3
 # curl -s wttr.in/"$location"?format="%c+%t"
 ansiweather -l $location,$country_code -u metric -s true -f 1 -a false | cut -d' ' -f2,8-
