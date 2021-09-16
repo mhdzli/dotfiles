@@ -10,10 +10,12 @@ ip r | while read Def _ IP _; do
 	esac
 done
 
-# location="$1"; [ -z "$location" ] || location="$location+"
-# curl -s wttr.in/shiraz?format=3
-curl -s wttr.in/shiraz?format="%c+%t"
-# pkill -RTMIN+5 i3blocks && notify-send "🌞 Weather forecast updated."
-# ansiweather -l shiraz,IR -u metric -s true -f 1 -a false | cut -d' ' -f2,8-
-# clweather --latitude 29.6068 --longitude 52.5376 -t #API KEY
-#echo 'not now'
+geoip=$(curl -s https://freegeoip.app/json/)
+longitude=$(echo $geoip | jq .longitude)
+latitude=$(echo $geoip | jq .latitude)
+country_code=$(echo $geoip | jq .country_code | sed 's/\"//g')
+location="$1"; [ -z "$location" ] && location="$(echo $geoip | jq .city | sed 's/\"//g')"
+# curl -s wttr.in/"$location"?format=3
+# curl -s wttr.in/"$location"?format="%c+%t"
+ansiweather -l $location,$country_code -u metric -s true -f 1 -a false | cut -d' ' -f2,8-
+# clweather --latitude $latitude --longitude $longitude -t # API key from openweathermap.org
