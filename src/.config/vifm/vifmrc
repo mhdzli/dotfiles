@@ -261,7 +261,7 @@ filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
         \ feh %d &,
         \ {View in cacaview}
         \ cacaview %c &,
-fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.xpm
+fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.xpm,*.svg,*.tif,*.tiff
 	"\ img2sixel -w %pw %c %pd
     "\ convert %c -geometry %pwx%ph sixel:- %pd
 	\ chafa --fill=block --symbols=block -c 256 -s %pwx%ph %c %pd
