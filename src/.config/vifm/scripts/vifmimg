@@ -53,7 +53,7 @@ if [ -z $WAYLAND_DISPLAY ]; then
     fi
 else
     if [[ "$1" == "draw" ]]; then
-        chafa --fill=block --symbols=block -c 256 -s $4x$5 ${PWD}/$6
+        chafa --fill=block --symbols=block -c 256 -s $4x$5 ${PWD}/$6 $7
 
     elif [[ "$1" == "videopreview" ]]; then
         ffprobe -hide_banner -pretty "$6" 2>&1

@@ -262,13 +262,13 @@ filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
         \ {View in cacaview}
         \ cacaview %c &,
 fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.xpm
-	\ img2sixel -w %pw %c %pd
+	"\ img2sixel -w %pw %c %pd
     "\ convert %c -geometry %pwx%ph sixel:- %pd
-	"\ chafa --fill=block --symbols=block -c 256 -s %pwx%ph %c
+	\ chafa --fill=block --symbols=block -c 256 -s %pwx%ph %c %pd
 	"\ kitty icat --place=%pwx%ph@%pxx%py --silent %c
 	"\ %pc
 	"\ kitty icat --clear --silent %pd
-	"\ vifmimg draw %px %py %pw %ph %c
+	"\ vifmimg draw %px %py %pw %ph %c %pd
         "\ %pc
         "\ vifmimg clear
 	" Get w3m image previews inside vifm
