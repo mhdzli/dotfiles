@@ -382,7 +382,7 @@ filextype */
         \ Thunar %f &,
 
 " default preview
-fileviewer * highlight -O ansi -s dante %c
+fileviewer *.* highlight -O ansi -s dante %c
 
 " Syntax highlighting in preview
 "
