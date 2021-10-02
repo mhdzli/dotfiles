@@ -262,8 +262,8 @@ filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
         \ {View in cacaview}
         \ cacaview %c &,
 fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.xpm,*.svg,*.tif,*.tiff
-	"\ img2sixel -w %pw %c %pd
-    "\ convert %c -geometry %pwx%ph sixel:- %pd
+	"\ img2sixel -w %pw0 %c %pd
+	"\ convert %c -geometry %pw0x%ph0 sixel:- %pd
 	\ chafa --fill=block --symbols=block -c 256 -s %pwx%ph %c %pd
 	"\ kitty icat --place=%pwx%ph@%pxx%py --silent %c
 	"\ %pc
@@ -382,7 +382,10 @@ filextype */
         \ Thunar %f &,
 
 " default preview
-fileviewer *.* highlight -O ansi -s dante %c
+fileviewer *.sh,*.[ch],*.[ch]pp,*.py,*.rs,*.js,*.html,*.css,*.tex,*.zsh,.zsh*,
+        \.*.zsh,.bash*,.*profile,*.vim,.vim*,*.lua,*.go,*.rb,*.yml,*.ini,
+        \*.toml,*.conf,*rc,.*rc,*.info,.*.info,.*info 
+        \env -uCOLORTERM bat --color always --wrap never --pager never %c -p
 
 " Syntax highlighting in preview
 "
