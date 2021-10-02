@@ -177,7 +177,7 @@ command! reload :write | restart
 " program.
 
 " md
-fileviewer *.md mdless -c %c 2>/dev/null
+fileviewer *.md,*.markdown mdless -c %c 2>/dev/null
 
 " Pdf
 filetype *.pdf zathura %c %i &, apvlv %c, xpdf %c
@@ -382,9 +382,11 @@ filextype */
         \ Thunar %f &,
 
 " default preview
-fileviewer *.sh,*.[ch],*.[ch]pp,*.py,*.rs,*.js,*.html,*.css,*.tex,*.zsh,.zsh*,
-        \.*.zsh,.bash*,.*profile,*.vim,.vim*,*.lua,*.go,*.rb,*.yml,*.ini,
-        \*.toml,*.conf,*rc,.*rc,*.info,.*.info,.*info 
+fileviewer *.sh,*.[ch],*.[ch]pp,*.cmake*,*.py,*.rs,*.js,*.html,*.css,*.scss,*.xml,
+        \*.tex,*.zsh,.zsh*,.*.zsh,.bash*,.*profile,*.vim,.vim*,*.lua,*.go,*.rb,*.json,
+        \*.sample,*.yml,*.ini,*.toml,*.conf,*rc,.*rc,*.info,.*.info,.*info,*.mk,
+        \*.diff,*.txt,*.bat,*.gradle,*.java,*.properties,*.bak,Makefile,.git[a-zA-Z]*,
+        \*.cfg,*.log 
         \env -uCOLORTERM bat --color always --wrap never --pager never %c -p
 
 " Syntax highlighting in preview
