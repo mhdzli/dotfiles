@@ -24,19 +24,20 @@ fi
 
 if [ -f "$archive" ] ; then
 	case "$archive" in
-		*.tar.bz2|*.tbz2) bsdtar -xf "$archive" ;;
-		*.tar.xz) bsdtar -xf "$archive" ;;
-		*.tar.gz|*.tgz) bsdtar -xf "$archive" ;;
-		*.tar.zst) bsdtar -xf "$archive" ;;
-		*.tar) bsdtar -xf "$archive" ;;
-		*.lzma) unlzma "$archive" ;;
-		*.bz2) bunzip2 "$archive" ;;
+		*.tar.bz2|*.tbz2) bsdtar -xvf "$archive" ;;
+		*.tar.xz) bsdtar -xvf "$archive" ;;
+		*.tar.gz|*.tgz) bsdtar -xvf "$archive" ;;
+		*.tar.zst) bsdtar -xvf "$archive" ;;
+		*.tar) bsdtar -xvf "$archive" ;;
+		*.lzma) unlzma -v "$archive" ;;
+		*.bz2) bunzip2 -v "$archive" ;;
 		*.rar) unrar x -ad "$archive" ;;
-		*.gz) gunzip "$archive" ;;
-		*.zip) unzip "$archive" ;;
-		*.Z) uncompress "$archive" ;;
+		*.gz) gunzip -v "$archive" ;;
+		*.zip) unzip -v "$archive" ;;
+		*.Z) uncompress -v "$archive" ;;
 		*.7z) 7z x "$archive" ;;
-		*.xz) unxz "$archive" ;;
+		*.xz) unxz -v "$archive" ;;
+		*.zst) zstd -dv "$archive" ;;
 		*.exe) cabextract "$archive" ;;
 		*) printf "extract: '%s' - unknown archive method\\n" "$archive" ;;
 	esac
