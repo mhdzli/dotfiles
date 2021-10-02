@@ -250,7 +250,7 @@ filetype *.[1-8] man ./%c
 fileviewer *.[1-8] man ./%c | col -b
 
 " Images
-filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
+filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm,*.ico, 
         \ {View in imv}
         \ imv -b 1D2330 -d %c -c open -r %d &,
         \ {View in vimiv}
@@ -261,7 +261,7 @@ filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
         \ feh %d &,
         \ {View in cacaview}
         \ cacaview %c &,
-fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.xpm,*.svg,*.tif,*.tiff
+fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.xpm,*.svg,*.tif,*.tiff,*.ico, 
 	"\ img2sixel -w %pw0 %c %pd
 	"\ convert %c -geometry %pw0x%ph0 sixel:- %pd
 	\ chafa --fill=block --symbols=block -c 256 -s %pwx%ph %c %pd
@@ -366,8 +366,9 @@ filetype *.7z
 fileviewer *.7z 7z l %c
 
 " Office files
-filextype *.odt,*.doc,*.docx,*.xls,*.xlsx,*.odp,*.pptx libreoffice %f &
+filetype *.odt,*.doc,*.docx,*.xls,*.xlsx,*.odp,*.pptx libreoffice %f &
 fileviewer *.doc catdoc %c
+fileviewer *.odt odt2txt %c
 fileviewer *.docx docx2txt %f -
 
 " TuDu files
@@ -382,11 +383,11 @@ filextype */
         \ Thunar %f &,
 
 " default preview
-fileviewer *.sh,*.[ch],*.[ch]pp,*.cmake*,*.py,*.rs,*.js,*.html,*.css,*.scss,*.xml,
-        \*.tex,*.zsh,.zsh*,.*.zsh,.bash*,.*profile,*.vim,.vim*,*.lua,*.go,*.rb,*.json,
+fileviewer *.sh,*.[ch],*.[ch]pp,*.cmake*,*.py,*.rs,*.js,*.html,*.css,*.scss,*.[ix]ml,
+        \*.tex,*.zsh,.zsh*,.*.zsh,.bash*,.*profile,*.vim,.vim*,*.lua,*.go,*.s,*.rb,*.json,
         \*.sample,*.yml,*.ini,*.toml,*.conf,*rc,.*rc,*.info,.*.info,.*info,*.mk,
         \*.diff,*.txt,*.bat,*.gradle,*.java,*.properties,*.bak,Makefile,.git[a-zA-Z]*,
-        \*.cfg,*.log 
+        \*.cfg,*.log,*.ps1,*.fish,.fish*,*.fish*, 
         \env -uCOLORTERM bat --color always --wrap never --pager never %c -p
 
 " Syntax highlighting in preview
