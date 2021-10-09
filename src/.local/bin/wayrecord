@@ -4,7 +4,8 @@
 # `$0`: Ask for recording type via rofi
 # `$0 screencast`: Record both audio and screen
 # `$0 video`: Record only screen
-# `$0 audio`: Record only audio
+# `$0 window`: Record one of your visible windows
+# `$0 vaapi`: Use GPU with Video Acceleration API
 # `$0 kill`: Kill existing recording
 #
 # If there is already a running instance, user will be prompted to end it.
@@ -83,8 +84,8 @@ asktoend() { \
 case "$1" in
 	screencast) screencast;;
 	video) video;;
-    window) window;;
-    vaapi) vaapi;;
+	window) window;;
+	vaapi) vaapi;;
 	kill) killrecording;;
 	*) ([ -f /tmp/recordingpid ] && asktoend && exit) || askrecording;;
 esac
