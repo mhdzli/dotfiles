@@ -71,6 +71,14 @@ map <C-l> <C-w>l
 " Copy selected text to system clipboard (requires gvim/nvim/vim-x11 installed):
 vnoremap <C-c> "+y
 map <C-p> "+P
+map <C-v> "+P
+
+"enable copy and paste for vim in termux
+if executable('termux-clipboard-set')
+    vnoremap <C-x> :!termux-clipboard-set<CR>
+    vnoremap <C-c> :w !termux-clipboard-set<CR><CR>
+    inoremap <C-v> <ESC>:read !termux-clipboard-get<CR>i
+endif
 
 " Spell-check set to <leader>o, 'o' for 'orthography':
 map <leader>s :setlocal spell! spelllang=en_us<CR>
