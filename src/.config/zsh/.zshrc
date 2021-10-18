@@ -77,4 +77,7 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 # navi widget
 eval "$(navi widget zsh)"
 
+# McFly - fly through your shell history
+eval "$(mcfly init zsh)"
+
 source /home/mzeinali/.config/broot/launcher/bash/br
