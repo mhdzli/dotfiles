@@ -246,6 +246,7 @@ bar:
   center:
     - clock:
         time-format: "%H:%M"
+        date-format: "%d %b %Y"
         content:
           - string: {text: , font: *awesome}
           - string: {text: "{date}", right-margin: 5}
@@ -339,15 +340,15 @@ bar:
     #                     values:
     #                       "": {string: {text: , font: *awesome, foreground: ffffff66}}
 
-    - script:
-        path: /home/mzeinali/.config/yambar/pacman
-        args: [] 
-        content:
-          map:
-            tag: pkg
-            default: { string: { text: " {pacman} +  {aur} = {pkg}" } }
-            values:
-              0: {string: {text: }}
+    # - script:
+    #     path: /home/mzeinali/.config/yambar/pacman
+    #     args: [] 
+    #     content:
+    #       map:
+    #         tag: pkg
+    #         default: { string: { text: " {pacman} +  {aur} = {pkg}" } }
+    #         values:
+    #           0: {string: {text: }}
 
     - network:
         name: wlp2s0
@@ -416,6 +417,21 @@ bar:
               full:
                 - string: {text: , foreground: 00ff00ff, font: *awesome}
                 - string: {text: "{capacity}% full"}
+              not charging:
+                - ramp:
+                    tag: capacity
+                    items:
+                      - string: {text:  , foreground: ff0000ff, font: *awesome}
+                      - string: {text:  , foreground: ffa600ff, font: *awesome}
+                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
+                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
+                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
+                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
+                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
+                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
+                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
+                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
+                - string: {text: "{capacity}%"}
 
     - sway-xkb:
         identifiers: [1:1:AT_Translated_Set_2_keyboard]
