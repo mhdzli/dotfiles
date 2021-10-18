@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-[ "$(printf "No\\nYes" | rofi -dmenu -lines 4  -theme-str '* { font: "Monospace 18"; background-color: #ff2828; active-background: #cc4545; }' -i -p "$1")" = "Yes" ] && $2
+[ "$(printf "No\\nYes" | rofi -dmenu -theme-str '* { font: "Monospace 18"; background-color: #571d1d90; lines:4; active-background: #cc4545; }' -i -p "$1")" = "Yes" ] && $2
