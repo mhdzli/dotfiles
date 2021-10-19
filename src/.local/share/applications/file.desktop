@@ -1,4 +1,5 @@
 [Desktop Entry]
 Type=Application
 Name=File Manager
-Exec=/usr/bin/alacritty -e vifm %u
+Icon=vifm
+Exec=/usr/bin/foot vifm %u
