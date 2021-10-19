@@ -361,9 +361,13 @@ bar:
               up:
                 map:
                   tag: ipv4
-                  default: {string: {text: , font: *awesome}}
+                  default:
+                    - string: {text: , font: *awesome}
+                    - string: {text: "{ssid}"}
                   values:
-                    "": {string: {text: , font: *awesome, foreground: ffffff66}}
+                    "":
+                      - string: {text: , font: *awesome, foreground: ffffff66}
+                      - string: {text: "{ssid}", foreground: ffffff66}
 
     - alsa:
         card: hw:PCH
