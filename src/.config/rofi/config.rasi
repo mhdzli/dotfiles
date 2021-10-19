@@ -2,8 +2,8 @@ configuration {
 
 	modi: "drun,run";
 	show-icons: true;
-	icon-theme: "papirus";
+	icon-theme: "Papirus";
 	sidebar-mode: true;
-	theme: "theme/dracula-dark.rasi";
+	theme: "theme/onedark_mini.rasi";
 }
 
