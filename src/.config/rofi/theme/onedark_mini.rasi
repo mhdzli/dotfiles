@@ -15,7 +15,7 @@
   spacing: 0;
   background-color: transparent;
 
-  font: "Iosevka Nerd Font 14";
+  font: "Vazir 14";
   text-color: @blue;
 }
 
@@ -28,7 +28,7 @@ window {
 }
 
 mainbox {
-  padding: 5% 5%;
+  padding: 2% 2%;
   children: [ inputbar, listview];
 }
 
