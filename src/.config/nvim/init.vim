@@ -70,8 +70,8 @@ map <C-l> <C-w>l
 
 " Copy selected text to system clipboard (requires gvim/nvim/vim-x11 installed):
 vnoremap <C-c> "+y
-map <C-p> "+P
-map <C-v> "+P
+inoremap <C-p> "+P
+inoremap <C-v> "+P
 
 "enable copy and paste for vim in termux
 if executable('termux-clipboard-set')
