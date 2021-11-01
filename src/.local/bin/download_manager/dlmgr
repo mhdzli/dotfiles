@@ -17,13 +17,17 @@ start_download () {
         --on-download-complete="dl_nf_complete"\
         --on-download-error="dl_nf_error" &
     echo $! > /tmp/downloading_pid
-    [ $(grep "^[a-zA-Z]" $a2_dir/dl_list) ] && ask_action
 }
 
 stop_download () {
 	dl_pid="$(cat /tmp/downloading_pid 2>/dev/null)"
 	# kill with SIGTERM, allowing finishing touches.
 	[ $dl_pid ] && kill -15 "$dl_pid" 
+	rm -f /tmp/downloading_pid
+	# even after SIGTERM, aria2 may still run, so SIGKILL it.
+	sleep 3
+	kill -9 "$dl_pid"
+	exit
 }
 
 add_link () {

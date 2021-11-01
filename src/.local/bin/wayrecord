@@ -30,7 +30,7 @@ killrecording() {
 	rm -f /tmp/recordingpid
 #	updateicon ""
 #	pkill -RTMIN+9 "${STATUSBAR:?}"
-	# even after SIGTERM, ffmpeg may still run, so SIGKILL it.
+	# even after SIGTERM, wf-recorder may still run, so SIGKILL it.
 	sleep 3
 	kill -9 "$recpid"
 #	pkill swcursor
