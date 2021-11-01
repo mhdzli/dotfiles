@@ -1,0 +1,60 @@
+#!/bin/bash
+
+menu='rofi -theme ~/.config/rofi/theme/dracula-dark.rasi -dmenu'
+a2_dir="$HOME/.local/share/aria2"
+dl_dir="/home/mzeinali/Data/tvs"
+
+[ -z "$WAYLAND_DISPLAY" ]  && pf="xorg" || pf="wayland"
+xclip -h 2>/dev/null || [ -n "$WAYLAND_DISPLAY" ] || exit
+wl-copy -h >/dev/null || [ -z "$WAYLAND_DISPLAY" ] || exit
+
+[ -d $a2_dir ] || mkdir -p $a2_dir
+
+start_download () {
+    sed -i '/^[ \t]*$/d' $a2_dir/dl_list
+    aria2c -c -x 16 -s 16 -k 1M -i $a2_dir/dl_list -j 1 \
+        --on-download-start="dl_nf_start" \
+        --on-download-complete="dl_nf_complete"\
+        --on-download-error="dl_nf_error" &
+    echo $! > /tmp/downloading_pid
+    [ $(grep "^[a-zA-Z]" $a2_dir/dl_list) ] && ask_action
+}
+
+stop_download () {
+	dl_pid="$(cat /tmp/downloading_pid 2>/dev/null)"
+	# kill with SIGTERM, allowing finishing touches.
+	[ $dl_pid ] && kill -15 "$dl_pid" 
+}
+
+add_link () {
+    case $pf in
+        "xorg") link=$(xclip -o | $menu -i -p "Url Address" -l 2);;
+        "wayland") link=$(wl-paste | $menu -i -p "Url Address" -l 2);;
+    esac
+    dir="$(find $HOME -maxdepth 5 -type d 2>/dev/null | $menu -i -p "Type in download directory.")" || dir="$dl_dir"
+    [ $link ] && dlmgr add "$link" "$dir"
+}
+
+remove_link () {
+    line=$(grep -n "^[^ ]" $a2_dir/dl_list | $menu -i -p "Url Address" | cut -d: -f1)
+    sed -i "${line},+1d" $a2_dir/dl_list
+    stop_download && start_download
+}
+
+ask_action () {
+    choice="$(printf "Start Download\\nStop Download\\nAdd Link\\nRemove Link" | $menu -i -p "What do you want to do?")" || exit 1
+    case $choice in
+        "Start Download") start_download;;
+        "Stop Download") stop_download;;
+        "Add Link") add_link;;
+        "Remove Link") remove_link;;
+    esac
+}
+
+case $1 in
+    add) [ ${3} ] && printf "%s\n    dir=%s\n" "$2" "$3" >> $a2_dir/dl_list || printf "\n%s\n    dir=%s" "$2" "$dl_dir"  >> $a2_dir/dl_list;;
+    remove) remove_link;;
+    stop) stop_download;;
+    start) start_download;;
+    *) ask_action;;
+esac

@@ -1,0 +1,6 @@
+#!/bin/sh
+a2_dir="$HOME/.local/share/aria2"
+sed -i '/^[ \t]*$/d' $a2_dir/dl_list
+current_file="$(sed -n '1{s/.*\///};1p' $a2_dir/dl_list)"
+notify-send " Download Error" "$current_file"
+sed sed -i -e '1{w /dev/stdout' -e 'd}' $a2_dir/dl_list >> $a2_dir/dl_error
