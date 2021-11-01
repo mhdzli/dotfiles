@@ -188,17 +188,19 @@ bindsym {
 	
 	# Volume control
 	$mod+a		exec "$term pulsemixer"
-	
+
+    # Download manager
+    $mod+u      exec dlmgr
+
+	# Emoji selection
+	$mod+i  exec menuunicode
+
 	# Layout stuff:
 	$mod+t			    split toggle
 	$mod+underscore		gaps inner current set 0; gaps outer current set 0
 	$mod+equal		    gaps inner current plus 2; gaps outer current plus 2
 	$mod+minus		    gaps inner current minus 2; gaps outer current minus 2
 	$mod+plus		    gaps inner current set 4; gaps outer current set 4
-	
-	# Emoji selection
-	$mod+i  exec menuunicode
-	
 	
 	# You can "split" the current object of your focus 
 	# for horizontal and vertical splits
@@ -501,7 +503,7 @@ include /etc/sway/config.d/*
 ## $mod+r		resize
 ## $mod+s		search
 ## $mod+t		split toggle
-## $mod+u
+## $mod+u       dlmgr
 ## $mod+v		clipboard
 ## $mod+w		$BROWSER
 ## $mod+x		shutdown
@@ -609,8 +611,8 @@ include /etc/sway/config.d/*
 ## $mod+Shift+bracketright	adjust grow width
 ## $mod+Shift+semicolon		adjust shrink height
 ## $mod+Shift+apostrophe	adjust grow height
-## $mod+Shift+slash
-## $mod+Shift+period
+## $mod+slash   opacity plus 0.02
+## $mod+period  opacity minus 0.02
 ##
 ## Shift_L+Shift_R		change keyboard layout
 ## $alt+Tab			focus next
