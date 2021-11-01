@@ -2,8 +2,7 @@
 # Profile file. Runs on login.
 
 # Adds `~/.local/bin/` and all subdirectories to $PATH
-export PATH="$PATH:$HOME/.local/bin/"
-export PATH="$PATH:$HOME/.local/bin/statusbar/"
+export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
 export PATH="$PATH:$HOME/.gem/ruby/2.7.0/bin"
 export PATH="$PATH:$HOME/.local/share/gem/ruby/3.0.0/bin"
 export GOPATH="$HOME/go"
