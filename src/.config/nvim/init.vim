@@ -10,11 +10,7 @@ endif
 " --------------------------------------------------
 
 " --- Theme ---
-colorscheme tfl
-
-highlight CursorLineNr cterm=NONE ctermbg=12 ctermfg=1 gui=NONE guibg=#ffffff guifg=#c5eff0
-highlight CursorLine cterm=NONE ctermbg=12 ctermfg=0 gui=NONE guibg=#ffffff guifg=#c5eff0
-highlight cursorcolumn cterm=NONE ctermbg=12 ctermfg=0 gui=NONE guibg=#ffffff guifg=#c5eff0
+colorscheme mhl
 
 " Set indent line color
 	let g:indentLine_char = '┊'
