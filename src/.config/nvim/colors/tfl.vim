@@ -18,7 +18,7 @@ hi Boolean            ctermbg=NONE         ctermfg=1
 hi Character          ctermbg=NONE         ctermfg=196
 hi ColorColumn        ctermbg=235          ctermfg=250
 hi Comment            ctermbg=NONE         ctermfg=241
-hi Condtional         ctermbg=NONE         ctermfg=196
+hi Conditional         ctermbg=NONE         ctermfg=196
 hi Constant           ctermbg=NONE         ctermfg=252
 hi CursorColumn       ctermbg=236          ctermfg=NONE
 hi Cursor             ctermbg=NONE         ctermfg=NONE
