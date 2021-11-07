@@ -32,6 +32,7 @@ hi Pmenu              ctermbg=NONE         ctermfg=255
 hi PmenuSbar          ctermbg=NONE         ctermfg=70
 hi PmenuSel           ctermbg=NONE         ctermfg=70
 hi SignColumn         ctermbg=234          ctermfg=NONE
+hi String             ctermbg=NONE         ctermfg=96
 hi VertSplit          ctermbg=black        ctermfg=black
 hi Visual             ctermbg=NONE         ctermfg=110      cterm=italic,bold
 hi VisualNOS          ctermbg=NONE         ctermfg=7
