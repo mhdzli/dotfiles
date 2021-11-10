@@ -142,6 +142,7 @@ Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
+Plug 'onsails/lspkind-nvim'
 Plug 'junegunn/goyo.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'vim-scripts/indentpython.vim'
@@ -251,12 +252,29 @@ cmp.setup {
       end
     end,
   },
+  experimental = {
+    ghost_text = true,
+    native_menu = false,
+  },
+  formatting = {
+    format = require("lspkind").cmp_format({with_text = true, menu = ({
+      buffer = "[Buffer]",
+      nvim_lsp = "[LSP]",
+      luasnip = "[LuaSnip]",
+      vsnip = "[VSnip]",
+      nvim_lua = "[Lua]",
+      latex_symbols = "[Latex]",
+    })}),
+  },
   sources = {
-    { name = 'vsnip' },
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    { name = 'vsnip' },
+    { name = 'buffer' },
+    { name = 'path' },
   },
 }
+
 -- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
 local sumneko_root_path = '/home/mzeinali/.config/nvim/lua-language-server'
 local sumneko_binary = sumneko_root_path.."/bin/linux/lua-language-server"
