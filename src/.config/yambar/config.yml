@@ -18,18 +18,26 @@ bar:
   margin: 7
 
   # Default font
-  font: Monospace:pixelsize=16
+  font: Monospace:pixelsize=16:style=bold
 
-  foreground: ffffffff
-  background: 111111aa
+  foreground: fbfac7ff
+  background: 282828ff
 
   border:
-    width: 1
-    color: 999999cc
+    width: 2
+    color: 076678cc
     margin: 0
     top-margin: 0
 
   left:
+    - label:
+        content:
+          string:
+            on-click: rofi -theme ~/.config/rofi/theme/onedark_mini.rasi -show drun
+            text: 
+            foreground: 1491CEff
+            font: Monospace:pixelsize=20
+
     - i3:
         anchors: # Not used (directly) by f00bar; used here to avoid duplication
           - string: &i3_common {margin: 5, on-click: "swaymsg --quiet workspace {name}"}
@@ -248,16 +256,16 @@ bar:
         time-format: "%H:%M"
         date-format: "%d %b %Y"
         content:
-          - string: {text: , font: *awesome}
-          - string: {text: "{date}", right-margin: 5}
+          - string: {text: , font: *awesome, foreground: 689d6aff}
+          - string: {text: "{date}", right-margin: 5, foreground: 689d6aff}
           - string: {text: , font: *awesome}
           - string: {text: "{time}"}
 
     - script:
         path: /home/mzeinali/.config/yambar/jalali_date
         content:
-          - string: {text: , font: *awesome}
-          - string: {text: "{jalali_date}"}
+          - string: {text: , font: *awesome, foreground: d65d0eff}
+          - string: {text: "{jalali_date}", foreground: d65d0eff}
 
   #   - mpd:
   #       host: /home/mzeinali/.config/mpd/socket
@@ -362,12 +370,12 @@ bar:
                 map:
                   tag: ipv4
                   default:
-                    - string: {text: , font: *awesome}
-                    - string: {text: "{ssid}"}
+                    - string: {text: , font: *awesome, foreground: 98971aff}
+                    - string: {text: "{ssid}", foreground: 98971aff}
                   values:
                     "":
-                      - string: {text: , font: *awesome, foreground: ffffff66}
-                      - string: {text: "{ssid}", foreground: ffffff66}
+                      - string: {text: , font: *awesome, foreground: 98971aff}
+                      - string: {text: "{ssid}", foreground: 98971aff}
 
     - alsa:
         card: hw:PCH
@@ -383,16 +391,16 @@ bar:
                 - ramp:
                     tag: volume
                     items:
-                      - string: {text: , font: *awesome}
-                      - string: {text: , font: *awesome}
-                      - string: {text: , font: *awesome}
-                      - string: {text: , font: *awesome}
-                      - string: {text: , font: *awesome} 
-                - string: {text: "{percent}%"}
+                      - string: {text: , font: *awesome, foreground: 458588ff}
+                      - string: {text: , font: *awesome, foreground: 458588ff}
+                      - string: {text: , font: *awesome, foreground: 458588ff}
+                      - string: {text: , font: *awesome, foreground: 458588ff}
+                      - string: {text: , font: *awesome, foreground: 458588ff} 
+                - string: {text: "{percent}%", foreground: 458588ff}
 
     - backlight:
         name: intel_backlight
-        content: [ string: {text: , font: *awesome}, string: {text: "{percent}%"}]
+        content: [ string: {text: , font: *awesome, foreground: D79921FF}, string: {text: "{percent}%", foreground: D79921FF}]
     - battery:
         name: BAT0
         poll-interval: 30
@@ -440,8 +448,8 @@ bar:
     - sway-xkb:
         identifiers: [1:1:AT_Translated_Set_2_keyboard]
         content:
-          - string: {text: , font: *awesome}
-          - string: {text: "{layout}"}
+          - string: {text: , font: *awesome, foreground: D16286FF}
+          - string: {text: "{layout}", foreground: D16286FF}
 
     - label:
         content:
@@ -449,4 +457,5 @@ bar:
             on-click: sysact
             text: 
             font: *awesome
+            foreground: CC241DFF
 
