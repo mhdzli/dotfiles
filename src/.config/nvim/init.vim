@@ -9,26 +9,6 @@ if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
 endif
 " --------------------------------------------------
 
-" --- Theme ---
-colorscheme mhl
-
-" Set indent line color
- let g:indentLine_char = '┊'
-
-" Highlight cursor line/position
-"nnoremap <C-a> :set cursorline!<CR>
-"nnoremap <C-f> :call HighlightNearCursor()<CR>
-"function HighlightNearCursor()
-"  if !exists("s:highlightcursor")
-"    match Todo /\k*\%#\k*/
-"    let s:highlightcursor=1
-"  else
-"    match None
-"    unlet s:highlightcursor
-"  endif
-"endfunction
-" --------------------------------------------------
-
 " --- Some basics ---
 set nocompatible
 filetype plugin on
@@ -100,7 +80,6 @@ let g:netrw_lis_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
 map <leader>n :Vexplore!<CR>
 map <leader>N :Hexplore!<CR>
-
 " --------------------------------------------------
 
 " --- Indent ---
@@ -127,6 +106,7 @@ nnoremap <space> za
 " --- Flagging Unnecessary Whitespace ---
 "au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 " --------------------------------------------------
+
 " --- Plugins ---
 call plug#begin('~/.config/nvim/plugged')
 Plug 'tpope/vim-fugitive'
@@ -167,7 +147,7 @@ set completeopt=menu,menuone,noselect
 """ lsp_config nvim-cmp lualine
 lua << EOF
 require('lsp_config')
-require('lualine_config')
+require('evil_lualine')
 EOF
 " --------------------------------------------------
 
@@ -212,5 +192,25 @@ endif
 
 " Automatically deletes all trailing whitespace on save.
 " autocmd BufWritePre * %s/\s\+$//e
+" --------------------------------------------------
+
+" --- Theme ---
+colorscheme darkplus
+
+" Set indent line color
+ let g:indentLine_char = '┊'
+
+" Highlight cursor line/position
+"nnoremap <C-a> :set cursorline!<CR>
+"nnoremap <C-f> :call HighlightNearCursor()<CR>
+"function HighlightNearCursor()
+"  if !exists("s:highlightcursor")
+"    match Todo /\k*\%#\k*/
+"    let s:highlightcursor=1
+"  else
+"    match None
+"    unlet s:highlightcursor
+"  endif
+"endfunction
 " --------------------------------------------------
 
