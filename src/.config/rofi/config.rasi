@@ -4,6 +4,6 @@ configuration {
 	show-icons: true;
 	icon-theme: "Papirus";
 	sidebar-mode: true;
-	theme: "theme/onedark_mini.rasi";
+	theme: "theme/dracula-dark.rasi";
 }
 
