@@ -2,10 +2,10 @@ let mapleader =","
 
 " Auto install plugins
 if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
- echo "Downloading junegunn/vim-plug to manage plugins..."
- silent !mkdir -p ~/.config/nvim/autoload/
- silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ~/.config/nvim/autoload/plug.vim
- autocmd VimEnter * PlugInstall
+    echo "Downloading junegunn/vim-plug to manage plugins..."
+    silent !mkdir -p ~/.config/nvim/autoload/
+    silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ~/.config/nvim/autoload/plug.vim
+    autocmd VimEnter * PlugInstall
 endif
 " --------------------------------------------------
 
@@ -29,10 +29,10 @@ set cursorcolumn
 set colorcolumn=80
 vnoremap . :normal .<CR> " perform dot commands over visual blocks
 " Set scrolloff=13
-set so=13 
+set so=13
 " Set sidescrolloff=13
 set siso=13
-"set list lcs=tab:\|\ 
+"set list lcs=tab:\|\
 "nnoremap c "_c
 "autocmd InsertEnter * norm zz
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o " disable automatic comment insertion
@@ -91,9 +91,9 @@ set smartindent     " do smart autoindenting when starting a new line
 set autoindent      " copy indent when starting a new line
 
 au BufNewFile,BufRead *.js, *.html, *.css
-    \ set tabstop=2
-    \ set softtabstop=2
-    \ set shiftwidth=2
+            \ set tabstop=2
+            \ set softtabstop=2
+            \ set shiftwidth=2
 " --------------------------------------------------
 
 " --- Folding ---
@@ -153,16 +153,16 @@ EOF
 
 """ VimWiki - Ensure files are read as what I want:
 let g:vimwiki_ext2syntax = {'.Rmd': 'markdown', '.rmd': 'markdown','.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
- map <leader>v :VimwikiIndex<CR>
- let g:vimwiki_list = [{'path': '~/.local/share/nextcloud/Notes/linux', 'syntax': 'markdown', 'ext': '.md'}]
- autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
- autocmd BufRead,BufNewFile *.ms,*.me,*.mom,*.man set filetype=groff
- autocmd BufRead,BufNewFile *.tex set filetype=tex
- nnoremap <C-x> f(yi(:!xdg-open <C-r>"<CR><CR>
+map <leader>v :VimwikiIndex<CR>
+let g:vimwiki_list = [{'path': '~/.local/share/nextcloud/Notes/linux', 'syntax': 'markdown', 'ext': '.md'}]
+autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
+autocmd BufRead,BufNewFile *.ms,*.me,*.mom,*.man set filetype=groff
+autocmd BufRead,BufNewFile *.tex set filetype=tex
+nnoremap <C-x> f(yi(:!xdg-open <C-r>"<CR><CR>
 " --------------------------------------------------
 
 """ Xkb-switch
- let g:XkbSwitchEnabled = 1
+let g:XkbSwitchEnabled = 1
 
 """ Find files using Telescope command-line sugar.
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
@@ -173,20 +173,34 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 """ Run formatter on save
 augroup fmt
-  autocmd!
-  autocmd BufWritePre * undojoin | Neoformat
+    autocmd!
+    autocmd BufWritePre * undojoin | Neoformat
 augroup END
+
+""" Have Neoformat use &formatprg as a formatter
+let g:neoformat_try_formatprg = 1
+
+""" Enable basic formatting when a filetype is not found. Disabled by default.
+
+" Enable alignment globally
+let g:neoformat_basic_format_align = 1
+
+" Enable tab to spaces conversion globally
+let g:neoformat_basic_format_retab = 1
+
+" Enable trimmming of trailing whitespace globally
+let g:neoformat_basic_format_trim = 1
 " --------------------------------------------------
 
 "  --- Run Codes ---
 
 """ Python
 if has('nvim')
-        autocmd FileType python map <buffer> <leader>r :w<CR>:exec 'term python' shellescape(@%, 1)<CR>a
-        autocmd FileType python imap <buffer> <leader>r <esc>:w<CR>:exec 'term python' shellescape(@%, 1)<CR>a
+    autocmd FileType python map <buffer> <leader>r :w<CR>:exec 'term python' shellescape(@%, 1)<CR>a
+    autocmd FileType python imap <buffer> <leader>r <esc>:w<CR>:exec 'term python' shellescape(@%, 1)<CR>a
 else
-        autocmd FileType python map <buffer> <leader>r :w<CR>:exec '!clear && python' shellescape(@%, 1)<CR>
-        autocmd FileType python imap <buffer> <leader>r <esc>:w<CR>:exec '!clear && python' shellescape(@%, 1)<CR>
+    autocmd FileType python map <buffer> <leader>r :w<CR>:exec '!clear && python' shellescape(@%, 1)<CR>
+    autocmd FileType python imap <buffer> <leader>r <esc>:w<CR>:exec '!clear && python' shellescape(@%, 1)<CR>
 endif
 " --------------------------------------------------
 
@@ -198,7 +212,7 @@ endif
 colorscheme darkplus
 
 " Set indent line color
- let g:indentLine_char = '┊'
+let g:indentLine_char = '┊'
 
 " Highlight cursor line/position
 "nnoremap <C-a> :set cursorline!<CR>

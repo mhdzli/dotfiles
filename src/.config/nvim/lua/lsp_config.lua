@@ -69,6 +69,7 @@ require("luasnip.loaders.from_vscode").lazy_load({
 	include = nil, -- Load all languages
 	exclude = {},
 })
+local luasnip = require 'luasnip'
 
 -- nvim-cmp setup
 local cmp = require 'cmp'
@@ -115,12 +116,12 @@ cmp.setup {
   },
   formatting = {
     format = require("lspkind").cmp_format({with_text = true, menu = ({
-      buffer = "[Buffer]",
+      buffer = "[Buf]",
       nvim_lsp = "[LSP]",
-      luasnip = "[LuaSnip]",
-      -- vsnip = "[VSnip]",
+      luasnip = "[Snp]",
+      -- vsnip = "[VSp]",
       nvim_lua = "[Lua]",
-      latex_symbols = "[Latex]",
+      latex_symbols = "[Ltx]",
     })}),
   },
   sources = {
