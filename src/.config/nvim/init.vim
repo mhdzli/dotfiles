@@ -14,8 +14,7 @@ set exrc " Enable reading .vimrc/.exrc/.gvimrc in the current directory
 set nocompatible " Behave not very Vi
 filetype plugin on " Enable loading the plugin files for specific file types
 syntax enable " Switches on syntax highlighting
-syntax on " Let Vim to overrule highlights with the
-defaults
+syntax on " Let Vim to overrule highlights with the defaults
 set encoding=utf-8 " Character encoding used in Nvim: "utf-8"
 set number relativenumber " Show the current line number and relative line numbers for other lines
 set path+=** " Recursive file matching
