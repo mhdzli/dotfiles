@@ -10,28 +10,29 @@ endif
 " --------------------------------------------------
 
 " --- Some basics ---
-set nocompatible
-filetype plugin on
-syntax on
-set encoding=utf-8
-set number relativenumber
+set exrc " Enable reading .vimrc/.exrc/.gvimrc in the current directory
+set nocompatible " Behave not very Vi
+filetype plugin on " Enable loading the plugin files for specific file types
+syntax enable " Switches on syntax highlighting
+syntax on " Let Vim to overrule highlights with the
+defaults
+set encoding=utf-8 " Character encoding used in Nvim: "utf-8"
+set number relativenumber " Show the current line number and relative line numbers for other lines
 set path+=** " Recursive file matching
 set wildmenu " Tab auto completion in command mode
 " set wildmode=longest,full,full " enable autocompletion:
-set hidden
-set nowrap
-set go=a
-set mouse=a
-set nohlsearch
-set clipboard=unnamedplus
-set cursorline
-set cursorcolumn
-set colorcolumn=80
-vnoremap . :normal .<CR> " perform dot commands over visual blocks
-" Set scrolloff=13
-set so=13
-" Set sidescrolloff=13
-set siso=13
+set hidden " Don't unload a buffer when no longer shown in a window
+set nowrap " Don't wrap long lines
+set go=a " Make Visually highlighted text available for pasting into other applications
+set mouse=a " Enable mouse support in all modes
+set nohlsearch " Stop the highlighting for the 'hlsearch' option
+set clipboard=unnamedplus " Using system clipboard
+set cursorline " Highlight the screen line of the cursor
+set cursorcolumn " Highlight the screen column of the cursor
+set colorcolumn=80 " Highlight the 80th column of screen
+vnoremap . :normal .<CR> " Perform dot commands over visual blocks
+set so=13 " Set scrolloff=13
+set siso=13 " Set sidescrolloff=13
 "set list lcs=tab:\|\
 "nnoremap c "_c
 "autocmd InsertEnter * norm zz
