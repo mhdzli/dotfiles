@@ -33,6 +33,7 @@ set colorcolumn=80 " Highlight the 80th column of screen
 vnoremap . :normal .<CR> " Perform dot commands over visual blocks
 set so=13 " Set scrolloff=13
 set siso=13 " Set sidescrolloff=13
+set pumheight=10 " Set the maximum height of the popup menu
 "set list lcs=tab:\|\
 "nnoremap c "_c
 "autocmd InsertEnter * norm zz
