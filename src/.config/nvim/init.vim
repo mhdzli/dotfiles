@@ -116,6 +116,7 @@ Plug 'mzlogin/vim-markdown-toc'
 Plug 'lyokha/vim-xkbswitch'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'lunarvim/colorschemes'
+Plug 'mbbill/undotree'
 
 " LSP & cmp
 Plug 'neovim/nvim-lspconfig'
@@ -164,6 +165,7 @@ nnoremap <C-x> f(yi(:!xdg-open <C-r>"<CR><CR>
 
 """ Xkb-switch
 let g:XkbSwitchEnabled = 1
+" --------------------------------------------------
 
 """ Find files using Telescope command-line sugar.
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
@@ -191,6 +193,24 @@ let g:neoformat_basic_format_retab = 1
 
 " Enable trimmming of trailing whitespace globally
 let g:neoformat_basic_format_trim = 1
+" --------------------------------------------------
+
+""" Store the undo files in a separate place
+if has("persistent_undo")
+    let target_path = expand('~/.local/share/nvim/undodir')
+
+    " create the directory and any parent directories
+    " if the location does not exist.
+    if !isdirectory(target_path)
+        call mkdir(target_path, "p", 0700)
+    endif
+
+    let &undodir=target_path
+    set undofile
+endif
+
+" Toggle the undo-tree panel
+nnoremap <leader>u :UndotreeToggle<CR>
 " --------------------------------------------------
 
 "  --- Run Codes ---
@@ -228,4 +248,3 @@ let g:indentLine_char = '┊'
 "  endif
 "endfunction
 " --------------------------------------------------
-
