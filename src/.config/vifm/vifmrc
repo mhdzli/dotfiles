@@ -1,20 +1,11 @@
-
 " vim: filetype=vifm :
-" Sample configuration file for vifm (last updated: 20 July, 2018)
-" You can edit this file by hand.
-" The " character at the beginning of a line comments out the line.
-" Blank lines are ignored.
-" The basic format for each item is shown with an example.
 
 " ------------------------------------------------------------------------------
-
 " This is the actual command used to start vi.  The default is vim.
 " If you would like to use another vi clone such as Elvis or Vile
 " you will need to change this setting.
 
-set vicmd=nvim
-" set vicmd=elvis\ -G\ termcap
-" set vicmd=vile
+set vicmd=$EDITOR
 
 " This makes vifm perform file operations on its own instead of relying on
 " standard utilities like `cp`.  While using `cp` and alike is a more universal
@@ -56,7 +47,7 @@ set undolevels=100
 " If you installed the vim.txt help file set vimhelp.
 " If would rather use a plain text help file set novimhelp.
 
-set novimhelp
+set vimhelp
 
 " If you would like to run an executable file when you
 " press return on the file name set this.
@@ -75,7 +66,7 @@ set number relativenumber
 " TIME_STAMP_FORMAT=%m/%d-%H:%M
 " See man date or man strftime for details.
 
-set timefmt=%m/%d\ %H:%M
+set timefmt=%m/%d/%Y\ %H:%M
 
 " Show list of matches on tab completion in command-line mode
 
@@ -115,15 +106,19 @@ endif
 
 " Set custom status line look
 
-set statusline="  Hint: %z%= %A %10u:%-7g %15s %20d  "
+set statusline="%10A %10u:%-7g %7s %= %a free %20d %{&sort}"
 
-" Set line numbers to show
+" Use rg (ripgrep) instead of grep
+"
+" set grepprg='rg --line-numbers %i %a %s'
 
 " ------------------------------------------------------------------------------
 
 " :mark mark /full/directory/path [filename]
 
 mark h ~/
+mark c ~/.config/
+mark d ~/Data/
 
 " ------------------------------------------------------------------------------
 
@@ -140,7 +135,7 @@ mark h ~/
 " %m run the command in a menu window
 
 command! df df -h %m 2> /dev/null
-command! diff vim -d %f %F
+command! diff nvim -d %f %F
 command! zip zip -r %f.zip %f
 command! run !! ./%f
 command! make !!make %a
@@ -264,7 +259,7 @@ filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm,*.ico,
 fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.xpm,*.svg,*.tif,*.tiff,*.ico, 
 	"\ img2sixel -w %pw0 %c %pd
 	"\ convert %c -geometry %pw0x%ph0 sixel:- %pd
-	\ chafa --fill=block --symbols=block -c 256 -s %pwx%ph %c %pd
+	\ chafa --fill=block --symbols=block -s %pwx%ph %c %pd
 	"\ kitty icat --place=%pwx%ph@%pxx%py --silent %c
 	"\ %pc
 	"\ kitty icat --clear --silent %pd
@@ -422,22 +417,7 @@ fileviewer *.sh,*.[ch],*.[ch]pp,*.cmake*,*.py,*.rs,*.js,*.html,*.css,*.scss,*.[i
 " filetype * start, explorer
 
 " GETTING ICONS TO DISPLAY IN VIFM
-" You need the next 14 lines!
-
-" file types
-set classify=' :dir:/, :exe:, :reg:, :link:'
-" various file names
-set classify+=' ::../::, ::*.sh::, ::*.[hc]pp::, ::*.[hc]::, ::/^copying|license$/::, ::.git/,,*.git/::, ::*.epub,,*.fb2,,*.djvu::, ::*.pdf::, ::*.htm,,*.html,,**.[sx]html,,*.xml::,::*.py::'
-" archives
-set classify+=' ::*.7z,,*.ace,,*.arj,,*.bz2,,*.cpio,,*.deb,,*.dz,,*.gz,,*.jar,,*.lzh,,*.lzma,,*.rar,,*.rpm,,*.rz,,*.tar,,*.taz,,*.tb2,,*.tbz,,*.tbz2,,*.tgz,,*.tlz,,*.trz,,*.txz,,*.tz,,*.tz2,,*.xz,,*.z,,*.zip,,*.zoo::'
-" images
-set classify+=' ::*.bmp,,*.gif,,*.jpeg,,*.jpg,,*.ico,,*.png,,*.ppm,,*.svg,,*.svgz,,*.tga,,*.tif,,*.tiff,,*.xbm,,*.xcf,,*.xpm,,*.xspf,,*.xwd::'
-" audio
-set classify+='::*.aac,,*.anx,,*.asf,,*.au,,*.axa,,*.flac,,*.m2a,,*.m4a,,*.mid,,*.midi,,*.mp3,,*.mpc,,*.oga,,*.ogg,,*.ogx,,*.ra,,*.ram,,*.rm,,*.spx,,*.wav,,*.wma,,*.ac3::'
-" media
-set classify+=' ::*.avi,,*.ts,,*.axv,,*.divx,,*.m2v,,*.m4p,,*.m4v,,.mka,,*.mkv,,*.mov,,*.mp4,,*.flv,,*.mp4v,,*.mpeg,,*.mpg,,*.nuv,,*.ogv,,*.pbm,,*.pgm,,*.qt,,*.vob,,*.wmv,,*.xvid::'
-" office files
-set classify+=' ::*.doc,,*.docx::, ::*.xls,,*.xls[mx]::, ::*.pptx,,*.ppt::'
+source ~/.config/vifm/icons
 
 " ------------------------------------------------------------------------------
 
@@ -518,13 +498,22 @@ nnoremap <f6> :move<cr>
 nnoremap <f7> :mkdir<space>
 nnoremap <f8> :delete<cr>
 
+" Move focus between panes
+noremap <C-k> <C-w>k
+noremap <C-j> <C-w>j
+noremap <C-h> <C-w>h
+noremap <C-l> <C-w>l
+
+" Moving cursor in another pane
+nnoremap <silent> J <tab>j<tab>
+nnoremap <silent> K <tab>k<tab>
+
+" Move up one directory with backspace 
+noremap <BS> h
+
 " ------------------------------------------------------------------------------
 
 " Various customization examples
-
-" Use ag (the silver searcher) instead of grep
-"
-" set grepprg='ag --line-numbers %i %a %s'
 
 " Add additional place to look for executables
 "
