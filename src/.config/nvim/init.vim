@@ -49,6 +49,9 @@ vnoremap <C-c> "+y
 inoremap <C-p> "+P
 inoremap <C-v> "+P
 
+" mark position before search
+nnoremap / ms/
+
 "enable copy and paste for vim in termux
 if executable('termux-clipboard-set')
     vnoremap <C-x> :!termux-clipboard-set<CR>
@@ -177,7 +180,7 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 """ Run formatter on save
 augroup fmt
     autocmd!
-    autocmd BufWritePre * undojoin | Neoformat
+    autocmd BufWritePre *.py,*.js,*.html,*.ts,*.css undojoin | Neoformat
 augroup END
 
 """ Have Neoformat use &formatprg as a formatter
