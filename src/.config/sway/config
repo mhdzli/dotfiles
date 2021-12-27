@@ -114,6 +114,19 @@ bindsym {
 	$mod+Shift+8	move container to workspace $ws8
 	$mod+Shift+9	move container to workspace $ws9
 	$mod+Shift+0	move container to workspace $ws10
+    
+	# move focused container to workspace & switch to workspace
+	$mod+Control+1	move container to workspace $ws1; workspace $ws1
+	$mod+Control+2	move container to workspace $ws2; workspace $ws2
+	$mod+Control+3	move container to workspace $ws3; workspace $ws3
+	$mod+Control+4	move container to workspace $ws4; workspace $ws4
+	$mod+Control+5	move container to workspace $ws5; workspace $ws5
+	$mod+Control+6	move container to workspace $ws6; workspace $ws6
+	$mod+Control+7	move container to workspace $ws7; workspace $ws7
+	$mod+Control+8	move container to workspace $ws8; workspace $ws8
+	$mod+Control+9	move container to workspace $ws9; workspace $ws9
+	$mod+Control+0	move container to workspace $ws10; workspace $ws10
+
 }
 
 # apps
@@ -126,6 +139,11 @@ for_window {
 
     # for firefox pip mode
     [title="Picture-in-Picture"] floating enable
+
+    # floting mode
+    [app_id="blueberry*"] floating enable
+    [app_id="pavucontrol*"] floating enable
+    [title="pulsemixer*"] floating enable
 }
 
 # Moving around:
@@ -267,10 +285,10 @@ bindsym {
 	$mod+w			exec $BROWSER
 	$mod+g			exec gimp-2.99
 	$mod+b			exec "$term bicon ir vifm"
-	$mod+s			exec "$term broot -h"
+    $mod+s			exec "$term broot -h"
 	
 	### Clipboard 
-	$mod+v			exec 'clipman pick --tool rofi --histpath="~/.local/share/clipman/clipman.json"'
+	$mod+v			exec 'clipman pick --tool=rofi --tool-args="-theme ~/.config/rofi/theme/dracula-dark.rasi" --histpath="~/.local/share/clipman/clipman.json"'
 	$mod+Shift+v	exec "wclipboard"
 	
 	### Mounting Function
@@ -346,8 +364,8 @@ for_window {
 	[app_id="mpv"] floating enable
 	[app_id="imv"] floating enable
 	[app_id="vimiv"] floating enable
-#	[app_id="zathura"] floating enable
-	[app_id="firefox*"] floating enable
+	# [app_id="zathura"] floating enable
+	# [app_id="firefox*"] floating enable
 }
 
 ### Output configuration
@@ -440,6 +458,9 @@ bindsym {
 	# Shift+Shift_L		exec "pkill -SIGRTMIN+1 i3status-rs &"
 	# Shift+Shift_R		exec "pkill -SIGRTMIN+1 i3status-rs &"
 	# Mod1+Shift_R		exec "pkill -SIGRTMIN+1 waybar &"
+
+	Shift+Shift_L		exec "wkblayout &"
+	Shift+Shift_R		exec "wkblayout &"
 
 	# Toggle Bar
 	$mod+Shift+b		exec "killall yambar || yambar"
@@ -595,8 +616,9 @@ include /etc/sway/config.d/*
 ## $mod+bracketright	grow width
 ## $mod+semicolon	shrink height
 ## $mod+apostrophe	grow height
-## $mod+slash
-## $mod+period
+## $mod+comma
+## $mod+period  opacity minus 0.02
+## $mod+slash   opacity plus 0.02
 ## 
 ## $mod+Shift+grave	move scratchpad
 ## $mod+underscore	zero gaps
@@ -611,8 +633,9 @@ include /etc/sway/config.d/*
 ## $mod+Shift+bracketright	adjust grow width
 ## $mod+Shift+semicolon		adjust shrink height
 ## $mod+Shift+apostrophe	adjust grow height
-## $mod+slash   opacity plus 0.02
-## $mod+period  opacity minus 0.02
+## $mod+less
+## $mod+greater
+## $mod+question
 ##
 ## Shift_L+Shift_R		change keyboard layout
 ## $alt+Tab			focus next

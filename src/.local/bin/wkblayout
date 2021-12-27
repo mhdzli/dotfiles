@@ -1,0 +1,3 @@
+#!/bin/bash
+layout=$(swaymsg -t get_inputs | grep -m1 "xkb_active_layout_name" | cut -d '"' -f4)
+[ "$layout" == "English (US)" ] && swaymsg client.focused "#ff0000" "#00afd7" "#1d1d1e" "#ffffff" "#00afd7" || swaymsg client.focused "#ff0000" "#00afd7" "#1d1d1e" "#000000" "#00d7af"
