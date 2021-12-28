@@ -19,7 +19,9 @@ set encoding=utf-8 " Character encoding used in Nvim: "utf-8"
 set number relativenumber " Show the current line number and relative line numbers for other lines
 set path+=** " Recursive file matching
 set wildmenu " Tab auto completion in command mode
-" set wildmode=longest,full,full " enable autocompletion:
+"set wildmode=longest,full,full " enable autocompletion
+set wildignorecase " disable case sensitivity in wild menu
+set wildignore=\*.git/\*
 set hidden " Don't unload a buffer when no longer shown in a window
 set nowrap " Don't wrap long lines
 set go=a " Make Visually highlighted text available for pasting into other applications
