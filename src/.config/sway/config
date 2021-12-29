@@ -194,6 +194,9 @@ bindsym {
 	
 	# Start your launcher
 	$mod+d		exec $menu
+
+    # Window switcher
+    $mod+Shift+d exec swaymsg \[con_id=$(swaymsg -t get_tree | jq -r '.nodes[].nodes[].nodes[], .nodes[].nodes[].floating_nodes[] | .. | (.id|tostring) + " " + .name?' | grep -e "[0-9]* ." | rofi -dmenu -i | awk '{print $1}')] focus
 	
 	# Music Player
 	$mod+m		exec "$term ncmpcpp"
@@ -535,7 +538,7 @@ include /etc/sway/config.d/*
 ## $mod+Shift+a		focus parent
 ## $mod+Shift+b		toggle bar
 ## $mod+Shift+c
-## $mod+Shift+d		
+## $mod+Shift+d		window switcher
 ## $mod+Shift+e		layout toggle split
 ## $mod+Shift+f
 ## $mod+Shift+g		
