@@ -63,6 +63,16 @@ zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
+# Enable Ctrl-x-e to edit command line
+autoload -U edit-command-line
+# Emacs style
+zle -N edit-command-line
+bindkey '^x^x' edit-command-line
+bindkey '^x^e' edit-command-line
+# Vi style:
+# zle -N edit-command-line
+# bindkey -M vicmd v edit-command-line
+
 # Load syntax highlighting; should be last.
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 
@@ -74,10 +84,10 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 # To customize spaceship prompt, edit ~/.config/zsh/.spaceship.zsh.
 # [[ ! -f $HOME/.config/zsh/.spaceship.zsh ]] || source $HOME/.config/zsh/.spaceship.zsh
 
-# navi widget
+# Navi cheat sheet widget
 eval "$(navi widget zsh)"
 
-# McFly - fly through your shell history
+# McFly history tool
 eval "$(mcfly init zsh)"
 
 source /home/mzeinali/.config/broot/launcher/bash/br
