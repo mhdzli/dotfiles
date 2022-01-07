@@ -89,5 +89,7 @@ eval "$(navi widget zsh)"
 
 # McFly history tool
 eval "$(mcfly init zsh)"
+# bindkey '^R' history-incremental-search-backward
+# bindkey '^F' history-incremental-search-forward
 
 source /home/mzeinali/.config/broot/launcher/bash/br
