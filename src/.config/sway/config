@@ -206,6 +206,7 @@ bindsym {
 	
 	#showkeys
 	$mod+p		exec "killall wshowkeys || wshowkeys -a bottom -t 1"
+	# $mod+p		exec "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & showmethekey-gtk"
 	
 	# Volume control
 	$mod+a		exec "$term pulsemixer"
@@ -349,6 +350,7 @@ mode "opacity" {
 		
 		Return mode "default"
 		Escape mode "default"
+        $mod+o mode "default"
 	}
 }
 bindsym {
