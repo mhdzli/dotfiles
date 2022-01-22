@@ -29,12 +29,14 @@ set_wayland_env(){
 	export MOZ_WAYLAND_USE_VAAPI=1
 	export MOZ_DBUS_REMOTE=1
 	export NO_AT_BRIDGE=1
-	export GDK_BACKEND=wayland
+    # export GDK_BACKEND=wayland #Wayland will be selected by default. Do not set GDK_BACKEND, it will break apps (e.g. Chromium and Electron).
 	export GTK_IM_MOUDLE=xim
 	export ELM_ENGINE=wayland_egl
 	export CLUTTER_BACKEND=wayland
 	export SDL_VIDEODRIVER=wayland
 	export QT_QPA_PLATFORM=wayland-egl
+    export QT_WAYLAND_FORCE_DPI=physical
+    export QT_WAYLAND_DISABLE_WINDOWDECORATION=1 # hide window decoratins in older versions of QT
 	export ECORE_EVAS_ENGINE=wayland-egl
 	export _JAVA_AWT_WM_NONREPARENTING=1
 	export XMODIFIERS=@im=ibus
