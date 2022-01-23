@@ -122,6 +122,7 @@ Plug 'lyokha/vim-xkbswitch'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'lunarvim/colorschemes'
 Plug 'mbbill/undotree'
+Plug 'windwp/nvim-autopairs'
 
 " LSP & cmp
 Plug 'neovim/nvim-lspconfig'
@@ -155,6 +156,7 @@ set completeopt=menu,menuone,noselect
 lua << EOF
 require('lsp_config')
 require('evil_lualine')
+require('nvim-autopairs').setup{}
 EOF
 " --------------------------------------------------
 
@@ -236,6 +238,9 @@ endif
 
 " --- Theme ---
 colorscheme darkplus
+
+"Transparent background
+highlight Normal guibg=none
 
 " Set indent line color
 let g:indentLine_char = '┊'
