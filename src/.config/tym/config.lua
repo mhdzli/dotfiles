@@ -16,6 +16,7 @@ tym.set_config({
   silent = true,
   title = 'tym',
   color_foreground = 'white',
+  color_background = 'rgba(16, 16, 16, 0.95)',
 })
 
 local function update_scale(delta)
