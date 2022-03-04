@@ -34,8 +34,8 @@ window:
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
   padding:
-    x: 6
-    y: 6
+    x: 0
+    y: 0
 
   # Spread additional padding evenly around the terminal content.
   #dynamic_padding: false
@@ -116,7 +116,7 @@ font:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    family: monospace
+    family: Monospace
 
     # The `style` can be specified to pick a specific face.
     style: Regular
@@ -127,7 +127,7 @@ font:
     #
     # If the bold family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: monospace
+    family: Monospace
 
     # The `style` can be specified to pick a specific face.
     style: Bold
@@ -138,7 +138,7 @@ font:
     #
     # If the italic family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: monospace
+    family: Monospace
 
     # The `style` can be specified to pick a specific face.
     style: Italic
@@ -149,13 +149,13 @@ font:
     #
     # If the bold italic family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: monospace
+    family: Monospace
 
     # The `style` can be specified to pick a specific face.
     style: Bold Italic
 
   # Point size
-  size: 12.0
+  size: 14.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -193,7 +193,7 @@ font:
 colors:
   # Default colors
   primary:
-    background: '0x353535'
+    background: '0x121212'
     foreground: '0xe8e8e8'
 
     # Bright and dim foreground colors
