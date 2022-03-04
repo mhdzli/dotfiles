@@ -61,7 +61,7 @@ zle-line-init() {
 }
 zle -N zle-line-init
 
-# Use beam shape cursor for each new prompt; Called when executing a command to show the window title in foot
+# Use beam shape cursor for each new prompt; Called when executing a command to show the window title in terminal
 preexec() {
     echo -ne '\e[5 q'; print -Pn "\e]0;${(q)1}\e\\"
 } 
