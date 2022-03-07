@@ -93,6 +93,9 @@ eval "$(mcfly init zsh)"
 # bindkey '^R' history-incremental-search-backward
 # bindkey '^F' history-incremental-search-forward
 
+#Add zoxide to zsh
+eval "$(zoxide init zsh)"
+
 source /home/mzeinali/.config/broot/launcher/bash/br
 
 # Load zsh-autosuggestions
