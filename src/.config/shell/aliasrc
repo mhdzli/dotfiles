@@ -12,7 +12,7 @@ alias \
 
 # Replace "ls" with "exa"
 alias \
-	ls='exa -al --icons --color=always --group-directories-first' \
+	ls='exa -ahl --icons --color=always --group-directories-first' \
 	la='exa -a --icons --color=always --group-directories-first' \
 	ll='exa -l --icons --color=always --group-directories-first' \
 	lt='exa -aT --icons --color=always --group-directories-first' \
@@ -26,8 +26,9 @@ alias \
 
 # broot
 alias \
-	bl='br -dhp' \
-	bs='br --sizes'
+	bl='br -dp' \
+	bs='br -s' \
+    br='br -h'
 
 # These common commands are just too long! Abbreviate them.
 alias \
@@ -64,7 +65,7 @@ alias \
 	yt='youtube-dl --add-metadata -i' \
 	yta='yt -x -f bestaudio/best' \
 	ffmpeg='ffmpeg -hide_banner' \
-	fmpg="ffmpeg -v 0 -stats" \
+	fmpg='ffmpeg -v 0 -stats' \
 	ln='ln -v' \
 	lynx='lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss -vikeys' \
 	a2c='aria2c -c -x 16 -s 16 -k 1M -d' \
@@ -88,4 +89,4 @@ alias scwc="scrcpy --rotation 3 --crop 1080:1400:0:200"
 alias \
 	cW="cd $HOME/.local/share/nextcloud/Notes/" \
 	cG="cd $HOME/repos/hub/mhdzli" \
-	cV="cd $HOME/Videos"
+	cV="cd $HOME/Videos" \
