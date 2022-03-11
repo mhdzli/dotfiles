@@ -51,6 +51,9 @@ vnoremap <C-c> "+y
 inoremap <C-p> "+P
 inoremap <C-v> "+P
 
+" Set keyboard layout to English when switch to normal mode
+inoremap <ESC> <ESC>:silent! ![ -z "$WAYLAND_DISPLAY" ] && xkb-switch -s us \|\| wkb-switch -s 0<CR><ESC>
+
 " mark position before search
 nnoremap / ms/
 
@@ -118,7 +121,6 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'tpope/vim-fugitive'
 Plug 'vimwiki/vimwiki'
 Plug 'mzlogin/vim-markdown-toc'
-Plug 'lyokha/vim-xkbswitch'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'lunarvim/colorschemes'
 Plug 'mbbill/undotree'
