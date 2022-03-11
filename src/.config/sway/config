@@ -359,6 +359,17 @@ bindsym {
 	$mod+period	opacity minus 0.02
 }
 
+mode "switch" {
+    bindsym {
+       n      exec "wswitch next"
+       p      exec "wswitch prev"
+	   Return mode "default"
+	   Escape mode "default"
+       $mod+z mode "default"
+    }
+}
+bindsym $mod+z exec "wswitch start", mode "switch"
+
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
 # Despite the name, also works for non-floating windows.
@@ -464,8 +475,8 @@ bindsym {
 	# Shift+Shift_R		exec "pkill -SIGRTMIN+1 i3status-rs &"
 	# Mod1+Shift_R		exec "pkill -SIGRTMIN+1 waybar &"
 
-	Shift+Shift_L		exec "wkblayout &"
-	Shift+Shift_R		exec "wkblayout &"
+	Shift+Shift_L		exec "wkb-switch -b &"
+	Shift+Shift_R		exec "wkb-switch -b &"
 
 	# Toggle Bar
 	$mod+Shift+b		exec "killall yambar || yambar"
