@@ -1,26 +1,60 @@
 #!/bin/bash
-# Dmenu script for launching system monitoring programs.
 
+# Script to switch audio output profiles
 
-stat=$(pacmd list-cards | grep 'active profile' | cut -d' ' -f3)
-echo 'change from'
-echo $stat
-case $stat in
-	'<output:analog-stereo+input:analog-stereo>')
-		pactl set-card-profile 0 output:hdmi-stereo-extra1
-	;;
-	'<output:analog-stereo>')
-		pactl set-card-profile 0 output:hdmi-stereo-extra1
-	;;
-	'<output:hdmi-stereo-extra1>')
-		pactl set-card-profile 0 output:analog-stereo+input:analog-stereo
-	;;
-	*)
-		exit 1
-	;;
-esac
-echo 'to'
-pacmd list-cards | grep 'active profile' | cut -d' ' -f3
+# Set the menu for choosing options
+menu='rofi -theme ~/.config/rofi/theme/dracula-dark.rasi -dmenu'
+# Set the path to save available audio profiles list
+audio_profiles_list="$HOME/.local/share/audio-profiles"
 
+Usage(){
+	while read -r CurLine; do
+		printf '%b\n' "$CurLine"
+	done <<-EOF
+           \tswitch-audio   -u|--update             Update Profile lists
+           \tswitch-audio   -h|--help|-?            Displays this message
+           \tswitch-audio   [-s]                    switch audio
+	EOF
+}
 
+Err() {
+	printf 'Err: %s\n' "$2" 1>&2
+	[ $1 -gt 0 ] && exit $1
+}
+
+Update() {
+    # Store name, description and all profile of all devices to  audio_profiles_list
+    pactl list cards | sed -n '/device.name/p;/device.description/p;/off: Off/,/Active Profile/p'  | sed -e 's/^[ \t]*//' -e 's/\(^.*\): \(.*\) (sinks:.*/\1,\2/'  > $audio_profiles_list
+}
+
+# Make a list of available profiles
+[ -f $audio_profiles_list ] || Update
+
+Switch(){
+    # Choose a device
+    device="$(grep -n "description" $audio_profiles_list | cut -d"\"" -f2 | $menu -i -p "Choose the device")" || exit 1
+    # Replace device.description with device.name
+    device="$(sed -n "/${device}/{n;p}" $audio_profiles_list | cut -d"\"" -f2)"
+    # Choose a profile
+    profile="$(sed -n "/${device}/,/Active/{//!p;}" $audio_profiles_list | cut -d',' -f2 | $menu)"
+    # Replace profile.description with profile.name
+    [ "$profile" = "Off" ] && profile="off" || profile="$(grep "$profile" $audio_profiles_list | cut -d',' -f1)"
+    # Set the profile to device
+    pactl set-card-profile $device $profile
+}
+
+while [ -n "S1" ]; do
+    case $1 in
+        --help|-h|-\?)
+            Usage; exit 0 ;;
+        -s|"")
+            Switch; exit 0 ;;
+        -u|--update)
+            Update; exit 0;;
+        -*)
+			Err 1 'Incorrect argument(s) specified.' ;;
+		*)
+			break ;;
+    esac
+done
 
