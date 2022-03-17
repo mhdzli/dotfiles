@@ -1,16 +1,22 @@
 #!/bin/bash
 
+# Set the menu for choosing options
 menu='rofi -theme ~/.config/rofi/theme/dracula-dark.rasi -dmenu'
+# Set the path for file lists whitch dlmgr use
 a2_dir="$HOME/.local/share/aria2"
+# Set the default path for download files
 dl_dir="/home/mzeinali/Data/tvs"
 
+# Set the clipboard based on the display manager (Xorg or Wayland)
 [ -z "$WAYLAND_DISPLAY" ]  && pf="xorg" || pf="wayland"
 xclip -h 2>/dev/null || [ -n "$WAYLAND_DISPLAY" ] || exit
 wl-copy -h >/dev/null || [ -z "$WAYLAND_DISPLAY" ] || exit
 
+# Make the dlmgr if it doesn't exist already
 [ -d $a2_dir ] || mkdir -p $a2_dir
 
 start_download () {
+    # Remove empty lines in dl_list
     sed -i '/^[ \t]*$/d' $a2_dir/dl_list
     aria2c -c -x 16 -s 16 -k 1M -i $a2_dir/dl_list -j 1 \
         --on-download-start="dl_nf_start" \
@@ -41,6 +47,7 @@ add_link () {
 
 remove_link () {
     line=$(grep -n "^[^ ]" $a2_dir/dl_list | $menu -i -p "Url Address" | cut -d: -f1)
+    # Remove the selected line (download url) and the next line after (download path)
     sed -i "${line},+1d" $a2_dir/dl_list
     stop_download && start_download
 }
