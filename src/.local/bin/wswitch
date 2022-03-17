@@ -1,17 +1,36 @@
 #!/bin/bash
+# Use this script with switch mode on sway config to switch between all of your windows including scratchpad windows
+
+# switch mode example config for sway (switch mode bind to $mod+z):
+# mode "switch" {
+#     bindsym {
+#        n      exec "wswitch next"
+#        p      exec "wswitch prev"
+# 	   Return mode "default"
+# 	   Escape mode "default"
+#        $mod+z mode "default"
+#     }
+# }
+
+bindsym $mod+z exec "wswitch start", mode "switch"
 case "$1" in
     start)
+        # list all windows and store them in a tmp file 
         swaymsg -t get_tree | jq -r '.nodes[].nodes[].nodes[], .nodes[].nodes[].floating_nodes[] | (.id)' > /tmp/switch_windows
         #focused=$(swaymsg -t get_tree | jq -r '.. | (.nodes? // empty)[] | select(.'focused' and .pid) | (.id)')
         ;;
     next)
+        # switch to the first window (first line of tmp file list)
         swaymsg \[con_id=$(cat /tmp/switch_windows | head -n 1)] focus
+        # move the first line of tmp file list to the end
         sed -i '1{1h;1!H;d};$G' /tmp/switch_windows
         #sed -e '1{H;d;}' -e '${p;x;s/^\n//;}' /tmp/switch_windows
         #sed '1{H;d}; ${p;x;s/^\n//}' /tmp/switch_windows
     ;;
     prev) 
+        # move the last line of tmp file list to line one
         sed -i '1h;1d;$!H;$!d;G' /tmp/switch_windows
+        # switch to the last window in the list of tmp file
         swaymsg \[con_id=$(cat /tmp/switch_windows | tail -n 1)] focus
     ;;
 esac
