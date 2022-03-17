@@ -144,6 +144,7 @@ for_window {
     [app_id="blueberry*"] floating enable
     [app_id="pavucontrol*"] floating enable
     [title="pulsemixer*"] floating enable
+    [title="Nextcloud*"] floating enable
 }
 
 # Moving around:
