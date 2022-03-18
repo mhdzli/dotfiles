@@ -171,10 +171,6 @@ autocmd BufRead,BufNewFile *.ms,*.me,*.mom,*.man set filetype=groff
 autocmd BufRead,BufNewFile *.tex set filetype=tex
 " --------------------------------------------------
 
-""" Xkb-switch
-let g:XkbSwitchEnabled = 1
-" --------------------------------------------------
-
 """ Find files using Telescope command-line sugar.
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
