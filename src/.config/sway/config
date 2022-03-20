@@ -235,6 +235,7 @@ bindsym {
 	$mod+Shift+s	layout stacking
 	$mod+Shift+w	layout tabbed
 	$mod+Shift+e	layout toggle split
+	$mod+Shift+c	sticky toggle
 	
 	# Make the current focus fullscreen
 	$mod+f			fullscreen
@@ -551,7 +552,7 @@ include /etc/sway/config.d/*
 ## 
 ## $mod+Shift+a		focus parent
 ## $mod+Shift+b		toggle bar
-## $mod+Shift+c
+## $mod+Shift+c     toggle sticky
 ## $mod+Shift+d		window switcher
 ## $mod+Shift+e		layout toggle split
 ## $mod+Shift+f
