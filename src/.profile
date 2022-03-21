@@ -9,7 +9,7 @@ export GOPATH="$HOME/go"
 export PATH="$PATH:GOPATH/bin"
 export EDITOR="nvim"
 export TERMINAL="foot"
-export BROWSER="qutebrowser"
+export BROWSER="firefox"
 export READER="zathura"
 export FILE="vifm"
 #export BIB="$HOME/Documents/LaTeX/uni.bib"
@@ -31,13 +31,13 @@ set_wayland_env(){
 	export NO_AT_BRIDGE=1
     # export GDK_BACKEND=wayland #Wayland will be selected by default. Do not set GDK_BACKEND, it will break apps (e.g. Chromium and Electron).
 	export GTK_IM_MOUDLE=xim
-	export ELM_ENGINE=wayland_egl
+	export ELM_ENGINE=wayland
 	export CLUTTER_BACKEND=wayland
 	export SDL_VIDEODRIVER=wayland
-	export QT_QPA_PLATFORM=wayland-egl
+	export QT_QPA_PLATFORM=wayland
     export QT_WAYLAND_FORCE_DPI=physical
     export QT_WAYLAND_DISABLE_WINDOWDECORATION=1 # hide window decoratins in older versions of QT
-	export ECORE_EVAS_ENGINE=wayland-egl
+	export ECORE_EVAS_ENGINE=wayland
 	export _JAVA_AWT_WM_NONREPARENTING=1
 	export XMODIFIERS=@im=ibus
     export LIBSEAT_BACKEND=logind
@@ -47,22 +47,14 @@ set_wayland_env(){
 	# export QT_IM_MODULE=ibus
 }
 
-# less/man colors
-export LESS=-R
-# export LESS_TERMCAP_mb="$(printf '%b' '[1;31m')"; a="${a%_}"
-# export LESS_TERMCAP_md="$(printf '%b' '[1;36m')"; a="${a%_}"
-# export LESS_TERMCAP_me="$(printf '%b' '[0m')"; a="${a%_}"
-# export LESS_TERMCAP_so="$(printf '%b' '[01;44;33m')"; a="${a%_}"
-# export LESS_TERMCAP_se="$(printf '%b' '[0m')"; a="${a%_}"
-# export LESS_TERMCAP_us="$(printf '%b' '[1;32m')"; a="${a%_}"
-# export LESS_TERMCAP_ue="$(printf '%b' '[0m')"; a="${a%_}"
-# export LESS_TERMCAP_mb=$(printf '[1;31m')
-# export LESS_TERMCAP_md=$(printf '[1;36m')
-# export LESS_TERMCAP_me=$(printf '[0m')
-# export LESS_TERMCAP_so=$(printf '[01;44;33m')
-# export LESS_TERMCAP_se=$(printf '[0m')
-# export LESS_TERMCAP_us=$(printf '[1;32m')
-# export LESS_TERMCAP_ue=$(printf '[0m')
+# support colors in less
+export LESS_TERMCAP_mb=$'\E[01;31m'
+export LESS_TERMCAP_md=$'\E[01;31m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;44;33m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;32m'
 
 # fzf options
 export FZF_DEFAULT_OPTS='--height 70% --layout=reverse --border'
