@@ -17,6 +17,7 @@ alias \
 	la='exa -a --icons --color=always --group-directories-first' \
 	ll='exa -l --icons --color=always --group-directories-first' \
 	lt='exa -aT --icons --color=always --group-directories-first' \
+    lnc='exa --color=never' \
 	lsd='lsd -hA --group-dirs first' \
 	lst='lsd -A --group-dirs first --tree'
 
@@ -24,6 +25,9 @@ alias \
 alias \
 	cat='bat' \
 	cata='bat -A'
+
+# Replace cd with zoxide
+alias cd='z'
 
 # broot
 alias \
@@ -74,7 +78,8 @@ alias \
 	imv='imv -b 1D2330' \
 	ts='tabbed surf -pe' \
     ps='ps auxf' \
-    psmem='ps auxf | sort -nr -k 4'
+    psmem='ps auxf | sort -nr -k 4' \
+    ipv='ip -br -c a'
 
 # pandoc
 alias \
@@ -86,8 +91,5 @@ alias \
 # scrcpy as webcam
 alias scwc="scrcpy --rotation 3 --crop 1080:1400:0:200"
 
-# cd
-alias \
-	cW="cd $HOME/.local/share/nextcloud/Notes/" \
-	cG="cd $HOME/repos/hub/mhdzli" \
-	cV="cd $HOME/Videos" \
+# Using ix.io pastebin
+alias pbin="curl -n -F 'f:1=<-' http://ix.io | wl-copy"
