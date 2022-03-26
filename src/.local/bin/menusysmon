@@ -4,14 +4,14 @@
 
 menu="rofi -dmenu"
 
-cpu() {\
+Cpu() {\
 	case "$(printf "cpuinfo\\nlscpu" | $menu -i -p "Which info do you preffer?")" in
 		cpuinfo) less /proc/cpuinfo ;;
 		lscpu) lscpu ;;
 	esac
 }
 
-sysmon() {\
+Sysmon() {\
 	smon="$(printf "htop\\nglances\\ngtop\\niftop\\niotop\\niptraf-ng\\nnmon\\ns-tui\\npowertop" | $menu -i -p "Which Program do you preffer?")"
 	case $smon in
 		htop| \
@@ -33,7 +33,7 @@ sysmon() {\
 	esac
 }
 
-clockset() {\
+Clockset() {\
 	case "$(printf "timedate\\nhwclock\\nsync&set" | $menu -i -p "Which info do you preffer?")" in
 		timedate) timedatectl status ;;
 		hwclock) sudo hwclock --show ;;
@@ -41,6 +41,13 @@ clockset() {\
 	esac
 }
 
+Network() {\
+	case "$(printf "general\\nip\\nports" | $menu -i -p "Which info do you preffer?")" in
+		general) nmcli device status; ip link show; nmcli connection show; cat /etc/resolv.conf ;;
+		ip) ip a; curl icanhazip.com; curl ifconfig.me ;;
+		ports) sudo -A netcap ;;
+	esac
+}
 
 declare -a options=("VGA
 audio
@@ -71,15 +78,15 @@ case $choice in
 	disk)
         df -h | grep dev/sd; echo; lsblk
 	;;
-	cpu) cpu
+	cpu) Cpu
 	;;
-	System) sysmon
+	System) Sysmon
 	;;
-	clockset) clockset
+	clockset) Clockset
 	;;
 	battery) upower -i $(upower -e | grep BAT)
 	;;
-	network) nmcli device status; ip link show; nmcli connection show; cat /etc/resolv.conf
+	network) Network
 	;;
 	*)
 		exit 1
