@@ -30,7 +30,7 @@ Start() {
     wf-recorder --muxer=v4l2 --codec=rawvideo --file=/dev/video2 -x yuv420p 1>/dev/null 2>&1 &
     echo $! > /tmp/screencastpid
     
-    printf "Choose $virtual_webcam in your video call app to share your screen.\nYou can test if it's working with `ffplay $virtual_webcam` or  mpv av://v4l2:$virtual_webcam\n"
+    printf "Choose $virtual_webcam in your video call app to share your screen.\nYou can test if it's working with 'ffplay $virtual_webcam' or  'mpv av://v4l2:$virtual_webcam'\n"
 }
 
 Stop() {
