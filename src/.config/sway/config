@@ -142,15 +142,6 @@ for_window {
     # [app_id="mpv*"] move container to workspace $ws4, focus
     [app_id=".*zathura.*"] move container to workspace $ws8, focus
     [app_id=".*telegram.*"] move container to workspace $ws3, focus
-
-    # for firefox pip mode
-    [title="Picture-in-Picture"] floating enable
-
-    # floting mode
-    [app_id=".*blueberry.*"] floating enable
-    [app_id=".*pavucontrol.*"] floating enable
-    [title=".*pulsemixer.*"] floating enable
-    [app_id=".*nextcloud.*"] floating enable, move container to scratchpad
 }
 
 # Moving around:
@@ -389,12 +380,20 @@ bindsym $mod+z exec "wswitch start", mode "switch"
 # Change normal to inverse to use left mouse button for resizing and right
 # mouse button for dragging.
 floating_modifier $mod normal
+floating_minimum_size 1280 x 720
+floating_maximum_size -1 x -1
 for_window {
 	[app_id="mpv"] floating enable
 	[app_id="imv"] floating enable
 	[app_id="vimiv"] floating enable
-	# [app_id="zathura"] floating enable
-	# [app_id="firefox*"] floating enable
+
+    # for firefox pip mode
+    [title="Picture-in-Picture"] floating enable
+
+    [app_id=".*blueberry.*"] floating enable
+    [app_id=".*pavucontrol.*"] floating enable
+    [app_id=$term title=".*pulsemixer.*"] floating enable
+    [app_id=".*nextcloud.*"] floating enable, move container to scratchpad
 }
 
 ### Output configuration
