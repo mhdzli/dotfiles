@@ -142,6 +142,7 @@ for_window {
     # [app_id="mpv*"] move container to workspace $ws4, focus
     [app_id=".*zathura.*"] move container to workspace $ws8, focus
     [app_id=".*telegram.*"] move container to workspace $ws3, focus
+    [app_id="firefox" title="Firefox — Sharing Indicator"] kill
 }
 
 # Moving around:
