@@ -203,8 +203,8 @@ bindsym {
 	$mod+m		exec "$term ncmpcpp"
 
 	# Open Camera
-	# $mod+c 		exec "mpv --no-osc --no-input-default-bindings --input-conf=/dev/null --title='webcam' /dev/video0"
-    $mod+c      exec "ffplay -f v4l2 -input_format mjpeg -video_size 1920x1080 -window_title webcam -i /dev/video0"
+	# $mod+c 		exec "mpv --no-osc --no-input-default-bindings --profile=low-latency --input-conf=/dev/null --title='webcam' $(ls /dev/video[0,2,4,6,8] | tail -n 1)"
+    $mod+c      exec "ffplay -f v4l2 -input_format mjpeg -video_size 1920x1080 -window_title webcam -i $(ls /dev/video[0,2,4,6,8] | tail -n 1)"
 	
 	#showkeys
 	$mod+p		exec "killall wshowkeys || wshowkeys -a bottom -t 1"
