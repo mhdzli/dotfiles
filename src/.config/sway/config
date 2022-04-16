@@ -141,7 +141,12 @@ for_window {
     [app_id=".*firefox.*"] move container to workspace $ws2, focus
     # [app_id="mpv*"] move container to workspace $ws4, focus
     [app_id=".*zathura.*"] move container to workspace $ws8, focus
+    [app_id=".*libreoffice.*"] move container to workspace $ws7, focus, layout tabbed
+    [app_id=".*[fF]oliate.*"] move container to workspace $ws8, focus
     [app_id=".*telegram.*"] move container to workspace $ws3, focus
+    [app_id=".*obs.*"] move container to workspace $ws4, focus
+    [class="Flowblade"] move container to workspace $ws9, focus, layout tabbed
+    [app_id=".*gimp.*"] move container to workspace $ws9, focus, layout tabbed
     [app_id="firefox" title="Firefox — Sharing Indicator"] kill
 }
 
@@ -386,8 +391,14 @@ floating_minimum_size 1280 x 720
 floating_maximum_size -1 x -1
 for_window {
 	[app_id="mpv"] floating enable
+	[class="vlc"] floating enable
 	[app_id="imv"] floating enable
 	[app_id="vimiv"] floating enable
+	[app_id="ffplay"] floating enable
+	[app_id="wdisplays"] floating enable
+	[app_id="qpwgraph"] floating enable
+	[app_id="kvantummanager"] floating enable
+	# [title="webcam"] floating enable
 
     # for firefox pip mode
     [title="Picture-in-Picture"] floating enable
