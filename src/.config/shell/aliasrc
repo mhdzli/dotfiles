@@ -41,7 +41,7 @@ alias \
 	magit='nvim -c MagitOnly' \
 	g='git' \
 	sdn='sudo shutdown -h now' \
-	p='sudo pacman' \
+	p='paru' \
     :q='exit'
 
 # Pacman 
@@ -49,7 +49,8 @@ alias \
     fixp='sudo rm /var/lib/pacman/db.lck' \
     fixdb='sudo rm /var/lib/pacman/sync/*' \
     cleanup='sudo pacman -Rns `pacman -Qtdq`' \
-    listp='pacman -Qqetti | grep -e Name -e Description'
+    listp='pacman -Qqetti | grep -e Name -e Description' \
+    mkmirror='curl -s "https://archlinux.org/mirrorlist/?country=IR&country=NL&country=FR&country=DE&protocol=https&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 7 -'
 
 # Verbosity and settings that you pretty much just always are going to want.
 alias \
@@ -93,3 +94,10 @@ alias scwc="scrcpy --rotation 3 --crop 1080:1400:0:200"
 
 # Using ix.io pastebin
 alias pbin="curl -n -F 'f:1=<-' http://ix.io | wl-copy"
+
+# sshd
+alias \
+    sst="sudo -A systemctl start sshd.service" \
+    ssp="sudo -A systemctl stop sshd.service" \
+# mpv with input ipc server
+alias mpvipc="mpv --input-ipc-server=/tmp/mpvsocket --idle"
