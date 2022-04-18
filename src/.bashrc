@@ -17,7 +17,7 @@ eval "$(navi widget bash)"
 # McFly - fly through your shell history
 eval "$(mcfly init bash)"
 
-[ -f "$HOME/.config/shell/aliasrc" ] && source $HOME/.config/shell/bash_git_prompts
+[ -f "$HOME/.config/shell/bash_git_prompts" ] && source $HOME/.config/shell/bash_git_prompts
 [ -f "$HOME/.config/broot/launcher/bash/br" ] && source $HOME/.config/broot/launcher/bash/br
 [ -f "$HOME/.config/shell/aliasrc" ] && source $HOME/.config/shell/aliasrc
 
