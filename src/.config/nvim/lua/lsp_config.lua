@@ -134,15 +134,15 @@ cmp.setup {
 }
 
 -- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
-local sumneko_root_path = '/home/mzeinali/.config/nvim/lua-language-server'
-local sumneko_binary = sumneko_root_path.."/bin/lua-language-server"
+--local sumneko_root_path = '/home/mzeinali/.config/nvim/lua-language-server'
+--local sumneko_binary = sumneko_root_path.."/bin/lua-language-server"
 
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
 require'lspconfig'.sumneko_lua.setup {
-  cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
+  --cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
   settings = {
     Lua = {
       runtime = {
