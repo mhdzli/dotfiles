@@ -52,7 +52,7 @@ inoremap <C-p> "+P
 inoremap <C-v> "+P
 
 " Set keyboard layout to English when switch to normal mode
-inoremap <ESC> <ESC>:silent! ![ -z "$WAYLAND_DISPLAY" ] && xkb-switch -s us \|\| wkb-switch -s 0<CR><ESC>
+inoremap <ESC> <ESC>:silent! ![ -z "$WAYLAND_DISPLAY" ] && xkb-switch -s us \|\| wkb-switch -s 0 && wkb-switch -b<CR><ESC>
 
 " mark position before search
 nnoremap / ms/

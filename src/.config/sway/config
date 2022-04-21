@@ -97,6 +97,9 @@ set {
 }
 ### Key bindings
 bindsym {
+    # switch the keyboard layout to English when $mod is pressed
+    # Super_L exec "wkb-switch -s 0; wkb-switch -b"
+    # Super_R exec "wkb-switch -s 0; wkb-switch -b"
 	# switch to workspace
 	$mod+1		workspace $ws1
 	$mod+2		workspace $ws2
@@ -442,7 +445,7 @@ input {
 	type:keyboard {
 		xkb_layout "us,ir"
 		xkb_model "thinkpad"
-		xkb_options "caps:escape_shifted_capslock,grp:shifts_toggle,altwin:menu_win"
+		xkb_options "caps:escape_shifted_capslock,grp:shifts_toggle,altwin:menu_win,lv3:bksl_switch"
 	}
 
 	type:touchpad {
