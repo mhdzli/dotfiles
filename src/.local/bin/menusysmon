@@ -45,7 +45,7 @@ Network() {\
 	case "$(printf "general\\nip\\nports" | $menu -i -p "Which info do you preffer?")" in
 		general) nmcli device status; ip link show; nmcli connection show; cat /etc/resolv.conf ;;
 		ip) ip a; curl icanhazip.com; curl ifconfig.me ;;
-		ports) sudo -A netcap ;;
+		ports) [ $(which netstat 2>/dev/null) ] && sudo -A netstat -ltup || ( [ $(which netcap 2>/dev/null) ] && sudo -A netcap ) ;;
 	esac
 }
 
