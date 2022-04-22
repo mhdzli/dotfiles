@@ -9,7 +9,4 @@ dunst &	                # dunst for notifications
 mpd &
 xrdb ~/.Xdefaults &
 setbg &
-
-setxkbmap -model asus_laptop -layout us,ir -option "grp:shifts_toggle,caps:escape_shifted_capslock,altwin:menu_win" &
-
-
+setxkbmap -model thinkpad us,ir -option "grp:shifts_toggle,caps:escape_shifted_capslock,altwin:prtsc_rwin,lv3:ralt_switch"
