@@ -293,9 +293,9 @@ bindsym {
 	XF86Display		        exec "wdisplays"
 	XF86TouchpadToggle	    exec toggletouchpad
 	#screencapture
-	print			exec grim "pic-full-$(date '+%y%m%d-%H%M-%S').png"
-	Shift+print		exec wayscreenshot
-	$mod+print		exec wayrecord
+	$alt+Super_R	exec grim "pic-full-$(date '+%y%m%d-%H%M-%S').png"
+	Shift+Super_R		exec wayscreenshot
+	$mod+Super_R		exec wayrecord
 	#Launch applications
 	$mod+w			exec $BROWSER
 	$mod+g			exec gimp-2.99
@@ -443,9 +443,9 @@ for_window {
 # Use `man xkeyboard-config` to view the options and `setxkbmap -query|print` to check the model
 input {
 	type:keyboard {
-		xkb_layout "us,ir"
+		xkb_layout "us,ir-mz"
 		xkb_model "thinkpad"
-		xkb_options "caps:escape_shifted_capslock,grp:shifts_toggle,altwin:menu_win,lv3:bksl_switch"
+		xkb_options "caps:escape_shifted_capslock,grp:shifts_toggle,altwin:prtsc_rwin,lv3:ralt_switch"
 	}
 
 	type:touchpad {
