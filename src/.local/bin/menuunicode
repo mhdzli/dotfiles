@@ -14,11 +14,11 @@ chosen=$(cut -d ';' -f1 ~/.local/share/emoji | $menu -i -l 30 | sed "s/ .*//")
 
 case $pf in
 	"xorg")
-		echo "$chosen" | tr -d '\n' | xclip -selection clipboard
+		printf "$chosen" | xclip -selection clipboard
 		notify-send "'$chosen' copied to clipboard." &
 		;;
 	"wayland")
-		echo "$chosen" | tr -d '\n' | wl-copy
+		printf "$chosen" | wl-copy
 		notify-send "'$chosen' copied to primary." &
 esac
 
