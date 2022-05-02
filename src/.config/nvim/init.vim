@@ -89,6 +89,7 @@ let g:netrw_lis_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
 map <leader>n :Vexplore!<CR>
 map <leader>N :Hexplore!<CR>
+map <leader>E :Explore!<CR>
 " --------------------------------------------------
 
 " --- Indent ---
@@ -172,7 +173,7 @@ autocmd BufRead,BufNewFile *.tex set filetype=tex
 " --------------------------------------------------
 
 """ Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>ff <cmd>Telescope find_files hidden=true<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
