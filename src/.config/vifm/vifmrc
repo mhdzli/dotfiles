@@ -199,7 +199,7 @@ filetype *.djvu
 " Audio
 filetype *.wav,*.mp3,*.flac,*.m4a,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus
        \ {Play using mpv}
-       \ mpv %c,
+       \ mpv --no-video %c,
        \ {Play using ffplay}
        \ ffplay -nodisp -autoexit %c,
        \ {Play using MPlayer}
