@@ -150,6 +150,8 @@ Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
 " prettier
 Plug 'sbdchd/neoformat'
+
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
 " --------------------------------------------------
 
@@ -158,6 +160,7 @@ set completeopt=menu,menuone,noselect
 """ lsp_config nvim-cmp lualine
 lua << EOF
 require('lsp_config')
+require('treesitter_config')
 require('evil_lualine')
 require('nvim-autopairs').setup{}
 EOF
