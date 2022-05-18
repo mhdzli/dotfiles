@@ -123,7 +123,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'vimwiki/vimwiki'
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'nvim-lualine/lualine.nvim'
-Plug 'lunarvim/colorschemes'
+Plug 'sainnhe/sonokai'
 Plug 'mbbill/undotree'
 Plug 'windwp/nvim-autopairs'
 
@@ -238,7 +238,7 @@ endif
 " --------------------------------------------------
 
 " --- Theme ---
-colorscheme darkplus
+colorscheme sonokai
 
 "Transparent background
 highlight Normal guibg=none
