@@ -41,6 +41,7 @@ return packer.startup(function(use)
     use "tpope/vim-fugitive"
     use "mzlogin/vim-markdown-toc"
     use "nvim-lualine/lualine.nvim"
+    use "simrat39/symbols-outline.nvim"
 
     -- Colorschemes
     use {
