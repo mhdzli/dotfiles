@@ -7,8 +7,3 @@ vim.cmd([[
     cnoremap <expr> <Tab> getcmdtype() == '/' \|\| getcmdtype() == '?' ? '<CR>/<C-r>/' : '<C-z>'
     cnoremap <expr> <S-Tab> getcmdtype() == '/' \|\| getcmdtype() == '?' ? '<CR>?<C-r>/' : '<S-Tab>'
 ]])
-
--- disable automatic comment insertion
-vim.cmd([[
-    autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-]])

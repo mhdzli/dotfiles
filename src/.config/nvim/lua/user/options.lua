@@ -109,3 +109,6 @@ for k, v in pairs(options) do -- for key, value pair, let...
     vim.opt[k] = v
 end
 
+vim.api.nvim_create_autocmd("VimEnter", {
+    command = "setlocal formatoptions-=c formatoptions-=r formatoptions-=o",
+})
