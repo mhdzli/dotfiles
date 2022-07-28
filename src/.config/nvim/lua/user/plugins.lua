@@ -50,7 +50,10 @@ return packer.startup(function(use)
     }
 
     use "mbbill/undotree"
-    use "windwp/nvim-autopairs"
+    use {
+        "windwp/nvim-autopairs",
+        config = function() require("nvim-autopairs").setup {} end
+    }
 
     -- LSP & cmp
     use {
