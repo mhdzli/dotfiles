@@ -84,8 +84,7 @@ let g:netrw_banner=0 " Disable annoying banner
 let g:netrw_browser_split=4 " Open in prior window
 let g:netrw_altv=1 " Open splits to the right
 let g:netrw_liststyle=3 " Tree view
-let g:netrw_lis_hide=netrw_gitignore#Hide()
-let g:netrw_lis_hide.=',\(^\|\s\s\)\zs\.\S\+'
+let g:netrw_list_hide=netrw_gitignore#Hide() .. ',\(^\|\s\s\)\zs\.\S\+'
 
 map <leader>n :Vexplore!<CR>
 map <leader>N :Hexplore!<CR>
