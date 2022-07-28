@@ -68,7 +68,7 @@ local options = {
     foldlevel = 99,
     foldopen = vim.opt.foldopen + "jump", -- When jumping to the line auto-open the folder
 
-    laststatus = 2,
+    laststatus = 3,
     virtualedit = "none", -- Position cursor everywhere
     -- There's a mapping to toggle this in 'functions.lua', i.e. `:V`
     -- timeoutlen = 250,
