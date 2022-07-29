@@ -31,15 +31,12 @@ map("", "<leader>E", ":Explore!<CR>")
 map("n", "<space>", "za")
 
 -- Use <Tab>/<S-Tab> to move between matches without leaving incremental search.
--- Note dependency on 'wildcharm' being set to <C-z> in order for this to work.
-vim.opt.wildcharm = vim.fn.char2nr('^Z') 
-
 map('c', '<Tab>', function()
     local cmd_char = vim.fn.getcmdtype()
-    return (cmd_char == '/' or cmd_char == '?') and '<CR>/<C-r>/' or '<C-z>'
+    return (cmd_char == '/' or cmd_char == '?') and '<C-g>' or '<Tab>'
 end, {expr = true})
 
 map('c', '<S-Tab>', function()
     local cmd_char = vim.fn.getcmdtype()
-    return (cmd_char == '/' or cmd_char == '?') and '<CR>?<C-r>/' or '<S-Tab>'
+    return (cmd_char == '/' or cmd_char == '?') and '<C-t>' or '<S-Tab>'
 end, {expr = true})
