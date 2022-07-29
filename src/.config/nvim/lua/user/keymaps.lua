@@ -32,8 +32,14 @@ map("n", "<space>", "za")
 
 -- Use <Tab>/<S-Tab> to move between matches without leaving incremental search.
 -- Note dependency on 'wildcharm' being set to <C-z> in order for this to work.
-vim.opt.wildcharm = vim.fn.char2nr('^Z')
-vim.cmd([[
-    cnoremap <expr> <Tab> getcmdtype() == '/' \|\| getcmdtype() == '?' ? '<CR>/<C-r>/' : '<C-z>'
-    cnoremap <expr> <S-Tab> getcmdtype() == '/' \|\| getcmdtype() == '?' ? '<CR>?<C-r>/' : '<S-Tab>'
-]])
+vim.opt.wildcharm = vim.fn.char2nr('^Z') 
+
+map('c', '<Tab>', function()
+    local cmd_char = vim.fn.getcmdtype()
+    return (cmd_char == '/' or cmd_char == '?') and '<CR>/<C-r>/' or '<C-z>'
+end, {expr = true})
+
+map('c', '<S-Tab>', function()
+    local cmd_char = vim.fn.getcmdtype()
+    return (cmd_char == '/' or cmd_char == '?') and '<CR>?<C-r>/' or '<S-Tab>'
+end, {expr = true})
