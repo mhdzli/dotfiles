@@ -32,9 +32,9 @@ function ColorizeNvim()
         bg = "None"
     })
 
-    hl("Normal", {
-        bg = "none"
-    })
+    -- hl("Normal", {
+        -- bg = "none"
+    -- })
 
     hl("LineNr", {
         fg = "#5eacd3"

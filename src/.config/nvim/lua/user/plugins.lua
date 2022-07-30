@@ -50,10 +50,7 @@ return packer.startup(function(use)
     }
 
     use "mbbill/undotree"
-    use {
-        "windwp/nvim-autopairs",
-        config = function() require("nvim-autopairs").setup {} end
-    }
+    use "windwp/nvim-autopairs"
 
     -- LSP & cmp
     use {
@@ -96,25 +93,7 @@ return packer.startup(function(use)
         "nvim-treesitter/playground",
     }
 
-    use {
-        "vimwiki/vimwiki",
-        config = function()
-            vim.g.vimwiki_list = {
-                {
-                    path = '~/.local/share/disroot/Notes',
-                    syntax = 'markdown',
-                    ext = '.md',
-                }
-            }
-            vim.g.vimwiki_ext2syntax = {
-                ['.md'] = 'markdown',
-                ['.markdown'] = 'markdown',
-                ['.mdown'] = 'markdown',
-                ['.Rmd'] = 'markdown',
-                ['.rmd'] = 'markdown',
-            }
-        end
-    }
+    use "vimwiki/vimwiki"
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
