@@ -71,6 +71,7 @@ return packer.startup(function(use)
         -- "hrsh7th/cmp-vsnip",
         -- "hrsh7th/vim-vsnip",
     }
+    use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
 
     use {
         "rafamadriz/friendly-snippets",
@@ -95,8 +96,6 @@ return packer.startup(function(use)
         },
         "nvim-treesitter/playground",
     }
-
-    use "simrat39/symbols-outline.nvim"
 
     use {
         "vimwiki/vimwiki",
