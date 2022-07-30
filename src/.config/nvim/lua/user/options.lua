@@ -25,8 +25,7 @@ local options = {
 
     wildmenu = true, -- Tab auto completion in command mode
     wildmode = "longest:full,full", -- enable autocompletion
-    wildignore = "*.git/*",
-    wildignore = { ".git", ".hg", ".svn", "*.pyc", "*.o", "*.out", "*.jpg", "*.jpeg", "*.png", "*.gif", "*.zip" },
+    wildignore = { "*.git/*", ".git", ".hg", ".svn", "*.pyc", "*.o", "*.out", "*.jpg", "*.jpeg", "*.png", "*.gif", "*.zip" },
     wildignore = vim.opt.wildignore + { "**/node_modules/**", "**/bower_modules/**", "__pycache__", "*~", "*.DS_Store" },
     wildignore = vim.opt.wildignore + { "**/undo/**", "*[Cc]ache/" },
     wildignorecase = true, -- disable case sensitivity in wild menu
