@@ -22,12 +22,11 @@ end
 -- Single border style for prompt popups.
 packer.init({
     display = {
-      open_fn = function()
-        return require('packer.util').float({ border = 'single' })
-      end
+        open_fn = function()
+            return require('packer.util').float({ border = 'single' })
+        end
     }
-  }
-)
+})
 
 -- Install your plugins here
 return packer.startup(function(use)

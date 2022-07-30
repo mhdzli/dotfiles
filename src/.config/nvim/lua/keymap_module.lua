@@ -16,7 +16,7 @@ M.vim_opt_toggle = function(opt, on, off, name)
         vim.opt[opt] = off
         message = message .. " Disabled"
     end
-        vim.notify(message)
+    vim.notify(message)
 end
 
 return M

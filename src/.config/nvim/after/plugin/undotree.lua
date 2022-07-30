@@ -13,7 +13,7 @@ vim.cmd([[
         let &undodir=target_path
         set undofile
     endif
-    ]])
+]])
 
 -- Toggle the undo-tree panel
 map("n", "<leader>u", ":UndotreeToggle<CR>")
