@@ -66,6 +66,7 @@ return packer.startup(function(use)
         "glepnir/lspsaga.nvim",
         -- "hrsh7th/cmp-vsnip",
         -- "hrsh7th/vim-vsnip",
+        "simrat39/rust-tools.nvim"
     }
     use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
 
