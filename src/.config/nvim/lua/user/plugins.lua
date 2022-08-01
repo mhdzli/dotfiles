@@ -45,6 +45,7 @@ return packer.startup(function(use)
     -- Colorschemes
     use {
         "sainnhe/sonokai",
+        "folke/tokyonight.nvim",
         "LunarVim/Colorschemes",
         "navarasu/onedark.nvim",
     }
@@ -74,6 +75,8 @@ return packer.startup(function(use)
         "rafamadriz/friendly-snippets",
         branch = "main",
     }
+
+    use "https://git.sr.ht/~whynothugo/lsp_lines.nvim"
 
     use {
         "nvim-lua/popup.nvim", -- An implementation of the Popup API from vim in Neovim
