@@ -120,7 +120,7 @@ nnoremap <space> za
 " --------------------------------------------------
 
 " --- Plugins ---
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin('.vim/plugged')
 Plug 'tpope/vim-fugitive'
 Plug 'vimwiki/vimwiki'
 Plug 'mzlogin/vim-markdown-toc'
