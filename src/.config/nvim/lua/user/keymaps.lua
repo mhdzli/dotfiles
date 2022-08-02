@@ -13,12 +13,6 @@ map("i", "<ESC>", "<ESC>:silent! ![ -z '$WAYLAND_DISPLAY' ] && xkb-switch -s us 
 -- mark position before search
 map("n", "/", "ms/")
 
-if vim.fn.executable("termux-clipboard-set") then
-    map("v", "<C-x>", ":!termux-clipboard-set<CR>")
-    map("v", "<C-c>", ":w !termux-clipboard-set<CR><CR>")
-    map("i", "<C-v>", "<ESC>:read !termux-clipboard-get<CR>i")
-end
-
 -- Spell-check set to <leader>o, 'o' for 'orthography':
 map("", "<leader>s", ":setlocal spell! spelllang=en_us<CR>")
 
