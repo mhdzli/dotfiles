@@ -34,3 +34,8 @@ map('c', '<S-Tab>', function()
     local cmd_char = vim.fn.getcmdtype()
     return (cmd_char == '/' or cmd_char == '?') and '<C-t>' or '<S-Tab>'
 end, {expr = true})
+
+if vim.api.nvim_win_get_option(0, "diff") then
+    map("n", "dp", "dp]c")
+    map("n", "do", "do]c")
+end
