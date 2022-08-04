@@ -1,9 +1,12 @@
 # My zshrc
 
+cache_dir=${XDG_CACHE_HOME:-$HOME/.cache}
+config_dir=${XDG_CONFIG_HOME:-$HOME/.config}
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-[[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]] && source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+[[ -r "$cache_dir/p10k-instant-prompt-${(%):-%n}.zsh" ]] && source "$cache_dir/p10k-instant-prompt-${(%):-%n}.zsh"
 
 
 # If not running interactively, don't do anything
@@ -20,7 +23,7 @@ SAVEHIST=10000000
 HISTFILE=~/.cache/zsh/history
 
 # Load aliases and shortcuts if existent.
-[[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ]] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
+[[ -f "$config_dir/shell/aliasrc" ]] && source "$config_dir/shell/aliasrc"
 
 # Basic auto/tab complete:
 autoload -U compinit
@@ -79,27 +82,36 @@ bindkey '^x^e' edit-command-line
 ### prompts
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
-[[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.p10k.zsh" ]] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.p10k.zsh"
-[[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/powerlevel10k/powerlevel10k.zsh-theme" ]] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/powerlevel10k/powerlevel10k.zsh-theme"
+[[ -f "$config_dir/zsh/.p10k.zsh" ]] && source "$config_dir/zsh/.p10k.zsh"
+[[ -f "$config_dir/zsh/powerlevel10k/powerlevel10k.zsh-theme" ]] && source "$config_dir/zsh/powerlevel10k/powerlevel10k.zsh-theme"
+[[ -f "/usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme" ]] && source "/usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme"
 
 # To customize spaceship prompt, edit ~/.config/zsh/.spaceship.zsh.
-# [[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.spaceship.zsh" ]] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.spaceship.zsh"
+# [[ -f "$config_dir/zsh/.spaceship.zsh" ]] && source "$config_dir/zsh/.spaceship.zsh"
 
 # Navi cheat sheet widget
-eval "$(navi widget zsh)"
+navi -h >/dev/null 2>&1 && eval "$(navi widget zsh)"
 
 # McFly history tool
-eval "$(mcfly init zsh)"
+mcfly  -h >/dev/null 2>&1 && eval "$(mcfly init zsh)"
 # bindkey '^R' history-incremental-search-backward
 # bindkey '^F' history-incremental-search-forward
 
 # Add zoxide to zsh
-eval "$(zoxide init zsh)"
+zoxide -h >/dev/null 2>&1 && eval "$(zoxide init zsh)"
 
-[[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/broot/launcher/bash/br" ]] && source "${XDG_CONFIG_HOME:-$HOME/.config}/broot/launcher/bash/br"  
+# fuck alias
+thefuck -h >/dev/null 2>&1 && eval "$(thefuck --alias)"
+
+[[ -f "$config_dir/broot/launcher/bash/br" ]] && source "$config_dir/broot/launcher/bash/br"  
 
 # Load zsh-autosuggestions
-[[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
+[[ -f "$config_dir/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && source "$config_dir/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
+[[ -f "/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && source "/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
 # Load syntax highlighting; should be last.
-[[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" 2>/dev/null
+[[ -f "$config_dir/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source "$config_dir/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" 2>/dev/null
+[[ -f "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" 2>/dev/null
+
+# Github-cli completion
+[[ -f "$config_dir/zsh/gh-cmp.zsh" ]] && source "$config_dir/zsh/gh-cmp.zsh"

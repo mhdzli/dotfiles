@@ -2,11 +2,15 @@
 # Profile file. Runs on login.
 
 # Adds `~/.local/bin/` and all subdirectories to $PATH
-export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
+echo "$0" | grep "zsh$" >/dev/null && export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
+echo "$0" | grep "bash$" >/dev/null && export PATH="${PATH}:$(find ~/.local/bin -type d | tr '\n' ':' | sed 's/:$//')"
+
 export PATH="$PATH:$HOME/.gem/ruby/2.7.0/bin"
 export PATH="$PATH:$HOME/.local/share/gem/ruby/3.0.0/bin"
-export GOPATH="$HOME/go"
-export PATH="$PATH:GOPATH/bin"
+export XDG_DATA_HOME="$HOME/.data"
+export XDG_CONFIG_HOME="$HOME/.config"
+export GOPATH="$XDG_DATA_HOME/go"
+export PATH="$PATH:$GOPATH/bin"
 export EDITOR="nvim"
 export TERMINAL="foot"
 export BROWSER="firefox"
@@ -15,9 +19,14 @@ export FILE="vifm"
 #export BIB="$HOME/Documents/LaTeX/uni.bib"
 #export REFER="$HOME/Documents/referbib"
 #export SUDO_ASKPASS="$HOME/.local/bin/tools/dmenupass"
+export ANDROID_HOME="$XDG_DATA_HOME/android"
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export HISTFILE="$XDG_DATA_HOME/bash/history"
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export NOTMUCH_CONFIG="$HOME/.config/notmuch-config"
 export GTK2_RC_FILES="$HOME/.config/gtk-2.0/gtkrc-2.0"
 export ZDOTDIR="$HOME/.config/zsh"
+export LESSHISTFILE="$HOME/.cache/less/history"
 ### Set vim as manpager ###
 export MANPAGER="/bin/sh -c \"col -b | nvim -c 'set ft=man ts=8 nomod nolist noma number relativenumber' -\""
 # export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nomod nolist noma number relativenumber' -\""
@@ -64,7 +73,7 @@ export FZF_DEFAULT_OPTS='--height 70% --layout=reverse --border'
 export QT_STYLE_OVERRIDE="kvantum-dark"
 export GTK_THEME="Adwaita:dark"
 
-# Start graphical server if i3 not already running.
+# Start graphical server if it's not already running.
 [ "$(tty)" = "/dev/tty2" ] && ! pgrep -x Xorg >/dev/null && exec startx
 [ "$(tty)" = "/dev/tty3" ] && ! pgrep -x Xorg >/dev/null && exec startx
 [ -z $DISPLAY ] && [ $(tty) = /dev/tty1 ] && set_wayland_env &&  XKB_DEFAULT_LAYOUT=us exec sway

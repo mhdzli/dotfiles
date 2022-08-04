@@ -9,7 +9,7 @@ alias \
     fgrep='fgrep --color=auto' \
     diff='diff --color=auto' \
     ip='ip -color=auto'
-#	ls='ls --quoting-style=literal -pq --time-style=iso --color=auto --group-directories-first --show-control-chars'
+    # ls='ls --quoting-style=literal -pq --time-style=iso --color=auto --group-directories-first --show-control-chars'
 
 # Replace "ls" with "exa"
 alias \
