@@ -6,7 +6,7 @@ menu='rofi -dmenu'
 
 xclip -h 2>/dev/null || [ -n "$WAYLAND_DISPLAY" ] || exit
 
- wl-copy -h >/dev/null || [ -z "$WAYLAND_DISPLAY" ] || exit
+wl-copy -h >/dev/null || [ -z "$WAYLAND_DISPLAY" ] || exit
 
 chosen=$(cut -d ';' -f1 ~/.local/share/emoji | $menu -i -l 30 | sed "s/ .*//")
 
