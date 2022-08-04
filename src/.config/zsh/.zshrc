@@ -1,11 +1,10 @@
+# My zshrc
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+[[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]] && source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 
-# My zshrc
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -21,7 +20,7 @@ SAVEHIST=10000000
 HISTFILE=~/.cache/zsh/history
 
 # Load aliases and shortcuts if existent.
-[ -f $HOME/.config/shell/aliasrc ] && source $HOME/.config/shell/aliasrc
+[[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ]] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
 
 # Basic auto/tab complete:
 autoload -U compinit
@@ -68,6 +67,7 @@ preexec() {
 
 # Enable Ctrl-x-e to edit command line
 autoload -U edit-command-line
+
 # Emacs style
 zle -N edit-command-line
 bindkey '^x^x' edit-command-line
@@ -79,11 +79,11 @@ bindkey '^x^e' edit-command-line
 ### prompts
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
-[[ ! -f $HOME/.config/zsh/.p10k.zsh ]] || source $HOME/.config/zsh/.p10k.zsh
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+[[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.p10k.zsh" ]] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.p10k.zsh"
+[[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/powerlevel10k/powerlevel10k.zsh-theme" ]] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/powerlevel10k/powerlevel10k.zsh-theme"
 
 # To customize spaceship prompt, edit ~/.config/zsh/.spaceship.zsh.
-# [[ ! -f $HOME/.config/zsh/.spaceship.zsh ]] || source $HOME/.config/zsh/.spaceship.zsh
+# [[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.spaceship.zsh" ]] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.spaceship.zsh"
 
 # Navi cheat sheet widget
 eval "$(navi widget zsh)"
@@ -93,13 +93,13 @@ eval "$(mcfly init zsh)"
 # bindkey '^R' history-incremental-search-backward
 # bindkey '^F' history-incremental-search-forward
 
-#Add zoxide to zsh
+# Add zoxide to zsh
 eval "$(zoxide init zsh)"
 
-source /home/mzeinali/.config/broot/launcher/bash/br
+[[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/broot/launcher/bash/br" ]] && source "${XDG_CONFIG_HOME:-$HOME/.config}/broot/launcher/bash/br"  
 
 # Load zsh-autosuggestions
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
+[[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
 # Load syntax highlighting; should be last.
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+[[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" 2>/dev/null
