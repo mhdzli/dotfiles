@@ -48,6 +48,9 @@ exec {
     # foot server
     foot --server
 
+    # emacs daemon
+    emacs --daemon
+
     # auto night mode
     wlsunset -l 27.6 -L 52.5
 }
@@ -60,6 +63,8 @@ gaps outer 1
 
 # Seat configuration
 seat * hide_cursor 3000
+seat * xcursor_theme Layan-cursors 40
+
 
 # Defining colors
 set {
@@ -227,6 +232,9 @@ bindsym {
 	# Emoji selection
 	$mod+i  exec menuunicode
 
+    # Color picker
+    $mod+Shift+p    exec    grim -g "$(slurp -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | tail -n 1 | cut -d ' ' -f 4 | wl-copy
+
 	# Layout stuff:
 	$mod+t			    split toggle
 	$mod+underscore		gaps inner current set 0; gaps outer current set 0
@@ -293,7 +301,7 @@ bindsym {
 	XF86Display		        exec "wdisplays"
 	XF86TouchpadToggle	    exec toggletouchpad
 	#screencapture
-	$alt+Super_R	exec grim "pic-full-$(date '+%y%m%d-%H%M-%S').png"
+	$alt+Super_R	    exec grim "pic-full-$(date '+%y%m%d-%H%M-%S').png"
 	Shift+Super_R		exec wayscreenshot
 	$mod+Super_R		exec wayrecord
 	#Launch applications
@@ -543,6 +551,15 @@ bindsym {
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
 
+# theme
+exec_always {
+        gsettings set org.gnome.desktop.interface cursor-theme Layan-cursors
+        gsettings set org.gnome.desktop.interface cursor-size 40
+        gsettings set org.gnome.desktop.interface gtk-theme Adwaita:dark
+        gsettings set org.gnome.desktop.interface iconn-theme papirus-dark
+        gsettings set org.gnome.desktop.interface font-name "Vazirmatn 14"
+    }
+
 include /etc/sway/config.d/*
 
 ## bindings help
@@ -593,7 +610,7 @@ include /etc/sway/config.d/*
 ## $mod+Shift+m
 ## $mod+Shift+n
 ## $mod+Shift+o
-## $mod+Shift+p
+## $mod+Shift+p     color picker
 ## $mod+Shift+q
 ## $mod+Shift+r		reload
 ## $mod+Shift+s		layout stacking
