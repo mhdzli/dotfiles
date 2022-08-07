@@ -551,17 +551,6 @@ bindsym {
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
 
-# theme
-exec_always {
-        gsettings set org.gnome.desktop.interface cursor-theme Layan-cursors
-        gsettings set org.gnome.desktop.interface cursor-size 40
-        gsettings set org.gnome.desktop.interface gtk-theme Adwaita:dark
-        gsettings set org.gnome.desktop.interface iconn-theme papirus-dark
-        gsettings set org.gnome.desktop.interface font-name "Vazirmatn 14"
-    }
-
-include /etc/sway/config.d/*
-
 ## bindings help
 
 ## $mod+[1-9,0]		workspace[1-10]
