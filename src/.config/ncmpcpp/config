@@ -54,7 +54,7 @@ mpd_music_dir = "~/Music"
 ##
 ## If you set format to 44100:16:2, make it 'yes'.
 ##
-# visualizer_in_stereo = no
+visualizer_in_stereo = no
 #
 ##
 ## Note: Below parameter defines how often ncmpcpp has to "synchronize"
@@ -76,6 +76,7 @@ visualizer_type = spectrum
 #
 #visualizer_look = ●卐
 #visualizer_look = 卐
+visualizer_look = ▋▋
 #
 #visualizer_color = blue, cyan, green, yellow, magenta, red
 #
@@ -106,7 +107,7 @@ visualizer_type = spectrum
 #
 ## Defines how long messages are supposed to be visible.
 ##
-message_delay_time = 10
+message_delay_time = 3
 #
 ##### song format #####
 ##
@@ -177,7 +178,7 @@ message_delay_time = 10
 #
 song_list_format = {$4%a - }{%t}|{$8%f$9}$R{$3(%l)$9}
 #
-song_status_format = $b{{$8"%t"}} $3by {$4%a{ $3in $7%b{ (%y)}} $3}|{$8%f}
+song_status_format = $b{{$8"%t"}} $6⟫$4⟫ {$4%a{ $2⟫$7⟫ $7%b{ (%y)}} $3}|{$8%f}
 #
 song_library_format = {%n - }{%t}|{%f}
 #
@@ -255,7 +256,7 @@ now_playing_suffix = "$8$/b"
 ##   available.
 ##
 #
-#song_columns_list_format = (20)[]{a} (6f)[green]{NE} (50)[white]{t|f:Title} (20)[cyan]{b} (7f)[magenta]{l}
+song_columns_list_format = (50)[white]{t|f:Title} (26)[magenta]{a} (20)[cyan]{b} (7f)[red]{l}
 #
 ##### various settings #####
 #
@@ -310,7 +311,7 @@ centered_cursor = yes
 ## Note: You can specify third character which will be used to build 'empty'
 ## part of progressbar.
 ##
-progressbar_look = "─⊙ "
+progressbar_look = "━⊙─"
 #
 ## Available values: database, playlist.
 ##
@@ -318,7 +319,7 @@ progressbar_look = "─⊙ "
 #
 ## Available values: classic, alternative.
 ##
-user_interface = alternative
+user_interface = classic
 #
 #data_fetching_delay = yes
 #
@@ -410,7 +411,7 @@ locked_screen_width_part = 70
 #
 #clock_display_seconds = no
 #
-display_volume_level = no
+display_volume_level = yes
 #
 #display_bitrate = no
 #
@@ -519,7 +520,7 @@ main_window_color = white
 #
 #color2 = green
 #
-progressbar_color = black:b
+progressbar_color = blue
 #
 progressbar_elapsed_color = blue:b
 #
