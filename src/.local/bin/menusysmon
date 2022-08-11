@@ -25,7 +25,7 @@ Sysmon() {\
 		iotop| \
 		powertop| \
 		iptraf-ng)
-		exec alacritty -e sudo $smon
+		exec alacritty -e sudo -A $smon
 		;;
 		*)
 			exit 1
@@ -36,8 +36,8 @@ Sysmon() {\
 Clockset() {\
 	case "$(printf "timedate\\nhwclock\\nsync&set" | $menu -i -p "Which info do you preffer?")" in
 		timedate) timedatectl status ;;
-		hwclock) sudo hwclock --show ;;
-		sync\&set) sudo ntpd -qg; sudo hwclock --systohc ;;
+		hwclock) sudo -A hwclock --show ;;
+		sync\&set) sudo -A ntpd -qg; sudo -A hwclock --systohc ;;
 	esac
 }
 

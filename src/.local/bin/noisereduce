@@ -7,8 +7,8 @@ usage ()
 }
 
 # Tests for requirements
-ffmpeg -version >/dev/null || { echo >&2 "We require 'ffmpeg' but it's not installed. Install it by 'sudo apt-get install ffmpeg' Aborting."; exit 1; }
-sox --version >/dev/null || { echo >&2 "We require 'sox' but it's not installed. Install it by 'sudo apt-get install sox' Aborting."; exit 1; }
+ffmpeg -version >/dev/null || { echo >&2 "We require 'ffmpeg' but it's not installed. Install it with your package manager, Aborting."; exit 1; }
+sox --version >/dev/null || { echo >&2 "We require 'sox' but it's not installed. Install it with your package manager, Aborting."; exit 1; }
 
 if [ "$#" -ne 2 ]
 then
