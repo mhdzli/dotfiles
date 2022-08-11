@@ -127,7 +127,7 @@ audio() { \
 	}
 
 askrecording() { \
-	choice=$(printf "screencast\\nvideo\\naudio\\nvideo selected\\nwebcam\\nwebcam (hi-def)\\nvaapicast\\nvaapivideo\\nwindow" | $menu -i -p "Select recording style:")
+	choice=$(printf "screencast\\nvideo\\naudio\\nvideo selected\\nwebcam\\nwebcam (hi-def)\\nvaapicast\\nvaapivideo\\nwindow" | $menu -i -p "Select recording style")
 	case "$choice" in
 		screencast) screencast;;
 		audio) audio;;

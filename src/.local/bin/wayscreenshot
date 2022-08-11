@@ -25,7 +25,7 @@ focused=`list_geometry focused`
 
 filename="$(date +'%Y-%m-%d-%H%M%S_screenshot.png')"
 
-choice=$(printf "fullscreen\\nregion\\nfocused\\n$windows" | $menu -i -p "Select screenshot type:")
+choice=$(printf "fullscreen\\nregion\\nfocused\\n$windows" | $menu -i -p "Select screenshot type")
 case "$choice" in
 	fullscreen) grim "pic-full-$filename";;
 	region) grim -g "$(slurp)" "pic-selected-$filename";;

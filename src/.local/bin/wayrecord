@@ -52,7 +52,7 @@ video() { \
 window() { \
     windows=`list_geometry visible with_description`
     echo "$windows"
-    choice=$(printf "$windows" | $menu -i -p "Which one:")
+    choice=$(printf "$windows" | $menu -i -p "Which one")
     geometry="`echo \"$choice\" | cut -d$'\t' -f1`"
 	wf-recorder -a -c libx264rgb -g "$geometry" -f "$HOME/window-$(date '+%y%m%d-%H%M-%S').mkv" &
 	echo $! > /tmp/recordingpid
@@ -66,7 +66,7 @@ vaapi() { \
 	}
 
 askrecording() { \
-	choice=$(printf "screencast\\nvideo\\nvaapi\\nwindow" | $menu -i -p "Select recording style:")
+	choice=$(printf "screencast\\nvideo\\nvaapi\\nwindow" | $menu -i -p "Select recording style")
 	case "$choice" in
 		screencast) screencast;;
 		video) video;;
