@@ -15,7 +15,7 @@
   spacing: 0;
   background-color: transparent;
 
-  font: "Vazir 14";
+  font: "Monospace 14";
   text-color: @blue;
 }
 

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# This script is the SUDO_ASKPASS variable, meaning that it will be used as a
+# password prompt if needed.
+
+rofi -dmenu\
+    -password\
+    -i\
+    -no-fixed-num-lines\
+    -p "Password:"\
+    -theme ~/.config/rofi/theme/askpass.rasi
