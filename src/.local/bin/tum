@@ -1,0 +1,78 @@
+#!/bin/bash
+
+music_dir="$2"
+[ -v music_dir ] && music_dir="$HOME/Music"
+
+Usage(){
+	while read -r CurLine; do
+		printf '%b\n' "$CurLine"
+	done <<-EOF
+           \ttum -h|--help|-?           Displays this message
+           \ttum -l|--lowerext          Lower case all extensions in music_dir
+           \ttum -t|--types             Show all file extensions in music_dir
+           \ttum -c|--clear             Clear all metadata of files in music_dir
+           \ttum -s|--songrc           Use songrec to set tags for files in music_dir
+	EOF
+}
+
+lowerext () {
+    find "$music_dir" -name '*.*' -type f -print0 | while IFS= read -r -d '' f
+    do
+        base=${f%.*}
+        ext=${f##*.}
+        a=$base.${ext,,}
+        [ "$a" != "$f" ] && mv -- "$f" "$a"
+    done
+}
+
+clearmeta () {
+    
+    find "$music_dir" -iname '*.mp3' -o -iname '*.ogg' -o '*.m4a' -o '*.wma'  -o '*.wav' -type f -print0 | while IFS= read -r -d '' f
+    do
+        base=${f%.*}
+        ext=${f##*.}
+        ffmpeg -nostdin -i "$f" -map_metadata -1 -c copy -fflags +bitexact -flags:v +bitexact -flags:a +bitexact "${base}-c.${ext}"
+        mv "${base}-c.${ext}" "$f"
+    done
+}
+
+songrc () {
+    
+    find "$music_dir" -iname '*.mp3' -o -iname '*.ogg' -o '*.m4a' -o '*.wma'  -o '*.wav' -type f -print0 | while IFS= read -r -d '' f
+    do
+        shazem=$(songrec recognize -c "$f" | tail -1)
+        if [ -n "$shazem" ]
+        then
+            ext=${f##*.}
+            songname=$($shazem | cut -d',' -f1)
+            artist=$($songname | cut -d'-' -f1 | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+            song=$($songname | cut -d'-' -f2 | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+            album=$($shazem | cut -d',' -f2)
+            year=$($shazem | cut -d',' -f5)
+            genre=$($shazem | cut -d',' -f6)
+            ffmpeg -nostdin -i "$f" -metadata title="$song" -metadata album="$album" -metadata genre="$genre" -metadata artist="$artist" -metadata date="$year" -c copy tmp."$ext"
+            mv tmp."$ext" "$f"
+        else
+            echo "$f" >> notfound
+        fi
+    done
+}
+
+while [ -n "$1" ]; do
+    case $1 in
+        --help|-h|-\?)
+            Usage; exit 0 ;;
+        -l|--lowerext) 
+            lowerext; exit 0 ;;
+        -t|--types)
+            find "$music_dir" -name '*.*' -type f | awk -F. '!a[$NF]++{print $NF}'; exit 0;;
+        -c|--clear)
+            clearmeta; exit 0;;
+        -s|--songrc)
+            songrc; exit 0;; 
+		*)
+			break ;;
+    esac
+done
+
+
