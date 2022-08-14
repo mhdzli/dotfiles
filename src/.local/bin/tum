@@ -1,7 +1,7 @@
 #!/bin/bash
 
 music_dir="$2"
-[ -v music_dir ] && music_dir="$HOME/Music"
+[ -d "$music_dir" ] || music_dir="$HOME/Music/"
 
 Usage(){
 	while read -r CurLine; do
@@ -21,41 +21,44 @@ lowerext () {
         base=${f%.*}
         ext=${f##*.}
         a=$base.${ext,,}
-        [ "$a" != "$f" ] && mv -- "$f" "$a"
+        [ "$a" != "$f" ] && mv -f "$f" "$a"
     done
 }
 
 clearmeta () {
     
-    find "$music_dir" -iname '*.mp3' -o -iname '*.ogg' -o '*.m4a' -o '*.wma'  -o '*.wav' -type f -print0 | while IFS= read -r -d '' f
+    find "$music_dir" -iname '*.mp3' -o -iname '*.ogg' -o -iname '*.m4a' -o -iname '*.wma'  -o -iname '*.wav' -type f > all_music 
+    while IFS= read -r f
     do
         base=${f%.*}
         ext=${f##*.}
-        ffmpeg -nostdin -i "$f" -map_metadata -1 -c copy -fflags +bitexact -flags:v +bitexact -flags:a +bitexact "${base}-c.${ext}"
-        mv "${base}-c.${ext}" "$f"
-    done
+        ffmpeg -y -hide_banner -nostdin -i "$f" -map_metadata -1 -c copy  -fflags +bitexact -flags:v +bitexact -flags:a +bitexact "${base}-c.${ext}" 2>/dev/null
+        mv -f "${base}-c.${ext}" "$f"
+    done<all_music
 }
 
 songrc () {
     
-    find "$music_dir" -iname '*.mp3' -o -iname '*.ogg' -o '*.m4a' -o '*.wma'  -o '*.wav' -type f -print0 | while IFS= read -r -d '' f
+    find "$music_dir" -iname '*.mp3' -o -iname '*.ogg' -o -iname '*.m4a' -o -iname '*.wma'  -o -iname '*.wav' -type f > all_music 
+    while IFS= read -r f
     do
-        shazem=$(songrec recognize -c "$f" | tail -1)
+        shazem="$(songrec recognize -c "$f" | tail -1)"
         if [ -n "$shazem" ]
         then
+            base=${f%.*}
             ext=${f##*.}
-            songname=$($shazem | cut -d',' -f1)
-            artist=$($songname | cut -d'-' -f1 | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
-            song=$($songname | cut -d'-' -f2 | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
-            album=$($shazem | cut -d',' -f2)
-            year=$($shazem | cut -d',' -f5)
-            genre=$($shazem | cut -d',' -f6)
-            ffmpeg -nostdin -i "$f" -metadata title="$song" -metadata album="$album" -metadata genre="$genre" -metadata artist="$artist" -metadata date="$year" -c copy tmp."$ext"
+            songname=$(echo "$shazem" | cut -d',' -f1)
+            artist=$(echo "$songname" | cut -d'-' -f1 | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+            song=$(echo "$songname" | cut -d'-' -f2 | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+            album=$(echo "$shazem" | cut -d',' -f2)
+            year=$(echo "$shazem" | cut -d',' -f5)
+            genre=$(echo "$shazem" | cut -d',' -f6)
+            ffmpeg -y -hide_banner -nostdin -i "$f" -metadata title="${song}" -metadata album="${album}" -metadata genre="${genre}" -metadata artist="${artist}" -metadata date="${year}" -c copy tmp."$ext" 2>/dev/null
             mv tmp."$ext" "$f"
         else
             echo "$f" >> notfound
         fi
-    done
+    done<all_music
 }
 
 while [ -n "$1" ]; do
