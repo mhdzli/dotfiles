@@ -158,12 +158,6 @@ convert () {
             "5a0a") #Z
                 out="d9830a" #ك
             ;;
-            "5b0a") #[
-                out="d8ac0a" #ج
-            ;;
-            "5d0a") #]
-                out="da860a" #چ
-            ;;
             "5e0a") #^
                 out="c3970a" #×
             ;;
@@ -504,6 +498,6 @@ convert () {
 window_pid=$(xdotool getactivewindow) #get active window PID
 clipboard=$(xclip -o -sel clip ) #copy clipboard
 
-xdotool type --delay 400 --window $window_pid "$(convert $clipboard)"
+xdotool type --delay 400 --window "$window_pid" "$(convert "$clipboard")"
 
 exit

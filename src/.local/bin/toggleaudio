@@ -8,8 +8,8 @@ menu='rofi -theme ~/.config/rofi/theme/dracula-dark.rasi -dmenu'
 audio_profiles_list="$HOME/.local/share/audio-profiles"
 
 Usage(){
-	while read -r CurLine; do
-		printf '%b\n' "$CurLine"
+    while read -r CurLine; do
+        printf '%b\n' "$CurLine"
 	done <<-EOF
            \tswitch-audio   -u|--update             Update Profile lists
            \tswitch-audio   -h|--help|-?            Displays this message
@@ -18,8 +18,8 @@ Usage(){
 }
 
 Err() {
-	printf 'Err: %s\n' "$2" 1>&2
-	[ $1 -gt 0 ] && exit $1
+    printf 'Err: %s\n' "$2" 1>&2
+    [ $1 -gt 0 ] && exit $1
 }
 
 Update() {
@@ -43,7 +43,7 @@ Switch(){
     pactl set-card-profile $device $profile
 }
 
-while [ -n "S1" ]; do
+while [ -n "$1" ]; do
     case $1 in
         --help|-h|-\?)
             Usage; exit 0 ;;
@@ -52,9 +52,9 @@ while [ -n "S1" ]; do
         -u|--update)
             Update; exit 0;;
         -*)
-			Err 1 'Incorrect argument(s) specified.' ;;
-		*)
-			break ;;
+            Err 1 'Incorrect argument(s) specified.' ;;
+        *)
+            break ;;
     esac
 done
 

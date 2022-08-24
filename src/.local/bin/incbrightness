@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 br=$(cat  /sys/class/backlight/intel_backlight/brightness);
-sudo -A tee /sys/class/backlight/intel_backlight/brightness <<< $[$br+100]
+echo $((br+100)) | sudo -A tee /sys/class/backlight/intel_backlight/brightness

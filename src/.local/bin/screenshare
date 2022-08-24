@@ -4,8 +4,8 @@
 # Install wf-recorder and v4l2loopback-dkms 
 
 Usage() {
-	while read -r CurLine; do
-		printf '%b\n' "$CurLine"
+    while read -r CurLine; do
+        printf '%b\n' "$CurLine"
 	done <<-EOF
            \tscreenshare -s|--start               Start recording to virtual webcam
            \tscreenshare -p|--stop                Stop recording
@@ -14,8 +14,8 @@ Usage() {
 }
 
 Err() {
-	printf 'Err: %s\n' "$2" 1>&2
-	[ $1 -gt 0 ] && exit $1
+    printf 'Err: %s\n' "$2" 1>&2
+    [ $1 -gt 0 ] && exit $1
 }
 
 Start() {
@@ -34,14 +34,14 @@ Start() {
 }
 
 Stop() {
-	recpid="$(cat /tmp/screencastpid)"
-	# kill with SIGTERM, allowing finishing touches.
-	kill -15 "$recpid" && echo done
-	rm -f /tmp/screencastpid
-	# even after SIGTERM, wf-recorder may still run, so SIGKILL it.
-	sleep 3
-	kill -9 "$recpid"
-	exit
+    recpid="$(cat /tmp/screencastpid)"
+    # kill with SIGTERM, allowing finishing touches.
+    kill -15 "$recpid" && echo done
+    rm -f /tmp/screencastpid
+    # even after SIGTERM, wf-recorder may still run, so SIGKILL it.
+    sleep 3
+    kill -9 "$recpid"
+    exit
 }
 
 
@@ -54,9 +54,9 @@ while [ -n "$1" ]; do
         -s|--start)
             Start; exit 0 ;;
         -*)
-			Err 1 'Incorrect argument(s) specified.' ;;
-		*)
-			break ;;
+            Err 1 'Incorrect argument(s) specified.' ;;
+        *)
+            break ;;
     esac
 done
 

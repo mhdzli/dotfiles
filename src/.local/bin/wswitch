@@ -6,8 +6,8 @@
 #     bindsym {
 #        n      exec "wswitch next"
 #        p      exec "wswitch prev"
-# 	   Return mode "default"
-# 	   Escape mode "default"
+#        Return mode "default"
+#        Escape mode "default"
 #        $mod+z mode "default"
 #     }
 # }
@@ -34,4 +34,3 @@ case "$1" in
         swaymsg \[con_id=$(cat /tmp/switch_windows | tail -n 1)] focus
     ;;
 esac
-

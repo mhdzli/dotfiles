@@ -13,12 +13,12 @@ xclip -h 2>/dev/null || [ -n "$WAYLAND_DISPLAY" ] || exit
 wl-copy -h >/dev/null || [ -z "$WAYLAND_DISPLAY" ] || exit
 
 # Make the dlmgr if it doesn't exist already
-[ -d $a2_dir ] || mkdir -p $a2_dir
+[ -d "$a2_dir" ] || mkdir -p "$a2_dir"
 
 start_download () {
     # Remove empty lines in dl_list
-    sed -i '/^[ \t]*$/d' $a2_dir/dl_list
-    aria2c -c -x 16 -s 16 -k 1M -i $a2_dir/dl_list -j 1 \
+    sed -i '/^[ \t]*$/d' "$a2_dir"/dl_list
+    aria2c -c -x 16 -s 16 -k 1M -i "$a2_dir"/dl_list -j 1 \
         --on-download-start="dl_nf_start" \
         --on-download-complete="dl_nf_complete"\
         --on-download-error="dl_nf_error" &
@@ -26,14 +26,14 @@ start_download () {
 }
 
 stop_download () {
-	dl_pid="$(cat /tmp/downloading_pid 2>/dev/null)"
-	# kill with SIGTERM, allowing finishing touches.
-	[ $dl_pid ] && kill -15 "$dl_pid" 
-	rm -f /tmp/downloading_pid
-	# even after SIGTERM, aria2 may still run, so SIGKILL it.
-	sleep 3
-	kill -9 "$dl_pid"
-	exit
+    dl_pid="$(cat /tmp/downloading_pid 2>/dev/null)"
+    # kill with SIGTERM, allowing finishing touches.
+    [ "$dl_pid" ] && kill -15 "$dl_pid" 
+    rm -f /tmp/downloading_pid
+    # even after SIGTERM, aria2 may still run, so SIGKILL it.
+    sleep 3
+    kill -9 "$dl_pid"
+    exit
 }
 
 add_link () {
@@ -41,14 +41,14 @@ add_link () {
         "xorg") link=$(xclip -o | $menu -i -p "Url Address" -l 2);;
         "wayland") link=$(wl-paste | $menu -i -p "Url Address" -l 2);;
     esac
-    dir="$(find $HOME -maxdepth 5 -type d 2>/dev/null | $menu -i -p "Type in download directory.")" || dir="$dl_dir"
-    [ $link ] && dlmgr add "$link" "$dir"
+    dir="$(find "$HOME" -maxdepth 5 -type d 2>/dev/null | $menu -i -p "Type in download directory.")" || dir="$dl_dir"
+    [ "$link" ] && dlmgr add "$link" "$dir"
 }
 
 remove_link () {
-    line=$(grep -n "^[^ ]" $a2_dir/dl_list | $menu -i -p "Url Address" | cut -d: -f1)
+    line=$(grep -n "^[^ ]" "$a2_dir"/dl_list | $menu -i -p "Url Address" | cut -d: -f1)
     # Remove the selected line (download url) and the next line after (download path)
-    sed -i "${line},+1d" $a2_dir/dl_list
+    sed -i "${line},+1d" "$a2_dir"/dl_list
     stop_download && start_download
 }
 
@@ -63,7 +63,7 @@ ask_action () {
 }
 
 case $1 in
-    add) [ ${3} ] && printf "%s\n    dir=%s\n" "$2" "$3" >> $a2_dir/dl_list || printf "\n%s\n    dir=%s" "$2" "$dl_dir"  >> $a2_dir/dl_list;;
+    add) [ "${3}" ] && printf "%s\n    dir=%s\n" "$2" "$3" >> "$a2_dir"/dl_list || printf "\n%s\n    dir=%s" "$2" "$dl_dir"  >> "$a2_dir"/dl_list;;
     remove) remove_link;;
     stop) stop_download;;
     start) start_download;;

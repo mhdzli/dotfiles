@@ -2,12 +2,12 @@
 # Updates weather forecast
 
 ip r | while read Def _ IP _; do
-	case $Def in
-		default)
-			ping -q -w 1 -c 1 "$IP" >/dev/null || exit
+case $Def in
+    default)
+        ping -q -w 1 -c 1 "$IP" >/dev/null || exit
 
-			break ;;
-	esac
+        break ;;
+esac
 done
 
 geoip=$(curl -s https://freegeoip.app/xml/)
