@@ -6,24 +6,24 @@ menu="rofi -dmenu"
 
 # For non-systemd init systems.
 case "$(readlink -f /sbin/init)" in
-	*runit*) hib="sudo -A zzz" ;;
-	*openrc*) reb="sudo -A openrc-shutdown -r"; shut="sudo -A openrc-shutdown -p" ;;
+    *runit*) hib="sudo -A zzz" ;;
+    *openrc*) reb="sudo -A openrc-shutdown -r"; shut="sudo -A openrc-shutdown -p" ;;
 esac
 
 pgrep swayidle > /dev/null && active_idle=" swayidle" || active_idle=" swayidle"
 
 cmds="\
- lock	dwm		slock
- leave dwm		kill -TERM $(pgrep -u $USER "\bdwm$")
- renew dwm		kill -HUP $(pgrep -u $USER "\bdwm$")
- lock	sway	swaylock -eFfki ~/Pictures/lockscreen.png
- leave sway	pkill sway
- renew sway	swaymsg reload
-⏾ hibernate		${hib:-systemctl suspend-then-hibernate -i}
- reboot		${reb:-sudo -A reboot}
-⏻ shutdown		${shut:-sudo -A shutdown -h now}
-${active_idle}	toggle_swayidle"
+ lock dwm,        slock
+ leave dwm,       kill -TERM $(pgrep -u "$USER" "\bdwm$")
+ renew dwm,       kill -HUP $(pgrep -u "$USER" "\bdwm$")
+ lock sway,       swaylock -eFfki ~/Pictures/lockscreen.png
+ leave sway,      pkill sway
+ renew sway,      swaymsg reload
+⏾ hibernate,       ${hib:-systemctl suspend-then-hibernate -i}
+ reboot,          ${reb:-sudo -A reboot}
+⏻ shutdown,        ${shut:-sudo -A shutdown -h now}
+${active_idle},    toggle_swayidle"
 
-choice="$(echo "$cmds" | cut -d'	' -f 1 | $menu)" || exit 1
+choice="$(echo "$cmds" | cut -d',' -f 1 | $menu)" || exit 1
 
-`echo "$cmds" | grep "^$choice	" | cut -d '	' -f2-`
+eval "$(echo "$cmds" | grep "^$choice," | cut -d ',' -f2-)"
