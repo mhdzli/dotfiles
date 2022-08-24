@@ -1,36 +1,38 @@
 local nvim_lsp = require('lspconfig')
 
+-- Mappings.
+-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+local map = vim.keymap.set
+local opts = { noremap=true, silent=true }
+map('n', '<leader>e', vim.diagnostic.open_float, opts)
+map('n', '[d', vim.diagnostic.goto_prev, opts)
+map('n', ']d', vim.diagnostic.goto_next, opts)
+map('n', '<leader>q', vim.diagnostic.setloclist, opts)
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
     -- Enable completion triggered by <c-x><c-o>
-    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
     -- Mappings.
-    local opts = { noremap=true, silent=true }
-
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    buf_set_keymap('n', '<leader>h', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    buf_set_keymap('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-    buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    buf_set_keymap('n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-    buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-    buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-    buf_set_keymap('n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-    buf_set_keymap('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-
+    local bufopts = { noremap=true, silent=true, buffer=bufnr }
+    map('n', 'gD', vim.lsp.buf.declaration, bufopts)
+    map('n', 'gd', vim.lsp.buf.definition, bufopts)
+    map('n', 'K', vim.lsp.buf.hover, bufopts)
+    map('n', 'gi', vim.lsp.buf.implementation, bufopts)
+    map('n', '<leader>h', vim.lsp.buf.signature_help, bufopts)
+    map('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+    map('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+    map('n', '<leader>wl', function()
+        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, bufopts)
+    map('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
+    map('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
+    map('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
+    map('n', 'gr', vim.lsp.buf.references, bufopts)
+    map('n', '<leader>f', vim.lsp.buf.formatting, bufopts)
 end
 
 -- Add additional capabilities supported by nvim-cmp
@@ -121,25 +123,25 @@ require("luasnip.loaders.from_vscode").lazy_load({
 local luasnip = require 'luasnip'
 
 -- Tabnine setup
-local tabnine = require('cmp_tabnine.config')
-tabnine:setup({
-    max_lines = 1000;
-    max_num_results = 20;
-    sort = true;
-    run_on_every_keystroke = true;
-    snippet_placeholder = '..';
-    ignored_file_types = { -- default is not to ignore
-        -- uncomment to ignore in lua:
-        -- lua = true
-    };
-    show_prediction_strength = false;
-})
+-- local tabnine = require('cmp_tabnine.config')
+-- tabnine:setup({
+--     max_lines = 1000;
+--     max_num_results = 20;
+--     sort = true;
+--     run_on_every_keystroke = true;
+--     snippet_placeholder = '..';
+--     ignored_file_types = { -- default is not to ignore
+--         -- uncomment to ignore in lua:
+--         -- lua = true
+--     };
+--     show_prediction_strength = false;
+-- })
 
 local lspkind = require('lspkind')
 local source_mapping = {
     buffer = "[Buf]",
     nvim_lsp = "[LSP]",
-    cmp_tabnine = "[TN]",
+    -- cmp_tabnine = "[TN]",
     path = "[Path]",
     luasnip = "[Snp]",
     -- vsnip = "[VSp]",
@@ -212,12 +214,12 @@ cmp.setup({
                 vim_item.kind = lspkind.presets.default[vim_item.kind]
 
                 local menu = source_mapping[entry.source.name]
-                if entry.source.name == "cmp_tabnine" then
-                    if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
-                        menu = entry.completion_item.data.detail .. " " .. menu
-                    end
-                    vim_item.kind = ""
-                end
+                -- if entry.source.name == "cmp_tabnine" then
+                --     if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
+                --         menu = entry.completion_item.data.detail .. " " .. menu
+                --     end
+                --     vim_item.kind = ""
+                -- end
 
                 vim_item.menu = menu
 
@@ -231,7 +233,7 @@ cmp.setup({
         -- { name = 'vsnip' },
         { name = 'buffer' },
         { name = 'path' },
-        { name = 'cmp_tabnine' },
+        -- { name = 'cmp_tabnine' },
     },
 })
 
