@@ -8,7 +8,7 @@
 ### Variables
 
 # Run pure wayland
-xwayland disable
+#xwayland disable
 
 set {
     # Logo key. Use Mod1 for Alt.
@@ -231,6 +231,9 @@ bindsym {
 
     # Emoji selection
     $mod+i    exec menuunicode
+
+    # Bluetooth
+    $mod+comma    exec rofi-bluetooth
 
     # Color picker
     $mod+Shift+p    exec grim -g "$(slurp -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | tail -n 1 | cut -d ' ' -f 4 | wl-copy
