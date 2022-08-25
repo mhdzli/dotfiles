@@ -100,6 +100,9 @@ local options = {
     -- Change directory to the current file's directory
     autochdir = true,
 
+    listchars = {eol = '↵', multispace = '⇝   ', tab = 'ᗕ-ᗒ', nbsp = '⥣', trail = '⤽' },
+    list = true,
+
     -- tw = 79, -- width of document
     -- linebreak = true,
 }
