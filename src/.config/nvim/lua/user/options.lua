@@ -2,9 +2,6 @@ vim.g.mapleader = ","
 vim.g.do_filetype_lua = 1
 vim.g.did_load_filetypes = 0
 
--- Set indent line color
-vim.g.indentLine_char = "┊"
-
 -- File Browser
 -- Netrw
 vim.g.netrw_banner = 0 -- Disable annoying banner

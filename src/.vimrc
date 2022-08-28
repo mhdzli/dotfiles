@@ -165,9 +165,6 @@ autocmd BufWritePre * cal cursor(currPos[1], currPos[2])
 " --- Theme ---
 colorscheme sonokai
 
-" Set indent line color
-let g:indentLine_char = '┊'
-
 " Highlight cursor line/position
 "nnoremap <C-a> :set cursorline!<CR>
 "nnoremap <C-f> :call HighlightNearCursor()<CR>
