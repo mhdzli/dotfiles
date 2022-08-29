@@ -2,10 +2,10 @@ let mapleader =","
 
 " Auto install plugins
 if ! filereadable(expand('~/.vim/autoload/plug.vim'))
-    echo "Downloading junegunn/vim-plug to manage plugins..."
-    silent !mkdir -p ~/.vim/autoload/
-    silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ~/.vim/autoload/plug.vim
-    autocmd VimEnter * PlugInstall
+  echo "Downloading junegunn/vim-plug to manage plugins..."
+  silent !mkdir -p ~/.vim/autoload/
+  silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ~/.vim/autoload/plug.vim
+  autocmd VimEnter * PlugInstall
 endif
 " --------------------------------------------------
 
@@ -28,17 +28,16 @@ set nowrap " Don't wrap long lines
 set go=a " Make Visually highlighted text available for pasting into other applications
 set mouse=a " Enable mouse support in all modes
 set nohlsearch " Stop the highlighting for the 'hlsearch' option
-set clipboard=unnamedplus " Using system clipboard
 set cursorline " Highlight the screen line of the cursor
 set cursorcolumn " Highlight the screen column of the cursor
 let &t_EI = "\e[2 q" " Block cursor in normal mode
 let &t_SI = "\e[6 q" " Bar cursor in insert mode
 set colorcolumn=80 " Highlight the 80th column of screen
+set list lcs=tab:ᗕ-ᗒ,nbsp:⥣,trail:•,extends:⟩,precedes:⟨,multispace:⇝\ \ \ ,eol:↵
 vnoremap . :normal .<CR> " Perform dot commands over visual blocks
 set so=13 " Set scrolloff=13
 set siso=13 " Set sidescrolloff=13
 set pumheight=10 " Set the maximum height of the popup menu
-set list lcs=tab:ᗕ-ᗒ,nbsp:⥣,trail:•,extends:⟩,precedes:⟨,multispace:⇝\ \ \ ,eol:↵
 "nnoremap c "_c
 "autocmd InsertEnter * norm zz
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o " disable automatic comment insertion
@@ -49,19 +48,26 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
-" Copy selected text to system clipboard (requires gvim/nvim/vim-x11 installed):
-vnoremap <C-c> "+y
-inoremap <C-p> "+P
-inoremap <C-v> "+P
+if empty($WAYLAND_DISPLAY)
+  " Copy selected text to system clipboard (requires gvim/nvim/vim-x11 installed):
+  set clipboard=unnamedplus " Using system clipboard
+  xnoremap <C-c> "+y
+  nnoremap <C-p> "+P
+  nnoremap <C-v> "*P
+else
+  xnoremap <C-c> y:call system("wl-copy", @")<cr>
+  nnoremap <C-p> :let @"=substitute(system("wl-paste --no-newline"), '<C-v><C-m>', '', 'g')<cr>p
+  nnoremap <C-v> :let @"=substitute(system("wl-paste --no-newline --primary"), '<C-v><C-m>', '', 'g')<cr>p
+endif
 
 " mark position before search
 nnoremap / ms/
 
 "enable copy and paste for vim in termux
 if executable('termux-clipboard-set')
-    vnoremap <C-x> :!termux-clipboard-set<CR>
-    vnoremap <C-c> :w !termux-clipboard-set<CR><CR>
-    inoremap <C-v> <ESC>:read !termux-clipboard-get<CR>i
+  vnoremap <C-x> :!termux-clipboard-set<CR>
+  vnoremap <C-c> :w !termux-clipboard-set<CR><CR>
+  inoremap <C-v> <ESC>:read !termux-clipboard-get<CR>i
 endif
 
 " Spell-check set to <leader>o, 'o' for 'orthography':
@@ -103,9 +109,9 @@ set smartindent     " do smart autoindenting when starting a new line
 set autoindent      " copy indent when starting a new line
 
 au BufNewFile,BufRead *.js, *.html, *.css
-            \ set tabstop=2
-            \ set softtabstop=2
-            \ set shiftwidth=2
+  \ set tabstop=2
+  \ set softtabstop=2
+  \ set shiftwidth=2
 " --------------------------------------------------
 
 " --- Folding ---
@@ -143,11 +149,11 @@ autocmd BufRead,BufNewFile *.tex set filetype=tex
 
 """ Python
 if has('nvim')
-    autocmd FileType python map <buffer> <leader>r :w<CR>:exec 'term python' shellescape(@%, 1)<CR>a
-    autocmd FileType python imap <buffer> <leader>r <esc>:w<CR>:exec 'term python' shellescape(@%, 1)<CR>a
+  autocmd FileType python map <buffer> <leader>r :w<CR>:exec 'term python' shellescape(@%, 1)<CR>a
+  autocmd FileType python imap <buffer> <leader>r <esc>:w<CR>:exec 'term python' shellescape(@%, 1)<CR>a
 else
-    autocmd FileType python map <buffer> <leader>r :w<CR>:exec '!clear && python' shellescape(@%, 1)<CR>
-    autocmd FileType python imap <buffer> <leader>r <esc>:w<CR>:exec '!clear && python' shellescape(@%, 1)<CR>
+  autocmd FileType python map <buffer> <leader>r :w<CR>:exec '!clear && python' shellescape(@%, 1)<CR>
+  autocmd FileType python imap <buffer> <leader>r <esc>:w<CR>:exec '!clear && python' shellescape(@%, 1)<CR>
 endif
 " --------------------------------------------------
 
