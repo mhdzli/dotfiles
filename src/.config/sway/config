@@ -70,7 +70,7 @@ seat * xcursor_theme Layan-cursors 40
 set {
     $white          #ffffff
     $cyan           #00afd7
-    $acqua          #00d787 
+    $acqua          #00d787
     $wine           #72003e
     $magenta        #af005f
     $orange         #ff8700
