@@ -12,7 +12,7 @@ vim.g.neoformat_try_node_exe = 1
 -- Run formatter on save
 local fmt = vim.api.nvim_create_augroup("fmt", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePre", {
-    group = "fmt",
-    pattern = { "*.py", "*.js", "*.html", "*.ts", "*.css" },
-    command = "undojoin | Neoformat",
+  group = "fmt",
+  pattern = { "*.py", "*.js", "*.html", "*.ts", "*.css" },
+  command = "undojoin | Neoformat",
 })

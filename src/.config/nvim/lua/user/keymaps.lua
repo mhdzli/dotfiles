@@ -26,16 +26,16 @@ map("n", "<space>", "za")
 
 -- Use <Tab>/<S-Tab> to move between matches without leaving incremental search.
 map('c', '<Tab>', function()
-    local cmd_char = vim.fn.getcmdtype()
-    return (cmd_char == '/' or cmd_char == '?') and '<C-g>' or '<Tab>'
+  local cmd_char = vim.fn.getcmdtype()
+  return (cmd_char == '/' or cmd_char == '?') and '<C-g>' or '<Tab>'
 end, {expr = true})
 
 map('c', '<S-Tab>', function()
-    local cmd_char = vim.fn.getcmdtype()
-    return (cmd_char == '/' or cmd_char == '?') and '<C-t>' or '<S-Tab>'
+  local cmd_char = vim.fn.getcmdtype()
+  return (cmd_char == '/' or cmd_char == '?') and '<C-t>' or '<S-Tab>'
 end, {expr = true})
 
 if vim.api.nvim_win_get_option(0, "diff") then
-    map("n", "dp", "dp]c")
-    map("n", "do", "do]c")
+  map("n", "dp", "dp]c")
+  map("n", "do", "do]c")
 end
