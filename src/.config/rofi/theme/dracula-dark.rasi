@@ -7,6 +7,7 @@
     text-color: #f8f8f2;
     active-background: #6272a4;
     urgent-background: #ff5555;
+    urgent-foreground: #f8f8f2;
     selected-background: @active-background;
     selected-urgent-background: @urgent-background;
     selected-active-background: @active-background;
@@ -46,7 +47,7 @@
     padding: 2px ;
 }
 #element.normal.normal {
-    background-color: @background;
+    background-color: @background-color;
     text-color:       @foreground;
 }
 #element.normal.urgent {
@@ -70,7 +71,7 @@
     text-color:       @foreground;
 }
 #element.alternate.normal {
-    background-color: @background;
+    background-color: @background-color;
     text-color:       @foreground;
 }
 #element.alternate.urgent {
