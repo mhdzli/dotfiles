@@ -12,13 +12,13 @@ std_underline: &std_underline {underline: { size: 2, color: 00ffffff}}
 
 # This is THE bar configuration
 bar:
-  height: 26
+  height: 30
   location: top
   spacing: 5
   margin: 7
 
   # Default font
-  font: Monospace:pixelsize=16:style=bold
+  font: Monospace:pixelsize=18:style=bold
 
   foreground: fbfac7ff
   background: 282828ff
@@ -40,7 +40,7 @@ bar:
 
     - i3:
         anchors: # Not used (directly) by f00bar; used here to avoid duplication
-          - string: &i3_common {margin: 5, on-click: "swaymsg --quiet workspace {name}"}
+          - string: &i3_common {left-margin: 3, right-margin: 13, on-click: "swaymsg --quiet workspace {name}"}
           - string: &default {<<: *i3_common, text: "{name}"}
           - string: &surfing {<<: *i3_common, text: , font: *awesome_brands}
           - focused: &focused
@@ -50,206 +50,42 @@ bar:
               foreground: 000000ff
               deco: {stack: [background: {color: bc2b3fff}, <<: *std_underline]}
           - map: &i3_mode
-              tag: mode
               default:
                 - string:
                     margin: 5
                     text: "{mode}"
                     deco: {background: {color: cc421dff}}
                 - empty: {right-margin: 7}
-              values:
-                default: {empty: {}}
+              conditions:
+                mode == default: {empty: {}}
+        sort: ascending
         content:
           "":
             map:
-              tag: state
-              values:
-                focused:   {string: {<<: [*default, *focused]}}
-                unfocused: {string: {<<: *default}}
-                invisible: {string: {<<: [*default, *invisible]}}
-                urgent:    {string: {<<: [*default, *urgent]}}
+              left-margin: 3
+              conditions:
+                state == focused:   {string: {<<: [*default, *focused]}}
+                state == unfocused: {string: {<<: *default}}
+                state == invisible: {string: {<<: [*default, *invisible]}}
+                state == urgent:    {string: {<<: [*default, *urgent]}}
           surfing:
             map:
-              tag: state
-              values:
-                focused: {string: {<<: [*surfing, *focused]}}
-                unfocused: {string: {<<: *surfing}}
-                invisible: {string: {<<: [*surfing, *invisible]}}
-                urgent:    {string: {<<: [*surfing, *urgent]}}
+              conditions:
+                state == focused: {string: {<<: [*surfing, *focused]}}
+                state == unfocused: {string: {<<: *surfing}}
+                state == invisible: {string: {<<: [*surfing, *invisible]}}
+                state == urgent:    {string: {<<: [*surfing, *urgent]}}
           current:
-            map:
-              left-margin: 7
-              tag: application
-              values:
-                "":
-                  - map: {<<: *i3_mode}
-                  - string: {text: "{title}"}
-              default:
-                list:
-                  spacing: 0
-                  items:
-                    - map: {<<: *i3_mode}
-                    - string: {text: "{application}", max: 10, foreground: ffa0a0ff}
-                    - string: {text: ": "}
-                    - string: {text: "{title}", max: 35}
+            map: {left-margin: 20, <<: *i3_mode}
 
-    # - script:
-    #     path: /home/mzeinali/.config/yambar/dwl-tags.sh
-    #     args: [1]
-    #     anchors:
-    #       - occupied: &occupied {foreground: 57bbf4ff}
-    #       - focused: &focused {foreground: fc65b0ff}
-    #       - default: &default {foreground: d2ccd6ff}
-    #     content:
-    #       - map:
-    #           margin: 2
-    #           tag: tag_0_occupied
-    #           values:
-    #             true:
-    #               map:
-    #                 tag: tag_0_focused
-    #                 values:
-    #                   true: {string: {text: "{tag_0}", <<: *focused}}
-    #                   false: {string: {text: "{tag_0}", <<: *occupied}}
-    #             false:
-    #               map:
-    #                 tag: tag_0_focused
-    #                 values:
-    #                   true: {string: {text: "{tag_0}", <<: *focused}}
-    #                   false: {string: {text: "{tag_0}", <<: *default}}
-    #       - map:
-    #           margin: 2
-    #           tag: tag_1_occupied
-    #           values:
-    #             true:
-    #               map:
-    #                 tag: tag_1_focused
-    #                 values:
-    #                   true: {string: {text: "{tag_1}", <<: *focused}}
-    #                   false: {string: {text: "{tag_1}", <<: *occupied}}
-    #             false:
-    #               map:
-    #                 tag: tag_1_focused
-    #                 values:
-    #                   true: {string: {text: "{tag_1}", <<: *focused}}
-    #                   false: {string: {text: "{tag_1}", <<: *default}}
-    #       - map:
-    #           margin: 2
-    #           tag: tag_2_occupied
-    #           values:
-    #             true:
-    #               map:
-    #                 tag: tag_2_focused
-    #                 values:
-    #                   true: {string: {text: "{tag_2}", <<: *focused}}
-    #                   false: {string: {text: "{tag_2}", <<: *occupied}}
-    #             false:
-    #               map:
-    #                 tag: tag_2_focused
-    #                 values:
-    #                   true: {string: {text: "{tag_2}", <<: *focused}}
-    #                   false: {string: {text: "{tag_2}", <<: *default}}
-    #       - map:
-    #           margin: 2
-    #           tag: tag_3_occupied
-    #           values:
-    #             true:
-    #               map:
-    #                 tag: tag_3_focused
-    #                 values:
-    #                   true: {string: {text: "{tag_3}", <<: *focused}}
-    #                   false: {string: {text: "{tag_3}", <<: *occupied}}
-    #             false:
-    #               map:
-    #                 tag: tag_3_focused
-    #                 values:
-    #                   true: {string: {text: "{tag_3}", <<: *focused}}
-    #                   false: {string: {text: "{tag_3}", <<: *default}}
-    #       - map:
-    #           margin: 2
-    #           tag: tag_4_occupied
-    #           values:
-    #             true:
-    #               map:
-    #                 tag: tag_4_focused
-    #                 values:
-    #                   true: {string: {text: "{tag_4}", <<: *focused}}
-    #                   false: {string: {text: "{tag_4}", <<: *occupied}}
-    #             false:
-    #               map:
-    #                 tag: tag_4_focused
-    #                 values:
-    #                   true: {string: {text: "{tag_4}", <<: *focused}}
-    #                   false: {string: {text: "{tag_4}", <<: *default}}
-    #       - map:
-    #           margin: 2
-    #           tag: tag_5_occupied
-    #           values:
-    #             true:
-    #               map:
-    #                 tag: tag_5_focused
-    #                 values:
-    #                   true: {string: {text: "{tag_5}", <<: *focused}}
-    #                   false: {string: {text: "{tag_5}", <<: *occupied}}
-    #             false:
-    #               map:
-    #                 tag: tag_5_focused
-    #                 values:
-    #                   true: {string: {text: "{tag_5}", <<: *focused}}
-    #                   false: {string: {text: "{tag_5}", <<: *default}}
-    #       - map:
-    #           margin: 2
-    #           tag: tag_6_occupied
-    #           values:
-    #             true:
-    #               map:
-    #                 tag: tag_6_focused
-    #                 values:
-    #                   true: {string: {text: "{tag_6}", <<: *focused}}
-    #                   false: {string: {text: "{tag_6}", <<: *occupied}}
-    #             false:
-    #               map:
-    #                 tag: tag_6_focused
-    #                 values:
-    #                   true: {string: {text: "{tag_6}", <<: *focused}}
-    #                   false: {string: {text: "{tag_6}", <<: *default}}
-    #       - map:
-    #           margin: 2
-    #           tag: tag_7_occupied
-    #           values:
-    #             true:
-    #               map:
-    #                 tag: tag_7_focused
-    #                 values:
-    #                   true: {string: {text: "{tag_7}", <<: *focused}}
-    #                   false: {string: {text: "{tag_7}", <<: *occupied}}
-    #             false:
-    #               map:
-    #                 tag: tag_7_focused
-    #                 values:
-    #                   true: {string: {text: "{tag_7}", <<: *focused}}
-    #                   false: {string: {text: "{tag_7}", <<: *default}}
-    #       - map:
-    #           margin: 2
-    #           tag: tag_8_occupied
-    #           values:
-    #             true:
-    #               map:
-    #                 tag: tag_8_focused
-    #                 values:
-    #                   true: {string: {text: "{tag_8}", <<: *focused}}
-    #                   false: {string: {text: "{tag_8}", <<: *occupied}}
-    #             false:
-    #               map:
-    #                 tag: tag_8_focused
-    #                 values:
-    #                   true: {string: {text: "{tag_8}", <<: *focused}}
-    #                   false: {string: {text: "{tag_8}", <<: *default}}
-    #       - list:
-    #           spacing: 3
-    #           items:
-    #               - string: {text: "{layout}"}
-    #               - string: {text: "{title}"}
+    - foreign-toplevel:
+        content:
+          map:
+            conditions:
+              ~activated: {empty: {}}
+              activated:
+                - string: {text: "{app-id}", max: 10, foreground: ffa0a0ff}
+                - string: {text: ": {title}", max: 35}
 
   center:
     - clock:
@@ -267,39 +103,6 @@ bar:
           - string: {text: , font: *awesome, foreground: d65d0eff}
           - string: {text: "{jalali_date}", foreground: d65d0eff}
 
-  #   - mpd:
-  #       host: /home/mzeinali/.config/mpd/socket
-  #       anchors:
-  #         list: &artist_album_title
-  #           spacing: 0
-  #           items:
-  #             - map:
-  #                 tag: state
-  #                 values:
-  #                   playing: {string: {text: "{artist}"}}
-  #                   paused: {string: {text: "{artist}", foreground: ffffff66}}
-  #             - string: {text: " | ", foreground: ffffff66}
-  #             - map:
-  #                 tag: state
-  #                 values:
-  #                   playing: {string: {text: "{album}"}}
-  #                   paused: {string: {text: "{album}", foreground: ffffff66}}
-  #             - string: {text: " | ", foreground: ffffff66}
-  #             - map:
-  #                 tag: state
-  #                 values:
-  #                   playing: {string: {text: "{title}", foreground: ffa0a0ff}}
-  #                   paused: {string: {text: "{title}", foreground: ffffff66}}
-  #       content:
-  #         map:
-  #           margin: 10
-  #           tag: state
-  #           values:
-  #             offline: {string: {text: offline, foreground: ff0000ff}}
-  #             stopped: {string: {text: stopped}}
-  #             paused: {list: *artist_album_title}
-  #             playing: {list: *artist_album_title}
-
   right:
     - removables:
         anchors:
@@ -308,107 +111,89 @@ bar:
         spacing: 5
         content:
           map:
-            tag: mounted
-            values:
-              false:
+            conditions:
+              -mounted:
                 map:
-                  tag: optical
                   on-click: menumount
-                  values:
-                    false: [{string: *drive}, {string: {text: "{label}"}}]
-                    true: [{string: *optical}, {string: {text: "{label}"}}]
-              true:
+                  conditions:
+                    -optical: [{string: *drive}, {string: {text: "{label}"}}]
+                    optical: [{string: *optical}, {string: {text: "{label}"}}]
+              mounted:
                 map:
-                  tag: optical
                   on-click: menuumount
-                  values:
-                    false:
+                  conditions:
+                    -optical:
                       - string: {<<: *drive, deco: *std_underline}
                       - string: {text: "{label}"}
-                    true:
+                    optical:
                       - string: {<<: *optical, deco: *std_underline}
                       - string: {text: "{label}"}
-
-    # - network:
-    #     name: enp1s0
-    #     content:
-    #       map:
-    #         tag: carrier
-    #         values:
-    #           false: {empty: {}}
-    #           true:
-    #             map:
-    #               tag: state
-    #               default: {string: {text: , font: *awesome, foreground: ffffff66}}
-    #               values:
-    #                 up:
-    #                   map:
-    #                     tag: ipv4
-    #                     default: {string: {text: , font: *awesome}}
-    #                     values:
-    #                       "": {string: {text: , font: *awesome, foreground: ffffff66}}
-
-    # - script:
-    #     path: /home/mzeinali/.config/yambar/pacman
-    #     args: [] 
-    #     content:
-    #       map:
-    #         tag: pkg
-    #         default: { string: { text: " {pacman} +  {aur} = {pkg}" } }
-    #         values:
-    #           0: {string: {text: }}
-
     - network:
-        name: wlp2s0
+        name: enp0s31f6
         content:
           map:
-            tag: state
-            default: {string: {text: , font: *awesome, foreground: ffffff66}}
-            values:
-              down: {string: {text: , font: *awesome, foreground: ff0000ff}}
-              up:
+            conditions:
+              ~carrier: {empty: {}}
+              carrier:
                 map:
-                  tag: ipv4
+                  default: {string: {text: , font: *awesome, foreground: ffffff66}}
+                  conditions:
+                    state == up:
+                      map:
+                        default: {string: {text: , font: *awesome}}
+                        conditions:
+                          ipv4 == "": {string: {text: , font: *awesome, foreground: ffffff66}}
+    - network:
+        name: wlp4s0
+        content:
+          map:
+            default: {string: {text: , font: *awesome, foreground: ffffff66}}
+            conditions:
+              state == down: {string: {text: , font: *awesome, foreground: ff0000ff}}
+              state == up:
+                map:
                   default:
                     - string: {text: , font: *awesome, foreground: 98971aff}
                     - string: {text: "{ssid}", foreground: 98971aff}
-                  values:
-                    "":
+                  conditions:
+                    ipv4 == "":
                       - string: {text: , font: *awesome, foreground: 98971aff}
                       - string: {text: "{ssid}", foreground: 98971aff}
-
     - alsa:
         card: hw:PCH
         mixer: Master
         content:
           map:
-            # on-click: /bin/sh -c "amixer -q sset Speaker unmute && amixer -q sset Headphone unmute && amixer -q sset Master toggle"
-            on-click: /bin/sh -c "pulsemixer --toggle-mute"
-            tag: muted
-            values:
-              true: {string: {text: , font: *awesome, foreground: ffffff66}}
-              false:
-                - ramp:
-                    tag: volume
-                    items:
-                      - string: {text: , font: *awesome, foreground: 458588ff}
-                      - string: {text: , font: *awesome, foreground: 458588ff}
-                      - string: {text: , font: *awesome, foreground: 458588ff}
-                      - string: {text: , font: *awesome, foreground: 458588ff}
-                      - string: {text: , font: *awesome, foreground: 458588ff} 
-                - string: {text: "{percent}%", foreground: 458588ff}
+            conditions:
+              ~online: {string: {text: , font: *awesome, foreground: ff0000ff}}
+              online:
+                map:
+                  on-click: /bin/sh -c "pulsemixer --toggle-mute"
+                  conditions:
+                    muted: {string: {text: , font: *awesome, foreground: ffffff66}}
+                    ~muted:
+                      list:
+                        items:
+                          - ramp:
+                              tag: percent
+                              items:
+                                - string: {text: , font: *awesome, foreground: 458588ff}
+                                - string: {text: , font: *awesome, foreground: 458588ff}
+                                - string: {text: , font: *awesome, foreground: 458588ff}
+                                - string: {text: , font: *awesome, foreground: 458588ff}
+                                - string: {text: , font: *awesome, foreground: 458588ff} 
+                          - string: {text: "{percent}%", foreground: 458588ff}
 
     - backlight:
         name: intel_backlight
         content: [ string: {text: , font: *awesome, foreground: D79921FF}, string: {text: "{percent}%", foreground: D79921FF}]
     - battery:
         name: BAT0
-        poll-interval: 30
-        content:
-          map:
-            tag: state
-            values:
-              discharging:
+        poll-interval: 60
+        anchors:
+          discharging: &discharging
+            list:
+              items:
                 - ramp:
                     tag: capacity
                     items:
@@ -423,13 +208,20 @@ bar:
                       - string: {text: , font: *awesome}
                       - string: {text: , foreground: 00ff00ff, font: *awesome}
                 - string: {text: "{capacity}% {estimate}"}
-              charging:
+        content:
+          map:
+            conditions:
+              state == unknown:
+                <<: *discharging
+              state == discharging:
+                <<: *discharging
+              state == charging:
                 - string: {text: , foreground: 00ff00ff, font: *awesome}
                 - string: {text: "{capacity}% {estimate}"}
-              full:
+              state == full:
                 - string: {text: , foreground: 00ff00ff, font: *awesome}
                 - string: {text: "{capacity}% full"}
-              not charging:
+              state == not charging:
                 - ramp:
                     tag: capacity
                     items:
