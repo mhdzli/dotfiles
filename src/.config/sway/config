@@ -152,6 +152,10 @@ for_window {
     [app_id=".*libreoffice.*"] move container to workspace $ws7, focus, layout tabbed
     [app_id=".*[fF]oliate.*"] move container to workspace $ws8, focus
     [app_id=".*telegram.*"] move container to workspace $ws3, focus
+    [app_id=".*cinny.*"] move container to workspace $ws3, focus, layout tabbed
+    [app_id=".*Schildi.*"] move container to workspace $ws3, focus, layout tabbed
+    [app_id=".*nheko.*"] move container to workspace $ws3, focus, layout tabbed
+    [app_id=".*fluffychat.*"] move container to workspace $ws3, focus, layout tabbed
     [app_id=".*obs.*"] move container to workspace $ws4, focus
     [class="Flowblade"] move container to workspace $ws9, focus, layout tabbed
     [app_id=".*gimp.*"] move container to workspace $ws9, focus, layout tabbed
