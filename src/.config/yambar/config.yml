@@ -221,7 +221,7 @@ bar:
               state == full:
                 - string: {text: , foreground: 00ff00ff, font: *awesome}
                 - string: {text: "{capacity}% full"}
-              state == not charging:
+              state == "not charging":
                 - ramp:
                     tag: capacity
                     items:
