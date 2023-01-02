@@ -5,48 +5,55 @@
 menu="rofi -dmenu"
 
 Cpu() {\
-	case "$(printf "cpuinfo\\nlscpu" | $menu -i -p "Which info do you preffer?")" in
-		cpuinfo) less /proc/cpuinfo ;;
-		lscpu) lscpu ;;
-	esac
+    case "$(printf "cpuinfo\\nlscpu" | $menu -i -p "Which info do you preffer?")" in
+        cpuinfo) less /proc/cpuinfo ;;
+        lscpu) lscpu ;;
+    esac
 }
 
 Sysmon() {\
-	smon="$(printf "htop\\nglances\\ngtop\\niftop\\niotop\\niptraf-ng\\nnmon\\ns-tui\\npowertop" | $menu -i -p "Which Program do you preffer?")"
-	case $smon in
-		htop| \
-		glances| \
-		gtop| \
-		nmon| \
-		s-tui)
-		exec alacritty -e $smon
-		;;
-		iftop| \
-		iotop| \
-		powertop| \
-		iptraf-ng)
-		exec alacritty -e sudo -A $smon
-		;;
-		*)
-			exit 1
-		;;
-	esac
+    smon="$(printf "htop\\nglances\\ngtop\\niftop\\niotop\\niptraf-ng\\nnmon\\ns-tui\\npowertop" | $menu -i -p "Which Program do you preffer?")"
+    case $smon in
+        htop| \
+        glances| \
+        gtop| \
+        nmon| \
+        s-tui)
+        exec alacritty -e $smon
+        ;;
+        iftop| \
+        iotop| \
+        powertop| \
+        iptraf-ng)
+        exec alacritty -e sudo -A $smon
+        ;;
+        *)
+            exit 1
+        ;;
+    esac
 }
 
 Clockset() {\
-	case "$(printf "timedate\\nhwclock\\nsync&set" | $menu -i -p "Which info do you preffer?")" in
-		timedate) timedatectl status ;;
-		hwclock) sudo -A hwclock --show ;;
-		sync\&set) sudo -A ntpd -qg; sudo -A hwclock --systohc ;;
-	esac
+    case "$(printf "timedate\\nhwclock\\nsync&set" | $menu -i -p "Which info do you preffer?")" in
+        timedate) timedatectl status ;;
+        hwclock) sudo -A hwclock --show ;;
+        sync\&set) sudo -A ntpd -qg; sudo -A hwclock --systohc ;;
+    esac
 }
 
 Network() {\
-	case "$(printf "general\\nip\\nports" | $menu -i -p "Which info do you preffer?")" in
-		general) nmcli device status; ip link show; nmcli connection show; cat /etc/resolv.conf ;;
-		ip) ip a; curl icanhazip.com; curl ifconfig.me ;;
+    case "$(printf "general\\nip\\nports" | $menu -i -p "Which info do you preffer?")" in
+        general) nmcli device status; ip link show; nmcli connection show; cat /etc/resolv.conf ;;
+        ip) ip a; curl icanhazip.com; curl ifconfig.me ;;
         ports) [ $(which ss 2>/dev/null) ] && sudo -A ss -ltup || ( [ $(which netstat 2>/dev/null) ] && sudo -A netstat -ltup ) || ( [ $(which netcap 2>/dev/null) ] && sudo -A netcap ) ;;
-	esac
+    esac
+}
+
+Disk() {\
+    disks="$(lsblk -p | grep disk | cut -d' ' -f1)";
+    while IFS= read -r disk; do
+        sudo hdparm -I "$disk"
+    done <<< "$disks"
 }
 
 declare -a options=("VGA
@@ -63,33 +70,34 @@ quit")
 choice=$(echo -e "${options[@]}" | $menu -i -p 'System monitors: ')
 
 case $choice in
-	quit)
-		echo "Program terminated." && exit 1
-	;;
-	VGA)
+    quit)
+        echo "Program terminated." && exit 1
+    ;;
+    VGA)
         lspci -vnn | grep -i --color 'vga\|3d\|2d' -A 12; echo -e '\nScreen list:'; [ -z "$WAYLAND_DISPLAY" ] && xrandr -q | grep normal || wlr-randr
-	;;
-	audio)
+    ;;
+    audio)
         cat /proc/asound/cards; lspci -vnn | grep -i --color audio -A 12; echo; pacmd list-cards | grep 'active profile'; echo; aplay --list-devices
-	;;
-	memory)
+    ;;
+    memory)
         free -h
-	;;
-	disk)
-        df -h | grep dev/sd; echo; lsblk
-	;;
-	cpu) Cpu
-	;;
-	System) Sysmon
-	;;
-	clockset) Clockset
-	;;
-	battery) upower -i $(upower -e | grep BAT)
-	;;
-	network) Network
-	;;
-	*)
-		exit 1
-	;;
+    ;;
+    disk)
+        df -h | grep dev/; echo; lsblk; echo; ls -lF /dev/disk/by-id; echo; sudo blkid; Disk
+
+    ;;
+    cpu) Cpu
+    ;;
+    System) Sysmon
+    ;;
+    clockset) Clockset
+    ;;
+    battery) upower -i $(upower -e | grep BAT)
+    ;;
+    network) Network
+    ;;
+    *)
+        exit 1
+    ;;
 esac
 
