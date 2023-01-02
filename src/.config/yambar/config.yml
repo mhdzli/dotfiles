@@ -189,7 +189,7 @@ bar:
         content: [ string: {text: , font: *awesome, foreground: D79921FF}, string: {text: "{percent}%", foreground: D79921FF}]
     - battery:
         name: BAT0
-        poll-interval: 60
+        poll-interval: 1000
         anchors:
           discharging: &discharging
             list:
