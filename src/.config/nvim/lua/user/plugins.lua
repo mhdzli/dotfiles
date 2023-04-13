@@ -77,6 +77,11 @@ return packer.startup(function(use)
   -- use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
 
   use {
+    "williamboman/mason.nvim",
+    run = ":MasonUpdate" -- :MasonUpdate updates registry contents
+  }
+
+  use {
     "rafamadriz/friendly-snippets",
     branch = "main",
   }
