@@ -177,10 +177,18 @@ fileviewer *.md,*.markdown mdless -c %c 2>/dev/null
 " Pdf
 filetype *.pdf zathura %c %i &, apvlv %c, xpdf %c
 fileviewer *.pdf
+    \ vifm-sixel pdf %pw %ph %c %pd
+    \ %pc
+    \ vifm-sixel clear
     "\ vifmimg pdfpreview %px %py %pw %ph %c
     "\ %pc
     "\ vifmimg clear
-    \ pdftotext -nopgbrk %c -
+    "\ pdftotext -nopgbrk %c -
+
+fileviewer *.epub
+    \ vifm-sixel epub %pw %ph %c %pd
+    \ %pc
+    \ vifm-sixel clear
 
 " PostScript
 filetype *.ps,*.eps,*.ps.gz
@@ -197,20 +205,21 @@ filetype *.djvu
     \ apvlv %f,
 
 " Audio
-filetype *.wav,*.mp3,*.flac,*.m4a,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus
+filetype <audio/*>
     \ {Play using mpv}
     \ mpv --no-video %c,
     \ {Play using ffplay}
     \ ffplay -nodisp -autoexit %c,
     \ {Play using MPlayer}
     \ mplayer %f,
-fileviewer *.wav,*.mp3,*.flac,*.m4a,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus
+fileviewer <audio/*>
     \ ffprobe -hide_banner -pretty %c 2>&1
+    "\ vifm-sixel audio %pw %ph %c %pd
+    "\ %pc
+    "\ vifm-sixel clear
 
 " Video
-filetype *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
-    \*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.r[am],*.qt,*.divx,
-    \*.as[fx]
+filetype <video/*>
     \ {View using mpv}
     \ mpv %f,
     \ {View using ffplay}
@@ -219,13 +228,14 @@ filetype *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
     \ dragon %f:p,
     \ {View using mplayer}
     \ mplayer %f,
-fileviewer *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
-    \*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.r[am],*.qt,*.divx,
-    \*.as[fx]
+fileviewer <video/*>
     "\ vifmimg videopreview %px %py %pw %ph %c 
     "\ %pc 
     "\ vifmimg clear
-    \ ffprobe -hide_banner -pretty %c 2>&1
+    "\ ffprobe -hide_banner -pretty %c 2>&1
+    \ vifm-sixel video %pw %ph %c %pd
+    \ %pc
+    \ vifm-sixel clear
 
 " Web
 "filetype *.html,*.htm
@@ -245,7 +255,7 @@ filetype *.[1-8] man ./%c
 fileviewer *.[1-8] man ./%c | col -b
 
 " Images
-filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm,*.ico, 
+filetype <image/*>
     \ {View in imv}
     \ imv -b 1D2330 -d %c -c open %d &,
     \ {View in vimiv}
@@ -256,10 +266,10 @@ filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm,*.ico,
     \ feh %d &,
     \ {View in cacaview}
     \ cacaview %c &,
-fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.xpm,*.svg,*.tif,*.tiff,*.ico, 
+fileviewer <image/*>
     "\ img2sixel -w %pw0 %c %pd
     "\ convert %c -geometry %pw0x%ph0 sixel:- %pd
-    \ chafa --fill=block --symbols=block -s %pwx%ph %c %pd
+    "\ chafa --fill=block --symbols=block -s %pwx%ph %c %pd
     "\ kitty icat --place=%pwx%ph@%pxx%py --silent %c
     "\ %pc
     "\ kitty icat --clear --silent %pd
@@ -270,12 +280,21 @@ fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.xpm,*.svg,*.tif,*.tiff,*.ico,
     " \ imgt %px %py %pw %ph %c
     " \ %pc
     " \ imgc %px %py %pw %ph   NOT NEEDED IN XTERM
+    \ vifm-sixel draw %pw %ph %c %pd
+    \ %pc
+    \ vifm-sixel clear
+
 fileviewer *.gif
     \ chafa --fill=block --symbols=block -s %pwx%ph %c %pd
     "\ vifmimg gifpreview %px %py %pw %ph %c
     "\ %pc
     "\ vifmimg clear
-        
+
+fileviewer <font/*>
+    \ vifm-sixel font %pw %ph %c %pd
+    \ %pc
+    \ vifm-sixel clear
+
 " OpenRaster
 filextype *.ora
     \ {Edit in MyPaint}
