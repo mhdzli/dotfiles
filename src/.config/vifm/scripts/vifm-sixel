@@ -8,8 +8,8 @@ action="$1"
 # $3 panel height
 panel_width=$2
 panel_height=$3
-cell_width=6
-cell_height=14
+cell_width=12
+cell_height=28
 width=$((panel_width*cell_width))
 height=$((panel_height*cell_height))
 # $4 image path
