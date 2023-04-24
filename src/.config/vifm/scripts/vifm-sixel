@@ -41,7 +41,7 @@ case "$action" in
     ;;
   "video")
     [ ! -f "${PCACHE}.jpg" ] && \
-    ffmpegthumbnailer -i "$image_file" -o "${PCACHE}.jpg" -s 0 -q 5
+    ffmpegthumbnailer -i "$image_file" -o "${PCACHE}.jpg" -s 0 -q 5 2>/dev/null
     image "${PCACHE}.jpg" "$width" "$height"
     ;;
   "epub")
