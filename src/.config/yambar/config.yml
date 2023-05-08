@@ -98,10 +98,10 @@ bar:
           - string: {text: "{time}"}
 
     - script:
-        path: /home/mzeinali/.config/yambar/jalali_date
+        path: /home/mzeinali/.config/yambar/khorshidi_date
         content:
           - string: {text: , font: *awesome, foreground: d65d0eff}
-          - string: {text: "{jalali_date}", foreground: d65d0eff}
+          - string: {text: "{khorshidi_date}", foreground: d65d0eff}
 
   right:
     - removables:

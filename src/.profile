@@ -75,6 +75,6 @@ export QT_STYLE_OVERRIDE="kvantum-dark"
 export GTK_THEME="Adwaita:dark"
 
 # Start graphical server if it's not already running.
-[ "$(tty)" = "/dev/tty2" ] && ! pgrep -x Xorg >/dev/null && exec startx
-[ "$(tty)" = "/dev/tty3" ] && ! pgrep -x Xorg >/dev/null && exec startx
-[ -z $DISPLAY ] && [ $(tty) = /dev/tty1 ] && set_wayland_env &&  XKB_DEFAULT_LAYOUT=us exec sway
+[ -z "${WAYLAND_DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ] && set_wayland_env &&  XKB_DEFAULT_LAYOUT=us exec sway
+[ -z "${WAYLAND_DISPLAY}" ] && [ "${XDG_VTNR}" -eq 2 ] && set_wayland_env &&  XKB_DEFAULT_LAYOUT=us exec Hyprland
+[ "${XDG_VTNR}" -eq 3 ] && ! pgrep -x Xorg >/dev/null && exec startx

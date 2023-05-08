@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+while true; do
+    date="$(sb-khorshididate)"
+    day="$(echo $date | sed -e 's/\([0-9]*\) .*/\1/' | rev)"
+    month="$(echo $date | sed -e 's/.* \(.*\) .*/\1/')"
+    year="$(echo $date | sed -e 's/.* \([0-9]*\)/\1/' | rev)"
+    khorshidi_date="$(printf " %s %s %s " $year $month $day | sed -e 's/0/۰/g' -e 's/1/۱/g' -e 's/2/۲/g' -e 's/3/۳/g' -e 's/4/۴/g' -e 's/5/۵/g' -e 's/6/۶/g' -e 's/7/۷/g' -e 's/8/۸/g' -e 's/9/۹/g' -e 's/Farvardin/فروردین/g' -e 's/Ordibehesht/اردیبهشت/g' -e 's/Khordad/خرداد/g' -e 's/Tir/تیر/g' -e 's/Mordad/مرداد/g' -e 's/Shahrivar/شهریور/g' -e 's/Mehr/مهر/g' -e 's/Aban/آبان/g' -e 's/Azar/آذر/g' -e 's/Dey/دی/g' -e 's/Bahman/بهمن/g' -e 's/Esfand/اسفند/g')"
+    echo "khorshidi_date|string|${khorshidi_date}"
+    echo ""
+    sleep 3600
+done

@@ -12,7 +12,8 @@
 #     }
 # }
 
-bindsym $mod+z exec "wswitch start", mode "switch"
+# bindsym $mod+z exec "wswitch start", mode "switch"
+
 case "$1" in
     start)
         # list all windows and store them in a tmp file 

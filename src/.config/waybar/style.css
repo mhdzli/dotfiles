@@ -1,115 +1,181 @@
-* {
-	border: none;
-	background: rgba(28, 28, 28, 0.6);
-	border-radius: 0;
-	font-family: "monospace";
-	font-size: 15;
-	min-height: 0;
-}
+/* Colors (gruvbox) */
+/*
+@define-color black	#282828;
+@define-color red	#cc241d;
+@define-color green	#98971a;
+@define-color yellow	#d79921;
+@define-color blue	#458588;
+@define-color purple	#b16286;
+@define-color aqua	#689d6a;
+@define-color gray	#a89984;
+@define-color brgray	#928374;
+@define-color brred	#fb4934;
+@define-color brgreen	#b8bb26;
+@define-color bryellow	#fabd2f;
+@define-color brblue	#83a598;
+@define-color brpurple	#d3869b;
+@define-color braqua	#8ec07c;
+@define-color white	#ebdbb2;
+@define-color bg2	#504945;
+*/
 
-#waybar {
-/*	background: rgba(48,48,59, 0);*/
-	color: #ffffff;
-}
+/* Colors (dracula) */
+@define-color foreground	#f8f8f2;
+@define-color background	#282a36;
+@define-color orange	#ffb86c;
+@define-color gray	#44475a;
+@define-color black #21222c;
+@define-color red	#ff5555;
+@define-color green	#50fa7b;
+@define-color yellow	#f1fa8c;
+@define-color cyan	#8be9fd;
+@define-color blue	#6272a4;
+@define-color purple	#bd93f9;
+@define-color pink	#ff79c6;
+@define-color white #ffffff;
+@define-color brred #ff6e6e;
+@define-color brgreen #69ff94;
+@define-color bryellow #ffffa5;
+@define-color brcyan #a4ffff;
+@define-color brblue #6272a4;
+@define-color brpurple #d6acff;
+@define-color brpink #ff92df;
 
-#window {
-	color: #e4e4e4;
-	font-weight: bold;
-}
+@define-color arch_blue #89b4fa;
 
-#workspaces {
-	font-size: 8px;
-/*	padding: 0 2px;*/
-	margin-left: 8px;
-	margin-right: 8px;
-	padding-left: 0px;
-	padding-right: 0px;
-	border-top-left-radius: 10px;
-	border-bottom-left-radius: 10px;
-	border-top-right-radius: 10px;
-	border-bottom-right-radius: 10px;
-	background: rgba(28, 28, 28, 0.8);
-}
+@define-color workspace_background	@background;
+@define-color workspace_button	@foreground;
+@define-color workspace_active	@black;
+@define-color workspace_active_background	@green;
+@define-color workspace_urgent	@white;
+@define-color workspace_urgent_background	@brred;
+@define-color workspace_hover	@black;
+@define-color workspace_hover_background	@pink;
+@define-color critical	@red;
+@define-color warning	@yellow;
 
-#workspaces button {
-	padding: 0 5px;
-/*	background: rgba(28, 28, 28, 0.9);*/
-	color: #b8b8b8;
-/*	margin: 0 1px;*/ 
-}
-#workspaces button:hover {
-	box-shadow: inherit;
-	text-shadow: inherit;
-
-}
-
-#workspaces button.focused {
-	padding: 0 5px;
-	border-radius: 10;
-/*	background: #00afd7;*/
-	color: #8af0f0;
-	margin: 0 0px;
-}
-
-#workspaces button.urgent {
-	background: #af005f;
-	color: #1b1d1e;
-}
-
-#mode {
-	background: #af005f;
-}
-
-#clock, #custom-jalalidate, #custom-weather, #custom-disk_home, #custom-disk_root,#custom-wkblayout, #temperature, #cpu, #memory, #network, #backlight, #pulseaudio, #battery, #tray, #idle_inhibitor {
-	padding: 0 3px;
-/*	background-color: #000000; */
-	background: rgba(28, 28, 28, 0.8);
-/*	margin: 0 2px;*/
-}
-
-#clock {
-	border-top-left-radius: 10px;
-	border-bottom-left-radius: 10px;
-}
-
-#custom-disk_root {
-	border-top-right-radius: 10px;
-	border-bottom-right-radius: 10px;
-}
-
-#custom-weather {
-	border-top-left-radius: 10px;
-	border-bottom-left-radius: 10px;
-}
-
-#custom-jalalidate {
-	margin-right: 8px;
-	border-top-right-radius: 10px;
-	border-bottom-right-radius: 10px;
-}
-
-#battery {
-}
-
-#battery icon {
-    color: red;
-}
-
-#battery.charging {
-}
 
 @keyframes blink {
     to {
-        background-color: #af005f;
+        background-color: @white;
+        color: @black;
     }
 }
 
-#battery.warning:not(.charging) {
-	background-color: #ff8700;
-	color: #1b1d1e;
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "monospace";
+    font-weight: bold;
+    font-size: 12px;
+    min-height: 0;
 }
-#battery.critical:not(.charging) {
-    color: white;
+
+window#waybar {
+    background: transparent;
+	  color: @foreground;
+}
+
+#workspaces {
+    background: @workspace_background;
+    transition: none;
+}
+
+#workspaces button, #workspaces button.persistent {
+    background: transparent;
+    color: @workspace_button;
+    transition: none;
+}
+
+#workspaces button.active {
+    background: @workspace_active_background;
+    color: @workspace_active;
+    border-radius: 5px;
+    margin: 2px 0px 2px 0px;
+/*
+    border-top: 2px solid @pink;
+    border-bottom: 2px solid @pink;
+*/
+}
+
+#workspaces button.urgent {
+    background: @workspace_urgent_background;
+    color: @workspace_urgent;
+    border-radius: 5px;
+    margin: 2px 0px 2px 0px;
+}
+
+#workspaces button:hover {
+    background: @workspace_hover_background;
+    color: @workspace_hover;
+    border-radius: 5px;
+    margin: 2px 0px 2px 0px;
+}
+
+#taskbar {
+    background: @background;
+}
+
+tooltip {
+    background: @background;
+    opacity: 0.8;
+    border-radius: 10px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: @purple;
+}
+
+tooltip label{
+    color: @grey;
+}
+
+#custom-rofi,
+#custom-lock_screen,
+#custom-light_dark,
+#custom-power,
+#custom-power_profile,
+#custom-weather,
+#custom-myhyprv,
+#window,
+#cpu,
+#disk,
+#custom-updates,
+#memory,
+#clock,
+#battery,
+#pulseaudio,
+#network,
+#tray,
+#temperature,
+#workspaces,
+#backlight,
+#language {
+    background: @background;
+    opacity: 1;
+    padding: 0px 5px;
+    border: 0px;
+}
+
+#disk.critical,
+#temperature.critical  {
+    background-color: @critical;
+}
+
+#disk.warning,
+#temperature.warning {
+    background-color: @warning;
+}
+
+#battery {
+    color: @green;
+}
+
+#battery.discharging {
+    color: @foreground;
+}
+
+#battery.warning:not(.charging) {
+    background: @warning;
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: linear;
@@ -117,26 +183,26 @@
     animation-direction: alternate;
 }
 
-#cpu {
+#battery.critical:not(.charging) {
+    background-color: @critical;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
 
-#memory {
+#custom-rofi {
+    color: @arch_blue;
+    border-right: 0px;
 }
 
-#network {
-}
-
-#network.disconnected {
-    background: #f53c3c;
+#custom-power {
+    color: @red;
 }
 
 #pulseaudio {
 }
 
-#pulseaudio.muted {
+#pulseaudio.microphone {
 }
-
-#tray {
-	margin-left: 1px;
-}
-
