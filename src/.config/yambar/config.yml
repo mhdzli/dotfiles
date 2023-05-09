@@ -93,7 +93,7 @@ bar:
         date-format: "%d %b %Y"
         content:
           - string: {text: , font: *awesome, foreground: 689d6aff}
-          - string: {text: "{date}", right-margin: 5, foreground: 689d6aff}
+          - string: {text: "{date}", right-margin: 5, foreground: 689d6aff, on-click: "setbg"}
           - string: {text: , font: *awesome}
           - string: {text: "{time}"}
 
@@ -217,10 +217,10 @@ bar:
                 <<: *discharging
               state == charging:
                 - string: {text: , foreground: 00ff00ff, font: *awesome}
-                - string: {text: "{capacity}% {estimate}"}
+                - string: {text: "{capacity}% {estimate}", foreground: 00ff00ff}
               state == full:
                 - string: {text: , foreground: 00ff00ff, font: *awesome}
-                - string: {text: "{capacity}% full"}
+                - string: {text: "{capacity}% full", foreground: 00ff00ff}
               state == "not charging":
                 - ramp:
                     tag: capacity
@@ -235,7 +235,7 @@ bar:
                       - string: {text:  , foreground: 00ff00ff, font: *awesome}
                       - string: {text:  , foreground: 00ff00ff, font: *awesome}
                       - string: {text:  , foreground: 00ff00ff, font: *awesome}
-                - string: {text: "{capacity}%"}
+                - string: {text: "{capacity}%", foreground: 00ff00ff}
 
     - sway-xkb:
         identifiers: [1:1:AT_Translated_Set_2_keyboard]

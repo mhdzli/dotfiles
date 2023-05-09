@@ -53,6 +53,10 @@ exec {
 
     # auto night mode
     wlsunset -l 29.3 -L 52.3
+
+    # systemctl & dbus
+    systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+    hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 }
 
 # # Default options
@@ -425,6 +429,7 @@ for_window {
     [app_id=".*pavucontrol.*"] floating enable
     [app_id=$term title=".*pulsemixer.*"] floating enable
     [app_id=".*nextcloud.*"] floating enable, move container to scratchpad
+    [app_id=".*showmethekey.*"] floating enable
 }
 
 ### Output configuration
