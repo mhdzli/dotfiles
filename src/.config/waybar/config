@@ -5,12 +5,15 @@
     "exclusive": true,
     "passthrough": false,
     "gtk-layer-shell": true,
-    "height": 5,
+    "height": 36,
+    "margin-right": 5,
+    "margin-left": 5, 
 
     "modules-left": [
         "custom/rofi",
-        "custom/power",
-        "custom/lock_screen",
+        "custom/weather",
+        "custom/khorshididate",
+        "clock",
         "wlr/taskbar",
     ],
 
@@ -28,12 +31,11 @@
         "memory",
         "disk",
         "temperature",
-        "custom/weather",
         "custom/updates",
         "network",
-        "clock",
-        "custom/khorshididate",
-        "hyprland/language"
+        "hyprland/language",
+        "custom/lock_screen",
+        "custom/power"
     ],
 
     "custom/rofi": {
@@ -205,7 +207,7 @@
     },
 
     "network": {
-        "interface": "wlp2s0",
+        "interface": "wlp4s0",
         "format": "{ifname}",
         "format-wifi": " ",
         "format-ethernet": " ",
@@ -235,10 +237,10 @@
     },
 
    "hyprland/language": {
-        "format": "{} ",
+        "format": "{}",
         "on-click": "hyprctl switchxkblayout at-translated-set-2-keyboard next",
-        "format-en": "EN ",
-        "format-fa": "FA "
+        "format-en": "EN",
+        "format-fa": "FA"
    },
 
 }

@@ -21,7 +21,7 @@
 
 /* Colors (dracula) */
 @define-color foreground	#f8f8f2;
-@define-color background	#282a36;
+@define-color background	rgba(40, 42, 54, 0.5);
 @define-color orange	#ffb86c;
 @define-color gray	#44475a;
 @define-color black #21222c;
@@ -78,7 +78,10 @@ window#waybar {
 
 #workspaces {
     background: @workspace_background;
+    opacity: 1;
     transition: none;
+    padding: 5px 5px;
+    border-radius: 5px;
 }
 
 #workspaces button, #workspaces button.persistent {
@@ -91,7 +94,6 @@ window#waybar {
     background: @workspace_active_background;
     color: @workspace_active;
     border-radius: 5px;
-    margin: 2px 0px 2px 0px;
 /*
     border-top: 2px solid @pink;
     border-bottom: 2px solid @pink;
@@ -102,23 +104,23 @@ window#waybar {
     background: @workspace_urgent_background;
     color: @workspace_urgent;
     border-radius: 5px;
-    margin: 2px 0px 2px 0px;
 }
 
 #workspaces button:hover {
     background: @workspace_hover_background;
     color: @workspace_hover;
     border-radius: 5px;
-    margin: 2px 0px 2px 0px;
 }
 
 #taskbar {
     background: @background;
+    border-radius: 5px;
+    margin: 5px 10px 5px 50px;
 }
 
 tooltip {
     background: @background;
-    opacity: 0.8;
+    opacity: 0.95;
     border-radius: 10px;
     border-width: 2px;
     border-style: solid;
@@ -134,7 +136,6 @@ tooltip label{
 #custom-power,
 #custom-weather,
 #custom-khorshididate,
-#window,
 #cpu,
 #disk,
 #custom-updates,
@@ -145,13 +146,12 @@ tooltip label{
 #network,
 #tray,
 #temperature,
-#workspaces,
 #backlight,
 #language {
     background: @background;
     opacity: 1;
     padding: 0px 5px;
-    border: 0px;
+    margin: 2px 0px 2px 0px;
 }
 
 #disk.critical,
@@ -166,6 +166,7 @@ tooltip label{
 
 #battery {
     color: @green;
+    border-radius: 5px 0px 0px 5px;
 }
 
 #battery.discharging {
@@ -192,11 +193,22 @@ tooltip label{
 
 #custom-rofi {
     color: @arch_blue;
-    border-right: 0px;
+    border-radius: 5px 0px 0px 5px;
 }
 
 #custom-power {
     color: @red;
+    border-radius: 0px 5px 5px 0px;
+}
+
+#clock {
+    border-radius: 0px 5px 5px 0px;
+}
+
+#tray {
+    background: @background;
+    border-radius: 5px;
+    margin: 5px 50px 5px 10px;
 }
 
 #pulseaudio {
