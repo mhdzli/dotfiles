@@ -430,6 +430,7 @@ for_window {
     [app_id=$term title=".*pulsemixer.*"] floating enable
     [app_id=".*nextcloud.*"] floating enable, move container to scratchpad
     [app_id=".*showmethekey.*"] floating enable
+    [app_id=".*showmethekey" title=".*Floating.*"] move absolute position 810 970, sticky on
 }
 
 ### Output configuration

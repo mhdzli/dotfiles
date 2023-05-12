@@ -1,24 +1,19 @@
+# DO NOT EDIT! This file will be overwritten by nwg-look.
+# Any customization should be done in ~/.gtkrc-2.0.mine instead.
 
-include "~/.gtkrc-2.0.mine"
-gtk-theme="Adwaita:dark"
-# gtk-theme-name="Adwaita:dark"
-gtk-icon-theme-name="papirus-dark"
-gtk-font-name="Sans 11"
-# gtk-cursor-theme-name=Breeze_Amber
+include "/home/mzeinali/.gtkrc-2.0.mine"
+gtk-theme-name="Adwaita"
+gtk-icon-theme-name="Papirus-Dark"
+gtk-font-name="Vazirmatn 14"
 gtk-cursor-theme-name="Layan-cursors"
 gtk-cursor-theme-size=40
 gtk-toolbar-style=GTK_TOOLBAR_BOTH_HORIZ
-# gtk-toolbar-style=GTK_TOOLBAR_TEXT
 gtk-toolbar-icon-size=GTK_ICON_SIZE_SMALL_TOOLBAR
 gtk-button-images=0
 gtk-menu-images=1
-gtk-enable-event-sounds=0
+gtk-enable-event-sounds=1
 gtk-enable-input-feedback-sounds=0
 gtk-xft-antialias=1
 gtk-xft-hinting=1
 gtk-xft-hintstyle="hintslight"
-# gtk-xft-hintstyle="hintfull"
 gtk-xft-rgba="rgb"
-# gtk-decoration-layout=menu:close
-gtk-application-prefer-dark-theme=1
-
