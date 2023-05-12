@@ -38,22 +38,22 @@ set_wayland_env(){
 	export MOZ_WAYLAND_USE_VAAPI=1
 	export MOZ_DBUS_REMOTE=1
 	export NO_AT_BRIDGE=1
-    # export GDK_BACKEND=wayland #Wayland will be selected by default. Do not set GDK_BACKEND, it will break apps (e.g. Chromium and Electron).
+	# export GDK_BACKEND=wayland #Wayland will be selected by default. Do not set GDK_BACKEND, it will break apps (e.g. Chromium and Electron).
 	export GTK_IM_MOUDLE=xim
 	export ELM_ENGINE=wayland
 	export CLUTTER_BACKEND=wayland
 	export SDL_VIDEODRIVER=wayland
 	export QT_QPA_PLATFORM=wayland
-    export QT_WAYLAND_FORCE_DPI=physical
-    export QT_WAYLAND_DISABLE_WINDOWDECORATION=1 # hide window decoratins in older versions of QT
-    export QT_QPA_PLATFORMTHEME=qt5ct # Qt applications running natively might have missing functionality. For example, KeepassXC will be unable to minimize to tray. This can be solved by installing qt5ct and setting this env VAR
+	export QT_WAYLAND_FORCE_DPI=physical
+	export QT_WAYLAND_DISABLE_WINDOWDECORATION=1 # hide window decoratins in older versions of QT
+	export QT_QPA_PLATFORMTHEME=qt5ct # Qt applications running natively might have missing functionality. For example, KeepassXC will be unable to minimize to tray. This can be solved by installing qt5ct and setting this env VAR
 	export ECORE_EVAS_ENGINE=wayland
 	export _JAVA_AWT_WM_NONREPARENTING=1
 	export XMODIFIERS=@im=ibus
-    export LIBSEAT_BACKEND=logind
+	export LIBSEAT_BACKEND=logind
 	export XDG_SESSION_TYPE=wayland
-    export XDG_SESSION_DESKTOP=sway
-    export XDG_CURRENT_DESKTOP=sway
+	export XDG_SESSION_DESKTOP=sway
+	export XDG_CURRENT_DESKTOP=sway
 	# export QT_IM_MODULE=ibus
 }
 
