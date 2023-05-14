@@ -3,7 +3,7 @@
 ## dwm screenshots:
 
 ![dwm-01.png](dwm-01.png)
-![dwm-03.png](/dwm-03.png)
+![dwm-03.png](dwm-03.png)
 
 ## sway screenshots:
 
