@@ -22,12 +22,12 @@ set {
     $right   l
 
     # Your preferred terminal emulator
-    $term    foot
+    $term    "$TERMINAL"
     
     # Your preferred application launcher
     # Note: pass the final command to swaymsg so that the resulting window can be opened
     # on the original workspace that the command was run on.
-    $menu "rofi -theme ~/.config/rofi/theme/onedark_mini.rasi -show drun"
+    $menu "$LAUNCHER"
 
 }
 
@@ -218,7 +218,7 @@ bindsym {
     $mod+d    exec $menu
 
     # Window switcher
-    $mod+Shift+d    exec swaymsg \[con_id=$(swaymsg -t get_tree | jq -r '.nodes[].nodes[].nodes[], .nodes[].nodes[].floating_nodes[] | .. | (.id|tostring) + " " + .name?' | grep -e "[0-9]* ." | rofi -dmenu -i | awk '{print $1}')] focus
+    $mod+Shift+d    exec swaymsg \[con_id=$(swaymsg -t get_tree | jq -r '.nodes[].nodes[].nodes[], .nodes[].nodes[].floating_nodes[] | .. | (.id|tostring) + " " + .name?' | grep -e "[0-9]* ." | fuzzel --log-level=none --log-no-syslog -w 80 -I -d | awk '{print $1}')] focus
 
     # Music Player
     $mod+m    exec "$term ncmpcpp"
@@ -241,7 +241,7 @@ bindsym {
     $mod+i    exec menuunicode
 
     # Bluetooth
-    $mod+comma    exec rofi-bluetooth
+    $mod+comma    exec menu-bluetooth
 
     # Color picker
     $mod+Shift+p    exec grim -g "$(slurp -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | tail -n 1 | cut -d ' ' -f 4 | wl-copy
@@ -322,7 +322,7 @@ bindsym {
     $mod+y    exec "killall swaykbdd || swaykbdd"
 
     ### Clipboard 
-    $mod+v          exec 'clipman pick --tool=rofi --tool-args="-theme ~/.config/rofi/theme/dracula-dark.rasi" --histpath="~/.local/share/clipman/clipman.json"'
+    $mod+v          exec 'clipman pick --tool=CUSTOM --tool-args="$MENU -w 100 -d -i" --histpath="~/.local/share/clipman/clipman.json"'
     $mod+Shift+v    exec "wclipboard"
 
     ### Mounting Function

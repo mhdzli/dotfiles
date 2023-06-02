@@ -3,7 +3,7 @@
 # Script to switch audio output profiles
 
 # Set the menu for choosing options
-menu='rofi -theme ~/.config/rofi/theme/dracula-dark.rasi -dmenu'
+menu="$MENU"
 # Set the path to save available audio profiles list
 audio_profiles_list="$HOME/.local/share/audio-profiles"
 
@@ -32,7 +32,7 @@ Update() {
 
 Switch(){
     # Choose a device
-    device="$(grep -n "description" $audio_profiles_list | cut -d"\"" -f2 | $menu -i -p "Choose the device")" || exit 1
+    device="$(grep -n "description" $audio_profiles_list | cut -d"\"" -f2 | $menu -p "Choose the device")" || exit 1
     # Replace device.description with device.name
     device="$(sed -n "/${device}/{n;p}" $audio_profiles_list | cut -d"\"" -f2)"
     # Choose a profile

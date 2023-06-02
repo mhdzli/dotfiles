@@ -2,7 +2,7 @@
 
 # script for editing some of my more frequently edited config files.
 
-menu="rofi -dmenu"
+menu="$MENU -p"
 
 declare options=("alacritty
 bash
@@ -28,7 +28,7 @@ xresources
 zsh
 quit")
 
-choice=$(echo -e "${options[@]}" | $menu -i -p 'Edit config file: ')
+choice=$(echo -e "${options[@]}" | $menu 'Edit config file: ')
 
 case "$choice" in
     quit)

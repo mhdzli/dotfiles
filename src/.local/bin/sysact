@@ -2,7 +2,7 @@
 
 # A menu wrapper script for system functions.
 
-menu="rofi -dmenu"
+menu="$MENU"
 
 # For non-systemd init systems.
 case "$(readlink -f /sbin/init)" in

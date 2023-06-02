@@ -20,11 +20,25 @@ default-timeout=1000
 
 # Set background color to color. See COLORS for more information.
 # Default: #285577FF
-background-color=#1d1f21
+# background-color=#1d1f21
 
 # Set text color to color. See COLORS for more information.
 # Default: #FFFFFFFF
-text-color=#979a9a
+# text-color=#979a9a
+
+# Deacula theme
+background-color=#282a36
+text-color=#44475a
+border-color=#bd93f9
+
+[urgency=low]
+border-color=#bd93f9
+
+[urgency=normal]
+border-color=#f1fa8c
+
+[urgency=high]
+border-color=#ff5555
 
 # Sorts incoming notifications by time and/or priority in as cending(+) or descending(-) order.
 # +/-time | +/-priority
@@ -49,7 +63,7 @@ text-color=#979a9a
 ## STYLE OPTIONS
 # Set font to font, in Pango format.
 # Default: monospace 10
-# font=font
+font=monospace 14
 
 # Set width of notification popups.
 # Default: 300

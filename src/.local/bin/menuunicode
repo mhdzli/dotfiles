@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-menu='rofi -dmenu'
+menu="$MENU -l 20 -w 60"
 
 [ -z "$WAYLAND_DISPLAY" ]  && pf="xorg" || pf="wayland"
 
@@ -8,7 +8,7 @@ xclip -h 2>/dev/null || [ -n "$WAYLAND_DISPLAY" ] || exit
 
 wl-copy -h >/dev/null || [ -z "$WAYLAND_DISPLAY" ] || exit
 
-chosen=$(cut -d ';' -f1 ~/.local/share/emoji | $menu -i -l 30 | sed "s/ .*//")
+chosen=$(cut -d ';' -f1 ~/.local/share/emoji | $menu | sed "s/ .*//")
 
 [ "$chosen" != "" ] || exit
 

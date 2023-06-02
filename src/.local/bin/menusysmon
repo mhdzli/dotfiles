@@ -2,17 +2,17 @@
 
 # Script for launching system monitoring commands.
 
-menu="rofi -dmenu"
+menu="$MENU -p"
 
 Cpu() {\
-    case "$(printf "cpuinfo\\nlscpu" | $menu -i -p "Which info do you preffer?")" in
+    case "$(printf "cpuinfo\\nlscpu" | $menu "Which info do you preffer?")" in
         cpuinfo) less /proc/cpuinfo ;;
         lscpu) lscpu ;;
     esac
 }
 
 Sysmon() {\
-    smon="$(printf "htop\\nglances\\ngtop\\niftop\\niotop\\niptraf-ng\\nnmon\\ns-tui\\npowertop" | $menu -i -p "Which Program do you preffer?")"
+    smon="$(printf "htop\\nglances\\ngtop\\niftop\\niotop\\niptraf-ng\\nnmon\\ns-tui\\npowertop" | $menu "Which Program do you preffer?")"
     case $smon in
         htop| \
         glances| \
@@ -34,7 +34,7 @@ Sysmon() {\
 }
 
 Clockset() {\
-    case "$(printf "timedate\\nhwclock\\nsync&set" | $menu -i -p "Which info do you preffer?")" in
+    case "$(printf "timedate\\nhwclock\\nsync&set" | $menu "Which info do you preffer?")" in
         timedate) timedatectl status ;;
         hwclock) sudo -A hwclock --show ;;
         sync\&set) sudo -A ntpd -qg; sudo -A hwclock --systohc ;;
@@ -42,7 +42,7 @@ Clockset() {\
 }
 
 Network() {\
-    case "$(printf "general\\nip\\nports" | $menu -i -p "Which info do you preffer?")" in
+    case "$(printf "general\\nip\\nports" | $menu "Which info do you preffer?")" in
         general) nmcli device status; ip link show; nmcli connection show; cat /etc/resolv.conf ;;
         ip) ip a; curl icanhazip.com; curl ifconfig.me ;;
         ports) [ $(which ss 2>/dev/null) ] && sudo -A ss -ltup || ( [ $(which netstat 2>/dev/null) ] && sudo -A netstat -ltup ) || ( [ $(which netcap 2>/dev/null) ] && sudo -A netcap ) ;;
@@ -67,7 +67,7 @@ battery
 network
 quit")
 
-choice=$(echo -e "${options[@]}" | $menu -i -p 'System monitors: ')
+choice=$(echo -e "${options[@]}" | $menu 'System monitors: ')
 
 case $choice in
     quit)

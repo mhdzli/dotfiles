@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set the menu for choosing options
-menu='rofi -theme ~/.config/rofi/theme/dracula-dark.rasi -dmenu'
+menu="$MENU -p"
 # Set the path for file lists whitch dlmgr use
 a2_dir="$HOME/.local/share/aria2"
 # Set the default path for download files
@@ -38,22 +38,22 @@ stop_download () {
 
 add_link () {
     case $pf in
-        "xorg") link=$(xclip -o | $menu -i -p "Url Address" -l 2);;
-        "wayland") link=$(wl-paste | $menu -i -p "Url Address" -l 2);;
+        "xorg") link=$(xclip -o | $menu "Url Address" -l 2);;
+        "wayland") link=$(wl-paste | $menu "Url Address" -l 2);;
     esac
-    dir="$(find "$HOME" -maxdepth 5 -type d 2>/dev/null | $menu -i -p "Type in download directory.")" || dir="$dl_dir"
+    dir="$(find "$HOME" -maxdepth 5 -type d 2>/dev/null | $menu "Type in download directory.")" || dir="$dl_dir"
     [ "$link" ] && dlmgr add "$link" "$dir"
 }
 
 remove_link () {
-    line=$(grep -n "^[^ ]" "$a2_dir"/dl_list | $menu -i -p "Url Address" | cut -d: -f1)
+    line=$(grep -n "^[^ ]" "$a2_dir"/dl_list | $menu "Url Address" | cut -d: -f1)
     # Remove the selected line (download url) and the next line after (download path)
     sed -i "${line},+1d" "$a2_dir"/dl_list
     stop_download && start_download
 }
 
 ask_action () {
-    choice="$(printf "Start Download\\nStop Download\\nAdd Link\\nRemove Link" | $menu -i -p "What do you want to do?")" || exit 1
+    choice="$(printf "Start Download\\nStop Download\\nAdd Link\\nRemove Link" | $menu "What do you want to do?")" || exit 1
     case $choice in
         "Start Download") start_download;;
         "Stop Download") stop_download;;

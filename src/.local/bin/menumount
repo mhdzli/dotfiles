@@ -5,11 +5,11 @@
 # be prompted to give a mountpoint from already existsing directories. If you
 # input a novel directory, it will prompt you to create that directory.
 
-menu="rofi -dmenu"
+menu="$MENU -p"
 
 getmount() {
 	[ -z "$chosen" ] && exit 1
-	mp="$(find $1 2>/dev/null | $menu -i -p "Type in mount point.")" || exit 1
+	mp="$(find $1 2>/dev/null | $menu "Type in mount point.")" || exit 1
 	[ "$mp" = "" ] && exit 1
 	if [ ! -d "$mp" ]; then
 		mkdiryn=$(prompt "$mp does not exist. Create it?" "echo Yes")
@@ -18,7 +18,7 @@ getmount() {
 	}
 
 mountusb() { \
-	chosen="$(echo "$usbdrives" | $menu -i -p "Mount which drive?")" || exit 1
+	chosen="$(echo "$usbdrives" | $menu "Mount which drive?")" || exit 1
 	chosen="$(echo "$chosen" | awk '{print $1}')"
 	sudo -A mount "$chosen" 2>/dev/null && notify-send "💻 USB mounting" "$chosen mounted." && exit 0
 	alreadymounted=$(lsblk -nrpo "name,type,mountpoint" | awk '$3!~/\/boot|\/home$|SWAP/&&length($3)>1{printf "-not ( -path *%s -prune ) ",$3}')
@@ -33,17 +33,17 @@ mountusb() { \
 	}
 
 mountandroid() {
-	chosen="$(echo "$anddrives" | $menu -i -p "Which Android device?")" || exit 1
+	chosen="$(echo "$anddrives" | $menu "Which Android device?")" || exit 1
 	chosen="$(echo "$chosen" | cut -d : -f 1)"
 	getmount "$HOME -maxdepth 3 -type d"
 	simple-mtpfs --device "$chosen" "$mp"
-	echo "OK" | $menu -i -p "Tap Allow on your phone if it asks for permission and then press enter" || exit 1
+	echo "OK" | $menu "Tap Allow on your phone if it asks for permission and then press enter" || exit 1
 	simple-mtpfs --device "$chosen" "$mp"
 	notify-send "🤖 Android Mounting" "Android device mounted to $mp."
 	}
 
 asktype() { \
-	choice="$(printf "USB\\nAndroid" | $menu -i -p "Mount a USB drive or Android device?")" || exit 1
+	choice="$(printf "USB\\nAndroid" | $menu "Mount a USB drive or Android device?")" || exit 1
 	case $choice in
 		USB) mountusb ;;
 		Android) mountandroid ;;

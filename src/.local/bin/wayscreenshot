@@ -12,7 +12,7 @@
 #   - without the `with_description` option:
 #      12,43 100x200
 
-menu="rofi -dmenu"
+menu="$MENU -p"
 
 function list_geometry () {
     [ "$2" = with_description ] && local append="\t\(.name)" || local append=
@@ -25,7 +25,7 @@ focused=`list_geometry focused`
 
 filename="$(date +'%Y-%m-%d-%H%M%S_screenshot.png')"
 
-choice=$(printf "fullscreen\\nregion\\nfocused\\n$windows" | $menu -i -p "Select screenshot type")
+choice=$(printf "fullscreen\\nregion\\nfocused\\n$windows" | $menu "Select screenshot type")
 case "$choice" in
     fullscreen) grim "pic-full-$filename";;
     region) grim -g "$(slurp)" "pic-selected-$filename";;
@@ -34,7 +34,7 @@ case "$choice" in
         geometry="`echo \"$choice\" | cut -d$'\t' -f1`"
         grim -g "$geometry" "pic-window-$filename"
     # *) 
-    #     echo "OK" | $menu -p "Screenshot is cancelled 📷 "
+    #     echo "OK" | $menu "Screenshot is cancelled 📷 "
     #     exit 0
 esac
 

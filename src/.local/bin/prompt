@@ -1,3 +1,4 @@
 #!/usr/bin/env sh
 
-[ "$(printf "No\\nYes" | rofi -theme ~/.config/rofi/theme/dracula-dark.rasi -dmenu -theme-str '* { font: "Monospace 18"; background-color: #571d1d90; lines:4; active-background: #cc4545; }' -i -p "$1")" = "Yes" ] && $2
+#[ "$(printf "No\\nYes" | rofi -theme ~/.config/rofi/theme/dracula-dark.rasi -dmenu -theme-str '* { font: "Monospace 18"; background-color: #571d1d90; lines:4; active-background: #cc4545; }' -i -p "$1")" = "Yes" ] && $2
+[ "$(printf "No\\nYes" | fuzzel -d -l 3 -b "#571d1d99" -f Monospace:size=14 -w 30 -p "$1")" = "Yes" ] && $2

@@ -3,24 +3,24 @@
 # Provides you with mounted partitions, select one to unmount.
 # Drives mounted at /, /boot and /home will not be options to unmount.
 
-menu="rofi -dmenu"
+menu="$MENU -p"
 
 unmountusb() {
 	[ -z "$drives" ] && exit
-	chosen="$(echo "$drives" | $menu -i -p "Unmount which drive?")" || exit 1
+	chosen="$(echo "$drives" | $menu "Unmount which drive?")" || exit 1
 	chosen="$(echo "$chosen" | awk '{print $1}')"
 	[ -z "$chosen" ] && exit
 	sudo -A umount "$chosen" && notify-send "💻 USB unmounting" "$chosen unmounted."
 	}
 
 unmountandroid() { \
-	chosen=$(awk '/simple-mtpfs/ {print $2}' /etc/mtab | $menu -i -p "Unmount which device?") || exit 1
+	chosen=$(awk '/simple-mtpfs/ {print $2}' /etc/mtab | $menu "Unmount which device?") || exit 1
 	[ -z "$chosen" ] && exit
 	sudo -A umount -l "$chosen" && notify-send "🤖 Android unmounting" "$chosen unmounted."
 	}
 
 asktype() { \
-	choice="$(printf "USB\\nAndroid" | $menu -i -p "Unmount a USB drive or Android device?")" || exit 1
+	choice="$(printf "USB\\nAndroid" | $menu "Unmount a USB drive or Android device?")" || exit 1
 	case "$choice" in
 		USB) unmountusb ;;
 		Android) unmountandroid ;;
