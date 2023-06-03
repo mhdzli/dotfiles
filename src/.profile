@@ -30,7 +30,8 @@ export GTK2_RC_FILES="$HOME/.config/gtk-2.0/gtkrc-2.0"
 export ZDOTDIR="$HOME/.config/zsh"
 export LESSHISTFILE="$HOME/.cache/less/history"
 ### Set vim as manpager ###
-export MANPAGER="/bin/sh -c \"col -b | nvim -c 'set ft=man ts=8 nomod nolist noma number relativenumber' -\""
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+# export MANPAGER="/bin/sh -c \"col -b | nvim -c 'set ft=man ts=8 nomod nolist noma number relativenumber' -\""
 # export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nomod nolist noma number relativenumber' -\""
 
 
