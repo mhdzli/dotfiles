@@ -8,7 +8,27 @@
 awesome: &awesome Font Awesome 5 Free:style=solid:pixelsize=14
 awesome_brands: &awesome_brands Font Awesome 5 Brands:pixelsize=16
 
-std_underline: &std_underline {underline: { size: 2, color: 00ffffff}}
+# Drcula color scheme
+background: &background 282a36ff
+foreground: &foreground f8f8f2ff
+black: &black 21222cff
+red: &red ff5555ff
+green: &green 50fa7bff
+yellow: &yellow f1fa8cff
+blue: &blue bd93f9ff
+magenta: &magenta ff79c6ff
+cyan: &cyan 8be9fdff
+white: &white f8f8f2ff
+bright_black: &bright_black 6272a4ff
+bright_red: &bright_red ff6e6eff
+bright_green: &bright_green 69ff94ff
+bright_yellow: &bright_yellow ffffa5ff
+bright_blue: &bright_blue d6acffff
+bright_magenta: &bright_magenta ff92dfff
+bright_cyan: &bright_cyan a4ffffff
+bright_white: &bright_white ffffffff
+
+std_underline: &std_underline {underline: { size: 2, color: *magenta}}
 
 # This is THE bar configuration
 bar:
@@ -20,12 +40,12 @@ bar:
   # Default font
   font: Monospace:pixelsize=18:style=bold
 
-  foreground: fbfac7ff
-  background: 282828ff
+  foreground: *foreground
+  background: *background
 
   border:
     width: 2
-    color: 076678cc
+    color: *blue
     margin: 0
     top-margin: 0
 
@@ -33,7 +53,7 @@ bar:
     - label:
         content:
           string:
-            on-click: rofi -theme ~/.config/rofi/theme/onedark_mini.rasi -show drun
+            on-click: fuzzel
             text: 
             foreground: 1491CEff
             font: Monospace:pixelsize=20
@@ -44,17 +64,17 @@ bar:
           - string: &default {<<: *i3_common, text: "{name}"}
           - string: &surfing {<<: *i3_common, text: , font: *awesome_brands}
           - focused: &focused
-              deco: {stack: [background: {color: 00afd7af}, <<: *std_underline]}
-          - invisible: &invisible {foreground: ffffff55}
+              deco: {stack: [background: {color: *blue}, <<: *std_underline]}
+          - invisible: &invisible {foreground: *bright_black}
           - urgent: &urgent
-              foreground: 000000ff
-              deco: {stack: [background: {color: bc2b3fff}, <<: *std_underline]}
+              foreground: *black
+              deco: {stack: [background: {color: *red}, <<: *std_underline]}
           - map: &i3_mode
               default:
                 - string:
                     margin: 5
                     text: "{mode}"
-                    deco: {background: {color: cc421dff}}
+                    deco: {background: {color: *bright_red}}
                 - empty: {right-margin: 7}
               conditions:
                 mode == default: {empty: {}}
@@ -84,7 +104,7 @@ bar:
             conditions:
               ~activated: {empty: {}}
               activated:
-                - string: {text: "{app-id}", max: 10, foreground: ffa0a0ff}
+                - string: {text: "{app-id}", max: 10, foreground: *magenta}
                 - string: {text: ": {title}", max: 35}
 
   center:
@@ -92,16 +112,16 @@ bar:
         time-format: "%H:%M"
         date-format: "%d %b %Y"
         content:
-          - string: {text: , font: *awesome, foreground: 689d6aff}
-          - string: {text: "{date}", right-margin: 5, foreground: 689d6aff, on-click: "setbg"}
+          - string: {text: , font: *awesome, foreground: *green}
+          - string: {text: "{date}", right-margin: 5, foreground: *green, on-click: "setbg"}
           - string: {text: , font: *awesome}
           - string: {text: "{time}"}
 
     - script:
         path: /home/mzeinali/.config/yambar/khorshidi_date
         content:
-          - string: {text: , font: *awesome, foreground: d65d0eff}
-          - string: {text: "{khorshidi_date}", foreground: d65d0eff}
+          - string: {text: , font: *awesome, foreground: *yellow}
+          - string: {text: "{khorshidi_date}", foreground: *yellow}
 
   right:
     - removables:
@@ -112,17 +132,17 @@ bar:
         content:
           map:
             conditions:
-              -mounted:
+              ~mounted:
                 map:
                   on-click: menumount
                   conditions:
-                    -optical: [{string: *drive}, {string: {text: "{label}"}}]
+                    ~optical: [{string: *drive}, {string: {text: "{label}"}}]
                     optical: [{string: *optical}, {string: {text: "{label}"}}]
               mounted:
                 map:
                   on-click: menuumount
                   conditions:
-                    -optical:
+                    ~optical:
                       - string: {<<: *drive, deco: *std_underline}
                       - string: {text: "{label}"}
                     optical:
@@ -136,57 +156,57 @@ bar:
               ~carrier: {empty: {}}
               carrier:
                 map:
-                  default: {string: {text: , font: *awesome, foreground: ffffff66}}
+                  default: {string: {text: , font: *awesome, foreground: *white}}
                   conditions:
                     state == up:
                       map:
                         default: {string: {text: , font: *awesome}}
                         conditions:
-                          ipv4 == "": {string: {text: , font: *awesome, foreground: ffffff66}}
+                          ipv4 == "": {string: {text: , font: *awesome, foreground: *white}}
     - network:
-        name: wlp4s0
+        name: wlp2s0
         content:
           map:
-            default: {string: {text: , font: *awesome, foreground: ffffff66}}
+            default: {string: {text: , font: *awesome, foreground: *bright_white}}
             conditions:
-              state == down: {string: {text: , font: *awesome, foreground: ff0000ff}}
+              state == down: {string: {text: , font: *awesome, foreground: *red}}
               state == up:
                 map:
                   default:
-                    - string: {text: , font: *awesome, foreground: 98971aff}
-                    - string: {text: "{ssid}", foreground: 98971aff}
+                    - string: {text: , font: *awesome, foreground: *bright_green}
+                    - string: {text: "{ssid}", foreground: *bright_green}
                   conditions:
                     ipv4 == "":
-                      - string: {text: , font: *awesome, foreground: 98971aff}
-                      - string: {text: "{ssid}", foreground: 98971aff}
+                      - string: {text: , font: *awesome, foreground: *bright_green}
+                      - string: {text: "{ssid}", foreground: *bright_green}
     - alsa:
         card: hw:PCH
         mixer: Master
         content:
           map:
             conditions:
-              ~online: {string: {text: , font: *awesome, foreground: ff0000ff}}
+              ~online: {string: {text: , font: *awesome, foreground: *red}}
               online:
                 map:
-                  on-click: /bin/sh -c "pulsemixer --toggle-mute"
+                  on-click: /bin/sh -c "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
                   conditions:
-                    muted: {string: {text: , font: *awesome, foreground: ffffff66}}
+                    muted: {string: {text: , font: *awesome, foreground: *bright_white}}
                     ~muted:
                       list:
                         items:
                           - ramp:
                               tag: percent
                               items:
-                                - string: {text: , font: *awesome, foreground: 458588ff}
-                                - string: {text: , font: *awesome, foreground: 458588ff}
-                                - string: {text: , font: *awesome, foreground: 458588ff}
-                                - string: {text: , font: *awesome, foreground: 458588ff}
-                                - string: {text: , font: *awesome, foreground: 458588ff} 
-                          - string: {text: "{percent}%", foreground: 458588ff}
+                                - string: {text: , font: *awesome, foreground: *cyan}
+                                - string: {text: , font: *awesome, foreground: *cyan}
+                                - string: {text: , font: *awesome, foreground: *cyan}
+                                - string: {text: , font: *awesome, foreground: *cyan}
+                                - string: {text: , font: *awesome, foreground: *cyan} 
+                          - string: {text: "{percent}%", foreground: *cyan}
 
     - backlight:
         name: intel_backlight
-        content: [ string: {text: , font: *awesome, foreground: D79921FF}, string: {text: "{percent}%", foreground: D79921FF}]
+        content: [ string: {text: , font: *awesome, foreground: *bright_yellow}, string: {text: "{percent}%", foreground: *bright_yellow}]
     - battery:
         name: BAT0
         poll-interval: 1000
@@ -197,8 +217,8 @@ bar:
                 - ramp:
                     tag: capacity
                     items:
-                      - string: {text: , foreground: ff0000ff, font: *awesome}
-                      - string: {text: , foreground: ffa600ff, font: *awesome}
+                      - string: {text: , foreground: *red, font: *awesome}
+                      - string: {text: , foreground: *yellow, font: *awesome}
                       - string: {text: , font: *awesome}
                       - string: {text: , font: *awesome}
                       - string: {text: , font: *awesome}
@@ -206,7 +226,7 @@ bar:
                       - string: {text: , font: *awesome}
                       - string: {text: , font: *awesome}
                       - string: {text: , font: *awesome}
-                      - string: {text: , foreground: 00ff00ff, font: *awesome}
+                      - string: {text: , foreground: *green, font: *awesome}
                 - string: {text: "{capacity}% {estimate}"}
         content:
           map:
@@ -216,32 +236,32 @@ bar:
               state == discharging:
                 <<: *discharging
               state == charging:
-                - string: {text: , foreground: 00ff00ff, font: *awesome}
-                - string: {text: "{capacity}% {estimate}", foreground: 00ff00ff}
+                - string: {text: , foreground: *green, font: *awesome}
+                - string: {text: "{capacity}% {estimate}", foreground: *green}
               state == full:
-                - string: {text: , foreground: 00ff00ff, font: *awesome}
-                - string: {text: "{capacity}% full", foreground: 00ff00ff}
+                - string: {text: , foreground: *green, font: *awesome}
+                - string: {text: "{capacity}% full", foreground: *green}
               state == "not charging":
                 - ramp:
                     tag: capacity
                     items:
-                      - string: {text:  , foreground: ff0000ff, font: *awesome}
-                      - string: {text:  , foreground: ffa600ff, font: *awesome}
-                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
-                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
-                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
-                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
-                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
-                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
-                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
-                      - string: {text:  , foreground: 00ff00ff, font: *awesome}
-                - string: {text: "{capacity}%", foreground: 00ff00ff}
+                      - string: {text:  , foreground: *red, font: *awesome}
+                      - string: {text:  , foreground: *yellow, font: *awesome}
+                      - string: {text:  , foreground: *green, font: *awesome}
+                      - string: {text:  , foreground: *green, font: *awesome}
+                      - string: {text:  , foreground: *green, font: *awesome}
+                      - string: {text:  , foreground: *green, font: *awesome}
+                      - string: {text:  , foreground: *green, font: *awesome}
+                      - string: {text:  , foreground: *green, font: *awesome}
+                      - string: {text:  , foreground: *green, font: *awesome}
+                      - string: {text:  , foreground: *green, font: *awesome}
+                - string: {text: "{capacity}%", foreground: *green}
 
     - sway-xkb:
         identifiers: [1:1:AT_Translated_Set_2_keyboard]
         content:
-          - string: {text: , font: *awesome, foreground: D16286FF}
-          - string: {text: "{layout}", foreground: D16286FF}
+          - string: {text: , font: *awesome, foreground: *bright_magenta}
+          - string: {text: "{layout}", foreground: *bright_magenta}
 
     - label:
         content:
@@ -249,5 +269,5 @@ bar:
             on-click: sysact
             text: 
             font: *awesome
-            foreground: CC241DFF
+            foreground: *red
 

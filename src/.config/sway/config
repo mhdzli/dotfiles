@@ -72,24 +72,25 @@ seat * xcursor_theme Layan-cursors 40
 
 # Defining colors
 set {
-    $white          #ffffff
-    $cyan           #00afd7
-    $acqua          #00d787
-    $wine           #72003e
-    $magenta        #af005f
-    $orange         #ff8700
-    $silver         #e4e4e4
-    $elegant        #1b1d1e
-    $transparent    #000000
-    #$transparent    #0000007f
+    $background     #282a36
+    $current_line   #44475a
+    $foreground     #f8f8f2
+    $comment        #6272a4
+    $cyan           #8be9fd
+    $green          #50fa7b
+    $orange         #ffb86c
+    $pink           #ff79c6
+    $purple         #bd93f9
+    $red            #ff5555
+    $yellow         #f1fa8c
 }
 
-# Set some nice            colors      border      background    text        indicator    child_border
-client.focused             $elegant    $cyan       $elegant      $white      $cyan
-client.unfocused           $elegant    $elegant    $orange       $white      $elegant
-client.focused_inactive    $elegant    $elegant    $acqua        $magenta    $acqua
-client.urgent              $elegant    $magenta    $silver       $magenta    $magenta
-client.placeholder         $elegant    $magenta    $silver       $white      $magenta
+# Set some nice            colors       border      background      text            indicator    child_border
+client.focused             $background  $pink       $background     $foreground     $purple
+client.unfocused           $background  $purple     $background     $foreground     $pink
+client.focused_inactive    $background  $green      $current_line   $foreground     $orange
+client.urgent              $background  $red        $comment        $foreground     $cyan
+client.placeholder         $background  $purple     $comment        $foreground     $yellow
 
 # Workspaces:
 set {
@@ -564,14 +565,14 @@ bindsym {
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
 
-# theme
-# exec_always {
-#         gsettings set org.gnome.desktop.interface cursor-theme Layan-cursors
-#         gsettings set org.gnome.desktop.interface cursor-size 40
-#         gsettings set org.gnome.desktop.interface gtk-theme Adwaita:dark
-#         gsettings set org.gnome.desktop.interface iconn-theme papirus-dark
-#         gsettings set org.gnome.desktop.interface font-name "Vazirmatn 14"
-#     }
+# GTK theme
+exec_always {
+        gsettings set org.gnome.desktop.interface cursor-theme Layan-cursors
+        gsettings set org.gnome.desktop.interface cursor-size 40
+        gsettings set org.gnome.desktop.interface gtk-theme Adwaita:dark
+        gsettings set org.gnome.desktop.interface iconn-theme papirus-dark
+        gsettings set org.gnome.desktop.interface font-name "Vazirmatn 14"
+    }
 
 include /etc/sway/config.d/*
 

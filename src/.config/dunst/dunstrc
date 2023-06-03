@@ -33,7 +33,7 @@
     origin = top-right
 
     # Offset from the origin
-    offset = 10x50
+    offset = 10x20
 
     # Scale factor. It is auto-detected if value is 0.
     scale = 0
@@ -63,7 +63,7 @@
 
     # Show how many messages are currently hidden (because of
     # notification_limit).
-    indicate_hidden = yes
+    indicate_hidden = true
 
     # The transparency of the window.  Range: [0; 100].
     # This option will only work if a compositing window manager is
@@ -100,7 +100,7 @@
     separator_color = frame
 
     # Sort messages by urgency.
-    sort = yes
+    sort = true
 
     # Don't remove messages, if the user is idle (no mouse or keyboard input)
     # for longer than idle_threshold seconds.
@@ -171,7 +171,7 @@
     ellipsize = middle
 
     # Ignore newlines '\n' in notifications.
-    ignore_newline = no
+    ignore_newline = false
 
     # Stack together notifications with the same content
     stack_duplicates = true
@@ -180,7 +180,7 @@
     hide_duplicate_count = false
 
     # Display indicators for URLs (U) and actions (A).
-    show_indicators = yes
+    show_indicators = true
 
     ### Icons ###
 
@@ -202,7 +202,7 @@
 
     # Should a notification popped up from history be sticky or timeout
     # as if it would normally do.
-    sticky_history = yes
+    sticky_history = true
 
     # Maximum amount of notifications kept in history
     history_length = 30
@@ -210,7 +210,7 @@
     ### Misc/Advanced ###
 
     # dmenu path.
-    dmenu = /usr/bin/dmenu -p dunst:
+    dmenu = /usr/bin/fuzzel -p dunst:
 
     # Browser for opening urls in context menu.
     browser = /usr/bin/firefox -new-tab
@@ -365,14 +365,14 @@
 # Disable the transient hint so that idle_threshold cannot be bypassed from the
 # client
 #[transient_disable]
-#    match_transient = yes
-#    set_transient = no
+#    match_transient = true
+#    set_transient = false
 #
 # Make the handling of transient notifications more strict by making them not
 # be placed in history.
 #[transient_history_ignore]
-#    match_transient = yes
-#    history_ignore = yes
+#    match_transient = true
+#    history_ignore = true
 
 # fullscreen values
 # show: show the notifications, regardless if there is a fullscreen window opened
@@ -402,12 +402,12 @@
 #[history-ignore]
 #    # This notification will not be saved in history
 #    summary = "foobar"
-#    history_ignore = yes
+#    history_ignore = true
 
 #[skip-display]
 #    # This notification will not be displayed, but will be included in the history
 #    summary = "foobar"
-#    skip_display = yes
+#    skip_display = true
 
 #[signed_on]
 #    appname = Pidgin
