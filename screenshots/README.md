@@ -11,7 +11,9 @@
 ![sway-02.png](sway-02.png)
 
 ## waybar screenshots:
-Old one:
-![waybar_screenshot.png](waybar_screenshot.png)
-New one:
-![waybar_02.png](waybar_02.png)
+![waybar-01.png](waybar-01.png)
+![waybar-02.png](waybar-02.png)
+
+## hyprland screenshot:
+
+![hyprland-01.png](hyprland-01.png)
