@@ -13,12 +13,10 @@ esac
 pgrep swayidle > /dev/null && active_idle=" swayidle" || active_idle=" swayidle"
 
 cmds="\
- lock dwm,        slock
- leave dwm,       kill -TERM $(pgrep -u "$USER" "\bdwm$")
- renew dwm,       kill -HUP $(pgrep -u "$USER" "\bdwm$")
- lock sway,       swaylock -eFfki ~/Pictures/lockscreen.png
- leave sway,      pkill sway
+ lock,            swaylock -eFfki ~/Pictures/lockscreen.png
+ leave sway,      swaymsg exit
  renew sway,      swaymsg reload
+ leave hyprland,  hyprctl dispatch exit
 ⏾ hibernate,       ${hib:-systemctl suspend-then-hibernate -i}
  reboot,          ${reb:-sudo -A reboot}
 ⏻ shutdown,        ${shut:-sudo -A shutdown -h now}
