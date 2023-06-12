@@ -22,7 +22,7 @@ set {
     $right   l
 
     # Your preferred terminal emulator
-    $term    "$TERMINAL"
+    $term    foot
     
     # Your preferred application launcher
     # Note: pass the final command to swaymsg so that the resulting window can be opened
