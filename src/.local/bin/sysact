@@ -17,7 +17,7 @@ case "$(printf " lock\n leave\n renew sway\n%s\n sleep\n hibernat
     " leave") swaymsg exit || hyprctl dispatch exit ;;
     " renew sway") swaymsg reload ;;
     "${active_idle}") toggle_swayidle ;;
-#    " display off") swaymsg "output * dpms off" || hyprctl dispatch dpms off ;;
+    " display off") swaymsg "output * dpms off" || hyprctl dispatch dpms off ;;
     " sleep") $ctl suspend -i ;;
     " hibernate") $ctl hibernate -i ;;
     " reboot") $ctl reboot -i ;;

@@ -292,6 +292,10 @@ bindsym {
     # Reload the configuration file
     $mod+Shift+r    reload
 
+    # Toggle monitor (dpms/power)
+    $mod+Shift+m   exec "[[ $(swaymsg -t get_outputs -r | jq -e '.[] | .dpms') =~ "true" ]] && swaymsg 'output * dpms off' || swaymsg 'output * dpms on'"
+    $mod+Shift+n   exec "[[ $(swaymsg -t get_outputs -r | jq -e '.[] | .dpms') =~ "true" ]] && swaymsg 'output * power off' || swaymsg 'output * power on'"
+
     # Exit sway (logs you out of your Wayland session)
     #$mod+? exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
     $mod+escape       exec "prompt 'Leave Sway?' 'swaymsg exit'"
@@ -621,8 +625,8 @@ include /etc/sway/config.d/*
 ## $mod+Shift+j    move down
 ## $mod+Shift+k    move up
 ## $mod+Shift+l    move right
-## $mod+Shift+m
-## $mod+Shift+n
+## $mod+Shift+m    monitor-dpms toggle
+## $mod+Shift+n    monitor-power toggle
 ## $mod+Shift+o
 ## $mod+Shift+p    color picker
 ## $mod+Shift+q
