@@ -164,7 +164,7 @@ bar:
                         conditions:
                           ipv4 == "": {string: {text: , font: *awesome, foreground: *white}}
     - network:
-        name: wlp2s0
+        name: wlp4s0
         content:
           map:
             default: {string: {text: , font: *awesome, foreground: *bright_white}}
