@@ -207,7 +207,6 @@
     },
 
     "network": {
-        "interface": "wlp4s0",
         "format": "{ifname}",
         "format-wifi": " ",
         "format-ethernet": " ",
