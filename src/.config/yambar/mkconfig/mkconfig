@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# In yambar config file, some modules need hardware names which depends on your
+# system specifications.This is A script to make my yambar config
+# based on your hardware names.
+
+net_config() {
+    for pathname do
+        interface="$(printf $pathname | cut -d"/" -f5)"
+        if [[ "$(ls $pathname | grep wireless)" ]]; then
+            sed "s/INTERFACE/$interface/" wl.yml >> configs
+        else
+            sed "s/INTERFACE/$interface/" eth.yml >> configs
+        fi
+    done
+}
+export -f net_config
+
+backlight_config() {
+    for pathname do
+        interface="$(printf $pathname | cut -d"/" -f5)"
+        sed "s/INTERFACE/$interface/" backlight.yml >> configs
+    done
+}
+export -f backlight_config
+
+bat_config() {
+    for pathname do
+        interface="$(printf $pathname | cut -d"/" -f5)"
+        sed "s/INTERFACE/$interface/" bat.yml >> configs
+    done
+}
+export -f bat_config
+
+find /sys/class/net -maxdepth 1 -type l ! -path '/sys/class/net/lo' -exec bash -c 'net_config "$@"' bash {} \;
+find /sys/class/backlight -maxdepth 1 -type l -exec bash -c 'backlight_config "$@"' bash {} \;
+find /sys/class/power_supply -maxdepth 1 -type l ! -path '/sys/class/power_supply/AC' -exec bash -c 'bat_config "$@"' bash {} \;
+sed -e "/#CONFIGS/r configs" -e "/#CONFIGS/d" config.yml > ../config.yml
+
+rm -f configs

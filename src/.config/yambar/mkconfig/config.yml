@@ -148,115 +148,40 @@ bar:
                     optical:
                       - string: {<<: *optical, deco: *std_underline}
                       - string: {text: "{label}"}
-    - network:
-        name: enp0s31f6
+
+    - pipewire:
         content:
-          map:
-            conditions:
-              ~carrier: {empty: {}}
-              carrier:
-                map:
-                  default: {string: {text: , font: *awesome, foreground: *white}}
+          list:
+            items:
+              - map:
                   conditions:
-                    state == up:
+                    type == "sink":
                       map:
-                        default: {string: {text: , font: *awesome}}
+                        on-click: /bin/sh -c "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
                         conditions:
-                          ipv4 == "": {string: {text: , font: *awesome, foreground: *white}}
-    - network:
-        name: wlp4s0
-        content:
-          map:
-            default: {string: {text: , font: *awesome, foreground: *bright_white}}
-            conditions:
-              state == down: {string: {text: , font: *awesome, foreground: *red}}
-              state == up:
-                map:
-                  default:
-                    - string: {text: , font: *awesome, foreground: *bright_green}
-                    - string: {text: "{ssid}", foreground: *bright_green}
-                  conditions:
-                    ipv4 == "":
-                      - string: {text: , font: *awesome, foreground: *bright_green}
-                      - string: {text: "{ssid}", foreground: *bright_green}
-    - alsa:
-        card: hw:PCH
-        mixer: Master
-        content:
-          map:
-            conditions:
-              ~online: {string: {text: , font: *awesome, foreground: *red}}
-              online:
-                map:
-                  on-click: /bin/sh -c "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-                  conditions:
-                    muted: {string: {text: , font: *awesome, foreground: *bright_white}}
-                    ~muted:
-                      list:
-                        items:
+                          muted:
+                            string: {text: , font: *awesome, foreground: *red}
+                        default:
                           - ramp:
-                              tag: percent
+                              tag: linear_volume
                               items:
                                 - string: {text: , font: *awesome, foreground: *cyan}
                                 - string: {text: , font: *awesome, foreground: *cyan}
                                 - string: {text: , font: *awesome, foreground: *cyan}
                                 - string: {text: , font: *awesome, foreground: *cyan}
                                 - string: {text: , font: *awesome, foreground: *cyan} 
-                          - string: {text: "{percent}%", foreground: *cyan}
+                          - string: {text: "{linear_volume}%", foreground: *cyan}
+                    type == "source":
+                      map:
+                        on-click: /bin/sh -c "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+                        conditions:
+                          muted:
+                            string: {text: , font: *awesome, foreground: *red}
+                        default:
+                          - string: {text: " 🎙", font: *awesome, foreground: *cyan}
+                          - string: {text: "{linear_volume}%", foreground: *cyan}
 
-    - backlight:
-        name: intel_backlight
-        content: [ string: {text: , font: *awesome, foreground: *bright_yellow}, string: {text: "{percent}%", foreground: *bright_yellow}]
-    - battery:
-        name: BAT0
-        poll-interval: 1000
-        anchors:
-          discharging: &discharging
-            list:
-              items:
-                - ramp:
-                    tag: capacity
-                    items:
-                      - string: {text: , foreground: *red, font: *awesome}
-                      - string: {text: , foreground: *yellow, font: *awesome}
-                      - string: {text: , font: *awesome}
-                      - string: {text: , font: *awesome}
-                      - string: {text: , font: *awesome}
-                      - string: {text: , font: *awesome}
-                      - string: {text: , font: *awesome}
-                      - string: {text: , font: *awesome}
-                      - string: {text: , font: *awesome}
-                      - string: {text: , foreground: *green, font: *awesome}
-                - string: {text: "{capacity}% {estimate}"}
-        content:
-          map:
-            conditions:
-              state == unknown:
-                <<: *discharging
-              state == discharging:
-                <<: *discharging
-              state == charging:
-                - string: {text: , foreground: *green, font: *awesome}
-                - string: {text: "{capacity}% {estimate}", foreground: *green}
-              state == full:
-                - string: {text: , foreground: *green, font: *awesome}
-                - string: {text: "{capacity}% full", foreground: *green}
-              state == "not charging":
-                - ramp:
-                    tag: capacity
-                    items:
-                      - string: {text:  , foreground: *red, font: *awesome}
-                      - string: {text:  , foreground: *yellow, font: *awesome}
-                      - string: {text:  , foreground: *green, font: *awesome}
-                      - string: {text:  , foreground: *green, font: *awesome}
-                      - string: {text:  , foreground: *green, font: *awesome}
-                      - string: {text:  , foreground: *green, font: *awesome}
-                      - string: {text:  , foreground: *green, font: *awesome}
-                      - string: {text:  , foreground: *green, font: *awesome}
-                      - string: {text:  , foreground: *green, font: *awesome}
-                      - string: {text:  , foreground: *green, font: *awesome}
-                - string: {text: "{capacity}%", foreground: *green}
-
+#CONFIGS
     - sway-xkb:
         identifiers: [1:1:AT_Translated_Set_2_keyboard]
         content:
