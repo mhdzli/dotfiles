@@ -112,6 +112,3 @@ thefuck -h >/dev/null 2>&1 && eval "$(thefuck --alias)"
 # Load syntax highlighting; should be last.
 [[ -f "$config_dir/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source "$config_dir/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" 2>/dev/null
 [[ -f "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" 2>/dev/null
-
-# Github-cli completion
-[[ -f "$config_dir/zsh/gh-cmp.zsh" ]] && source "$config_dir/zsh/gh-cmp.zsh"
