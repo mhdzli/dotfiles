@@ -1,5 +1,0 @@
-#!/bin/sh
-# Just print the key name and code using xev
-xev | awk -F'[ )]+' '/^KeyPress/ { a[NR+2] } NR in a { printf "%-3s %s\n", $5, $8 }'
-# xev | awk -F'[ )]+' '/^KeyPress/ {n=NR+2} NR==n { printf "%-3s %s\n", $5, $8}'
-

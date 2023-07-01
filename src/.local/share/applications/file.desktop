@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=File Manager
-Icon=vifm
-Exec=/usr/bin/foot vifm %u

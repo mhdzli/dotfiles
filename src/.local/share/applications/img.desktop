@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Image viewer
-Icon=image-viewer
-Exec=/usr/bin/imv %u
