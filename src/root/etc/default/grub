@@ -1,3 +1,0 @@
-# Grub theme
-GRUB_BACKGROUND="/usr/share/grub/themes/my-theme/background.jpg"
-GRUB_FONT="/usr/share/grub/themes/my-theme/grub_font.pf2"

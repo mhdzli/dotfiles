@@ -1,9 +1,0 @@
-# Default config for sway
-#
-# Copy this to ~/.config/sway/config and edit it to your liking.
-#
-# Read `man 5 sway` for a complete reference.
-
-include config.d/*
-include thinkpad.conf
-include /etc/sway/config.d/*
