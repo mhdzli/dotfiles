@@ -6,7 +6,7 @@
 #	If given a directory, choose random file in it.
 
 # Location of link to wallpaper link and default directory.
-wp_dir=~/Pictures/Anime
+wp_dir=~/Pictures/wallpaper
 wallpaper="$HOME/Pictures/Desktop.png"
 
 [ -f "$1" ] && ln -sf "$(readlink -f "$1")" "$wallpaper"  && notify-send -i "$wallpaper" "Wallpaper changed."
