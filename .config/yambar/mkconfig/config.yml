@@ -150,6 +150,11 @@ bar:
                       - string: {text: "{label}"}
 
     - pipewire:
+        anchors:
+          volume: &volume
+            conditions:
+              muted: {string: {text: "{linear_volume}%", foreground: *red}}
+              ~muted: {string: {text: "{linear_volume}%", foreground: *cyan}}
         content:
           list:
             items:
@@ -160,7 +165,17 @@ bar:
                         on-click: /bin/sh -c "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
                         conditions:
                           muted:
-                            string: {text: , font: *awesome, foreground: *red}
+                            map:
+                              conditions:
+                                form_factor == headset:
+                                  string: {text: , font: *awesome, foreground: *red}
+                                form_factor == headphone:
+                                  string: {text: , font: *awesome, foreground: *red}
+                              default: {string: {text:  , foreground: *red}}
+                          form_factor == headset:
+                            string: {text: , font: *awesome, foreground: *cyan}
+                          form_factor == headphone:
+                            string: {text: , font: *awesome, foreground: *cyan}
                         default:
                           - ramp:
                               tag: linear_volume
@@ -170,16 +185,14 @@ bar:
                                 - string: {text: , font: *awesome, foreground: *cyan}
                                 - string: {text: , font: *awesome, foreground: *cyan}
                                 - string: {text: , font: *awesome, foreground: *cyan} 
-                          - string: {text: "{linear_volume}%", foreground: *cyan}
                     type == "source":
                       map:
                         on-click: /bin/sh -c "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
                         conditions:
-                          muted:
-                            string: {text: , font: *awesome, foreground: *red}
-                        default:
-                          - string: {text: " 🎙", font: *awesome, foreground: *cyan}
-                          - string: {text: "{linear_volume}%", foreground: *cyan}
+                          muted: {string: {text: " ", foreground: *red}}
+                        default: {string: {text: " 🎙", foreground: *cyan}}
+              - map:
+                  <<: *volume
 
 #CONFIGS
     - sway-xkb:
