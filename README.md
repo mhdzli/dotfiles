@@ -1,7 +1,7 @@
 # mz-dotfiles
 My configs and dotfiles for [`Hyprland`](https://hyprland.org) and [SWAYWM](https://swaywm.org/). Sway is almost a drop-in replacement for i3, but you may have to make a few changes to get everything working correctly. There is an [`i3 Migration Guide`](https://github.com/swaywm/sway/wiki/i3-Migration-Guide) on `Sway` wiki. Most of the tools and configurations on `sway` work properly on `hyprland`, because they both are based on `wlroots`.
 
-I prefer to keep most of my system configs in my `$HOME`. But some of them are needed to be done in `root` directory. So I add those into [root/etc](../../tree/master/src/root/etc). These configs are needed to add a few functions for my laptop and in most cases you don't need them.(eg: A [udev rule](../master/src/root/etc/udev/rules.d/99_battery_threshold.rules) to set charging [threshold for battery](https://fosstodon.org/@mzeinali/103684222479793025).)
+I prefer to keep most of my system configs in my `$HOME`. But some of them are needed to be done in `root` directory. So I add those into [root branch](../../tree/root/). These configs are needed to add a few functions for my laptop and in most cases you don't need them.(eg: A [udev rule](../root/etc/udev/rules.d/99_battery_threshold.rules) to set charging [threshold for battery](https://fosstodon.org/@mzeinali/103684222479793025).)
 
 I use us, ir-mz (a custom Persian layout with minor modifications to Persian standard) layouts for may keyboard and there are some configs related to that. you may not need those too.
 
@@ -10,7 +10,7 @@ Most of them are in `.local/bin`. You can use them in both `Wayland` and `X`. I 
 
 ## Key bindings
 
-Most of my key bindings in `Sway`, `DWM` and `Hyprland` are similar and you can find a help at the end of my [Sway config](../master/src/.config/sway/config).
+Most of my key bindings in `Sway`, `DWM` and `Hyprland` are similar and you can find a help at the end of my [Sway config](../home/.config/sway/config).
 
 ## Other Menu Apps
 
