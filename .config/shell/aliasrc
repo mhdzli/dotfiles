@@ -1,4 +1,6 @@
 #!/bin/sh
+# Manage dotfiles Using git bare method
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 # Colorize commands when possible.
 alias \
