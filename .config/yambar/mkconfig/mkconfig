@@ -32,6 +32,7 @@ bat_config() {
 }
 export -f bat_config
 
+cd "$HOME/.config/yambar/mkconfig/"
 find /sys/class/net -maxdepth 1 -type l ! -path '/sys/class/net/lo' -exec bash -c 'net_config "$@"' bash {} \;
 find /sys/class/backlight -maxdepth 1 -type l -exec bash -c 'backlight_config "$@"' bash {} \;
 find /sys/class/power_supply -maxdepth 1 -type l ! -path "/sys/class/power_supply/AC*" -exec bash -c 'bat_config "$@"' bash {} \;
