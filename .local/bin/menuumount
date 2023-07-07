@@ -5,9 +5,12 @@
 
 menu="$MENU -p"
 
+# Quit the script if a sequential command fails.
+set -e
+
 mounteddroids="$(grep simple-mtpfs /etc/mtab | awk '{print "📱" $2}')"
 lsblkoutput="$(lsblk -nrpo "name,type,size,mountpoint")"
-mounteddrives="$(echo "$lsblkoutput" | awk '($2=="part"||$2="crypt")&&$4!~/\/boot|\/home$|SWAP/&&length($4)>1{printf "💾%s (%s)\n",$4,$3}')"
+mounteddrives="$(echo "$lsblkoutput" | awk '($2=="part"||$2="crypt")&&$4!~/\/boot|\/var|\/home$|SWAP/&&length($4)>1{printf "💾%s (%s)\n",$4,$3}')"
 
 allunmountable="$(echo "$mounteddroids
 $mounteddrives" | sed "/^$/d;s/ *$//")"
