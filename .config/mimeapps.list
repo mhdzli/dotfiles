@@ -19,5 +19,7 @@ inode/directory=file.desktop
 #application/x-bittorrent=torrent.desktop;
 #x-scheme-handler/mailto=mail.desktop;
 #application/rss+xml=rss.desktop
+x-scheme-handler/https=firefox.desktop
+x-scheme-handler/http=firefox.desktop
 
 
