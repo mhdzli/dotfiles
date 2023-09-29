@@ -13,13 +13,13 @@ alias \
     ip='ip -color=auto'
     # ls='ls --quoting-style=literal -pq --time-style=iso --color=auto --group-directories-first --show-control-chars'
 
-# Replace "ls" with "exa"
+# Replace "ls" with "eza"
 alias \
-    ls='exa -ahl --icons --color=always --group-directories-first' \
-    la='exa -a --icons --color=always --group-directories-first' \
-    ll='exa -l --icons --color=always --group-directories-first' \
-    lt='exa -aT --icons --color=always --group-directories-first' \
-    lnc='exa --color=never' \
+    ls='eza -ahl --icons --color=always --group-directories-first' \
+    la='eza -a --icons --color=always --group-directories-first' \
+    ll='eza -l --icons --color=always --group-directories-first' \
+    lt='eza -aT --icons --color=always --group-directories-first' \
+    lnc='eza --color=never' \
     lsd='lsd -hA --group-dirs first' \
     lst='lsd -A --group-dirs first --tree'
 
