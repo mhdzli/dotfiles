@@ -18,7 +18,7 @@
     ],
 
     "modules-center": [
-        "wlr/workspaces",
+        "hyprland/workspaces",
     ],
 
     "modules-right": [
@@ -57,16 +57,14 @@
         "tooltip": false
     },
 
-    "wlr/workspaces": {
+    "hyprland/workspaces": {
+        "on-click": "activate",
         "disable-scroll": true,
         "all-outputs": true,
-        "on-click": "activate",
-        "persistent_workspaces": {
-            "1": [],
-            "2": [],
-            "3": [],
-            "4": [],
-        }
+        "show-special": true,
+        "persistent-workspaces": {
+            "*": [ 1, 2, 3, 4 ],
+        },
     },
 
     "wlr/taskbar": {
