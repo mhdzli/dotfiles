@@ -1,10 +1,5 @@
 -- Protected call if the them is not present it just tells you about
 local colorscheme = "tokyonight"
-local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
-if not status_ok then
-  vim.notify("colorscheme " .. colorscheme .. " not found!")
-  return
-end
 
 function ColorizeNvim()
   vim.g.gruvbox_contrast_dark = 'hard'
@@ -33,16 +28,35 @@ function ColorizeNvim()
   })
 
   -- hl("Normal", {
-    -- bg = "none"
-    -- })
+  -- bg = "none"
+  -- })
 
-    hl("LineNr", {
-      fg = "#5eacd3"
-    })
+  hl("LineNr", {
+    fg = "#5eacd3"
+  })
 
-    hl("netrwDir", {
-      fg = "#5eacd3"
-    })
+  hl("netrwDir", {
+    fg = "#5eacd3"
+  })
+end
 
-  end
-  ColorizeNvim()
+return {
+  -- Colorschemes
+  "sainnhe/sonokai",
+  "LunarVim/Colorschemes",
+  "navarasu/onedark.nvim",
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    config = function()
+      local status_ok, _ = pcall(function ()
+        vim.cmd("colorscheme " .. colorscheme)
+      end)
+      if not status_ok then
+        vim.notify("colorscheme " .. colorscheme .. " not found!")
+        return
+      end
+      ColorizeNvim()
+    end,
+  },
+}

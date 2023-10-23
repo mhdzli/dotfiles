@@ -1,8 +1,3 @@
--- Eviline config for lualine
--- Author: shadmansaleh
--- Credit: glepnir
-local lualine = require 'lualine'
-
 -- Color table for highlights
 -- stylua: ignore
 local colors = {
@@ -21,13 +16,13 @@ local colors = {
 
 local conditions = {
   buffer_not_empty = function()
-    return vim.fn.empty(vim.fn.expand '%:t') ~= 1
+    return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
   end,
   hide_in_width = function()
     return vim.fn.winwidth(0) > 80
   end,
   check_git_workspace = function()
-    local filepath = vim.fn.expand '%:p:h'
+    local filepath = vim.fn.expand('%:p:h')
     local gitdir = vim.fn.finddir('.git', filepath .. ';')
     return gitdir and #gitdir > 0 and #gitdir < #filepath
   end,
@@ -60,7 +55,7 @@ local config = {
   inactive_sections = {
     -- these are to remove the defaults
     lualine_a = {},
-    lualine_v = {},
+    lualine_b = {},
     lualine_y = {},
     lualine_z = {},
     lualine_c = {},
@@ -73,7 +68,7 @@ local function ins_left(component)
   table.insert(config.sections.lualine_c, component)
 end
 
--- Inserts a component in lualine_x ot right section
+-- Inserts a component in lualine_x at right section
 local function ins_right(component)
   table.insert(config.sections.lualine_x, component)
 end
@@ -89,6 +84,9 @@ ins_left {
 ins_left {
   -- mode component
   function()
+    return ''
+  end,
+  color = function()
     -- auto change color according to neovims mode
     local mode_color = {
       n = colors.red,
@@ -112,10 +110,8 @@ ins_left {
       ['!'] = colors.red,
       t = colors.red,
     }
-    vim.api.nvim_command('hi! LualineMode guifg=' .. mode_color[vim.fn.mode()] .. ' guibg=' .. colors.bg)
-    return ''
+    return { fg = mode_color[vim.fn.mode()] }
   end,
-  color = 'LualineMode',
   padding = { right = 1 },
 }
 
@@ -171,7 +167,7 @@ ins_left {
     end
     return msg
   end,
-  icon = ' LSP:',
+  icon = ' LSP:',
   color = { fg = colors.cyan, gui = 'bold' },
 }
 
@@ -199,7 +195,7 @@ ins_right {
 ins_right {
   'diff',
   -- Is it me or the symbol for modified us really weird
-  symbols = { added = ' ', modified = '柳 ', removed = ' ' },
+  symbols = { added = ' ', modified = '󰝤 ', removed = ' ' },
   diff_color = {
     added = { fg = colors.green },
     modified = { fg = colors.orange },
@@ -215,6 +211,11 @@ ins_right {
   color = { fg = colors.blue },
   padding = { left = 1 },
 }
-
--- Now don't forget to initialize lualine
-lualine.setup(config)
+return {
+  "nvim-lualine/lualine.nvim",
+  lazy = false,
+  config = function()
+    local lualine = require('lualine')
+    lualine.setup(config)
+  end,
+}
