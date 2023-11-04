@@ -1,3 +1,4 @@
+local map = require("util.keymapper").map
 local buf, win
 
 local function open_win()
@@ -116,3 +117,8 @@ vim.api.nvim_create_user_command("UpdateAll", function()
   vim.cmd([[TSUpdateSync]])
   vim.cmd([[MasonUpdate]])
 end, {})
+
+
+map('<leader>r', function()
+  require("util.telescope-runner")
+end)
