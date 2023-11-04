@@ -1,70 +1,111 @@
-local build_commands = {
-  c = "g++ -std=c++17 -o %:p:r.o %",
-  cpp = "g++ -std=c++17 -Wall -O2 -o %:p:r.o %",
-  rust = "cargo build --release",
-  go = "go build",
+local buf, win
+
+local function open_win()
+  buf = vim.api.nvim_create_buf(false, true)
+
+  vim.api.nvim_buf_set_option(buf, "bufhidden", "wipe")
+
+  local width = vim.api.nvim_get_option("columns")
+  local height = vim.api.nvim_get_option("lines")
+
+  local win_height = math.ceil(height * 0.8 - 4)
+  local win_width = math.ceil(width * 0.8)
+
+  local row = math.ceil((height - win_height) / 2 - 1)
+  local col = math.ceil((width - win_width) / 2)
+
+  local opts = {
+    title = "Code Runner Output",
+    title_pos = "center",
+    style = "minimal",
+    relative = "editor",
+    width = win_width,
+    height = win_height,
+    row = row,
+    col = col,
+    border = "rounded",
+  }
+
+  win = vim.api.nvim_open_win(buf, true, opts)
+  vim.api.nvim_win_set_option(win, "cursorline", true)
+  vim.api.nvim_win_set_option(win, 'winhl', 'FloatBorder:Comment,FloatTitle:Comment')
+end
+
+local function view(command)
+  vim.api.nvim_buf_set_option(buf, "modifiable", true)
+  vim.cmd("term " .. command)
+  vim.api.nvim_buf_call(buf, function() vim.cmd("startinsert") end)
+  vim.api.nvim_buf_set_option(0, "modifiable", false)
+end
+
+local file_path = vim.fn.expand("%:p")
+local file_name = vim.fn.expand("%:p:r")
+local file = vim.fn.expand("%")
+
+local commands = {
+  build = {
+    c = "g++ -std=c++17 -o " .. file_name .. ".o " .. file,
+    cpp = "g++ -std=c++17 -Wall -O2 -o " .. file_name .. ".o " .. file,
+    go = "go build",
+    rust = "cargo build --release",
+  },
+  debug_build = {
+    c = "g++ -std=c++17 -g -o " .. file_name .. ".o " .. file,
+    cpp = "g++ -std=c++17 -g -o " .. file_name .. ".o " .. file,
+    go = "go build",
+    python = "python -m pdb " .. file_path,
+    rust = "cargo build",
+  },
+  run = {
+    bash = file_path,
+    c = file_name .. ".o",
+    cargo = "cd $dir && cargo run",
+    cpp = file_name .. ".o",
+    dart = "dart " .. file_path,
+    go = "go run " .. file_path,
+    html = "xdg-open " .. file_path,
+    javascript = "js78 " .. file_path,
+    lua = "lua " .. file_path,
+    perl = "perl " .. file_path,
+    php = "php " .. file_path,
+    python = "python " .. file_path,
+    r = "Rscript " .. file_path,
+    rust = "cargo run --release",
+    sh = file_path,
+    swift = "swift " .. file_path,
+  },
 }
 
-local debug_build_commands = {
-  c = "g++ -std=c++17 -g -o %:p:r.o %",
-  cpp = "g++ -std=c++17 -g -o %:p:r.o %",
-  rust = "cargo build",
-  go = "go build",
-  python = "python -m pdb %:p",
-}
-
-local run_commands = {
-  c = "%:p:r.o",
-  cpp = "%:p:r.o",
-  rust = "cargo run --release",
-  -- go = "%:p:r.o",
-  go = "go run .",
-  python = "python %:p",
-  lua = "lua %:p",
-  r = "Rscript %:p",
-  sh = ".%:p",
-  bash = ".%p"
-}
+local function get_command(command_type)
+  local file_type = vim.bo.filetype
+  if commands[command_type][file_type] ~= nil then
+    return commands[command_type][file_type]
+  else
+    return nil
+  end
+end
 
 vim.api.nvim_create_user_command("Build", function()
-  local filetype = vim.bo.filetype
-
-  for file, command in pairs(build_commands) do
-    if filetype == file then
-      vim.cmd("!" .. command)
-      break
-    end
-  end
+  local command = get_command("build") or "echo 'Command not defined'"
+  open_win()
+  view(command)
 end, {})
 
-vim.api.nvim_create_user_command("DebugBuild", function()
-  local filetype = vim.bo.filetype
-
-  for file, command in pairs(debug_build_commands) do
-    if filetype == file then
-      vim.cmd("!" .. command)
-      break
-    end
-  end
+vim.api.nvim_create_user_command("Debug", function()
+  local command = get_command("debug_build") or "echo 'Command not defined'"
+  open_win()
+  view(command)
 end, {})
 
 vim.api.nvim_create_user_command("Run", function()
-  local filetype = vim.bo.filetype
-
-  for file, command in pairs(run_commands) do
-    if filetype == file then
-      vim.cmd("sp")
-      vim.cmd("term " .. command)
-      vim.cmd("resize 20N")
-      local keys = vim.api.nvim_replace_termcodes("i", true, false, true)
-      vim.api.nvim_feedkeys(keys, "n", false)
-      break
-    end
-  end
+  local command = get_command("run") or "echo 'Command not defined'"
+  open_win()
+  view(command)
 end, {})
 
 vim.api.nvim_create_user_command("BuildRun", function()
-  vim.cmd([[Build]])
+  local command = get_command("build") or "echo 'Command not defined'"
+  vim.cmd("!" .. command)
   vim.cmd([[Run]])
 end, {})
 
