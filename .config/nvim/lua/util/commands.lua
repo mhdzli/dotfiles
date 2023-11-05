@@ -39,51 +39,53 @@ local function view(command)
   vim.api.nvim_buf_set_option(0, "modifiable", false)
 end
 
-local file_path = vim.fn.expand("%:p")
-local file_name = vim.fn.expand("%:p:r")
-local file = vim.fn.expand("%")
-
-local commands = {
-  build = {
-    c = "g++ -std=c++17 -o " .. file_name .. ".o " .. file,
-    cpp = "g++ -std=c++17 -Wall -O2 -o " .. file_name .. ".o " .. file,
-    go = "go build",
-    rust = "cargo build --release",
-  },
-  debug_build = {
-    c = "g++ -std=c++17 -g -o " .. file_name .. ".o " .. file,
-    cpp = "g++ -std=c++17 -g -o " .. file_name .. ".o " .. file,
-    go = "go build",
-    python = "python -m pdb " .. file_path,
-    rust = "cargo build",
-  },
-  run = {
-    bash = file_path,
-    c = file_name .. ".o",
-    cargo = "cd $dir && cargo run",
-    cpp = file_name .. ".o",
-    dart = "dart " .. file_path,
-    go = "go run " .. file_path,
-    html = "xdg-open " .. file_path,
-    javascript = "js78 " .. file_path,
-    lua = "lua " .. file_path,
-    perl = "perl " .. file_path,
-    php = "php " .. file_path,
-    python = "python " .. file_path,
-    r = "Rscript " .. file_path,
-    rust = "cargo run --release",
-    sh = file_path,
-    swift = "swift " .. file_path,
-  },
-}
 
 local function get_command(command_type)
   local file_type = vim.bo.filetype
+  local file_path = vim.fn.expand("%:p")
+  local file_name = vim.fn.expand("%:p:r")
+  local file = vim.fn.expand("%")
+
+  local commands = {
+    build = {
+      c = "g++ -std=c++17 -o " .. file_name .. ".o " .. file,
+      cpp = "g++ -std=c++17 -Wall -O2 -o " .. file_name .. ".o " .. file,
+      go = "go build",
+      rust = "cargo build --release",
+    },
+    debug_build = {
+      c = "g++ -std=c++17 -g -o " .. file_name .. ".o " .. file,
+      cpp = "g++ -std=c++17 -g -o " .. file_name .. ".o " .. file,
+      go = "go build",
+      python = "python -m pdb " .. file_path,
+      rust = "cargo build",
+    },
+    run = {
+      bash = file_path,
+      c = file_name .. ".o",
+      cargo = "cd $dir && cargo run",
+      cpp = file_name .. ".o",
+      dart = "dart " .. file_path,
+      go = "go run " .. file_path,
+      html = "xdg-open " .. file_path,
+      javascript = "js78 " .. file_path,
+      lua = "lua " .. file_path,
+      perl = "perl " .. file_path,
+      php = "php " .. file_path,
+      python = "python " .. file_path,
+      r = "Rscript " .. file_path,
+      rust = "cargo run --release",
+      sh = file_path,
+      swift = "swift " .. file_path,
+    },
+  }
+
   if commands[command_type][file_type] ~= nil then
     return commands[command_type][file_type]
   else
     return nil
   end
+
 end
 
 vim.api.nvim_create_user_command("Build", function()
