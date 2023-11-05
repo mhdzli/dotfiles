@@ -1,3 +1,4 @@
+local runner = require("util.telescope-runner").runner
 local map = require("util.keymapper").map
 local buf, win
 
@@ -122,5 +123,5 @@ end, {})
 
 
 map('<leader>r', function()
-  require("util.telescope-runner")
+  runner(require("telescope.themes").get_dropdown {} )
 end)

@@ -1,10 +1,11 @@
+local M = {}
 local pickers = require "telescope.pickers"
 local finders = require "telescope.finders"
 local conf = require("telescope.config").values
 local actions = require "telescope.actions"
 local action_state = require "telescope.actions.state"
 
-local runner = function(opts)
+M.runner = function(opts)
   opts = opts or {}
 
   pickers.new(opts, {
@@ -24,6 +25,4 @@ local runner = function(opts)
   }):find()
 end
 
-return runner(require("telescope.themes").get_dropdown {})
-
-
+return M
