@@ -25,6 +25,7 @@ local config = function()
       "make",
       "markdown",
       "markdown_inline",
+      "norg",
       "python",
       "query",
       "regex",
