@@ -154,20 +154,39 @@ local config = function()
     },
   })
 
-  local luacheck = require("efmls-configs.linters.luacheck")
-  local stylua = require("efmls-configs.formatters.stylua")
-  local flake8 = require("efmls-configs.linters.flake8")
+  local alex = require("efmls-configs.linters.alex")
   local black = require("efmls-configs.formatters.black")
+  local clang_tidy = require('efmls-configs.linters.clang_tidy')
   local eslint_d = require("efmls-configs.linters.eslint_d")
-  local prettierd = require("efmls-configs.formatters.prettier_d")
   local fixjson = require("efmls-configs.formatters.fixjson")
+  local flake8 = require("efmls-configs.linters.flake8")
+  -- local hadolint = require("efmls-configs.linters.hadolint")
+  local luacheck = require("efmls-configs.linters.luacheck")
+  local prettierd = require("efmls-configs.formatters.prettier_d")
   local shellcheck = require("efmls-configs.linters.shellcheck")
   local shfmt = require("efmls-configs.formatters.shfmt")
-  local alex = require("efmls-configs.linters.alex")
-  local hadolint = require("efmls-configs.linters.hadolint")
-  local solhint = require("efmls-configs.linters.solhint")
+  local stylua = require("efmls-configs.formatters.stylua")
   -- configure efm server
-  lspconfig.efm.setup({
+  local languages = {
+    c = { clang_tidy },
+    cpp = { clang_tidy },
+    -- docker = { hadolint, prettierd },
+    javascript = { eslint_d, prettierd },
+    javascriptreact = { eslint_d, prettierd },
+    json = { eslint_d, fixjson },
+    jsonc = { eslint_d, fixjson },
+    latex = { alex, prettierd },
+    lua = { luacheck, stylua },
+    markdown = { alex, prettierd },
+    python = { flake8, black },
+    sh = { shellcheck, shfmt },
+    svelte = { eslint_d, prettierd },
+    typescript = { eslint_d, prettierd },
+    typescriptreact = { eslint_d, prettierd },
+    vue = { eslint_d, prettierd },
+  }
+
+  local efmls_config = {
     filetypes = {
       "lua",
       "python",
@@ -193,24 +212,16 @@ local config = function()
       completion = true,
     },
     settings = {
-      languages = {
-        lua = { luacheck, stylua },
-        python = { flake8, black },
-        typescript = { eslint_d, prettierd },
-        json = { eslint_d, fixjson },
-        jsonc = { eslint_d, fixjson },
-        sh = { shellcheck, shfmt },
-        javascript = { eslint_d, prettierd },
-        javascriptreact = { eslint_d, prettierd },
-        typescriptreact = { eslint_d, prettierd },
-        svelte = { eslint_d, prettierd },
-        vue = { eslint_d, prettierd },
-        markdown = { alex, prettierd },
-        docker = { hadolint, prettierd },
-        solidity = { solhint },
-      },
+      rootMarkers = { '.git/' },
+      languages = languages,
     },
-  })
+  }
+  lspconfig.efm.setup(vim.tbl_extend('force', efmls_config, {
+  -- Pass your custom lsp config below like on_attach and capabilities
+  --
+  on_attach = on_attach,
+  capabilities = capabilities,
+}))
 end
 
 return {
@@ -223,7 +234,9 @@ return {
     "windwp/nvim-autopairs",
     "creativenull/efmls-configs-nvim",
     {
-      "folke/neoconf.nvim", cmd = "Neoconf"
+      "folke/neoconf.nvim",
+      cmd = "Neoconf",
+      dependencies = { "folke/neodev.nvim", opts = {} },
     },
   },
   keys = {
