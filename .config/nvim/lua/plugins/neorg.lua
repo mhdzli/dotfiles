@@ -9,7 +9,22 @@ return {
     require("neorg").setup {
       load = {
         ["core.defaults"] = {}, -- Loads default behaviour
-        ["core.concealer"] = {}, -- Adds pretty icons to your documents
+        ["core.concealer"] = {
+          config = {
+            icons = {
+              heading = { 
+                -- icons = { "❂", "✺", "◉", "⌾", "⨀", "○" },
+                -- icons = { "", "", "", "✺", "", "" },
+                -- icons = { "❶", "❷", "❸", "❹", "❺", "❻" },
+                -- icons = { "◉", "◎", "○", "✺", "▶", "⤷" }, --default
+              },
+              ordered = {
+                -- icons = (not has_anticonceal) and { "1", "A", "①", "a", "1", "A" } or nil
+                -- icons = (not has_anticonceal) and { "⒈", "A", "a", "⑴", "Ⓐ", "ⓐ" } or nil, --default
+              },
+            },
+          },
+        }, -- Adds pretty icons to your documents
         ["core.dirman"] = { -- Manages Neorg workspaces
           config = {
             workspaces = {
