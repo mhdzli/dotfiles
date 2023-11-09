@@ -40,6 +40,7 @@ alias \
 # These common commands are just too long! Abbreviate them.
 alias \
     v='nvim' \
+    nv='fzf | xargs nvim' \
     magit='nvim -c MagitOnly' \
     g='git' \
     sdn='sudo shutdown -h now' \
@@ -101,5 +102,6 @@ alias pbin="curl -n -F 'f:1=<-' http://ix.io | wl-copy"
 alias \
     sst="sudo -A systemctl start sshd.service" \
     ssp="sudo -A systemctl stop sshd.service" \
+
 # mpv with input ipc server
 alias mpvipc="mpv --input-ipc-server=/tmp/mpvsocket --idle"

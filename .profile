@@ -72,8 +72,8 @@ export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
 # fzf options
-export FZF_DEFAULT_OPTS='--height 70% --layout=reverse --border'
-
+export FZF_DEFAULT_OPTS="--height 70% --layout=reverse --border --preview-window 'right:60%' --preview 'bat --color=always --style=header,grid,numbers --line-range :300 {}'"
+export FZF_DEFAULT_COMMAND='find -type f'
 # gtk3 and qt5 themes
 # export QT_QPA_PLATFORMTHEME="qt5ct"
 export QT_STYLE_OVERRIDE="kvantum-dark"
