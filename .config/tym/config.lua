@@ -5,7 +5,7 @@ local home = os.getenv('HOME')
 -- set individually
 tym.set('width', 100)
 
-tym.set('font', 'Monospace 14')
+tym.set('font', 'Monospace 18')
 
 -- set by table
 tym.set_config({
