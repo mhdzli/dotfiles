@@ -168,14 +168,14 @@ bar:
                             map:
                               conditions:
                                 form_factor == headset:
-                                  string: {text: , font: *awesome, foreground: *red}
+                                  string: {text: 󰋐, font: *awesome, foreground: *red}
                                 form_factor == headphone:
-                                  string: {text: , font: *awesome, foreground: *red}
-                              default: {string: {text:  , foreground: *red}}
+                                  string: {text: 󰋐, font: *awesome, foreground: *red}
+                              default: {string: {text:  , foreground: *red}}
                           form_factor == headset:
-                            string: {text: , font: *awesome, foreground: *cyan}
+                            string: {text: 󰋎, font: *awesome, foreground: *cyan}
                           form_factor == headphone:
-                            string: {text: , font: *awesome, foreground: *cyan}
+                            string: {text: 󰋎, font: *awesome, foreground: *cyan}
                         default:
                           - ramp:
                               tag: linear_volume
