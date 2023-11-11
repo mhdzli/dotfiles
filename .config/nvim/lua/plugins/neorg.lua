@@ -4,11 +4,25 @@ cmap("<leader>v", "Neorg index", "")
 return {
   "nvim-neorg/neorg",
   build = ":Neorg sync-parsers",
-  dependencies = { "nvim-lua/plenary.nvim" },
+  dependencies = {
+    "nvim-treesitter/nvim-treesitter",
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    "nvim-cmp",
+    "nvim-lua/plenary.nvim",
+  },
   config = function()
     require("neorg").setup {
       load = {
         ["core.defaults"] = {}, -- Loads default behaviour
+        ["core.completion"] = { config = { engine = "nvim-cmp", name = "[Norg]" } },
+        ["core.integrations.nvim-cmp"] = {},
+        ["core.keybinds"] = {
+          -- https://github.com/nvim-neorg/neorg/blob/main/lua/neorg/modules/core/keybinds/keybinds.lua
+          config = {
+            default_keybinds = true,
+            neorg_leader = "<Leader><Leader>",
+          },
+        },
         ["core.concealer"] = {
           config = {
             icons = {
@@ -39,6 +53,14 @@ return {
             default_workspace = "notes",
           },
         },
+        ["core.esupports.metagen"] = { config = { type = "auto", update_date = true } },
+        ["core.qol.toc"] = {},
+        ["core.qol.todo_items"] = {},
+        ["core.looking-glass"] = {},
+        ["core.presenter"] = { config = { zen_mode = "zen-mode" } },
+        ["core.export"] = {},
+        ["core.export.markdown"] = { config = { extensions = "all" } },
+        ["core.summary"] = {},
       },
     }
     vim.wo.foldlevel = 99
