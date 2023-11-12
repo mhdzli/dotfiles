@@ -1,3 +1,7 @@
+local map = require("util.keymapper").map
+map("<leader>l", "<plug>(leap-forward-to)", {"n", "x", "o"})
+map("<leader>L", "<Plug>(leap-backward-to)", {"n", "x", "o"})
+
 local opts = {
   opts = {
     highlight_ahead_of_time = true,

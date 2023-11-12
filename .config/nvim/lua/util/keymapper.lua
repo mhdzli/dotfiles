@@ -18,8 +18,8 @@ local get_opts = function(opts)
   return all_opts
 end
 
---- @param vimmode (string|nil)
---- @return string
+--- @param vimmode (string|table|nil)
+--- @return (string|table)
 local get_mode = function(vimmode)
   local modeString = vimmode
   if modeString == nil then
@@ -35,9 +35,9 @@ local get_cmd_string = function(command)
   return [[<cmd>]] .. command .. [[<CR>]]
 end
 
---- @param keymaps string String
---- @param command string String
---- @param vimmode (string|nil)
+--- @param keymaps string
+--- @param command (string|function)
+--- @param vimmode (string|table|nil)
 --- @param options (table|nil)
 --- @return nil
 M.map = function(keymaps, command, vimmode, options)
