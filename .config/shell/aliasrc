@@ -105,3 +105,6 @@ alias \
 
 # mpv with input ipc server
 alias mpvipc="mpv --input-ipc-server=/tmp/mpvsocket --idle"
+
+# impressive options
+alias pr="impressive --darkness 75 --spot-radius 128 -C ~/.config/impressive/tux.png -d "

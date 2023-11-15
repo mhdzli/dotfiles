@@ -112,7 +112,7 @@ bar:
         time-format: "%H:%M"
         date-format: "%d %b %Y"
         content:
-          - string: {text: , font: *awesome, foreground: *green}
+          - string: {text: , font: *awesome, foreground: *green}
           - string: {text: "{date}", right-margin: 5, foreground: *green, on-click: "setbg"}
           - string: {text: , font: *awesome}
           - string: {text: "{time}"}
@@ -120,13 +120,13 @@ bar:
     - script:
         path: /home/mzeinali/.config/yambar/khorshidi_date
         content:
-          - string: {text: , font: *awesome, foreground: *yellow}
+          - string: {text: , font: *awesome, foreground: *yellow}
           - string: {text: "{khorshidi_date}", foreground: *yellow}
 
   right:
     - removables:
         anchors:
-          drive: &drive { text: , font: *awesome}
+          drive: &drive { text: 󱊞, font: *awesome}
           optical: &optical {text: , font: *awesome}
         spacing: 5
         content:
