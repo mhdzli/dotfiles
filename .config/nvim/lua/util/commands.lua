@@ -75,6 +75,7 @@ local function get_command(command_type)
       php = "php " .. file_path,
       python = "python " .. file_path,
       r = "Rscript " .. file_path,
+      ruby = "ruby " .. file_path,
       rust = "cargo run --release",
       sh = file_path,
       swift = "swift " .. file_path,

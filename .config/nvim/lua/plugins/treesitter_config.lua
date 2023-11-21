@@ -29,6 +29,8 @@ local config = function()
       "python",
       "query",
       "regex",
+      "ruby",
+      "rust",
       "scss",
       "toml",
       "typescript",
