@@ -1,17 +1,21 @@
     - network:
-        name: INTERFACE
+        poll-interval: 1000
         content:
           map:
-            default: {string: {text: , font: *awesome, foreground: *bright_white}}
+            default: {empty: {}}
             conditions:
-              state == down: {string: {text: , font: *awesome, foreground: *red}}
-              state == up:
+              name == INTERFACE:
                 map:
-                  default:
-                    - string: {text: , font: *awesome, foreground: *bright_green}
-                    - string: {text: "{ssid}", foreground: *bright_green}
+                  default: {string: {text: "   ", font: *awesome, foreground: *bright_white}}
                   conditions:
-                    ipv4 == "":
-                      - string: {text: , font: *awesome, foreground: *bright_green}
-                      - string: {text: "{ssid}", foreground: *bright_green}
+                    state == down: {string: {text: "   ", font: *awesome, foreground: *red}}
+                    state == up:
+                      map:
+                        default:
+                          - string: {text: "   ", font: *awesome, foreground: *bright_green}
+                          - string: {text: "{ssid}", foreground: *bright_green}
+                        conditions:
+                          ipv4 == "":
+                            - string: {text: "   ", font: *awesome, foreground: *bright_green}
+                            - string: {text: "{ssid}", foreground: *bright_green}
 
