@@ -43,7 +43,7 @@ local options = {
   nu = true,
   relativenumber = true,
 
-  go = "a", -- Make Visually highlighted text available for pasting into other applications
+  --go = "a", -- Make Visually highlighted text available for pasting into other applications
   mouse = "a", -- Enable mouse support in all modes
 
   -- Splits open at the bottom and right, which is non-retarded, unlike vim defaults.
