@@ -13,7 +13,7 @@ local opts = {
     'rust_analyzer',
     'tsserver',
     'vimls',
-    'ruby_ls',
+    'ruby_lsp',
   },
 
   automatic_installation = true,

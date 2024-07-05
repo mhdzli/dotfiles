@@ -52,7 +52,7 @@ local config = function()
   local capabilities = cmp_nvim_lsp.default_capabilities()
 
   -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-  local servers = { 'pylsp', 'bashls', 'clangd', 'jsonls', 'vimls', 'ruby_ls' }
+  local servers = { 'pylsp', 'bashls', 'clangd', 'jsonls', 'vimls', 'ruby_lsp' }
   for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup({
       capabilities = capabilities,
