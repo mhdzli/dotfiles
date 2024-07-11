@@ -70,6 +70,12 @@ if [ -n "${audio+x}" ]; then
     endtime="$((totseconds-seconds))"
 fi
 
+# For ImageMagick 6 <-> 7 compatibility.
+if type magick >/dev/null 2>&1; then
+    alias convert='magick'
+    alias montage='magick montage'
+fi
+
 prepdir="${prepdir:-$cache/$file}"
 outfile="${outfile:-$file.mp4}"
 prepfile="$prepdir/$file.prep"

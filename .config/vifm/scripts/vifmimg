@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 readonly ID_PREVIEW="preview"
 
+# For ImageMagick 6 <-> 7 compatibility.
+if type magick &>/dev/null; then
+    alias convert='magick'
+    alias montage='magick montage'
+fi
+
 #AUTO_REMOVE="yes"
 # By enabling this option the script will remove the preview file after it is drawn
 # and by doing so the preview will always be up-to-date with the file.

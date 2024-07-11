@@ -24,6 +24,12 @@ cleanup() {
     exit 0
 }
 
+# For ImageMagick 6 <-> 7 compatibility.
+if type magick &>/dev/null; then
+    alias convert='magick'
+    alias montage='magick montage'
+fi
+
 # recieves image with height
 image() {
     montage "$1" -background "$background" -geometry "${2}x${3}" sixel:-

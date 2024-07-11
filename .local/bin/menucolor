@@ -1,4 +1,10 @@
 #!/usr/bin/env sh
 
+# For ImageMagick 6 <-> 7 compatibility.
+if type magick >/dev/null 2>&1; then
+    alias convert='magick'
+    alias montage='magick montage'
+fi
+
 # Color picker in swaywm. Reterns the hex value, dependencies: grim, slurp, imagemagick wl-clipboard
 grim -g "$(slurp -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | tail -n 1 | cut -d ' ' -f 4 | wl-copy

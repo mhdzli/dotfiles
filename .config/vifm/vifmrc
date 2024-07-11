@@ -268,7 +268,7 @@ filetype <image/*>
     \ cacaview %c &,
 fileviewer <image/*>
     "\ img2sixel -w %pw0 %c %pd
-    "\ convert %c -geometry %pw0x%ph0 sixel:- %pd
+    "\ magick %c -geometry %pw0x%ph0 sixel:- %pd
     "\ chafa --fill=block --symbols=block -s %pwx%ph %c %pd
     "\ kitty icat --place=%pwx%ph@%pxx%py --silent %c
     "\ %pc

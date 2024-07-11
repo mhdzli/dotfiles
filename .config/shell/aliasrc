@@ -108,3 +108,9 @@ alias mpvipc="mpv --input-ipc-server=/tmp/mpvsocket --idle"
 
 # impressive options
 alias pr="impressive --darkness 75 --spot-radius 128 -C ~/.config/impressive/tux.png -d "
+
+# For ImageMagick 6 <-> 7 compatibility.
+if type magick >/dev/null 2>&1; then
+    alias convert='magick'
+    alias montage='magick montage'
+fi
