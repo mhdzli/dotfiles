@@ -2,35 +2,35 @@
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local cmap = require("util.keymapper").cmap
 local map = require("util.keymapper").map
-local opts = { noremap=true, silent=true }
+local opts = { noremap = true, silent = true }
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', { buf = bufnr })
 
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
-  cmap('<leader>gD', 'Lspsaga goto_definition', 'n', bufopts)-- go to definition
-  cmap('<leader>gd', 'Lspsaga peek_definition', 'n', bufopts) -- peak definition
-  cmap('<leader>D', 'Lspsaga show_line_diagnostics','n', bufopts) -- show  diagnostics for line
-  cmap('<leader>d', 'Lspsaga show_cursor_diagnostics','n', bufopts) -- show diagnostics for cursor
+  cmap('<leader>gD', 'Lspsaga goto_definition', 'n', bufopts)           -- go to definition
+  cmap('<leader>gd', 'Lspsaga peek_definition', 'n', bufopts)           -- peak definition
+  cmap('<leader>D', 'Lspsaga show_line_diagnostics', 'n', bufopts)      -- show  diagnostics for line
+  cmap('<leader>d', 'Lspsaga show_cursor_diagnostics', 'n', bufopts)    -- show diagnostics for cursor
   cmap('<leader>w', 'Lspsaga show_workspace_diagnostics', 'n', bufopts) -- show diagnostics for workspace
-  cmap('<leader>ca', 'Lspsaga code_action', 'n', bufopts) -- see available code actions
-  cmap('<leader>fd', 'Lspsaga finder', 'n', bufopts) -- go to definition
-  cmap('<leader>pd', 'Lspsaga diagnostic_jump_prev', 'n', bufopts) -- jump to prev diagnostic in buffer
-  cmap('<leader>nd', 'Lspsaga diagnostic_jump_next', 'n', bufopts) -- jump to next diagnostic in buffer
-  cmap('<leader>rn', 'Lspsaga rename','n', bufopts) -- smart rename
-  cmap('K', 'Lspsaga hover_doc', 'n', bufopts) -- show documentation for what is under cursor
-  map('<leader>h', vim.lsp.buf.signature_help, 'n', bufopts)
-  map('<leader>wa', vim.lsp.buf.add_workspace_folder, 'n', bufopts)
-  map('<leader>wr', vim.lsp.buf.remove_workspace_folder, 'n', bufopts)
-  map('<leader>f', vim.lsp.buf.formatting, 'n', bufopts)
-  map('gi', vim.lsp.buf.implementation, 'n', bufopts)
-  map('gr', vim.lsp.buf.references, 'n', bufopts)
+  cmap('<leader>ca', 'Lspsaga code_action', 'n', bufopts)               -- see available code actions
+  cmap('<leader>fd', 'Lspsaga finder', 'n', bufopts)                    -- go to definition
+  cmap('<leader>pd', 'Lspsaga diagnostic_jump_prev', 'n', bufopts)      -- jump to prev diagnostic in buffer
+  cmap('<leader>nd', 'Lspsaga diagnostic_jump_next', 'n', bufopts)      -- jump to next diagnostic in buffer
+  cmap('<leader>rn', 'Lspsaga rename', 'n', bufopts)                    -- smart rename
+  cmap('K', 'Lspsaga hover_doc', 'n', bufopts)                          -- show documentation for what is under cursor
+  map('<leader>h', '<cmd>lua vim.lsp.buf.signature_help()<CR>', 'n', bufopts)
+  map('<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', 'n', bufopts)
+  map('<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', 'n', bufopts)
+  map('<leader>f', '<cmd>lua vim.lsp.buf.format()<CR>', 'n', bufopts)
+  map('gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', 'n', bufopts)
+  map('gr', '<cmd>lua vim.lsp.buf.references()<CR>', 'n', bufopts)
 
   if client.name == "pyright" then
     cmap("<Leader>oi", "PyrightOrganizeImports", "n", bufopts)
@@ -137,7 +137,7 @@ local config = function()
         },
         diagnostics = {
           -- Get the language server to recognize the `vim` global
-          globals = {'vim'},
+          globals = { 'vim' },
         },
         workspace = {
           -- Make the server aware of Neovim runtime files
@@ -217,11 +217,11 @@ local config = function()
     },
   }
   lspconfig.efm.setup(vim.tbl_extend('force', efmls_config, {
-  -- Pass your custom lsp config below like on_attach and capabilities
-  --
-  on_attach = on_attach,
-  capabilities = capabilities,
-}))
+    -- Pass your custom lsp config below like on_attach and capabilities
+    --
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }))
 end
 
 return {

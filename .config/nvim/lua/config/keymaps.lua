@@ -36,7 +36,7 @@ map('<S-Tab>', function()
   return (cmd_char == '/' or cmd_char == '?') and '<C-t>' or '<S-Tab>'
 end, "c", {expr = true})
 
-if vim.api.nvim_win_get_option(0, "diff") then
+if vim.api.nvim_get_option_value("diff", { win = 0 }) then
   map("dp", "dp]c")
   map("do", "do]c")
 end

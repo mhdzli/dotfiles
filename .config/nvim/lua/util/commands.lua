@@ -5,10 +5,10 @@ local buf, win
 local function open_win()
   buf = vim.api.nvim_create_buf(false, true)
 
-  vim.api.nvim_buf_set_option(buf, "bufhidden", "wipe")
+  vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = buf })
 
-  local width = vim.api.nvim_get_option("columns")
-  local height = vim.api.nvim_get_option("lines")
+  local width = vim.api.nvim_get_option_value("columns", { buf = buf })
+  local height = vim.api.nvim_get_option_value("lines", { buf = buf })
 
   local win_height = math.ceil(height * 0.8 - 4)
   local win_width = math.ceil(width * 0.8)
@@ -29,15 +29,15 @@ local function open_win()
   }
 
   win = vim.api.nvim_open_win(buf, true, opts)
-  vim.api.nvim_win_set_option(win, "cursorline", true)
-  vim.api.nvim_win_set_option(win, 'winhl', 'FloatBorder:Comment,FloatTitle:Comment')
+  vim.api.nvim_set_option_value("cursorline", true, { win = win })
+  vim.api.nvim_set_option_value('winhl', 'FloatBorder:Comment,FloatTitle:Comment', { win = win })
 end
 
 local function view(command)
-  vim.api.nvim_buf_set_option(buf, "modifiable", true)
+  vim.api.nvim_set_option_value("modifiable", true, { buf = buf })
   vim.cmd("term " .. command)
   vim.api.nvim_buf_call(buf, function() vim.cmd("startinsert") end)
-  vim.api.nvim_buf_set_option(0, "modifiable", false)
+  vim.api.nvim_set_option_value("modifiable", false, { buf = 0 })
 end
 
 

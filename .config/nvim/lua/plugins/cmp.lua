@@ -26,14 +26,11 @@ return {
         end,
       },
       window = {
-        completion = { -- rounded border; thin-style scrollbar
+        completion = { -- rounded border
           border = 'rounded',
-          scrollbar = '║',
         },
-        documentation = { -- no border; native-style scrollbar
+        documentation = { -- rounded border
           border = 'rounded',
-          scrollbar = '║',
-          -- other options
         },
       },
       mapping = cmp.mapping.preset.insert({
@@ -78,13 +75,10 @@ return {
       }),
       -- configure lspkind for vs-code like icons
       formatting = {
-        fields = {
-          cmp.ItemField.Kind,
-          cmp.ItemField.Abbr,
-          cmp.ItemField.Menu,
-        },
+        expandable_indicator = true,
+        fields = { 'abbr', 'kind', 'menu' },
         format = lspkind.cmp_format({
-          mode = "text", -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
+          mode = "symbol_text", -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
           maxwidth = 40, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
 
           -- The function below will be called before any actual modifications from lspkind
