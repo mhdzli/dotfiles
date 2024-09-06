@@ -29,6 +29,8 @@ if type magick &>/dev/null; then
     alias convert='magick'
     alias montage='magick montage'
 fi
+    alias convert='magick'
+    alias montage='magick montage'
 
 # recieves image with height
 image() {
