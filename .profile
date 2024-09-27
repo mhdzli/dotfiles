@@ -5,8 +5,6 @@
 echo "$0" | grep "zsh$" >/dev/null && export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
 echo "$0" | grep "bash$" >/dev/null && export PATH="${PATH}:$(find ~/.local/bin -type d | tr '\n' ':' | sed 's/:$//')"
 
-export PATH="$PATH:$HOME/.gem/ruby/2.7.0/bin"
-export PATH="$PATH:$HOME/.local/share/gem/ruby/3.0.0/bin"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CONFIG_HOME="$HOME/.config"
 export GOPATH="$XDG_DATA_HOME/go"
