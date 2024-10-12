@@ -29,7 +29,7 @@ Also a few lines in my `Hyprland` config:
 
 I just make symlinks to the related files and source them in the base config file. e.g: In my `Thinkpad` for `Sway` I make the symlink with `ln -s $HOME/.config/sway/thinkpad.conf $HOME/.config/sway/config.d/10-sys.conf` and it is sourced with `include config.d/*` line in [`Sway` config](../home/.config/sway/config) and for `Hyprland` the symlink is made by `ln -s $HOME/.config/hypr/thinkpad.conf $HOME/.config/hypr/config.d/09-sys.conf` and sourced with `source = ~/.config/hypr/config.d/09-sys.conf` in [`Hyprland` config](../home/.config/hypr/hyprland.conf).
 
-And then there are a few modules in my which need hardware names or specifications. I use [this script](../home/.config/yambar/mkconfig/mkconfig) to generate the config file everytime I change the `Yambar` configs or update my configs using `git pull`.
+And then there are a few modules in my configs which need hardware names or specifications. I use [this script](../home/.config/yambar/mkconfig/mkconfig) to generate the config file everytime I change the `Yambar` configs or update my configs using `git pull`.
 
 ## Key bindings
 
