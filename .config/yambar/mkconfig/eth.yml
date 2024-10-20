@@ -10,7 +10,7 @@
                   conditions:
                     state == up:
                       map:
-                        default: {string: {text: , font: *awesome}}
+                        default: {string: {text: 󰈀, font: *awesome}}
                         conditions:
-                          ipv4 == "": {string: {text: , font: *awesome, foreground: *white}}
+                          ipv4 == "": {string: {text: 󰈀, font: *awesome, foreground: *white}}
 

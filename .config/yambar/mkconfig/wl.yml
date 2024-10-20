@@ -13,9 +13,9 @@
                       map:
                         default:
                           - string: {text: "   ", font: *awesome, foreground: *bright_green}
-                          - string: {text: "{ssid}", foreground: *bright_green}
+                          - string: {text: " {ssid}", foreground: *bright_green}
                         conditions:
                           ipv4 == "":
                             - string: {text: "   ", font: *awesome, foreground: *bright_green}
-                            - string: {text: "{ssid}", foreground: *bright_green}
+                            - string: {text: " {ssid}", foreground: *bright_green}
 

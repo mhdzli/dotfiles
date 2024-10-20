@@ -113,9 +113,9 @@ bar:
         date-format: "%d %b %Y"
         content:
           - string: {text: , font: *awesome, foreground: *green}
-          - string: {text: "{date}", right-margin: 5, foreground: *green, on-click: "setbg"}
+          - string: {text: " {date}", right-margin: 5, foreground: *green, on-click: "setbg"}
           - string: {text: , font: *awesome}
-          - string: {text: "{time}"}
+          - string: {text: " {time}"}
 
     - script:
         path: /home/mzeinali/.config/yambar/khorshidi_date
@@ -136,25 +136,25 @@ bar:
                 map:
                   on-click: menumount
                   conditions:
-                    ~optical: [{string: *drive}, {string: {text: "{label}"}}]
-                    optical: [{string: *optical}, {string: {text: "{label}"}}]
+                    ~optical: [{string: *drive}, {string: {text: " {label}"}}]
+                    optical: [{string: *optical}, {string: {text: " {label}"}}]
               mounted:
                 map:
                   on-click: menuumount
                   conditions:
                     ~optical:
                       - string: {<<: *drive, deco: *std_underline}
-                      - string: {text: "{label}"}
+                      - string: {text: " {label}"}
                     optical:
                       - string: {<<: *optical, deco: *std_underline}
-                      - string: {text: "{label}"}
+                      - string: {text: " {label}"}
 
     - pipewire:
         anchors:
           volume: &volume
             conditions:
-              muted: {string: {text: "{linear_volume}%", foreground: *red}}
-              ~muted: {string: {text: "{linear_volume}%", foreground: *cyan}}
+              muted: {string: {text: " {linear_volume}%", foreground: *red}}
+              ~muted: {string: {text: " {linear_volume}%", foreground: *cyan}}
         content:
           list:
             items:
@@ -189,7 +189,7 @@ bar:
                       map:
                         on-click: /bin/sh -c "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
                         conditions:
-                          muted: {string: {text: " ", foreground: *red}}
+                          muted: {string: {text: "  ", foreground: *red}}
                         default: {string: {text: " 🎙", foreground: *cyan}}
               - map:
                   <<: *volume
@@ -199,13 +199,13 @@ bar:
         identifiers: [1:1:AT_Translated_Set_2_keyboard]
         content:
           - string: {text: , font: *awesome, foreground: *bright_magenta}
-          - string: {text: "{layout}", foreground: *bright_magenta}
+          - string: {text: " {layout}", foreground: *bright_magenta}
 
     - label:
         content:
           string:
             on-click: sysact
-            text: 
+            text: "  "
             font: *awesome
             foreground: *red
 

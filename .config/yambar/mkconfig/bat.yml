@@ -18,7 +18,7 @@
                       - string: {text: , font: *awesome}
                       - string: {text: , font: *awesome}
                       - string: {text: , foreground: *green, font: *awesome}
-                - string: {text: "{capacity}% {estimate}"}
+                - string: {text: " {capacity}% {estimate}"}
         content:
           map:
             conditions:
@@ -36,15 +36,15 @@
                 - ramp:
                     tag: capacity
                     items:
-                      - string: {text:  , foreground: *red, font: *awesome}
-                      - string: {text:  , foreground: *yellow, font: *awesome}
-                      - string: {text:  , foreground: *green, font: *awesome}
-                      - string: {text:  , foreground: *green, font: *awesome}
-                      - string: {text:  , foreground: *green, font: *awesome}
-                      - string: {text:  , foreground: *green, font: *awesome}
-                      - string: {text:  , foreground: *green, font: *awesome}
-                      - string: {text:  , foreground: *green, font: *awesome}
-                      - string: {text:  , foreground: *green, font: *awesome}
-                      - string: {text:  , foreground: *green, font: *awesome}
-                - string: {text: "{capacity}%", foreground: *green}
+                      - string: {text:   , foreground: *red, font: *awesome}
+                      - string: {text:   , foreground: *yellow, font: *awesome}
+                      - string: {text:   , foreground: *green, font: *awesome}
+                      - string: {text:   , foreground: *green, font: *awesome}
+                      - string: {text:   , foreground: *green, font: *awesome}
+                      - string: {text:   , foreground: *green, font: *awesome}
+                      - string: {text:   , foreground: *green, font: *awesome}
+                      - string: {text:   , foreground: *green, font: *awesome}
+                      - string: {text:   , foreground: *green, font: *awesome}
+                      - string: {text:   , foreground: *green, font: *awesome}
+                - string: {text: " {capacity}%", foreground: *green}
 

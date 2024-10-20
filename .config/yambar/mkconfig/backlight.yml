@@ -1,4 +1,4 @@
     - backlight:
         name: INTERFACE
-        content: [ string: {text: , font: *awesome, foreground: *bright_yellow}, string: {text: "{percent}%", foreground: *bright_yellow}]
+        content: [ string: {text: , font: *awesome, foreground: *bright_yellow}, string: {text: " {percent}%", foreground: *bright_yellow}]
 
