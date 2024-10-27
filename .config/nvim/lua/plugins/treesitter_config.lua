@@ -21,6 +21,7 @@ local config = function()
       "javascript",
       "json",
       "jsonc",
+      "latex",
       "lua",
       "make",
       "markdown",
