@@ -18,7 +18,7 @@
                       - string: {text: , font: *awesome}
                       - string: {text: , font: *awesome}
                       - string: {text: , foreground: *green, font: *awesome}
-                - string: {text: " {capacity}% {estimate}"}
+                - string: {text: " {capacity}%"}
         content:
           map:
             conditions:
@@ -28,7 +28,7 @@
                 <<: *discharging
               state == charging:
                 - string: {text: , foreground: *green, font: *awesome}
-                - string: {text: "{capacity}% {estimate}", foreground: *green}
+                - string: {text: "{capacity}%", foreground: *green}
               state == full:
                 - string: {text: , foreground: *green, font: *awesome}
                 - string: {text: "{capacity}% full", foreground: *green}
