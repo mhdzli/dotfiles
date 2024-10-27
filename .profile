@@ -49,7 +49,7 @@ set_wayland_env(){
 	export QT_QPA_PLATFORM=wayland
 	export QT_WAYLAND_FORCE_DPI=physical
 	export QT_WAYLAND_DISABLE_WINDOWDECORATION=1 # hide window decoratins in older versions of QT
-	export QT_QPA_PLATFORMTHEME=qt5ct # Qt applications running natively might have missing functionality. For example, KeepassXC will be unable to minimize to tray. This can be solved by installing qt5ct and setting this env VAR
+	export QT_QPA_PLATFORMTHEME=qt5ct:qt6ct # Qt applications running natively might have missing functionality. For example, KeepassXC will be unable to minimize to tray. This can be solved by installing qt5ct and setting this env VAR
 	export ECORE_EVAS_ENGINE=wayland
 	export _JAVA_AWT_WM_NONREPARENTING=1
 	export XMODIFIERS=@im=ibus
