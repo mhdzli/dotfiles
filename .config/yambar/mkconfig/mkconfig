@@ -10,7 +10,7 @@ net_config() {
         if [[ "$(ls $pathname | grep wireless)" ]]; then
             sed "s/INTERFACE/$interface/" wl.yml >> configs
         else
-            sed "s/INTERFACE/$interface/" eth.yml >> configs
+            cat eth.yml >> configs
         fi
     done
 }

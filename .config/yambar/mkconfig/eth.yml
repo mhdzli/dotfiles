@@ -1,10 +1,8 @@
     - network:
-        name: INTERFACE
         content:
           map:
             conditions:
-              ~carrier: {empty: {}}
-              carrier:
+              type == ether:
                 map:
                   default: {string: {text: , font: *awesome, foreground: *white}}
                   conditions:
