@@ -7,8 +7,8 @@ local function open_win()
 
   vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = buf })
 
-  local width = vim.api.nvim_get_option_value("columns", { buf = buf })
-  local height = vim.api.nvim_get_option_value("lines", { buf = buf })
+  local width = vim.api.nvim_get_option_value("columns", {})
+  local height = vim.api.nvim_get_option_value("lines", {})
 
   local win_height = math.ceil(height * 0.8 - 4)
   local win_width = math.ceil(width * 0.8)

@@ -21,6 +21,7 @@ map("<leader>s", ":setlocal spell! spelllang=en_us<CR>", "")
 cmap("<leader>n", "Vexplore!", "")
 cmap("<leader>N", "Hexplore!", "")
 cmap("<leader>E", "Explore!", "")
+cmap("<leader>w", "e ~/.local/share/disroot/Notes/index.md", "")
 
 -- Enable folding with the spacebar
 map("<space>", "za")
