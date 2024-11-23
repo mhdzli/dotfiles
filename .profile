@@ -55,9 +55,18 @@ set_wayland_env(){
 	export XMODIFIERS=@im=ibus
 	export LIBSEAT_BACKEND=logind
 	export XDG_SESSION_TYPE=wayland
+	# export QT_IM_MODULE=ibus
+}
+
+set_sway_env(){
 	export XDG_SESSION_DESKTOP=sway
 	export XDG_CURRENT_DESKTOP=sway
-	# export QT_IM_MODULE=ibus
+}
+
+set_hyprland_env(){
+    export XDG_CURRENT_DESKTOP=Hyprland
+    export XDG_SESSION_TYPE=wayland
+    export XDG_SESSION_DESKTOP=Hyprland
 }
 
 # support colors in less
@@ -78,6 +87,6 @@ export QT_STYLE_OVERRIDE="kvantum-dark"
 export GTK_THEME="Adwaita:dark"
 
 # Start graphical server if it's not already running.
-[ -z "${WAYLAND_DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ] && set_wayland_env &&  XKB_DEFAULT_LAYOUT=us exec sway
-[ -z "${WAYLAND_DISPLAY}" ] && [ "${XDG_VTNR}" -eq 2 ] && set_wayland_env &&  XKB_DEFAULT_LAYOUT=us exec Hyprland
+[ -z "${WAYLAND_DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ] && set_wayland_env && set_sway_env &&  XKB_DEFAULT_LAYOUT=us exec sway
+[ -z "${WAYLAND_DISPLAY}" ] && [ "${XDG_VTNR}" -eq 2 ] && set_wayland_env && set_hyprland_env && XKB_DEFAULT_LAYOUT=us exec Hyprland
 [ "${XDG_VTNR}" -eq 3 ] && ! pgrep -x Xorg >/dev/null && exec startx
