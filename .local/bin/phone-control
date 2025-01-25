@@ -57,6 +57,12 @@ run_application(){
     scrcpy "$connection_type" "$connection_audio" --new-display=1920x1080 --start-app "$application"
 }
 
+take_screenshot() {
+    filename="$HOME/screenshot-$(date '+%Y%m%d-%H%M%S').png"
+    adb -s "$device" exec-out screencap -p > "$filename"
+    notify-send "Screenshot Saved" "Screenshot saved to $filename."
+}
+
 file_transfer() {
     printf "push file\npull file" | $menu "Select file transfer action: " | while read -r transfer_action; do
         case "$transfer_action" in
@@ -111,7 +117,7 @@ main() {
             connection_audio="--audio-source=$audio_sorce"
             ;;
     esac
-    action="$(printf 'start scrcpy\nscrcpy (Low Resolution)\nscrcpy (High FPS)\nnew display\nfront camera\nback camera\nrecord screen\nturn off screen\nshow touches\nstay awake\nalways on top\nfullscreen\nfile transfer\nrun an application\n%s' "$extra_options" | $menu "What do you want to do? ")"
+    action="$(printf 'start scrcpy\nscrcpy (Low Resolution)\nscrcpy (High FPS)\nnew display\nfront camera\nback camera\nrecord screen\ntake screenshot\nturn off screen\nshow touches\nstay awake\nalways on top\nfullscreen\nfile transfer\nrun an application\n%s' "$extra_options" | $menu "What do you want to do? ")"
     case "$action" in
         "start scrcpy")
             scrcpy "$connection_type" "$connection_audio"
@@ -133,6 +139,9 @@ main() {
             ;;
         "record screen")
             scrcpy "$connection_type" "$connection_audio" --record "$HOME/phone-screen-$(date '+%y%m%d-%H%M-%S').mkv"
+            ;;
+        "take screenshot")
+            take_screenshot
             ;;
         "turn off screen")
             scrcpy "$connection_type" "$connection_audio" -S
