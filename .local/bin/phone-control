@@ -1,9 +1,16 @@
 #!/bin/sh
 
-menu="$MENU -p"
+# Use fuzzel or fzf for file selection
+if command -v fuzzel >/dev/null 2>&1; then
+    menu="$MENU -p"
+elif command -v fzf >/dev/null 2>&1; then
+    menu="fzf --prompt"
+else
+    notify-send "File Transfer" "Neither fuzzel nor fzf is installed. Please install one of them."
+    exit 1
+fi
 
 ! (adb devices | grep -q "List of devices attached") && notify-send "ADB IS NOT INSTALLED" "You should install Android Debug Bridge before running the script" && exit 1
-
 
 choose_device() {
     device="$(printf '%s' "$devices" | grep -shoP ".*model.*? " | $menu "Which phone do you want to use? " | cut -d" " -f1)"
@@ -67,25 +74,16 @@ file_transfer() {
     printf "push file\npull file" | $menu "Select file transfer action: " | while read -r transfer_action; do
         case "$transfer_action" in
             "push file")
-                # Use fuzzel or fzf for file selection
-                if command -v fuzzel >/dev/null 2>&1; then
-                    file=$(find ~/Downloads -type f \( -name "*" -o -name ".*" \) | $menu "Select a file to push:")
-                elif command -v fzf >/dev/null 2>&1; then
-                    file=$(find ~ -type f \( -name "*" -o -name ".*" \) | fzf --prompt "Select a file to push:")
-                else
-                    notify-send "File Transfer" "Neither fuzzel nor fzf is installed. Please install one of them."
-                    exit 1
-                fi
-
+                file=$(find ~/Downloads -type f \( -name "*" -o -name ".*" \) | $menu "Select a file to push:")
                 if [ -n "$file" ]; then
-                    adb -s "$device" push "$file" /sdcard/Download/
+                    foot adb -s "$device" push "$file" /sdcard/Download/
                     notify-send "File Transfer" "File pushed to /sdcard/Download/."
                 fi
                 ;;
             "pull file")
                 remote_file=$(adb -s "$device" shell ls /sdcard/Download/ | $menu "Select a file to pull")
                 if [ -n "$remote_file" ]; then
-                    adb -s "$device" pull "/sdcard/Download/$remote_file" ~/Downloads/
+                    foot adb -s "$device" pull "/sdcard/Download/$remote_file" ~/Downloads/
                     notify-send "File Transfer" "File pulled to ~/Downloads/ directory."
                 fi
                 ;;
