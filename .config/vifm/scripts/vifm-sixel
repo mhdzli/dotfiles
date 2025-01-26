@@ -24,17 +24,9 @@ cleanup() {
     exit 0
 }
 
-# For ImageMagick 6 <-> 7 compatibility.
-if type magick &>/dev/null; then
-    alias convert='magick'
-    alias montage='magick montage'
-fi
-    alias convert='magick'
-    alias montage='magick montage'
-
 # recieves image with height
 image() {
-    montage "$1" -background "$background" -geometry "${2}x${3}" sixel:-
+    magick montage "$1" -background "$background" -geometry "${2}x${3}" sixel:-
   }
 
 
@@ -43,7 +35,7 @@ case "$action" in
     cleanup
     ;;
   "draw")
-    [ ! -f "${PCACHE}.jpg" ] && convert "$image_file"'[0]' "${PCACHE}.jpg"
+    [ ! -f "${PCACHE}.jpg" ] && magick "$image_file"'[0]' "${PCACHE}.jpg"
     # FILE="$PWD/$image_file"
     image "${PCACHE}.jpg" "$width" "$height"
     ;;
