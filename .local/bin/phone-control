@@ -2,7 +2,7 @@
 
 # Use fuzzel or fzf for file selection
 if command -v fuzzel >/dev/null 2>&1; then
-    menu="$MENU -p"
+    menu="$MENU --input-color=f9f9f4ff -p"
 elif command -v fzf >/dev/null 2>&1; then
     menu="fzf --prompt"
 else
@@ -70,6 +70,12 @@ take_screenshot() {
     notify-send "Screenshot Saved" "Screenshot saved to $filename."
 }
 
+record_screen() {
+    file_name="$HOME/phone-screen-$(date '+%y%m%d-%H%M-%S').mkv"
+    notify-send "Screen Recorder" "Recording the phone screen to $file_name"
+    scrcpy "$connection_type" "$connection_audio" --record "$file_name"
+}
+
 file_transfer() {
     printf "push file\npull file" | $menu "Select file transfer action: " | while read -r transfer_action; do
         case "$transfer_action" in
@@ -101,7 +107,8 @@ main() {
             connection_type="--serial=$device"
             ;;
         TCP)
-            extra_options="keyboard and mouse"
+            extra_options="keyboard and mouse
+disconnect"
             connection_type="--tcpip=$device"
             ;;
     esac
@@ -136,7 +143,7 @@ main() {
             scrcpy "$connection_type" "$connection_audio" --video-source camera --camera-facing back
             ;;
         "record screen")
-            scrcpy "$connection_type" "$connection_audio" --record "$HOME/phone-screen-$(date '+%y%m%d-%H%M-%S').mkv"
+            record_screen
             ;;
         "take screenshot")
             take_screenshot
@@ -161,6 +168,10 @@ main() {
             ;;
         "run an application")
             run_application
+            ;;
+        "disconnect")
+            adb disconnect "$phone_address"
+            notify-send "ADB Disconnect" "$phone_address is now disconnected."
             ;;
     esac
 }
