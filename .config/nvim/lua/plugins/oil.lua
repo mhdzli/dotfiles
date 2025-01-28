@@ -6,7 +6,11 @@ return   {
   lazy = false,
   -- Optional dependencies
   dependencies = { "nvim-tree/nvim-web-devicons" },
-  opts = {},
+  opts = {
+    view_options = {
+      show_hidden = true,
+    }
+  },
   keys = {
     cmap('-', 'Oil'),
   },
