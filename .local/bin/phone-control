@@ -82,15 +82,36 @@ file_transfer() {
             "push file")
                 file=$(find ~/Downloads -type f \( -name "*" -o -name ".*" \) | $menu "Select a file to push:")
                 if [ -n "$file" ]; then
-                    foot adb -s "$device" push "$file" /sdcard/Download/
-                    notify-send "File Transfer" "File pushed to /sdcard/Download/."
+                    file_size=$(du -s "$file" | awk '{print $1}')
+                    adb -s "$device" push "$file" /sdcard/Download/ &
+                    pid=$!
+                    trap 'kill $pid 2> /dev/null' EXIT
+                    while kill -0 $pid 2> /dev/null; do
+                        file_name=$(echo $file | grep -o '[^/]*$')
+                        dest_file_size=$(adb shell ls -l "/sdcard/Download/$file_name" | awk '{print $5}')
+                        progress=$(echo "$dest_file_size $file_size" | awk '{printf "%.2f", $1/$2/10}')
+                        dunstify -r 3339 -h int:value:"$progress%" "ADB file transferr" "Transferring $file_name is $progress%"
+                        sleep 1
+                    done
+                    dunstify -r 3339 "File Transfer" "File pulled to ~/Downloads/ directory."
+                    trap - EXIT
                 fi
                 ;;
             "pull file")
                 remote_file=$(adb -s "$device" shell ls /sdcard/Download/ | $menu "Select a file to pull")
                 if [ -n "$remote_file" ]; then
-                    foot adb -s "$device" pull "/sdcard/Download/$remote_file" ~/Downloads/
-                    notify-send "File Transfer" "File pulled to ~/Downloads/ directory."
+                    file_size=$(adb shell du -s "/sdcard/Download/$remote_file" | awk '{print $1}')
+                    adb -s "$device" pull "/sdcard/Download/$remote_file" "$HOME/Downloads/" &
+                    pid=$!
+                    trap 'kill $pid 2> /dev/null' EXIT
+                    while kill -0 $pid 2> /dev/null; do
+                        dest_file_size=$(du -s "$HOME/Downloads/$remote_file" | awk '{print $1}')
+                        progress=$(echo "$dest_file_size $file_size" | awk '{printf "%.2f", $1/$2*100}')
+                        dunstify -r 3339 -h int:value:"$progress%" "ADB file transferr" "Transferring $remote_file is $progress%"
+                        sleep 1
+                    done
+                    dunstify -r 3339 "File Transfer" "File pulled to ~/Downloads/ directory."
+                    trap - EXIT
                 fi
                 ;;
             *)
