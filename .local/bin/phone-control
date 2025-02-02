@@ -1,7 +1,7 @@
 #!/bin/sh
 
-# Use fuzzel or fzf for file selection
-if command -v fuzzel >/dev/null 2>&1; then
+# Use system menu or fzf for file selection and exit if none of them is installed
+if [ -n "$MENU" ]; then
     menu="$MENU --input-color=f9f9f4ff -p"
 elif command -v fzf >/dev/null 2>&1; then
     menu="fzf --prompt"
@@ -10,17 +10,22 @@ else
     exit 1
 fi
 
+# check if adb is installed and also run adb if it's not running
 ! (adb devices | grep -q "List of devices attached") && notify-send "ADB IS NOT INSTALLED" "You should install Android Debug Bridge before running the script" && exit 1
 
+# choose a device if multiple devices are connected
 choose_device() {
     device="$(printf '%s' "$devices" | grep -shoP ".*model.*? " | $menu "Which phone do you want to use? " | cut -d" " -f1)"
     echo "$device"
 }
 
+# set up device wirelessly
 setup_wireless() {
+    # when using wireless debugging the function get the phone address as a variable
     if [ -n "$1" ]; then
         phone_address="$1"
     else
+        # getting phone ip for the device that is connected via USB
         phone_ip="$(adb shell ip route | awk 'END{print $9}')"
         adb tcpip 5555
         phone_address="$phone_ip":5555
@@ -38,7 +43,9 @@ setup_wireless() {
 
 usb_device() {
     device="$(choose_device)"
+    # check if device is connected with USB
     if ! (adb connect "$device" | grep -q "connected to"); then
+        # if the device is connected with USB ask if the user prefer to connect the device wirelessly
         wireless_connection="$( printf "Yes\\nNo" | $menu "Do you want to connect your device wirelessly? ")"
         case "$wireless_connection" in
             Yes)
@@ -57,6 +64,7 @@ usb_device() {
     fi
 }
 
+# run a phone application
 run_application(){
     apps="$(scrcpy "$connection_type" --list-apps)"
     application="$(printf '%s' "$apps" | grep -shoP "[-*] .*   " | cut -c 3- |  $menu "Select an app: ")"
@@ -77,48 +85,33 @@ record_screen() {
 }
 
 file_transfer() {
-    printf "push file\npull file" | $menu "Select file transfer action: " | while read -r transfer_action; do
-        case "$transfer_action" in
-            "push file")
-                file=$(find ~/Downloads -type f \( -name "*" -o -name ".*" \) | $menu "Select a file to push:")
-                if [ -n "$file" ]; then
-                    file_size=$(du -s "$file" | awk '{print $1}')
-                    adb -s "$device" push "$file" /sdcard/Download/ &
-                    pid=$!
-                    trap 'kill $pid 2> /dev/null' EXIT
-                    while kill -0 $pid 2> /dev/null; do
-                        file_name=$(echo $file | grep -o '[^/]*$')
-                        dest_file_size=$(adb shell ls -l "/sdcard/Download/$file_name" | awk '{print $5}')
-                        progress=$(echo "$dest_file_size $file_size" | awk '{printf "%.2f", $1/$2/10}')
-                        dunstify -r 3339 -h int:value:"$progress%" "ADB file transferr" "Transferring $file_name is $progress%"
-                        sleep 1
-                    done
-                    dunstify -r 3339 "File Transfer" "File pulled to ~/Downloads/ directory."
-                    trap - EXIT
-                fi
-                ;;
-            "pull file")
-                remote_file=$(adb -s "$device" shell ls /sdcard/Download/ | $menu "Select a file to pull")
-                if [ -n "$remote_file" ]; then
-                    file_size=$(adb shell du -s "/sdcard/Download/$remote_file" | awk '{print $1}')
-                    adb -s "$device" pull "/sdcard/Download/$remote_file" "$HOME/Downloads/" &
-                    pid=$!
-                    trap 'kill $pid 2> /dev/null' EXIT
-                    while kill -0 $pid 2> /dev/null; do
-                        dest_file_size=$(du -s "$HOME/Downloads/$remote_file" | awk '{print $1}')
-                        progress=$(echo "$dest_file_size $file_size" | awk '{printf "%.2f", $1/$2*100}')
-                        dunstify -r 3339 -h int:value:"$progress%" "ADB file transferr" "Transferring $remote_file is $progress%"
-                        sleep 1
-                    done
-                    dunstify -r 3339 "File Transfer" "File pulled to ~/Downloads/ directory."
-                    trap - EXIT
-                fi
-                ;;
-            *)
-                notify-send "File Transfer" "Invalid file transfer action."
-                ;;
-        esac
-    done
+    transfer_action=$(printf "push file\npull file" | $menu "Select file transfer action: " | cut -d " " -f1)
+    case "$transfer_action" in
+        "push")
+            source_file=$(find ~/Downloads -type f,d \( -name "*" -o -name ".*" \) | $menu "Select a file to push: ")
+            dest_file="/sdcard/Download/"
+            ;;
+        "pull")
+            source_file=$(adb -s "$device" shell find /sdcard/Download/ -type f,d | $menu "Select a file to pull: ")
+            dest_file="$HOME/Downloads"
+            ;;
+        *)
+            notify-send "Invalid choice. Exiting."
+            exit 1
+            ;;
+    esac
+    file_name=$(echo "$source_file" | grep -o '[^/]*$')
+    if [ -n "$source_file" ]; then
+        # ADB uses isatty to check whether its output is connected to a terminal.
+        # If the output is piped to another command or redirected it will disable progress output
+        # hanling the special control characters (moving to the beginning of the line, carriage return and scape sequence) with script
+        script -q -c "adb -s $device $transfer_action $source_file $dest_file" /dev/null | while read -r -d $'\x1B' line; do
+            progress=$(echo "$line" | grep -oP "[0-9]*(?=%])")
+            currentfile=$(echo "$line" | grep -o "[^/]*$")
+            dunstify -r 3339 -h int:value:"$progress%" "ADB file transfer ($file_name $progress%)" "Transferring $currentfile"
+        done
+        dunstify -r 3339 "File Transfer" "File transfered to $dest_file directory."
+    fi
 }
 
 main() {
