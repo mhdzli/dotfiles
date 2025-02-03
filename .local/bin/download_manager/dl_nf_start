@@ -7,4 +7,4 @@ sed -i '/^[ \t]*$/d' $a2_dir/dl_list
 # Get the first line of dl_list 
 current_file="$(sed -n '1{s/.*\///};1p' $a2_dir/dl_list)"
 # Send notification for starting download
-notify-send " Start Downloading" "$current_file"
+dunstify -r 2225 -t 0 " Start Downloading" "$current_file"

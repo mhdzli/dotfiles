@@ -21,7 +21,12 @@ start_download () {
     aria2c -c -x 16 -s 16 -k 1M -i "$a2_dir"/dl_list -j 1 \
         --on-download-start="dl_nf_start" \
         --on-download-complete="dl_nf_complete"\
-        --on-download-error="dl_nf_error" &
+        --on-download-error="dl_nf_error"\
+        --summary-interval=1 2>&1 | while read -r line; do
+            test=$(echo "$line" | grep -oP "\[.*\([0-9]*%\).*\]")
+            progress=$(echo "$test" | grep -oP "[0-9]*%")
+            [ -n "$test" ] && dunstify -r 2224 -h int:value:"$progress" "Downloading ..." "$test"
+        done &
     echo $! > /tmp/downloading_pid
 }
 
