@@ -7,6 +7,6 @@ sed -i '/^[ \t]*$/d' $a2_dir/dl_list
 # Get the first line of dl_list 
 current_file="$(sed -n '1{s/.*\///};1p' $a2_dir/dl_list)"
 # Send notification for download error
-dunstify -r 2225 " Download Error" "$current_file"
+dunstify -r 2225 -I -u critical "$HOME/.local/bin/download_manager/error.svg" "Download Error" "$current_file"
 # Move the first two lines of dl_list (download url and download path) to dl_error
 sed sed -i -e '1,2{w /dev/stdout' -e 'd}' $a2_dir/dl_list >> $a2_dir/dl_error
