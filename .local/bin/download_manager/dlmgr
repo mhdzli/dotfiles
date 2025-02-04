@@ -45,27 +45,40 @@ stop_download () {
 
 add_link () {
     case $pf in
-        "xorg") link=$(xclip -o | $menu "Url Address" -l 2);;
-        "wayland") link=$(wl-paste | $menu "Url Address" -l 2);;
+        "xorg") links=$(xclip -o);;
+        "wayland") links=$(wl-paste);;
     esac
-    dir="$(find "$HOME" -maxdepth 5 -type d 2>/dev/null | $menu "Type in download directory.")" || dir="$dl_dir"
-    [ "$link" ] && dlmgr add "$link" "$dir"
+    selected_link=$(printf 'All\n%s' "$links" | $menu "Select The Url Address: ")
+    [ "$selected_link" ] && dir="$(find "$HOME" -maxdepth 5 -type d 2>/dev/null | $menu "Type in download directory.")" || dir="$dl_dir"
+    [ "$dir" ] && if [ "$selected_link"=="All" ]; then
+        echo "$links" | while read -r line; do
+            dlmgr add "$line" "$dir"
+        done
+    else
+        dlmgr add "$selected_link" "$dir"
+    fi
+    ask_action
 }
 
 remove_link () {
     line=$(grep -n "^[^ ]" "$a2_dir"/dl_list | $menu "Url Address" | cut -d: -f1)
     # Remove the selected line (download url) and the next line after (download path)
     sed -i "${line},+1d" "$a2_dir"/dl_list
-    stop_download && start_download
+    stop_download && ask_action
 }
 
 ask_action () {
-    choice="$(printf "Start Download\\nStop Download\\nAdd Link\\nRemove Link" | $menu "What do you want to do?")" || exit 1
+    choice="$(printf "Start Download\nStop Download\nAdd Link\nRemove Link\nExit" | $menu "What do you want to do?")" || exit 1
     case $choice in
         "Start Download") start_download;;
         "Stop Download") stop_download;;
         "Add Link") add_link;;
         "Remove Link") remove_link;;
+        "Exit") Exit 0;;
+        *)
+            dunstify -r 2225 -I "$HOME/.local/bin/download_manager/error.svg" "Exit with error" "Not a valid option"
+            exit 1
+            ;;
     esac
 }
 
