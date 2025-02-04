@@ -1,5 +1,6 @@
 #!/bin/sh
-
+# Add sleep time to let the complete/error script finish modifying download lists and get current file after that.
+sleep 2
 # Set the path for file lists whitch dlmgr use
 a2_dir="$HOME/.local/share/aria2"
 # Remove empty lines in dl_list
