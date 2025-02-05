@@ -105,11 +105,22 @@ file_transfer() {
         # ADB uses isatty to check whether its output is connected to a terminal.
         # If the output is piped to another command or redirected it will disable progress output
         # hanling the special control characters (moving to the beginning of the line, carriage return and scape sequence) with script
-        script -q -c "adb -s $device $transfer_action $source_file $dest_file" /dev/null | while read -r -d $'\x1B' line; do
-            progress=$(echo "$line" | grep -oP "[0-9]*(?=%])")
-            currentfile=$(echo "$line" | grep -o "[^/]*$")
-            dunstify -r 3339 -h int:value:"$progress%" "ADB file transfer ($file_name $progress%)" "Transferring $currentfile"
-        done
+        progress_model=$(printf "Terminal\nNotification\nDon't Show" | $menu "How do you like to see your download progress? ")
+        case "$progress_model" in
+            "Terminal")
+                exec-terminal adb -s "$device" "$transfer_action" "$source_file" "$dest_file"
+                ;;
+            "Notification")
+                script -q -c "adb -s $device $transfer_action $source_file $dest_file" /dev/null | while read -r -d $'\x1B' line; do
+                    progress=$(echo "$line" | grep -oP "[0-9]*(?=%])")
+                    currentfile=$(echo "$line" | grep -o "[^/]*$")
+                    dunstify -r 3339 -h int:value:"$progress%" "ADB file transfer ($file_name $progress%)" "Transferring $currentfile"
+                done
+                ;;
+            *)
+                adb -s "$device" "$transfer_action" "$source_file" "$dest_file"
+                ;;
+        esac
         dunstify -r 3339 "File Transfer" "File transfered to $dest_file directory."
     fi
 }

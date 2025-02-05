@@ -18,15 +18,32 @@ wl-copy -h >/dev/null || [ -z "$WAYLAND_DISPLAY" ] || exit
 start_download () {
     # Remove empty lines in dl_list
     sed -i '/^[ \t]*$/d' "$a2_dir"/dl_list
-    aria2c -c -x 16 -s 16 -k 1M -i "$a2_dir"/dl_list -j 1 \
-        --on-download-start="dl_nf_start" \
-        --on-download-complete="dl_nf_complete"\
-        --on-download-error="dl_nf_error"\
-        --summary-interval=1 2>&1 | while read -r line; do
-            test=$(echo "$line" | grep -oP "\[.*\([0-9]*%\).*\]")
-            progress=$(echo "$test" | grep -oP "[0-9]*%")
-            [ -n "$test" ] && dunstify -r 2224 -h int:value:"$progress" -I "$HOME/.local/bin/download_manager/download.svg" "Downloading ..." "$test"
-        done
+    progress_model=$(printf "Terminal\nNotification\nDon't Show" | $menu "How do you like to see your download progress? ")
+    case "$progress_model" in
+        "Terminal")
+            exec-terminal aria2c -c -x 16 -s 16 -k 1M -i "$a2_dir"/dl_list -j 1 \
+                --on-download-start="dl_nf_start" \
+                --on-download-complete="dl_nf_complete"\
+                --on-download-error="dl_nf_error"
+            ;;
+        "Notification")
+            aria2c -c -x 16 -s 16 -k 1M -i "$a2_dir"/dl_list -j 1 \
+                --on-download-start="dl_nf_start" \
+                --on-download-complete="dl_nf_complete"\
+                --on-download-error="dl_nf_error"\
+                --summary-interval=1 2>&1 | while read -r line; do
+                    report=$(echo "$line" | grep -oP "\[.*\([0-9]*%\).*\]")
+                    progress=$(echo "$report" | grep -oP "[0-9]*%")
+                    [ -n "$report" ] && dunstify -r 2224 -h int:value:"$progress" -I "$HOME/.local/bin/download_manager/download.svg" "Downloading ..." "$report"
+                done
+            ;;
+        *)
+            aria2c -c -x 16 -s 16 -k 1M -i "$a2_dir"/dl_list -j 1 \
+                --on-download-start="dl_nf_start" \
+                --on-download-complete="dl_nf_complete"\
+                --on-download-error="dl_nf_error"
+            ;;
+    esac
 }
 
 stop_download () {
