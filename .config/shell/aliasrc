@@ -71,7 +71,7 @@ alias \
     free='free -mh' \
     jctlerror='journalctl -p 3 -xb' \
     dwatch='watch -n 0.1 -t "ls -SsCphq --color=auto --group-directories-first"' \
-    yt='youtube-dl --add-metadata -i' \
+    yt='yt-dlp --add-metadata -i' \
     yta='yt -x -f bestaudio/best' \
     ffmpeg='ffmpeg -hide_banner' \
     fmpg='ffmpeg -v 0 -stats' \
