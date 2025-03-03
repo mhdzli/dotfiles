@@ -34,7 +34,7 @@ start_download () {
                 --summary-interval=1 2>&1 | while read -r line; do
                     report=$(echo "$line" | grep -oP "\[.*\([0-9]*%\).*\]")
                     progress=$(echo "$report" | grep -oP "[0-9]*%")
-                    [ -n "$report" ] && dunstify -r 2224 -h int:value:"$progress" -I "$HOME/.local/bin/download_manager/download.svg" "Downloading ..." "$report"
+                    [ -n "$report" ] && notify-send -r 2224 -h int:value:"$progress" -i "$HOME/.local/bin/download_manager/download.svg" "Downloading ..." "$report"
                 done
             ;;
         *)
@@ -48,7 +48,7 @@ start_download () {
 
 stop_download () {
     dl_pid=$(pgrep "aria2c" | awk 'NR==1{print $1}')
-    dunstify -r 2225 -I "$HOME/.local/bin/download_manager/pause.svg" "Pausing your aria2c downloads" "You can resume your downloads by starting dlmgr again"
+    notify-send -r 2225 -i "$HOME/.local/bin/download_manager/pause.svg" "Pausing your aria2c downloads" "You can resume your downloads by starting dlmgr again"
     # kill with SIGTERM, allowing finishing touches.
     while [ -n "$dl_pid" ]; do
         kill -15 "$dl_pid"
@@ -67,7 +67,7 @@ add_link () {
     esac
     selected_link=$(printf 'All\n%s' "$links" | $menu "Select The Url Address: ")
     [ "$selected_link" ] && dir="$(find "$HOME" -maxdepth 5 -type d 2>/dev/null | $menu "Type in download directory.")" || dir="$dl_dir"
-    [ "$dir" ] && if [ "$selected_link"=="All" ]; then
+    [ "$dir" ] && if [ "$selected_link" == "All" ]; then
         echo "$links" | while read -r line; do
             dlmgr add "$line" "$dir"
         done
@@ -93,7 +93,7 @@ ask_action () {
         "Remove Link") remove_link;;
         "Exit") Exit 0;;
         *)
-            dunstify -r 2225 -I "$HOME/.local/bin/download_manager/error.svg" "Exit with error" "Not a valid option"
+            notify-send -r 2225 -i "$HOME/.local/bin/download_manager/error.svg" "Exit with error" "Not a valid option"
             exit 1
             ;;
     esac

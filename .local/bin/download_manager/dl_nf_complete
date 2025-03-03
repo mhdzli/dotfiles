@@ -7,6 +7,6 @@ sed -i '/^[ \t]*$/d' $a2_dir/dl_list
 # Get the first line of dl_list 
 current_file="$(sed -n '1{s/.*\///};1p' $a2_dir/dl_list)"
 # Send notification for download finished
-dunstify -r 2225 -I "$HOME/.local/bin/download_manager/complete.svg" -u low "Download finished" "$current_file" && printf "Downloading $current_file finished.\n"
+notify-send -r 2225 -i "$HOME/.local/bin/download_manager/complete.svg" -u low "Download finished" "$current_file" && printf "Downloading $current_file finished.\n"
 # Move the first two lines of dl_list (download url and download path) to dl_completed 
 sed -i -e '1,2{w /dev/stdout' -e 'd}' $a2_dir/dl_list >> $a2_dir/dl_completed
