@@ -14,7 +14,7 @@ export EDITOR="nvim"
 export MENU="fuzzel --log-level=none --log-no-syslog -w 80 -I -d"
 export LAUNCHER="fuzzel"
 export TERMINAL="foot"
-export BROWSER="firefox"
+export BROWSER="brave"
 export READER="zathura"
 export FILE="vifm"
 #export BIB="$HOME/Documents/LaTeX/uni.bib"
@@ -61,6 +61,7 @@ set_wayland_env(){
 
 set_sway_env(){
 	export XDG_SESSION_DESKTOP=sway
+    export XDG_SESSION_TYPE=wayland
 	export XDG_CURRENT_DESKTOP=sway
 }
 
