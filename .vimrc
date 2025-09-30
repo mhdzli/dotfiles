@@ -89,6 +89,7 @@ cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
 " --- File Browser ---
 """ Netrw
+packadd netrw
 let g:netrw_banner=0 " Disable annoying banner
 let g:netrw_browser_split=4 " Open in prior window
 let g:netrw_altv=1 " Open splits to the right

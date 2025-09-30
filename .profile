@@ -5,6 +5,7 @@
 echo "$0" | grep "zsh$" >/dev/null && export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
 echo "$0" | grep "bash$" >/dev/null && export PATH="${PATH}:$(find ~/.local/bin -type d | tr '\n' ':' | sed 's/:$//')"
 
+export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CONFIG_HOME="$HOME/.config"
 export GOPATH="$XDG_DATA_HOME/go"
