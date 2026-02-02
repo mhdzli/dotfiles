@@ -1,0 +1,13 @@
+#!/bin/sh
+# Add sleep time to let the complete/error script finish modifying download lists and get current file after that.
+sleep 2
+# Set the path for file lists which ytmgr uses
+yt_dir="$HOME/.local/share/ytmgr"
+# Remove empty lines in dl_list
+sed -i '/^[ \t]*$/d' "$yt_dir"/dl_list
+# Get the first line of dl_list (URL)
+current_url="$(sed -n '1p' "$yt_dir"/dl_list)"
+# Get video title using yt-dlp
+video_title="$(yt-dlp --get-title "$current_url" 2>/dev/null || echo "$current_url")"
+# Send notification for starting download
+notify-send -r 2227 -t 0 -i "video" "Start Downloading" "$video_title"

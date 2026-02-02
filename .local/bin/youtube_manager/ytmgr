@@ -1,0 +1,373 @@
+#!/bin/bash
+
+# Set the menu for choosing options
+menu="$MENU -p"
+# Set the path for file lists which ytmgr uses
+yt_dir="$HOME/.local/share/ytmgr"
+# Set the default path for download files
+dl_dir="$HOME/Downloads/youtube"
+# Config file for yt-dlp options
+config_file="$yt_dir/config"
+
+# Set the clipboard based on the display manager (Xorg or Wayland)
+[ -z "$WAYLAND_DISPLAY" ]  && pf="xorg" || pf="wayland"
+xclip -h 2>/dev/null || [ -n "$WAYLAND_DISPLAY" ] || exit
+wl-copy -h >/dev/null || [ -z "$WAYLAND_DISPLAY" ] || exit
+
+# Make the ytmgr directory if it doesn't exist already
+[ -d "$yt_dir" ] || mkdir -p "$yt_dir"
+[ -d "$dl_dir" ] || mkdir -p "$dl_dir"
+
+# Create default config if it doesn't exist
+if [ ! -f "$config_file" ]; then
+    cat > "$config_file" << 'EOF'
+# yt-dlp configuration for ytmgr
+# Uncomment and modify options as needed
+
+# Browser cookies (for age-restricted or member-only content)
+# Options: chrome, firefox, safari, edge, chromium, brave, opera, vivaldi
+#COOKIES_BROWSER="firefox"
+
+# Authentication (for premium content)
+#USERNAME="your_email@example.com"
+#PASSWORD="your_password"
+# Or use OAuth2
+#USERNAME="oauth2"
+#PASSWORD=""
+
+# User Agent (useful for avoiding blocks)
+#USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+
+# Video format (default: best up to 1080p)
+#FORMAT="bestvideo[height<=1080]+bestaudio/best[height<=1080]"
+
+# Additional yt-dlp options (space-separated)
+#EXTRA_OPTS="--no-playlist --embed-thumbnail --embed-metadata"
+
+# Rate limit (e.g., "1M" for 1MB/s, "500K" for 500KB/s)
+#RATE_LIMIT=""
+
+# Proxy settings
+#PROXY=""
+
+# Subtitles
+#SUBTITLES="--write-auto-sub --sub-lang en"
+
+# Geo bypass
+#GEO_BYPASS="--geo-bypass --geo-bypass-country US"
+EOF
+fi
+
+# Load configuration
+source "$config_file"
+
+# Build yt-dlp command options
+build_ytdlp_opts() {
+    local opts=""
+    
+    # Add cookies if specified
+    [ -n "$COOKIES_BROWSER" ] && opts="$opts --cookies-from-browser $COOKIES_BROWSER"
+    
+    # Add authentication if specified
+    if [ -n "$USERNAME" ]; then
+        opts="$opts --username \"$USERNAME\""
+        [ -n "$PASSWORD" ] && opts="$opts --password \"$PASSWORD\""
+    fi
+    
+    # Add user agent if specified
+    [ -n "$USER_AGENT" ] && opts="$opts --user-agent \"$USER_AGENT\""
+    
+    # Add format (use default if not specified)
+    if [ -n "$FORMAT" ]; then
+        opts="$opts -f $FORMAT"
+    else
+        # Use a single merged format for ffplay compatibility with -g
+        # This avoids the issue of multiple URLs (video+audio separate)
+        opts="$opts -f \"best[height<=1080]\""
+    fi
+    
+    # Add rate limit if specified
+    [ -n "$RATE_LIMIT" ] && opts="$opts --limit-rate $RATE_LIMIT"
+    
+    # Add proxy if specified
+    [ -n "$PROXY" ] && opts="$opts --proxy $PROXY"
+    
+    # Add subtitles if specified
+    [ -n "$SUBTITLES" ] && opts="$opts $SUBTITLES"
+    
+    # Add geo bypass if specified
+    [ -n "$GEO_BYPASS" ] && opts="$opts $GEO_BYPASS"
+    
+    # Add any extra options
+    [ -n "$EXTRA_OPTS" ] && opts="$opts $EXTRA_OPTS"
+    
+    echo "$opts"
+}
+
+play_video () {
+    # Get URL from clipboard
+    case $pf in
+        "xorg") url=$(xclip -o);;
+        "wayland") url=$(wl-paste);;
+    esac
+    
+    if [ -z "$url" ]; then
+        notify-send -r 2226 -i "video" "No URL found" "Clipboard is empty"
+        ask_action
+        return
+    fi
+    
+    # Validate YouTube URL
+    if ! echo "$url" | grep -qE "(youtube\.com|youtu\.be)"; then
+        notify-send -r 2226 -i "dialog-error" "Invalid URL" "Not a YouTube URL"
+        ask_action
+        return
+    fi
+    
+    # Ask if user wants to select format
+    format_choice=$(printf "Use Config Format\nSelect Format" | $menu "Choose format option:")
+    
+    if [ "$format_choice" = "Select Format" ]; then
+        notify-send -r 2226 -i "video" "Loading formats..." "Fetching available formats"
+        
+        # Get available formats using cookies if configured
+        cookie_opt=""
+        [ -n "$COOKIES_BROWSER" ] && cookie_opt="--cookies-from-browser $COOKIES_BROWSER"
+        
+        # Get formats list - full output for user to see details
+        formats_full=$(yt-dlp $cookie_opt -F "$url" 2>/dev/null)
+        
+        if [ -z "$formats_full" ]; then
+            notify-send -r 2226 -i "dialog-error" "Error" "Could not fetch formats"
+            ask_action
+            return
+        fi
+        
+        # Parse formats - show ID, extension, resolution, note
+        # Format: ID - EXT RESOLUTION FPS │ FILESIZE TBR PROTO │ VCODEC VBR ACODEC ABR NOTE
+        formats=$(echo "$formats_full" | \
+            awk '/^[0-9]/ {
+                id=$1; ext=$2; res=$3; 
+                # Find position of │ to get additional info
+                rest=""; for(i=4; i<=NF; i++) rest=rest" "$i;
+                printf "%s - %s %s%s\n", id, ext, res, rest
+            }')
+        
+        if [ -z "$formats" ]; then
+            notify-send -r 2226 -i "dialog-error" "Error" "No formats available"
+            ask_action
+            return
+        fi
+        
+        # Let user select format
+        selected_format=$(echo "$formats" | $menu "Select video format (ID - EXT RESOLUTION):")
+        
+        if [ -z "$selected_format" ]; then
+            ask_action
+            return
+        fi
+        
+        # Extract format code (first field)
+        format_code=$(echo "$selected_format" | awk '{print $1}')
+        
+        notify-send -r 2226 -i "video" "Loading video..." "Using format $format_code"
+        
+        # Build yt-dlp options with selected format
+        ytdlp_opts=""
+        [ -n "$COOKIES_BROWSER" ] && ytdlp_opts="$ytdlp_opts --cookies-from-browser $COOKIES_BROWSER"
+        [ -n "$USERNAME" ] && ytdlp_opts="$ytdlp_opts --username \"$USERNAME\""
+        [ -n "$PASSWORD" ] && ytdlp_opts="$ytdlp_opts --password \"$PASSWORD\""
+        [ -n "$USER_AGENT" ] && ytdlp_opts="$ytdlp_opts --user-agent \"$USER_AGENT\""
+        [ -n "$RATE_LIMIT" ] && ytdlp_opts="$ytdlp_opts --limit-rate $RATE_LIMIT"
+        [ -n "$PROXY" ] && ytdlp_opts="$ytdlp_opts --proxy $PROXY"
+        ytdlp_opts="$ytdlp_opts -f $format_code"
+    else
+        notify-send -r 2226 -i "video" "Loading video..." "Fetching video information"
+        
+        # Build yt-dlp options from config
+        ytdlp_opts=$(build_ytdlp_opts)
+    fi
+    
+    # Get direct video URL using yt-dlp -g
+    video_url=$(eval yt-dlp $ytdlp_opts -g "\"$url\"" 2>/dev/null)
+    
+    if [ -n "$video_url" ] && echo "$video_url" | grep -q "^http"; then
+        notify-send -r 2226 -i "video" "Playing video..." "Starting playback"
+        ffplay -autoexit -fs "$video_url" &>/dev/null &
+    else
+        notify-send -r 2226 -i "dialog-error" "Playback failed" "Could not get video URL"
+    fi
+    
+    ask_action
+}
+
+start_download () {
+    # Remove empty lines in download list
+    sed -i '/^[ \t]*$/d' "$yt_dir"/dl_list
+    
+    if [ ! -s "$yt_dir"/dl_list ]; then
+        notify-send -r 2227 -i "dialog-information" "Download list empty" "No videos to download"
+        ask_action
+        return
+    fi
+    
+    # Build yt-dlp options
+    ytdlp_opts=$(build_ytdlp_opts)
+    
+    progress_model=$(printf "Terminal\nNotification\nDon't Show" | $menu "How do you like to see your download progress? ")
+    
+    case "$progress_model" in
+        "Terminal")
+            exec-terminal sh -c 'yt_dir="'"$yt_dir"'"; ytdlp_opts="'"$ytdlp_opts"'"; while IFS= read -r line; do
+                if [ -n "$line" ] && [ "${line#"${line%%[![:space:]]*}"}" ]; then
+                    url="$line"
+                    read -r dir_line
+                    dir="${dir_line#*dir=}"
+                    yt_nf_start "$url" &
+                    if eval yt-dlp $ytdlp_opts -o "\"$dir/%(title)s.%(ext)s\"" "\"$url\""; then
+                        yt_nf_complete "$url"
+                    else
+                        yt_nf_error "$url"
+                    fi
+                fi
+            done < "$yt_dir/dl_list"'
+            ;;
+        "Notification")
+            while IFS= read -r line; do
+                if [ -n "$line" ] && [ "${line#"${line%%[![:space:]]*}"}" ]; then
+                    url="$line"
+                    read -r dir_line
+                    dir="${dir_line#*dir=}"
+                    yt_nf_start "$url" &
+                    eval yt-dlp $ytdlp_opts -o "\"$dir/%(title)s.%(ext)s\"" \
+                        --newline "\"$url\"" 2>&1 | while read -r progress_line; do
+                            if echo "$progress_line" | grep -q "\[download\]"; then
+                                percent=$(echo "$progress_line" | grep -oP '\d+\.\d+%' | head -1)
+                                [ -n "$percent" ] && notify-send -r 2227 -h int:value:"${percent%.*}" \
+                                    -i "video" "Downloading..." "$percent complete"
+                            fi
+                        done
+                    if [ $? -eq 0 ]; then
+                        yt_nf_complete "$url"
+                    else
+                        yt_nf_error "$url"
+                    fi
+                fi
+            done < "$yt_dir"/dl_list
+            ;;
+        *)
+            while IFS= read -r line; do
+                if [ -n "$line" ] && [ "${line#"${line%%[![:space:]]*}"}" ]; then
+                    url="$line"
+                    read -r dir_line
+                    dir="${dir_line#*dir=}"
+                    yt_nf_start "$url" &
+                    if eval yt-dlp $ytdlp_opts -o "\"$dir/%(title)s.%(ext)s\"" "\"$url\""; then
+                        yt_nf_complete "$url"
+                    else
+                        yt_nf_error "$url"
+                    fi
+                fi
+            done < "$yt_dir"/dl_list
+            ;;
+    esac
+}
+
+stop_download () {
+    yt_pid=$(pgrep "yt-dlp" | awk 'NR==1{print $1}')
+    notify-send -r 2227 -i "media-playback-pause" "Pausing your YouTube downloads" "You can resume your downloads by starting ytmgr again"
+    # kill with SIGTERM, allowing finishing touches.
+    while [ -n "$yt_pid" ]; do
+        kill -15 "$yt_pid"
+        # even after SIGTERM, yt-dlp may still run, so SIGKILL it.
+        sleep 3
+        kill -9 "$yt_pid" 2>/dev/null
+        yt_pid=$(pgrep "yt-dlp" | awk 'NR==1{print $1}')
+    done
+    exit
+}
+
+add_link () {
+    case $pf in
+        "xorg") links=$(xclip -o);;
+        "wayland") links=$(wl-paste);;
+    esac
+    
+    if [ -z "$links" ]; then
+        notify-send -r 2227 -i "dialog-error" "No URL found" "Clipboard is empty"
+        ask_action
+        return
+    fi
+    
+    # Validate YouTube URLs
+    valid_links=$(echo "$links" | grep -E "(youtube\.com|youtu\.be)")
+    if [ -z "$valid_links" ]; then
+        notify-send -r 2227 -i "dialog-error" "Invalid URL" "No YouTube URLs found in clipboard"
+        ask_action
+        return
+    fi
+    
+    selected_link=$(printf 'All\n%s' "$valid_links" | $menu "Select The YouTube URL: ")
+    [ "$selected_link" ] && dir="$(find "$HOME" -maxdepth 5 -type d 2>/dev/null | $menu "Type in download directory.")" || dir="$dl_dir"
+    [ "$dir" ] && if [ "$selected_link" == "All" ]; then
+        echo "$valid_links" | while read -r line; do
+            ytmgr add "$line" "$dir"
+        done
+    else
+        ytmgr add "$selected_link" "$dir"
+    fi
+    ask_action
+}
+
+remove_link () {
+    if [ ! -s "$yt_dir"/dl_list ]; then
+        notify-send -r 2227 -i "dialog-information" "List is empty" "No videos in download list"
+        ask_action
+        return
+    fi
+    
+    line=$(grep -n "^[^ ]" "$yt_dir"/dl_list | $menu "YouTube URL" | cut -d: -f1)
+    if [ -n "$line" ]; then
+        # Remove the selected line (download url) and the next line after (download path)
+        sed -i "${line},+1d" "$yt_dir"/dl_list
+        notify-send -r 2227 -i "user-trash" "Removed" "Video removed from download list"
+    fi
+    stop_download && ask_action
+}
+
+view_list () {
+    if [ ! -s "$yt_dir"/dl_list ]; then
+        notify-send -r 2227 -i "dialog-information" "List is empty" "No videos in download list"
+    else
+        # Show URLs in a readable format
+        grep "^http" "$yt_dir"/dl_list | nl -w2 -s'. ' | $menu "Download Queue" || true
+    fi
+    ask_action
+}
+
+ask_action () {
+    choice="$(printf "Play Video\nAdd to Download List\nStart Download\nStop Download\nRemove Link\nView List\nEdit Config\nExit" | $menu "What do you want to do?")" || exit 1
+    case $choice in
+        "Play Video") play_video;;
+        "Add to Download List") add_link;;
+        "Start Download") start_download;;
+        "Stop Download") stop_download;;
+        "Remove Link") remove_link;;
+        "View List") view_list;;
+        "Edit Config") ${EDITOR:-nano} "$config_file" && ask_action;;
+        "Exit") exit 0;;
+        *)
+            notify-send -r 2227 -i "dialog-error" "Exit with error" "Not a valid option"
+            exit 1
+            ;;
+    esac
+}
+
+case $1 in
+    add) [ "${3}" ] && printf "%s\n    dir=%s\n" "$2" "$3" >> "$yt_dir"/dl_list || printf "\n%s\n    dir=%s" "$2" "$dl_dir"  >> "$yt_dir"/dl_list;;
+    remove) remove_link;;
+    stop) stop_download;;
+    start) start_download;;
+    play) play_video;;
+    *) ask_action;;
+esac

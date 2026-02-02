@@ -1,0 +1,99 @@
+# ytmgr configuration examples
+# Copy sections to ~/.local/share/ytmgr/config and uncomment what you need
+
+# ============================================================
+# EXAMPLE 1: Basic setup with Firefox cookies (age-restricted)
+# ============================================================
+COOKIES_BROWSER="firefox"
+
+# ============================================================
+# EXAMPLE 2: Premium/Member content with authentication
+# ============================================================
+#COOKIES_BROWSER="firefox"
+#USERNAME="oauth2"
+#PASSWORD=""
+
+# ============================================================
+# EXAMPLE 3: Best quality with metadata (archival)
+# ============================================================
+#FORMAT="bestvideo+bestaudio/best"
+#EXTRA_OPTS="--embed-thumbnail --embed-metadata --embed-subs --write-description"
+
+# ============================================================
+# EXAMPLE 4: Audio only (podcasts/music)
+# ============================================================
+#FORMAT="bestaudio/best"
+#EXTRA_OPTS="--embed-thumbnail --add-metadata --extract-audio"
+
+# ============================================================
+# EXAMPLE 5: Bandwidth limited (slow connection)
+# ============================================================
+#RATE_LIMIT="500K"
+#FORMAT="bestvideo[height<=720]+bestaudio/best"
+
+# ============================================================
+# EXAMPLE 6: Privacy focused (VPN/Tor)
+# ============================================================
+#PROXY="socks5://127.0.0.1:9050"
+#USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+
+# ============================================================
+# EXAMPLE 7: Content creator (high quality with subtitles)
+# ============================================================
+#FORMAT="bestvideo[height<=2160]+bestaudio/best"
+#SUBTITLES="--write-sub --sub-lang en --embed-subs"
+#EXTRA_OPTS="--embed-thumbnail --embed-metadata"
+
+# ============================================================
+# EXAMPLE 8: Mobile-friendly (small file size)
+# ============================================================
+#FORMAT="bestvideo[height<=480][ext=mp4]+bestaudio[ext=m4a]/best[height<=480]"
+#RATE_LIMIT="1M"
+
+# ============================================================
+# EXAMPLE 9: Skip ads and sponsors (with SponsorBlock)
+# ============================================================
+#COOKIES_BROWSER="firefox"
+#EXTRA_OPTS="--sponsorblock-mark all --sponsorblock-remove sponsor,intro,outro"
+
+# ============================================================
+# EXAMPLE 10: Bypass geo-restrictions
+# ============================================================
+#GEO_BYPASS="--geo-bypass --geo-bypass-country US"
+#PROXY="http://proxy.example.com:8080"
+
+# ============================================================
+# All available options reference
+# ============================================================
+
+# Browser cookies - Options: chrome, firefox, safari, edge, chromium, brave, opera, vivaldi
+#COOKIES_BROWSER="firefox"
+
+# Authentication
+#USERNAME="your_email@example.com"
+#PASSWORD="your_password"
+# Or OAuth2 (recommended)
+#USERNAME="oauth2"
+#PASSWORD=""
+
+# User agent string
+#USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+
+# Video format/quality
+#FORMAT="bestvideo[height<=1080]+bestaudio/best[height<=1080]"
+
+# Rate limiting (bandwidth)
+#RATE_LIMIT="1M"
+
+# Proxy
+#PROXY="http://proxy.example.com:8080"
+#PROXY="socks5://127.0.0.1:9050"
+
+# Subtitles
+#SUBTITLES="--write-auto-sub --sub-lang en"
+
+# Geo bypass
+#GEO_BYPASS="--geo-bypass --geo-bypass-country US"
+
+# Additional options
+#EXTRA_OPTS="--no-playlist --embed-thumbnail --embed-metadata"

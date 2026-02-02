@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# Set the path for file lists which ytmgr uses
+yt_dir="$HOME/.local/share/ytmgr"
+# Remove empty lines in dl_list
+sed -i '/^[ \t]*$/d' "$yt_dir"/dl_list
+# Get the first line of dl_list (URL)
+current_url="$(sed -n '1p' "$yt_dir"/dl_list)"
+# Get video title using yt-dlp
+video_title="$(yt-dlp --get-title "$current_url" 2>/dev/null || echo "$current_url")"
+# Send notification for download error
+notify-send -r 2227 -i "dialog-error" -u critical "Download failed" "$video_title" && printf "Downloading %s failed.\n" "$video_title"
+# Move the first two lines of dl_list (download url and download path) to dl_error 
+sed -i -e '1,2{w /dev/stdout' -e 'd}' "$yt_dir"/dl_list >> "$yt_dir"/dl_error

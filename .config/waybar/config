@@ -132,7 +132,7 @@
             "critical": 20
         },
         "format": "{icon}",
-        "format-charging": " {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
         "format-plugged": " {capacity}%",
         "format-alt-click": "click-right",
         "format-alt": "{icon} {capacity}%",
@@ -217,11 +217,11 @@
     },
 
     "clock": {
-        "timezone": "Asia/Tehran",
-        "format": "{: %H:%M}",
+        "timezone": "Europe/London",
+        "format": "{:%H:%M}",
         "tooltip": true,
         "on-click": "setbg",
-        "tooltip-format": "{: %A, %B %e %Y}"
+        "tooltip-format": "{:%A, %B %e %Y}"
     },
 
     "custom/khorshididate": { 

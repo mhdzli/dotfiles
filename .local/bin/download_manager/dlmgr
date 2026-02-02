@@ -5,7 +5,7 @@ menu="$MENU -p"
 # Set the path for file lists whitch dlmgr use
 a2_dir="$HOME/.local/share/aria2"
 # Set the default path for download files
-dl_dir="/home/mzeinali/Data/tvs"
+dl_dir="$HOME/Downloads"
 
 # Set the clipboard based on the display manager (Xorg or Wayland)
 [ -z "$WAYLAND_DISPLAY" ]  && pf="xorg" || pf="wayland"
@@ -91,7 +91,7 @@ ask_action () {
         "Stop Download") stop_download;;
         "Add Link") add_link;;
         "Remove Link") remove_link;;
-        "Exit") Exit 0;;
+        "Exit") exit 0;;
         *)
             notify-send -r 2225 -i "$HOME/.local/bin/download_manager/error.svg" "Exit with error" "Not a valid option"
             exit 1
