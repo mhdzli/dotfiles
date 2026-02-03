@@ -1,5 +1,5 @@
 # mz-dotfiles
-My configs and dotfiles for [SWAYWM](https://swaywm.org/). Sway is almost a drop-in replacement for i3, but you may have to make a few changes to get everything working correctly. There is an [`i3 Migration Guide`](https://github.com/swaywm/sway/wiki/i3-Migration-Guide) on `Sway` wiki. Most of the tools and configurations on `Sway` work properly on `Hyprland`, because they both are based on `wlroots`.
+My configs and dotfiles for [SWAYWM](https://swaywm.org/). Sway is almost a drop-in replacement for i3, but you may have to make a few changes to get everything working correctly. There is an [`i3 Migration Guide`](https://github.com/swaywm/sway/wiki/i3-Migration-Guide) on `Sway` wiki. Most of the tools and configurations on `Sway` work properly on any window manager based on `wlroots`.
 
 I prefer to keep most of my system configs in my `$HOME`. But some of them are needed to be done in `root` directory. So I add those into [root branch](../root/). These configs are needed to add a few functions for my laptop and in most cases you don't need them.(eg: A [udev rule](../root/etc/udev/rules.d/99_battery_threshold.rules) to set charging [threshold for battery](https://fosstodon.org/@mzeinali/103684222479793025).)
 
