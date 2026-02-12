@@ -19,13 +19,13 @@ Sysmon() {\
         gtop| \
         nmon| \
         s-tui)
-        exec alacritty -e $smon
+        exec-terminal $smon
         ;;
         iftop| \
         iotop| \
         powertop| \
         iptraf-ng)
-        exec alacritty -e sudo -A $smon
+        exec-terminal sudo -A $smon
         ;;
         *)
             exit 1
@@ -52,7 +52,11 @@ Network() {\
 Disk() {\
     disks="$(lsblk -p | grep disk | cut -d' ' -f1)";
     while IFS= read -r disk; do
-        sudo hdparm -I "$disk"
+        if echo "$disk" | grep -q "nvme"; then
+            sudo nvme smart-log "$disk"
+        else
+            sudo hdparm -I "$disk"
+        fi
     done <<< "$disks"
 }
 
@@ -77,7 +81,7 @@ case $choice in
         lspci -vnn | grep -i --color 'vga\|3d\|2d' -A 12; echo -e '\nScreen list:'; [ -z "$WAYLAND_DISPLAY" ] && xrandr -q | grep normal || wlr-randr
     ;;
     audio)
-        cat /proc/asound/cards; lspci -vnn | grep -i --color audio -A 12; echo; pacmd list-cards | grep 'active profile'; echo; aplay --list-devices
+        cat /proc/asound/cards; lspci -vnn | grep -i --color audio -A 12; echo; pactl list cards | grep 'Active Profile'; echo; aplay --list-devices
     ;;
     memory)
         free -h
