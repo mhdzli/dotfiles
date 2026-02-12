@@ -22,21 +22,34 @@ function list_geometry () {
 windows=`list_geometry visible with_description`
 focused=`list_geometry focused`
 
-
-filename="$(date +'%Y-%m-%d-%H%M%S_screenshot.png')"
+screenshot_dir="$HOME/Pictures/Screenshots"
+mkdir -p "$screenshot_dir"
+filename="$screenshot_dir/$(date +'%Y-%m-%d-%H%M%S_screenshot.png')"
 
 choice=$(printf "fullscreen\\nregion\\nfocused\\n$windows" | $menu "Select screenshot type")
 case "$choice" in
-    fullscreen) grim "pic-full-$filename";;
-    region) grim -g "$(slurp)" "pic-selected-$filename";;
-    focused) grim -g "$focused" "pic-focused-$filename";;
+    fullscreen)
+        outfile="${filename/screenshot/fullscreen}"
+        echo "$outfile"
+        grim "$outfile"
+        ;;
+    region)
+        outfile="${filename/screenshot/region}"
+        grim -g "$(slurp)" "$outfile"
+        ;;
+    focused)
+        outfile="${filename/screenshot/focused}"
+        grim -g "$focused" "$outfile"
+        ;;
     *)
         geometry="`echo \"$choice\" | cut -d$'\t' -f1`"
-        grim -g "$geometry" "pic-window-$filename"
-    # *) 
-    #     echo "OK" | $menu "Screenshot is cancelled 📷 "
-    #     exit 0
+        outfile="${filename/screenshot/window}"
+        grim -g "$geometry" "$outfile"
+        # *) 
+        #     echo "OK" | $menu "Screenshot is cancelled 📷 "
+        #     exit 0
+        ;;
 esac
 
-# wl-copy < "$filename"
-
+wl-copy < "$outfile"
+notify-send "Screenshot saved" "$outfile"
