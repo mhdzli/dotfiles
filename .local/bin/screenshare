@@ -20,17 +20,32 @@ Err() {
 
 Start() {
     grep "Arch Linux" /etc/*-release 1>/dev/null 2>&1 && (pacman -Qq v4l2loopback-dkms 1>/dev/null 2>&1 && pacman -Qq wf-recorder 1>/dev/null 2>&1 || (printf "This script depends on 'v4l2loopback-dkms' and 'wf-recorder' packages. Install them and rerun the script.\n" && exit 1))
-    # Load the v4l2loopback kernel module
-    lsmod | grep v4l2loopback 1>/dev/null 2>&1 || sudo -A  modprobe v4l2loopback exclusive_caps=1 card_label=VirtualVideoDevice
+
+    # If v4l2loopback is loaded but without VirtualVideoDevice label, reload it
+    if lsmod | grep v4l2loopback 1>/dev/null 2>&1; then
+        if ! v4l2-ctl --list-devices | grep -q VirtualVideoDevice; then
+            sudo -A modprobe -r v4l2loopback
+            sudo -A modprobe v4l2loopback exclusive_caps=1 card_label=VirtualVideoDevice
+            sleep 1
+        fi
+    else
+        sudo -A modprobe v4l2loopback exclusive_caps=1 card_label=VirtualVideoDevice
+        sleep 1
+    fi
 
     # find the virtual webcam device
-    virtual_webcam=$(v4l2-ctl --list-devices | sed -n '/VirtualVideoDevice/{n;s/^\s//;{p;q}}')
+    virtual_webcam=$(v4l2-ctl --list-devices | sed -n '/VirtualVideoDevice/{n;s/^[[:space:]]*//;{p;q}}')
+
+    if [ -z "$virtual_webcam" ]; then
+        printf "Error: Could not find VirtualVideoDevice. Is v4l2loopback loaded?\n" 1>&2
+        exit 1
+    fi
 
     # Start recording the screen with wf-recorder and feed the output to the new virtual video device VirtualVideoDevice created by v4l2loopback
-    wf-recorder --muxer=v4l2 --codec=rawvideo --file=/dev/video2 -x yuv420p 1>/dev/null 2>&1 &
+    wf-recorder --muxer=v4l2 --codec=rawvideo --file="$virtual_webcam" -x yuv420p 1>/dev/null 2>&1 &
     echo $! > /tmp/screencastpid
-    
-    printf "Choose $virtual_webcam in your video call app to share your screen.\nYou can test if it's working with 'ffplay $virtual_webcam' or  'mpv av://v4l2:$virtual_webcam'\n"
+
+    printf "Choose %s in your video call app to share your screen.\nYou can test if it's working with 'ffplay %s' or 'mpv av://v4l2:%s'\n" "$virtual_webcam" "$virtual_webcam" "$virtual_webcam"
 }
 
 Stop() {
@@ -59,4 +74,3 @@ while [ -n "$1" ]; do
             break ;;
     esac
 done
-
