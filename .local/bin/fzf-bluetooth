@@ -9,7 +9,7 @@ divider='═══════════════════'
 goback='Back'
 
 # fzf command to pipe into, can add any options here
-fzf_command="fzf --prompt= $*"
+export FZF_DEFAULT_OPTS=""
 
 # Checks if bluetooth controller is powered on
 power_on() {
@@ -30,18 +30,22 @@ toggle_power() {
 }
 
 # Checks if controller is scanning for new devices
-scan_on() {
-    bluetoothctl show | grep -q 'Discovering: yes' &&
-        echo 'Scan: on' && return 0 ||
-        { echo 'Scan: off' && return 1; }
-    }
+# On some BlueZ versions, the client exits so fast that:
+# Discovery either never begins
+# Or it starts and immediately stops
+# Or BlueZ silently rejects it)
+# scan_on() {
+#     bluetoothctl show | grep -q 'Discovering: yes' &&
+#         echo 'Scan: on' && return 0 ||
+#         { echo 'Scan: off' && return 1; }
+#     }
 
 # Toggles scanning state
-toggle_scan() {
-    scan_on &&
-        pkill -f 'bluetoothctl scan on' && bluetoothctl scan off && show_menu ||
-        { bluetoothctl scan on & notify-send 'Scanning...' && sleep 5 && show_menu; }
-    }
+# toggle_scan() {
+#     scan_on &&
+#         pkill -f 'bluetoothctl scan on' && bluetoothctl scan off && show_menu ||
+#         { bluetoothctl scan on & notify-send 'Scanning...' && sleep 5 && show_menu; }
+#     }
 
 # Checks if controller is able to pair to devices
 pairable_on() {
@@ -80,9 +84,10 @@ device_connected() {
 
 # Toggles device connection
 toggle_connection() {
+    filter="${2:-all}"
     device_connected "$1" &&
-        bluetoothctl disconnect "$1" && device_menu "$device" ||
-        { bluetoothctl connect "$1" && device_menu "$device"; }
+        bluetoothctl disconnect "$1" && device_menu "$device" "$filter" ||
+        { bluetoothctl connect "$1" && device_menu "$device" "$filter"; }
     }
 
 # Checks if a device is paired
@@ -96,9 +101,10 @@ device_paired() {
 
 # Toggles device paired state
 toggle_paired() {
+    filter="${2:-all}"
     device_paired "$1" &&
-        bluetoothctl remove "$1" && device_menu "$device" ||
-        { bluetoothctl pair "$1" && device_menu "$device"; }
+        bluetoothctl remove "$1" && device_menu "$device" "$filter" ||
+        { bluetoothctl pair "$1" && device_menu "$device" "$filter"; }
     }
 
 # Checks if a device is trusted
@@ -112,9 +118,10 @@ device_trusted() {
 
 # Toggles device connection
 toggle_trust() {
+    filter="${2:-all}"
     device_trusted "$1" &&
-        bluetoothctl untrust "$1" && device_menu "$device" ||
-        { bluetoothctl trust "$1" && device_menu "$device"; }
+        bluetoothctl untrust "$1" && device_menu "$device" "$filter" ||
+        { bluetoothctl trust "$1" && device_menu "$device" "$filter"; }
     }
 
 # Prints a short string with the current bluetooth status
@@ -143,8 +150,10 @@ print_status() {
 }
 
 # A submenu for a specific device that allows connecting, pairing, and trusting
+# Optional second argument: filter context ('paired' or 'all') passed from show_menu
 device_menu() {
     device=$1
+    filter="${2:-all}"
 
     # Get device name and mac address
     device_name=$(echo "$device" | cut -d ' ' -f 3-)
@@ -160,64 +169,80 @@ device_menu() {
     options="${connected}\n${paired}\n${trusted}\n${goback}\nExit"
 
     # Open fzf menu, read chosen option
-    chosen="$(printf '%b' "$options" | $fzf_command --header="$device_name")"
+    chosen="$(printf '%b' "$options" | fzf --prompt='  ' --header="$device_name")"
 
     # Match chosen option to command
     case $chosen in
         "$connected")
-            toggle_connection "$mac" ;;
+            toggle_connection "$mac" "$filter" ;;
         "$paired")
-            toggle_paired "$mac" ;;
+            toggle_paired "$mac" "$filter" ;;
         "$trusted")
-            toggle_trust "$mac" ;;
+            toggle_trust "$mac" "$filter" ;;
         "$goback")
-            show_menu ;;
+            show_menu "$filter" ;;
         *)
             exit ;;
     esac
 }
 
 # Opens a fzf menu with current bluetooth status and options to connect
+# Optional argument: 'paired' to list only paired devices
 show_menu() {
+    filter="${1:-all}"
+
     # Get menu options
     if power_on; then
         power='Power: on'
 
         # Human-readable names of devices, one per line
-        # If scan is off, will only list paired devices
-        devices=$(bluetoothctl devices | grep Device | cut -d ' ' -f 3-)
+        if [ "$filter" = "paired" ]; then
+            devices=$(bluetoothctl devices Paired | grep Device | cut -d ' ' -f 3-)
+            menu_title='Paired Devices'
+        else
+            devices=$(bluetoothctl devices | grep Device | cut -d ' ' -f 3-)
+            menu_title='Bluetooth'
+        fi
 
         # Get controller flags
-        scan=$(scan_on)
+        # scan=$(scan_on)
         pairable=$(pairable_on)
         discoverable=$(discoverable_on)
 
-        # Options passed to fzf
-        options="${devices:+$devices\n$divider\n}${power}\n${scan}\n${pairable}\n${discoverable}\nExit"
+        options="${devices:+$devices\n$divider\n}${power}\nScan\nPaired\n${pairable}\n${discoverable}\nExit"
     else
         power='Power: off'
+        menu_title='Bluetooth'
         options="$power\nExit"
-        fi
+    fi
 
     # Open fzf menu, read chosen option
-    chosen="$(printf '%b' "$options" | $fzf_command --header='Bluetooth')"
+    chosen="$(printf '%b' "$options" | fzf --prompt='  ' --header="$menu_title")"
 
     # Match chosen option to command
     case $chosen in
         "" | "$divider" | 'Exit')
             exit ;;
+        "$goback")
+            show_menu ;;
         "$power")
             toggle_power ;;
-        "$scan")
-            toggle_scan ;;
+        "Scan")
+            notify-send 'Scanning...' & bluetoothctl --timeout 5 scan on && show_menu ;;
+        "Paired")
+            show_menu paired ;;
         "$discoverable")
             toggle_discoverable ;;
         "$pairable")
             toggle_pairable ;;
         *)
-            device=$(bluetoothctl devices | grep "$chosen")
+            if [ "$filter" = "paired" ]; then
+                device=$(bluetoothctl devices Paired | grep "$chosen")
+            else
+                device=$(bluetoothctl devices | grep "$chosen")
+            fi
             # Open a submenu if a device is selected
-            [ -n "$device" ] && device_menu "$device" ;;
+            [ -n "$device" ] && device_menu "$device" "$filter" ;;
     esac
 }
 

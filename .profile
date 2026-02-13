@@ -66,10 +66,10 @@ set_sway_env(){
 	export XDG_CURRENT_DESKTOP=sway
 }
 
-set_hyprland_env(){
-    export XDG_CURRENT_DESKTOP=Hyprland
+set_niri_env(){
+    export XDG_CURRENT_DESKTOP=Niri
     export XDG_SESSION_TYPE=wayland
-    export XDG_SESSION_DESKTOP=Hyprland
+    export XDG_SESSION_DESKTOP=Niri
 }
 
 # support colors in less
@@ -91,5 +91,5 @@ export GTK_THEME="Adwaita:dark"
 
 # Start graphical server if it's not already running.
 [ -z "${WAYLAND_DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ] && set_wayland_env && set_sway_env &&  XKB_DEFAULT_LAYOUT=us exec sway
-[ -z "${WAYLAND_DISPLAY}" ] && [ "${XDG_VTNR}" -eq 2 ] && set_wayland_env && set_hyprland_env && XKB_DEFAULT_LAYOUT=us exec Hyprland
+[ -z "${WAYLAND_DISPLAY}" ] && [ "${XDG_VTNR}" -eq 2 ] && set_wayland_env && set_niri_env && XKB_DEFAULT_LAYOUT=us exec niri-session
 [ "${XDG_VTNR}" -eq 3 ] && ! pgrep -x Xorg >/dev/null && exec startx
