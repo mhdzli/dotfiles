@@ -1,0 +1,255 @@
+// Waybar config for niri
+// Place at: ~/.config/waybar/config.jsonc
+// Requires: niri >= 0.1.9 for niri/workspaces, niri/window, niri/language
+
+{
+    // ── Bar geometry ──────────────────────────────────────────
+    "layer": "top",
+    "position": "top",
+    "mod": "dock",
+    "exclusive": true,
+    "passthrough": false,
+    "gtk-layer-shell": true,
+    "height": 36,
+    "margin-right": 5,
+    "margin-left": 5,
+
+    // ── Module layout ─────────────────────────────────────────
+    "modules-left": [
+        "custom/rofi",
+        "custom/weather",
+        "custom/khorshididate",
+        "custom/clock",
+        "wlr/taskbar"
+    ],
+
+    "modules-center": [
+        "niri/workspaces"
+    ],
+
+    "modules-right": [
+        "tray",
+        "battery",
+        "pulseaudio",
+        "pulseaudio#microphone",
+        "backlight",
+        "cpu",
+        "memory",
+        "disk",
+        "temperature",
+        "custom/updates",
+        "network",
+        "niri/language",
+        "custom/lock_screen",
+        "custom/power"
+    ],
+
+    // ── Left modules ──────────────────────────────────────────
+
+    "custom/rofi": {
+        "format": "",
+        "on-click": "rofi -theme ~/.config/rofi/theme/onedark_mini.rasi -show drun",
+        "tooltip": false
+    },
+
+    "custom/weather": {
+        // Shows current weather and forecast via wttr.in
+        "tooltip": true,
+        "format": "{}",
+        "interval": 3600,
+        "exec": "~/.config/waybar/scripts/wttr.py",
+        "return-type": "json"
+    },
+
+    "custom/khorshididate": {
+        // Persian (Jalali/Shamsi) calendar date
+        "tooltip": true,
+        "format": " {}",
+        "format-alt": " {alt}",
+        "format-alt-click": "click-right",
+        "interval": 3600,
+        "exec": "~/.config/waybar/scripts/khorshidi-date",
+        "return-type": "json"
+    },
+
+    "custom/clock": {
+        "exec": "~/.config/waybar/scripts/clock-tooltip",
+        "return-type": "json",
+        "interval": 60,
+        "tooltip": true,
+        "on-click": "setbg"
+    },
+
+    "wlr/taskbar": {
+        // Works with niri via standard Wayland foreign-toplevel protocol
+        "format": "{icon}",
+        "icon-size": 12,
+        "all-outputs": true,
+        "tooltip-format": "{name}: {title}",
+        "on-click": "activate",
+        "on-click-middle": "close",
+        "ignore-list": [
+            "rofi"
+        ]
+    },
+
+    // ── Center modules ────────────────────────────────────────
+
+    "niri/workspaces": {
+        // Shows all declared workspaces (1-9) including empty ones.
+        // niri/workspaces has no persistent-workspaces option — pre-declare
+        // them in config.kdl to keep all 9 always visible.
+        // CSS classes: .focused (keyboard focus), .active (visible on output),
+        //              .urgent, .empty, .current_output
+        "all-outputs": true,
+        "format": "{value}",
+        "on-scroll-up": "niri msg action focus-workspace-up",
+        "on-scroll-down": "niri msg action focus-workspace-down"
+    },
+
+    // ── Right modules ─────────────────────────────────────────
+
+    "tray": {
+        "icon-size": 12,
+        "spacing": 10
+    },
+
+    "battery": {
+        "format": "{icon}",
+        "format-charging": "󰂄 {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-alt-click": "click-right",
+        "format-alt": "{icon} {capacity}%",
+        "states": {
+            "good": 95,
+            "warning": 20,
+            "critical": 10
+        },
+        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+    },
+
+    "pulseaudio": {
+        "format": "{icon}",
+        "format-muted": "",
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+",
+        "on-scroll-down": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-",
+        "scroll-step": 5,
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "tooltip": true,
+        "tooltip-format": "{icon} at {volume}%"
+    },
+
+    "pulseaudio#microphone": {
+        "format": "{format_source}",
+        "format-source": "",
+        "format-source-muted": "",
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+        "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SOURCE@ 5%+",
+        "on-scroll-down": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SOURCE@ 5%-",
+        "scroll-step": 5,
+        "tooltip": true,
+        "tooltip-format": " at {volume}%"
+    },
+
+    "backlight": {
+        "device": "intel_backlight",
+        "format": "{icon}",
+        "format-alt-click": "click-right",
+        "format-alt": "{icon} {percent}%",
+        "format-icons": ["󰃞", "󰃟", "󰃠"],
+        "on-scroll-up": "brightness -i",
+        "on-scroll-down": "brightness -d"
+    },
+
+    "cpu": {
+        "interval": 10,
+        "format": "",
+        "max-length": 10,
+        "format-alt-click": "click-right",
+        "format-alt": " {usage}%"
+    },
+
+    "memory": {
+        "interval": 30,
+        "format": "",
+        "format-alt-click": "click-right",
+        "format-alt": " {}%",
+        "max-length": 10,
+        "tooltip": true,
+        "tooltip-format": "Memory - {used:0.1f}GB used"
+    },
+
+    "disk": {
+        "interval": 600,
+        "format": "󰋊",
+        "path": "/",
+        "format-alt-click": "click-right",
+        "format-alt": "󰋊 {percentage_used}%",
+        "tooltip": true,
+        "tooltip-format": "HDD - {used} used out of {total} on {path} ({percentage_used}%)",
+        "states": {
+            "warning": 85,
+            "critical": 90
+        }
+    },
+
+    "temperature": {
+        "thermal-zone": 1,
+        "format": "",
+        "format-alt-click": "click-right",
+        "format-alt": " {temperatureC}°C",
+        "critical-threshold": 70,
+        "format-critical": " {temperatureC}°C"
+    },
+
+    "custom/updates": {
+        // Send signal 8 to waybar after running updates to refresh: killall -SIGUSR1 waybar
+        "format": "{}",
+        "exec": "~/.config/waybar/scripts/update-sys",
+        "on-click": "~/.config/waybar/scripts/update-sys update",
+        "interval": 3600,
+        "tooltip": true,
+        "signal": 8,
+        "return-type": "json"
+    },
+
+    "network": {
+        "format": "{ifname}",
+        "format-wifi": " ",
+        "format-ethernet": " ",
+        "format-disconnected": " ",
+        "tooltip-format": " {ifname} via {gwaddr}",
+        "tooltip-format-wifi": " {essid} ({signalStrength}%)",
+        "tooltip-format-ethernet": " {ifname} {ipaddr}/{cidr}",
+        "tooltip-format-disconnected": "Disconnected",
+        "max-length": 50
+    },
+
+    "niri/language": {
+        // niri reports the layout name from xkb; map display labels here
+        "format": "{}",
+        "format-en": "EN",
+        "format-ir": "FA"
+    },
+
+    "custom/lock_screen": {
+        "format": "",
+        "on-click": "sh -c '(sleep 0.5s; swaylock -eFfki ~/Pictures/lockscreen.png)' & disown",
+        "tooltip": false
+    },
+
+    "custom/power": {
+        "format": "",
+        "on-click": "sysact",
+        "tooltip": false
+    }
+}

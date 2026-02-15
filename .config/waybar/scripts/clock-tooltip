@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+# ~/.config/waybar/scripts/clock-tooltip
+#
+# Install:
+#   mkdir -p ~/.config/waybar/scripts
+#   cp clock-tooltip ~/.config/waybar/scripts/
+#   chmod +x ~/.config/waybar/scripts/clock-tooltip
+
+import json
+from datetime import datetime
+from zoneinfo import ZoneInfo
+
+CITIES = [
+    ("🇬🇧", "London",      "Europe/London"),
+    ("🇮🇷", "Tehran",      "Asia/Tehran"),
+    ("🇦🇺", "Sydney",      "Australia/Sydney"),
+    ("🇨🇦", "Toronto",     "America/Toronto"),
+    ("🇺🇸", "New York",    "America/New_York"),
+    ("🇺🇸", "Los Angeles", "America/Los_Angeles"),
+    ("🇯🇵", "Tokyo",       "Asia/Tokyo"),
+]
+
+def now_in(tz):
+    return datetime.now(ZoneInfo(tz))
+
+bar_time  = now_in("Europe/London").strftime("%H:%M")
+date_line = now_in("Europe/London").strftime("%A %d %B %Y")
+city_lines = "\n".join(
+    f"{flag}  {city:<12} {now_in(tz).strftime('%H:%M')}"
+    for flag, city, tz in CITIES
+)
+tooltip = f"{date_line}\n\n{city_lines}"
+
+print(json.dumps({"text": bar_time, "tooltip": tooltip}, ensure_ascii=False))
