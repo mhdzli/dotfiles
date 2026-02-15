@@ -1,0 +1,614 @@
+// Niri config translated from sway config
+// https://yalter.github.io/niri/Configuration:-Introduction
+
+// ============================================================
+// INPUT
+// ============================================================
+input {
+    keyboard {
+        xkb {
+            layout "us,ir-mz"
+            model "asus_laptop"
+            // For ThinkPad swap model to "thinkpad" and options to:
+            // "caps:escape_shifted_capslock,grp:shifts_toggle,altwin:prtsc_rwin,lv3:ralt_switch"
+            options "caps:escape_shifted_capslock,grp:shifts_toggle,altwin:menu_win,lv3:ralt_switch"
+        }
+        // numlock on by default
+        numlock
+    }
+
+    touchpad {
+        tap
+        dwt
+        // drag-lock is disabled (omitted)
+        middle-emulation
+        // natural-scroll is commented out to match sway (disabled by default)
+    }
+
+    warp-mouse-to-focus
+}
+
+// Cursor configuration (matches sway: seat * hide_cursor 3000 / seat * xcursor_theme)
+cursor {
+    xcursor-theme "Layan-cursors"
+    xcursor-size 40
+    hide-when-typing
+    hide-after-inactive-ms 3000
+}
+
+// ============================================================
+// OUTPUTS
+// ============================================================
+output "HDMI-A-2" {
+    mode "1920x1080"
+    position x=0 y=0
+}
+
+output "DP-1" {
+    mode "1920x1080"
+    transform "270"
+    position x=-1080 y=-420
+}
+
+output "eDP-1" {
+    mode "1920x1080"
+    position x=1920 y=0
+}
+
+// ============================================================
+// LAYOUT  (matches: default_border pixel, gaps inner 1, gaps outer 1)
+// ============================================================
+layout {
+    gaps 2
+
+    // Dracula-inspired focus ring colors
+    // focused  → pink border  (#ff79c6)
+    // inactive → purple border (#bd93f9)
+    focus-ring {
+        width 1
+        active-color   "#ff79c6"
+        inactive-color "#bd93f9"
+    }
+
+    border {
+        off
+        width 1
+        active-color   "#ff79c6"
+        inactive-color "#bd93f9"
+        urgent-color   "#ff5555"
+    }
+
+    // Shadow off by default (not in original sway config)
+    shadow {
+        // on
+        softness 20
+        spread 3
+        offset x=0 y=4
+        color "#0005"
+    }
+
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+
+    default-column-width { proportion 0.5; }
+
+    // Niri is a scrollable compositor — workspaces are vertical.
+    // Mod+1-9 maps to named workspaces via workspace definitions below.
+}
+
+// Named workspaces 1-9: always exist (even when empty), always visible in waybar.
+// Addressed by name so Mod+1 always means workspace "1" regardless of position.
+workspace "1"
+workspace "2"
+workspace "3"
+workspace "4"
+workspace "5"
+workspace "6"
+workspace "7"
+workspace "8"
+workspace "9"
+
+
+
+// ============================================================
+// STARTUP
+// ============================================================
+
+// Clipboard
+spawn-at-startup "sh" "-c" "wl-paste -t text --watch clipman store --max-items=30 --histpath='~/.local/share/clipman/clipman.json' 1>> ~/.local/share/clipman/clipman.log 2>&1"
+spawn-at-startup "sh" "-c" "wl-paste -p -t text --watch clipman store -P --histpath='~/.local/share/clipman/clipman-primary.json'"
+
+// Random background
+spawn-at-startup "setbg"
+
+// Notifications
+spawn-at-startup "dunst"
+
+// Foot terminal server
+spawn-at-startup "foot" "--server"
+
+// Emacs daemon
+spawn-at-startup "emacs" "--daemon"
+
+// Auto night mode (Shiraz, Iran coordinates)
+spawn-at-startup "wlsunset" "-l" "29.3" "-L" "52.3"
+
+// Status bar
+spawn-at-startup "waybar"
+
+// Idle & screen lock  (mirrors swayidle config)
+spawn-at-startup "sh" "-c" "swayidle -w timeout 300 'swaylock -eFfki ~/Pictures/lockscreen.png' timeout 600 'niri msg action power-off-monitors' resume 'niri msg action power-on-monitors' before-sleep 'swaylock -eFfki ~/Pictures/lockscreen.png'"
+
+// GTK theme / cursor
+spawn-at-startup "sh" "-c" "gsettings set org.gnome.desktop.interface cursor-theme Layan-cursors && gsettings set org.gnome.desktop.interface cursor-size 40 && gsettings set org.gnome.desktop.interface gtk-theme Adwaita:dark && gsettings set org.gnome.desktop.interface icon-theme papirus-dark && gsettings set org.gnome.desktop.interface font-name 'Vazirmatn 14'"
+
+// D-Bus / systemd environment
+spawn-at-startup "sh" "-c" "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY NIRI_SOCKET && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY NIRI_SOCKET"
+
+// ============================================================
+// MISC
+// ============================================================
+
+prefer-no-csd
+
+screenshot-path "~/Pictures/Screenshots/pic-full-%Y%m%d-%H%M-%S.png"
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+animations {
+    // off
+}
+
+// ============================================================
+// WINDOW RULES
+// ============================================================
+
+// --- Workspace assignments ---
+
+window-rule {
+    match app-id=r#"qutebrowser"#
+    open-on-workspace "2"
+}
+
+window-rule {
+    match app-id=r#"firefox"#
+    open-on-workspace "2"
+}
+
+window-rule {
+    match app-id=r#"brave"#
+    open-on-workspace "2"
+}
+
+window-rule {
+    match app-id=r#"jellyfin"#
+    open-on-workspace "4"
+}
+
+window-rule {
+    match app-id=r#"zathura"#
+    open-on-workspace "8"
+}
+
+window-rule {
+    match app-id=r#"libreoffice"#
+    open-on-workspace "7"
+}
+
+window-rule {
+    match app-id=r#"[fF]oliate"#
+    open-on-workspace "8"
+}
+
+window-rule {
+    match app-id=r#"telegramdesktop|org\.telegram\.desktop"#
+    open-on-workspace "3"
+}
+
+window-rule {
+    match app-id=r#"cinny"#
+    open-on-workspace "3"
+}
+
+window-rule {
+    match app-id=r#"SchildiChat|schildichat"#
+    open-on-workspace "3"
+}
+
+window-rule {
+    match app-id=r#"nheko"#
+    open-on-workspace "3"
+}
+
+window-rule {
+    match app-id=r#"fluffychat"#
+    open-on-workspace "3"
+}
+
+window-rule {
+    match app-id=r#"com\.obsproject\.Studio|obs"#
+    open-on-workspace "4"
+}
+
+window-rule {
+    match app-id=r#"Flowblade|flowblade"#
+    open-on-workspace "9"
+}
+
+window-rule {
+    match app-id=r#"gimp"#
+    open-on-workspace "9"
+}
+
+// --- Kill Firefox sharing indicator ---
+// (niri has no direct kill-on-open; use block-out or leave to scripting)
+
+// --- Floating windows ---
+
+window-rule {
+    match app-id=r#"localsend"#
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"^mpv$"#
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"^vlc$"#
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"^imv$"#
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"^vimiv$"#
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"^ffplay$"#
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"^wdisplays$"#
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"^qpwgraph$"#
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"^kvantummanager$"#
+    open-floating true
+}
+
+// Firefox Picture-in-Picture
+window-rule {
+    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"blueberry"#
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"pavucontrol"#
+    open-floating true
+}
+
+// foot + pulsemixer launched as floating
+window-rule {
+    match app-id=r#"^foot$"# title=r#"pulsemixer"#
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"nextcloud"#
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"showmethekey"#
+    open-floating true
+}
+
+// Floating size constraints apply only to windows already matched as floating above
+// (niri does not have a global floating min/max size; set per-rule if needed)
+
+// --- Opacity rules (default 1.0 for all, mirrors for_window opacity 1) ---
+window-rule {
+    opacity 1.0
+}
+
+// ============================================================
+// KEY BINDINGS
+// ============================================================
+binds {
+    // --------------------------------------------------------
+    // Show hotkey overlay
+    // --------------------------------------------------------
+    Mod+Shift+Slash { show-hotkey-overlay; }
+
+    // --------------------------------------------------------
+    // Applications  (mirrors $mod+<letter> app launchers)
+    // --------------------------------------------------------
+
+    // Terminal  ($mod+Return / $mod+n / Super_R+Return)
+    Mod+Return        { spawn "foot"; }
+    Mod+N             { spawn "footclient"; }
+
+    // App launcher  ($mod+d)
+    Mod+D             { spawn-sh "${LAUNCHER}"; }
+
+    // Lock screen  ($mod+e)
+    Mod+E             { spawn "swaylock" "-eFfki" "~/Pictures/lockscreen.png"; }
+
+    // Browser  ($mod+w)
+    Mod+W             { spawn-sh "${BROWSER}"; }
+
+    // Volume mixer  ($mod+a)
+    Mod+A             { spawn-sh "foot pulsemixer"; }
+
+    // File manager  ($mod+b)
+    Mod+B             { spawn-sh "foot vifm"; }
+
+    // Toggle bar  ($mod+Shift+b)
+    Mod+Shift+B       { spawn-sh "killall waybar || waybar"; }
+
+    // Webcam  ($mod+c)
+    Mod+C             { spawn-sh "ffplay -f v4l2 -input_format mjpeg -video_size 1920x1080 -window_title webcam -i $(ls /dev/video[0,2,4,6,8] | tail -n 1)"; }
+
+    // Gimp  ($mod+g)
+    Mod+G             { spawn "gimp-2.99"; }
+
+    // Emoji picker  ($mod+i)
+    Mod+I             { spawn "menuunicode"; }
+
+    // Music player  ($mod+m)
+    Mod+M             { spawn-sh "foot ncmpcpp"; }
+    Pause             { spawn-sh "mpc toggle"; }
+
+    // Phone control  ($mod+Shift+f)
+    Mod+Shift+F       { spawn "phone-control"; }
+
+    // Overview  ($mod+o — niri has overview; sway had opacity mode here)
+    // Note: opacity is set via window-rules in niri; Mod+O opens overview instead
+    Mod+O repeat=false { toggle-overview; }
+
+    // Show keys  ($mod+p)
+    Mod+P             { spawn-sh "killall wshowkeys || wshowkeys -a bottom -t 1"; }
+
+    // Color picker  ($mod+Shift+p)
+    Mod+Shift+P       { spawn-sh "grim -g \"$(slurp -p)\" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | tail -n 1 | cut -d ' ' -f 4 | wl-copy"; }
+
+    // Kill window  ($mod+q)
+    Mod+Q repeat=false { close-window; }
+
+    // Search files  ($mod+s)
+    Mod+S             { spawn-sh "foot broot -h"; }
+
+    // Download manager  ($mod+u)
+    Mod+U             { spawn "dlmgr"; }
+
+    // swaykbdd per-window layout  ($mod+y)
+    Mod+Y             { spawn-sh "killall swaykbdd || swaykbdd"; }
+
+    // Bluetooth  ($mod+comma)
+    Mod+Comma         { spawn "menu-bluetooth"; }
+
+    // Clipboard  ($mod+v)
+    Mod+V             { spawn-sh "clipman pick --tool=CUSTOM --tool-args=\"${MENU} -w 100 -d -i\" --histpath='~/.local/share/clipman/clipman.json'"; }
+    Mod+Shift+V       { spawn "wclipboard"; }
+
+    // Mount / unmount / network
+    Mod+F9            { spawn "menumount"; }
+    Mod+F10           { spawn "menuumount"; }
+    Mod+F12           { spawn-sh "foot nmtui"; }
+
+    // Keyboard layout switch  (F3 / F11)
+    F3                { spawn-sh "niri msg action switch-layout next"; }
+    F11               { spawn-sh "niri msg action switch-layout next"; }
+
+    // Power menu  ($mod+Escape / $mod+x / $mod+BackSpace)
+    Mod+Escape allow-inhibiting=false { spawn-sh "prompt 'Leave niri?' 'niri msg action quit --skip-confirmation'"; }
+    Mod+X             { spawn-sh "prompt 'Shutdown computer?' 'sudo -A shutdown now'"; }
+    Mod+BackSpace     { spawn-sh "prompt 'Reboot computer?' 'sudo -A shutdown -r now'"; }
+
+    // Toggle monitors power  ($mod+Shift+n)
+    Mod+Shift+N       { power-off-monitors; }
+
+    // --------------------------------------------------------
+    // Focus  (vim keys + arrows)
+    // --------------------------------------------------------
+    Mod+H     { focus-column-left; }
+    Mod+J     { focus-workspace-down; }
+    Mod+K     { focus-workspace-up; }
+    Mod+L     { focus-column-right; }
+    Mod+Left  { focus-column-left; }
+    Mod+Down  { focus-window-down; }
+    Mod+Up    { focus-window-up; }
+    Mod+Right { focus-column-right; }
+
+    // Alt+Tab → focus next column (mirrors $alt+Tab focus next)
+    Alt+Tab   { focus-column-right; }
+
+    // --------------------------------------------------------
+    // Move windows
+    // --------------------------------------------------------
+    Mod+Shift+H     { move-column-left; }
+    Mod+Shift+J     { move-window-down; }
+    Mod+Shift+K     { move-window-up; }
+    Mod+Shift+L     { move-column-right; }
+    Mod+Shift+Left  { move-column-left; }
+    Mod+Shift+Down  { move-window-down; }
+    Mod+Shift+Up    { move-window-up; }
+    Mod+Shift+Right { move-column-right; }
+
+    // --------------------------------------------------------
+    // Move to monitor  ($mod+Ctrl+Shift+<dir> for monitor moves)
+    // --------------------------------------------------------
+    Mod+Shift+Ctrl+H { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+J { move-column-to-monitor-down; }
+    Mod+Shift+Ctrl+K { move-column-to-monitor-up; }
+    Mod+Shift+Ctrl+L { move-column-to-monitor-right; }
+
+    // Move column to workspace (Mod+Ctrl+J/K — consistent with Mod+J/K workspace nav)
+    Mod+Ctrl+J     { move-column-to-workspace-down; }
+    Mod+Ctrl+K     { move-column-to-workspace-up; }
+
+    // Focus monitors
+    Mod+Shift+Ctrl+Left  { focus-monitor-left; }
+    Mod+Shift+Ctrl+Right { focus-monitor-right; }
+    Mod+Shift+Ctrl+Up    { focus-monitor-up; }
+    Mod+Shift+Ctrl+Down  { focus-monitor-down; }
+
+    // --------------------------------------------------------
+    // Resize  (mirrors $mod+bracket/semicolon/apostrophe)
+    // --------------------------------------------------------
+    Mod+BracketLeft      { set-column-width "-10%"; }
+    Mod+BracketRight     { set-column-width "+10%"; }
+    Mod+Semicolon        { set-window-height "-10%"; }
+    Mod+Apostrophe       { set-window-height "+10%"; }
+
+    // Fine-grained resize (Shift variant = 1% steps)
+    Mod+Shift+BracketLeft    { set-column-width "-1%"; }
+    Mod+Shift+BracketRight   { set-column-width "+1%"; }
+    Mod+Shift+Semicolon      { set-window-height "-1%"; }
+    Mod+Shift+Apostrophe     { set-window-height "+1%"; }
+
+    // Preset cycle  (mirrors $mod+r resize mode → use niri preset toggle)
+    Mod+R         { switch-preset-column-width; }
+    Mod+Shift+R   { switch-preset-window-height; }
+    Mod+Ctrl+R    { reset-window-height; }
+
+    // Gaps  (mirrors $mod+equal / minus / underscore / plus)
+    // Note: niri gaps are global; these are best-effort approximations
+    Mod+Equal         { set-column-width "+10%"; }
+    Mod+Minus         { set-column-width "-10%"; }
+    // $mod+underscore → reset/zero gaps — use center as closest equivalent
+    Mod+Underscore    { center-column; }
+
+    // --------------------------------------------------------
+    // Layout
+    // --------------------------------------------------------
+
+    // Fullscreen  ($mod+f → maximize column, $mod+Shift+f → true fullscreen)
+    Mod+F         { maximize-column; }
+    Mod+Shift+S   { fullscreen-window; }
+
+    // Float toggle  ($mod+Shift+space)
+    Mod+Shift+Space   { toggle-window-floating; }
+
+    // Switch focus tiling↔floating  ($mod+space)
+    Mod+Space         { switch-focus-between-floating-and-tiling; }
+
+    // Tabbed column display  ($mod+Shift+w → tabbed, $mod+Shift+e → toggle split)
+    Mod+Shift+W       { toggle-column-tabbed-display; }
+
+    // Consume/expel windows into columns  (mirrors $mod+t split toggle)
+    Mod+T             { consume-or-expel-window-left; }
+
+    // Sticky / always-on-top: niri uses floating; no direct sticky yet
+    // Mod+Shift+C    (no niri equivalent for sticky toggle)
+
+    // Center column  ($mod+c in niri)
+    // Note: $mod+c was webcam in sway; webcam moved to Mod+C above, center to Mod+Ctrl+C
+    Mod+Ctrl+C        { center-column; }
+
+    // --------------------------------------------------------
+    // Workspaces  (1-9 focus, Shift+1-9 move window, Ctrl+1-9 move+follow)
+    // --------------------------------------------------------
+    Mod+1   { focus-workspace "1"; }
+    Mod+2   { focus-workspace "2"; }
+    Mod+3   { focus-workspace "3"; }
+    Mod+4   { focus-workspace "4"; }
+    Mod+5   { focus-workspace "5"; }
+    Mod+6   { focus-workspace "6"; }
+    Mod+7   { focus-workspace "7"; }
+    Mod+8   { focus-workspace "8"; }
+    Mod+9   { focus-workspace "9"; }
+    Mod+0   { focus-workspace-down; }  // no workspace "10", go down instead
+
+    // Move window to workspace  ($mod+Shift+[1-9])
+    Mod+Shift+1   { move-column-to-workspace "1"; }
+    Mod+Shift+2   { move-column-to-workspace "2"; }
+    Mod+Shift+3   { move-column-to-workspace "3"; }
+    Mod+Shift+4   { move-column-to-workspace "4"; }
+    Mod+Shift+5   { move-column-to-workspace "5"; }
+    Mod+Shift+6   { move-column-to-workspace "6"; }
+    Mod+Shift+7   { move-column-to-workspace "7"; }
+    Mod+Shift+8   { move-column-to-workspace "8"; }
+    Mod+Shift+9   { move-column-to-workspace "9"; }
+    Mod+Shift+0   { move-column-to-workspace-down; }  // no workspace "10"
+
+    // Move window to workspace AND follow ($mod+Ctrl+[1-9/0])
+    // niri only allows one action per bind; we use spawn-sh to chain both via niri msg
+    Mod+Ctrl+1  { spawn-sh "niri msg action move-column-to-workspace \"1\" && niri msg action focus-workspace \"1\""; }
+    Mod+Ctrl+2  { spawn-sh "niri msg action move-column-to-workspace \"2\" && niri msg action focus-workspace \"2\""; }
+    Mod+Ctrl+3  { spawn-sh "niri msg action move-column-to-workspace \"3\" && niri msg action focus-workspace \"3\""; }
+    Mod+Ctrl+4  { spawn-sh "niri msg action move-column-to-workspace \"4\" && niri msg action focus-workspace \"4\""; }
+    Mod+Ctrl+5  { spawn-sh "niri msg action move-column-to-workspace \"5\" && niri msg action focus-workspace \"5\""; }
+    Mod+Ctrl+6  { spawn-sh "niri msg action move-column-to-workspace \"6\" && niri msg action focus-workspace \"6\""; }
+    Mod+Ctrl+7  { spawn-sh "niri msg action move-column-to-workspace \"7\" && niri msg action focus-workspace \"7\""; }
+    Mod+Ctrl+8  { spawn-sh "niri msg action move-column-to-workspace \"8\" && niri msg action focus-workspace \"8\""; }
+    Mod+Ctrl+9  { spawn-sh "niri msg action move-column-to-workspace \"9\" && niri msg action focus-workspace \"9\""; }
+    Mod+Ctrl+0  { move-column-to-workspace-down; }  // no workspace "10"
+
+    // Workspace up/down navigation
+    Mod+Page_Down      { focus-workspace-down; }
+    Mod+Page_Up        { focus-workspace-up; }
+
+    // Previous workspace  ($mod+Tab → workspace back_and_forth)
+    Mod+Tab            { focus-workspace-previous; }
+
+    // --------------------------------------------------------
+    // Mouse wheel workspace/column scrolling
+    // --------------------------------------------------------
+    Mod+WheelScrollDown      cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollUp        cooldown-ms=150 { focus-workspace-up; }
+    Mod+Ctrl+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
+    Mod+Ctrl+WheelScrollUp   cooldown-ms=150 { move-column-to-workspace-up; }
+    Mod+WheelScrollRight     { focus-column-right; }
+    Mod+WheelScrollLeft      { focus-column-left; }
+
+    // --------------------------------------------------------
+    // Screenshots  (mirrors print / Shift+print / $mod+print)
+    // --------------------------------------------------------
+    Print              { spawn-sh "grim \"pic-full-$(date '+%y%m%d-%H%M-%S').png\""; }
+    Shift+Print        { spawn "wayscreenshot"; }
+    Mod+Print          { spawn "wayrecord"; }
+    Ctrl+Print         { screenshot-screen; }
+    Alt+Print          { screenshot-window; }
+
+    // --------------------------------------------------------
+    // Function keys (media / brightness)
+    // --------------------------------------------------------
+    XF86AudioLowerVolume  allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"; }
+    XF86AudioRaiseVolume  allow-when-locked=true { spawn-sh "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"; }
+    XF86AudioMute         allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+    XF86MonBrightnessUp   allow-when-locked=true { spawn "brightness" "-i"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightness" "-d"; }
+    XF86Display           { spawn "wdisplays"; }
+    XF86TouchpadToggle    { spawn-sh "niri msg action toggle-keyboard-shortcuts-inhibit"; }
+    XF86ScreenSaver       { spawn-sh "niri msg action power-off-monitors"; }
+
+    // --------------------------------------------------------
+    // Keyboard shortcuts inhibit toggle (escape hatch)
+    // --------------------------------------------------------
+    Mod+Shift+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+}
