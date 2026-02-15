@@ -11,8 +11,8 @@ image/x-canon-cr2=img.desktop;
 video/x-matroska=video.desktop
 video/mp4=video.desktop;
 inode/directory=file.desktop
-x-scheme-handler/https=firefox.desktop
-x-scheme-handler/http=firefox.desktop
+x-scheme-handler/https=brave.desktop
+x-scheme-handler/http=brave.desktop
 x-scheme-handler/tonsite=org.telegram.desktop.desktop
 
 [Added Associations]

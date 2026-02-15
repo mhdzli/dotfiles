@@ -2,6 +2,14 @@
 // https://yalter.github.io/niri/Configuration:-Introduction
 
 // ============================================================
+// ENVIRONMENT
+// ============================================================
+environment {
+    XCURSOR_THEME "Layan-cursors"
+    XCURSOR_SIZE "40"
+}
+
+// ============================================================
 // INPUT
 // ============================================================
 input {
@@ -42,11 +50,12 @@ cursor {
 output "HDMI-A-2" {
     mode "1920x1080"
     position x=0 y=0
+    focus-at-startup
 }
 
 output "DP-1" {
     mode "1920x1080"
-    transform "270"
+    transform "90"
     position x=-1080 y=-420
 }
 
@@ -91,6 +100,14 @@ layout {
         proportion 0.33333
         proportion 0.5
         proportion 0.66667
+        proportion 1.0
+    }
+
+    preset-window-heights {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+        proportion 1.0
     }
 
     default-column-width { proportion 0.5; }
@@ -99,17 +116,7 @@ layout {
     // Mod+1-9 maps to named workspaces via workspace definitions below.
 }
 
-// Named workspaces 1-9: always exist (even when empty), always visible in waybar.
-// Addressed by name so Mod+1 always means workspace "1" regardless of position.
-workspace "1"
-workspace "2"
-workspace "3"
-workspace "4"
-workspace "5"
-workspace "6"
-workspace "7"
-workspace "8"
-workspace "9"
+// Fully dynamic workspaces — no pre-declarations.
 
 
 
@@ -122,6 +129,9 @@ spawn-at-startup "sh" "-c" "wl-paste -t text --watch clipman store --max-items=3
 spawn-at-startup "sh" "-c" "wl-paste -p -t text --watch clipman store -P --histpath='~/.local/share/clipman/clipman-primary.json'"
 
 // Random background
+// Monitor hotplug management (disables eDP-1 when HDMI-A-2 is connected)
+spawn-at-startup "kanshi"
+
 spawn-at-startup "setbg"
 
 // Notifications
@@ -146,7 +156,7 @@ spawn-at-startup "sh" "-c" "swayidle -w timeout 300 'swaylock -eFfki ~/Pictures/
 spawn-at-startup "sh" "-c" "gsettings set org.gnome.desktop.interface cursor-theme Layan-cursors && gsettings set org.gnome.desktop.interface cursor-size 40 && gsettings set org.gnome.desktop.interface gtk-theme Adwaita:dark && gsettings set org.gnome.desktop.interface icon-theme papirus-dark && gsettings set org.gnome.desktop.interface font-name 'Vazirmatn 14'"
 
 // D-Bus / systemd environment
-spawn-at-startup "sh" "-c" "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY NIRI_SOCKET && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY NIRI_SOCKET"
+spawn-at-startup "sh" "-c" "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY NIRI_SOCKET XCURSOR_THEME XCURSOR_SIZE && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY NIRI_SOCKET XCURSOR_THEME XCURSOR_SIZE"
 
 // ============================================================
 // MISC
@@ -169,81 +179,7 @@ animations {
 // ============================================================
 
 // --- Workspace assignments ---
-
-window-rule {
-    match app-id=r#"qutebrowser"#
-    open-on-workspace "2"
-}
-
-window-rule {
-    match app-id=r#"firefox"#
-    open-on-workspace "2"
-}
-
-window-rule {
-    match app-id=r#"brave"#
-    open-on-workspace "2"
-}
-
-window-rule {
-    match app-id=r#"jellyfin"#
-    open-on-workspace "4"
-}
-
-window-rule {
-    match app-id=r#"zathura"#
-    open-on-workspace "8"
-}
-
-window-rule {
-    match app-id=r#"libreoffice"#
-    open-on-workspace "7"
-}
-
-window-rule {
-    match app-id=r#"[fF]oliate"#
-    open-on-workspace "8"
-}
-
-window-rule {
-    match app-id=r#"telegramdesktop|org\.telegram\.desktop"#
-    open-on-workspace "3"
-}
-
-window-rule {
-    match app-id=r#"cinny"#
-    open-on-workspace "3"
-}
-
-window-rule {
-    match app-id=r#"SchildiChat|schildichat"#
-    open-on-workspace "3"
-}
-
-window-rule {
-    match app-id=r#"nheko"#
-    open-on-workspace "3"
-}
-
-window-rule {
-    match app-id=r#"fluffychat"#
-    open-on-workspace "3"
-}
-
-window-rule {
-    match app-id=r#"com\.obsproject\.Studio|obs"#
-    open-on-workspace "4"
-}
-
-window-rule {
-    match app-id=r#"Flowblade|flowblade"#
-    open-on-workspace "9"
-}
-
-window-rule {
-    match app-id=r#"gimp"#
-    open-on-workspace "9"
-}
+// None — all apps open on the current workspace.
 
 // --- Kill Firefox sharing indicator ---
 // (niri has no direct kill-on-open; use block-out or leave to scripting)
@@ -533,40 +469,40 @@ binds {
     // --------------------------------------------------------
     // Workspaces  (1-9 focus, Shift+1-9 move window, Ctrl+1-9 move+follow)
     // --------------------------------------------------------
-    Mod+1   { focus-workspace "1"; }
-    Mod+2   { focus-workspace "2"; }
-    Mod+3   { focus-workspace "3"; }
-    Mod+4   { focus-workspace "4"; }
-    Mod+5   { focus-workspace "5"; }
-    Mod+6   { focus-workspace "6"; }
-    Mod+7   { focus-workspace "7"; }
-    Mod+8   { focus-workspace "8"; }
-    Mod+9   { focus-workspace "9"; }
+    Mod+1   { focus-workspace 1; }
+    Mod+2   { focus-workspace 2; }
+    Mod+3   { focus-workspace 3; }
+    Mod+4   { focus-workspace 4; }
+    Mod+5   { focus-workspace 5; }
+    Mod+6   { focus-workspace 6; }
+    Mod+7   { focus-workspace 7; }
+    Mod+8   { focus-workspace 8; }
+    Mod+9   { focus-workspace 9; }
     Mod+0   { focus-workspace-down; }  // no workspace "10", go down instead
 
     // Move window to workspace  ($mod+Shift+[1-9])
-    Mod+Shift+1   { move-column-to-workspace "1"; }
-    Mod+Shift+2   { move-column-to-workspace "2"; }
-    Mod+Shift+3   { move-column-to-workspace "3"; }
-    Mod+Shift+4   { move-column-to-workspace "4"; }
-    Mod+Shift+5   { move-column-to-workspace "5"; }
-    Mod+Shift+6   { move-column-to-workspace "6"; }
-    Mod+Shift+7   { move-column-to-workspace "7"; }
-    Mod+Shift+8   { move-column-to-workspace "8"; }
-    Mod+Shift+9   { move-column-to-workspace "9"; }
+    Mod+Shift+1   { move-column-to-workspace 1; }
+    Mod+Shift+2   { move-column-to-workspace 2; }
+    Mod+Shift+3   { move-column-to-workspace 3; }
+    Mod+Shift+4   { move-column-to-workspace 4; }
+    Mod+Shift+5   { move-column-to-workspace 5; }
+    Mod+Shift+6   { move-column-to-workspace 6; }
+    Mod+Shift+7   { move-column-to-workspace 7; }
+    Mod+Shift+8   { move-column-to-workspace 8; }
+    Mod+Shift+9   { move-column-to-workspace 9; }
     Mod+Shift+0   { move-column-to-workspace-down; }  // no workspace "10"
 
     // Move window to workspace AND follow ($mod+Ctrl+[1-9/0])
     // niri only allows one action per bind; we use spawn-sh to chain both via niri msg
-    Mod+Ctrl+1  { spawn-sh "niri msg action move-column-to-workspace \"1\" && niri msg action focus-workspace \"1\""; }
-    Mod+Ctrl+2  { spawn-sh "niri msg action move-column-to-workspace \"2\" && niri msg action focus-workspace \"2\""; }
-    Mod+Ctrl+3  { spawn-sh "niri msg action move-column-to-workspace \"3\" && niri msg action focus-workspace \"3\""; }
-    Mod+Ctrl+4  { spawn-sh "niri msg action move-column-to-workspace \"4\" && niri msg action focus-workspace \"4\""; }
-    Mod+Ctrl+5  { spawn-sh "niri msg action move-column-to-workspace \"5\" && niri msg action focus-workspace \"5\""; }
-    Mod+Ctrl+6  { spawn-sh "niri msg action move-column-to-workspace \"6\" && niri msg action focus-workspace \"6\""; }
-    Mod+Ctrl+7  { spawn-sh "niri msg action move-column-to-workspace \"7\" && niri msg action focus-workspace \"7\""; }
-    Mod+Ctrl+8  { spawn-sh "niri msg action move-column-to-workspace \"8\" && niri msg action focus-workspace \"8\""; }
-    Mod+Ctrl+9  { spawn-sh "niri msg action move-column-to-workspace \"9\" && niri msg action focus-workspace \"9\""; }
+    Mod+Ctrl+1  { spawn-sh "niri msg action move-column-to-workspace 1 && niri msg action focus-workspace 1"; }
+    Mod+Ctrl+2  { spawn-sh "niri msg action move-column-to-workspace 2 && niri msg action focus-workspace 2"; }
+    Mod+Ctrl+3  { spawn-sh "niri msg action move-column-to-workspace 3 && niri msg action focus-workspace 3"; }
+    Mod+Ctrl+4  { spawn-sh "niri msg action move-column-to-workspace 4 && niri msg action focus-workspace 4"; }
+    Mod+Ctrl+5  { spawn-sh "niri msg action move-column-to-workspace 5 && niri msg action focus-workspace 5"; }
+    Mod+Ctrl+6  { spawn-sh "niri msg action move-column-to-workspace 6 && niri msg action focus-workspace 6"; }
+    Mod+Ctrl+7  { spawn-sh "niri msg action move-column-to-workspace 7 && niri msg action focus-workspace 7"; }
+    Mod+Ctrl+8  { spawn-sh "niri msg action move-column-to-workspace 8 && niri msg action focus-workspace 8"; }
+    Mod+Ctrl+9  { spawn-sh "niri msg action move-column-to-workspace 9 && niri msg action focus-workspace 9"; }
     Mod+Ctrl+0  { move-column-to-workspace-down; }  // no workspace "10"
 
     // Workspace up/down navigation

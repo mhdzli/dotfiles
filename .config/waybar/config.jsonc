@@ -96,15 +96,10 @@
     // ── Center modules ────────────────────────────────────────
 
     "niri/workspaces": {
-        // Shows all declared workspaces (1-9) including empty ones.
-        // niri/workspaces has no persistent-workspaces option — pre-declare
-        // them in config.kdl to keep all 9 always visible.
-        // CSS classes: .focused (keyboard focus), .active (visible on output),
-        //              .urgent, .empty, .current_output
+        // Dynamic workspaces — only browser and obs are named/persistent.
+        // Shows dynamic workspace indices plus named workspaces by name.
         "all-outputs": true,
-        "format": "{value}",
-        "on-scroll-up": "niri msg action focus-workspace-up",
-        "on-scroll-down": "niri msg action focus-workspace-down"
+        "format": "{value}"
     },
 
     // ── Right modules ─────────────────────────────────────────
