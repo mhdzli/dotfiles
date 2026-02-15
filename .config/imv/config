@@ -22,18 +22,21 @@ initial_pan = 0 0
 [binds]
 # Define some key bindings
 q = quit
+y = exec echo working!
 
 # Image navigation
-gg = goto 0
+<Left> = prev
+<bracketleft> = prev
+<Right> = next
+<bracketright> = next
+gg = goto 1
 <Shift+G> = goto -1
-h = prev
-l = next
 
 # Panning
 j = pan 0 -50
 k = pan 0 50
-<Left> = pan 50 0
-<Right> = pan -50 0
+h = pan 50 0
+l = pan -50 0
 
 # Zooming
 <Up> = zoom 1
@@ -43,8 +46,11 @@ i = zoom 1
 <minus> = zoom -1
 o = zoom -1
 
+# Rotate Clockwise by 90 degrees
+<Ctrl+r> = rotate by 90
+
 # Other commands
-# x = close
+x = close
 f = fullscreen
 d = overlay
 p = exec echo $imv_current_file
@@ -61,6 +67,11 @@ r = reset
 # Slideshow control
 t = slideshow +1
 <Shift+T> = slideshow -1
+
+p = prev
+n = next
+P = next
+N = prev
 
 # Set background
 bg = exec setbg "$imv_current_file"
