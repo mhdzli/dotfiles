@@ -26,6 +26,9 @@ cmap("<leader>w", "e ~/.local/share/disroot/Notes/index.md", "")
 -- Enable folding with the spacebar
 map("<space>", "za")
 
+-- Write with less key stroke
+cmap("<leader>z", "update")
+
 -- Use <Tab>/<S-Tab> to move between matches without leaving incremental search.
 map('<Tab>', function()
   local cmd_char = vim.fn.getcmdtype()
