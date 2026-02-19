@@ -216,6 +216,10 @@ tooltip label {
     margin: 5px 50px 5px 10px;
 }
 
-#pulseaudio {}
+#wireplumber {
+    background: @background;
+}
 
-#pulseaudio.microphone {}
+#wireplumber.source {
+    background: @background;
+}

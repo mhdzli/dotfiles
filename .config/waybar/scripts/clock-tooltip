@@ -23,7 +23,7 @@ CITIES = [
 def now_in(tz):
     return datetime.now(ZoneInfo(tz))
 
-bar_time  = now_in("Europe/London").strftime("%H:%M")
+bar_time  = now_in("Europe/London").strftime("󰥓%d  %H:%M")
 date_line = now_in("Europe/London").strftime("%A %d %B %Y")
 city_lines = "\n".join(
     f"{flag}  {city:<12} {now_in(tz).strftime('%H:%M')}"

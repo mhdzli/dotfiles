@@ -111,16 +111,18 @@
 
     "battery": {
         "format": "{icon}",
-        "format-charging": "󰂄 {capacity}%",
-        "format-plugged": " {capacity}%",
+        "format-icons": {
+            "default": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+            "charging": ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
+            "plugged": ""
+        },
         "format-alt-click": "click-right",
         "format-alt": "{icon} {capacity}%",
         "states": {
             "good": 95,
             "warning": 20,
             "critical": 10
-        },
-        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+        }
     },
 
     "wireplumber": {
@@ -170,14 +172,14 @@
         "format": "",
         "max-length": 10,
         "format-alt-click": "click-right",
-        "format-alt": " {usage}%"
+        "format-alt": " {usage}%"
     },
 
     "memory": {
         "interval": 30,
         "format": "",
         "format-alt-click": "click-right",
-        "format-alt": " {}%",
+        "format-alt": " {}%",
         "max-length": 10,
         "tooltip": true,
         "tooltip-format": "Memory - {used:0.1f}GB used"
@@ -201,7 +203,7 @@
         "thermal-zone": 1,
         "format": "",
         "format-alt-click": "click-right",
-        "format-alt": "  {temperatureC}°C",
+        "format-alt": " {temperatureC}°C",
         "critical-threshold": 70,
         "format-critical": "  {temperatureC}°C"
     },
@@ -232,19 +234,19 @@
 
     "niri/language": {
         // niri reports the layout name from xkb; map display labels here
-        "format": "{}",
+        "format": "󰛓 {}",
         "format-en": "EN",
         "format-": "FA"
     },
 
     "custom/lock_screen": {
-        "format": "  ",
+        "format": "",
         "on-click": "sh -c '(sleep 0.5s; swaylock -eFfki ~/Pictures/lockscreen.png)' & disown",
         "tooltip": false
     },
 
     "custom/power": {
-        "format": "  ",
+        "format": " ",
         "on-click": "sysact",
         "tooltip": false
     }
