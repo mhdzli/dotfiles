@@ -16,7 +16,7 @@
 
     // ── Module layout ─────────────────────────────────────────
     "modules-left": [
-        "custom/rofi",
+        "custom/fuzzel",
         "custom/weather",
         "custom/khorshididate",
         "custom/clock",
@@ -30,8 +30,8 @@
     "modules-right": [
         "tray",
         "battery",
-        "pulseaudio",
-        "pulseaudio#microphone",
+        "wireplumber",
+        "wireplumber#source",
         "backlight",
         "cpu",
         "memory",
@@ -46,9 +46,9 @@
 
     // ── Left modules ──────────────────────────────────────────
 
-    "custom/rofi": {
-        "format": "",
-        "on-click": "rofi -theme ~/.config/rofi/theme/onedark_mini.rasi -show drun",
+    "custom/fuzzel": {
+        "format": "  ",
+        "on-click": "fuzzel",
         "tooltip": false
     },
 
@@ -64,8 +64,8 @@
     "custom/khorshididate": {
         // Persian (Jalali/Shamsi) calendar date
         "tooltip": true,
-        "format": " {}",
-        "format-alt": " {alt}",
+        "format": " {}",
+        "format-alt": " {alt}",
         "format-alt-click": "click-right",
         "interval": 3600,
         "exec": "~/.config/waybar/scripts/khorshidi-date",
@@ -123,36 +123,36 @@
         "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
     },
 
-    "pulseaudio": {
-        "format": "{icon}",
-        "format-muted": "",
+    "wireplumber": {
+        "format": " {icon} ",
+        "format-muted": "   ",
         "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
         "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+",
         "on-scroll-down": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-",
         "scroll-step": 5,
         "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
         },
         "tooltip": true,
-        "tooltip-format": "{icon} at {volume}%"
+        "tooltip-format": "{icon}  at {volume}%"
     },
 
-    "pulseaudio#microphone": {
-        "format": "{format_source}",
-        "format-source": "",
-        "format-source-muted": "",
+    "wireplumber#source": {
+        "format": " {format_source}",
+        "format-source": "",
+        "format-source-muted": "",
         "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
         "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SOURCE@ 5%+",
         "on-scroll-down": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SOURCE@ 5%-",
         "scroll-step": 5,
         "tooltip": true,
-        "tooltip-format": " at {volume}%"
+        "tooltip-format": "  at {volume}%"
     },
 
     "backlight": {
@@ -167,7 +167,7 @@
 
     "cpu": {
         "interval": 10,
-        "format": "",
+        "format": "",
         "max-length": 10,
         "format-alt-click": "click-right",
         "format-alt": " {usage}%"
@@ -175,7 +175,7 @@
 
     "memory": {
         "interval": 30,
-        "format": "",
+        "format": "",
         "format-alt-click": "click-right",
         "format-alt": " {}%",
         "max-length": 10,
@@ -199,11 +199,11 @@
 
     "temperature": {
         "thermal-zone": 1,
-        "format": "",
+        "format": "",
         "format-alt-click": "click-right",
-        "format-alt": " {temperatureC}°C",
+        "format-alt": "  {temperatureC}°C",
         "critical-threshold": 70,
-        "format-critical": " {temperatureC}°C"
+        "format-critical": "  {temperatureC}°C"
     },
 
     "custom/updates": {
@@ -219,12 +219,13 @@
 
     "network": {
         "format": "{ifname}",
-        "format-wifi": " ",
-        "format-ethernet": " ",
-        "format-disconnected": " ",
-        "tooltip-format": " {ifname} via {gwaddr}",
-        "tooltip-format-wifi": " {essid} ({signalStrength}%)",
-        "tooltip-format-ethernet": " {ifname} {ipaddr}/{cidr}",
+
+        "format-wifi": " ",
+        "format-ethernet": " ",
+        "format-disconnected": " ", //An empty format will hide the module.
+        "tooltip-format": " {ifname} via {gwaddr}",
+        "tooltip-format-wifi": " {essid} ({signalStrength}%)",
+        "tooltip-format-ethernet": " {ifname} {ipaddr}/{cidr}",
         "tooltip-format-disconnected": "Disconnected",
         "max-length": 50
     },
@@ -233,17 +234,17 @@
         // niri reports the layout name from xkb; map display labels here
         "format": "{}",
         "format-en": "EN",
-        "format-ir": "FA"
+        "format-": "FA"
     },
 
     "custom/lock_screen": {
-        "format": "",
+        "format": "  ",
         "on-click": "sh -c '(sleep 0.5s; swaylock -eFfki ~/Pictures/lockscreen.png)' & disown",
         "tooltip": false
     },
 
     "custom/power": {
-        "format": "",
+        "format": "  ",
         "on-click": "sysact",
         "tooltip": false
     }
