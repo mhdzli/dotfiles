@@ -263,6 +263,12 @@ window-rule {
     open-floating true
 }
 
+window-rule {
+    match app-id="com.obsproject.Studio"
+    open-on-output "DP-1"
+    open-maximized true
+}
+
 // Floating size constraints apply only to windows already matched as floating above
 // (niri does not have a global floating min/max size; set per-rule if needed)
 
