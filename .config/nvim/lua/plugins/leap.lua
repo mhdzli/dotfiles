@@ -21,7 +21,7 @@ local opts = {
 }
 
 return {
-  "ggandor/leap.nvim",
+  url = "https://codeberg.org/andyg/leap.nvim",
   opts = opts,
   config = function()
     require("leap").add_default_mappings()

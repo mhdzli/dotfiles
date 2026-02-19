@@ -42,7 +42,7 @@ local diagnostic_signs = { Error = " ", Warn = " ", Hint = "ﴞ ", Info = 
 local config = function()
   require("neoconf").setup({})
   local cmp_nvim_lsp = require("cmp_nvim_lsp")
-  local lspconfig = require("lspconfig")
+
   for type, icon in pairs(diagnostic_signs) do
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
@@ -51,19 +51,46 @@ local config = function()
   -- Add additional capabilities supported by nvim-cmp
   local capabilities = cmp_nvim_lsp.default_capabilities()
 
-  -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-  local servers = { 'pylsp', 'bashls', 'clangd', 'jsonls', 'vimls', 'ruby_lsp' }
-  for _, lsp in ipairs(servers) do
-    lspconfig[lsp].setup({
+  -- Configure servers using vim.lsp.config
+  vim.lsp.config = vim.lsp.config or {}
+  
+  -- Helper function to setup servers
+  local function setup_server(name, config)
+    vim.lsp.config[name] = vim.tbl_deep_extend("force", {
       capabilities = capabilities,
       on_attach = on_attach,
-    })
+    }, config or {})
   end
 
-  -- python
-  lspconfig.pyright.setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
+  -- Basic language servers
+  local servers = {
+    'bashls',
+    'clangd',
+    'jsonls',
+    'vimls',
+    'ruby_lsp',
+  }
+  
+  for _, lsp in ipairs(servers) do
+    setup_server(lsp)
+  end
+
+  -- pylsp with specific settings
+  setup_server('pylsp', {
+    settings = {
+      pylsp = {
+        plugins = {
+          pycodestyle = {
+            enabled = true,
+            ignore = { 'E501' },
+          },
+        },
+      },
+    },
+  })
+
+  -- python with pyright
+  setup_server('pyright', {
     settings = {
       pyright = {
         disableOrganizeImports = false,
@@ -78,19 +105,13 @@ local config = function()
   })
 
   -- typescript
-  lspconfig.ts_ls.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    filetypes = {
-      "typescript",
-    },
-    root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", ".git"),
+  setup_server('ts_ls', {
+    filetypes = { "typescript" },
+    root_dir = require('lspconfig').util.root_pattern("package.json", "tsconfig.json", ".git"),
   })
 
-  -- html, typescriptreact, javascriptreact, css, sass, scss, less, svelte, vue
-  lspconfig.emmet_ls.setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
+  -- emmet_ls
+  setup_server('emmet_ls', {
     filetypes = {
       "html",
       "typescriptreact",
@@ -106,19 +127,13 @@ local config = function()
   })
 
   -- docker
-  lspconfig.dockerls.setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
-  })
+  setup_server('dockerls')
 
-  -- rust
-  lspconfig.rust_analyzer.setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
+  -- rust_analyzer
+  setup_server('rust_analyzer', {
     flags = {
       debounce_text_changes = 150,
     },
-    -- Server-specific settings...
     settings = {
       ["rust-analyzer"] = {
         cmd = { "rustup", "run", "nightly", "rust-analyzer" },
@@ -126,27 +141,22 @@ local config = function()
     }
   })
 
-  lspconfig.lua_ls.setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
+  -- lua_ls
+  setup_server('lua_ls', {
     settings = {
-      Lua = { -- custom settings for lua
+      Lua = {
         runtime = {
-          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
           version = 'LuaJIT',
         },
         diagnostics = {
-          -- Get the language server to recognize the `vim` global
           globals = { 'vim' },
         },
         workspace = {
-          -- Make the server aware of Neovim runtime files
           library = {
             [vim.fn.expand("$VIMRUNTIME/lua")] = true,
             [vim.fn.stdpath("config") .. "/lua"] = true,
           },
         },
-        -- Do not send telemetry data containing a randomized but unique identifier
         telemetry = {
           enable = false,
         },
@@ -154,23 +164,22 @@ local config = function()
     },
   })
 
+  -- EFM configuration
   local alex = require("efmls-configs.linters.alex")
   local black = require("efmls-configs.formatters.black")
   local clang_tidy = require('efmls-configs.linters.clang_tidy')
   local eslint_d = require("efmls-configs.linters.eslint_d")
   local fixjson = require("efmls-configs.formatters.fixjson")
   local flake8 = require("efmls-configs.linters.flake8")
-  -- local hadolint = require("efmls-configs.linters.hadolint")
   local luacheck = require("efmls-configs.linters.luacheck")
   local prettierd = require("efmls-configs.formatters.prettier_d")
   local shellcheck = require("efmls-configs.linters.shellcheck")
   local shfmt = require("efmls-configs.formatters.shfmt")
   local stylua = require("efmls-configs.formatters.stylua")
-  -- configure efm server
+  
   local languages = {
     c = { clang_tidy },
     cpp = { clang_tidy },
-    -- docker = { hadolint, prettierd },
     javascript = { eslint_d, prettierd },
     javascriptreact = { eslint_d, prettierd },
     json = { eslint_d, fixjson },
@@ -186,7 +195,7 @@ local config = function()
     vue = { eslint_d, prettierd },
   }
 
-  local efmls_config = {
+  setup_server('efm', {
     filetypes = {
       "lua",
       "python",
@@ -215,13 +224,10 @@ local config = function()
       rootMarkers = { '.git/' },
       languages = languages,
     },
-  }
-  lspconfig.efm.setup(vim.tbl_extend('force', efmls_config, {
-    -- Pass your custom lsp config below like on_attach and capabilities
-    --
-    on_attach = on_attach,
-    capabilities = capabilities,
-  }))
+  })
+
+  -- Enable all configured servers
+  vim.lsp.enable(vim.tbl_keys(vim.lsp.config))
 end
 
 return {
