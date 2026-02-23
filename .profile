@@ -44,7 +44,7 @@ set_wayland_env(){
 	export MOZ_DBUS_REMOTE=1
 	export NO_AT_BRIDGE=1
 	# export GDK_BACKEND=wayland #Wayland will be selected by default. Do not set GDK_BACKEND, it will break apps (e.g. Chromium and Electron).
-	export GTK_IM_MOUDLE=xim
+	export GTK_IM_MODULE=xim
 	export ELM_ENGINE=wayland
 	export CLUTTER_BACKEND=wayland
 	export SDL_VIDEODRIVER=wayland
@@ -88,6 +88,9 @@ export FZF_DEFAULT_COMMAND='find -type f'
 # export QT_QPA_PLATFORMTHEME="qt5ct"
 export QT_STYLE_OVERRIDE="kvantum-dark"
 export GTK_THEME="Adwaita:dark"
+
+eval $(gnome-keyring-daemon --start --components=secrets,pkcs11,ssh)
+export SSH_AUTH_SOCK
 
 # Start graphical server if it's not already running.
 [ -z "${WAYLAND_DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ] && set_wayland_env && set_sway_env &&  XKB_DEFAULT_LAYOUT=us exec sway
